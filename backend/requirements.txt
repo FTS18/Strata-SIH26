@@ -1,0 +1,10 @@
+fastapi>=0.115.0
+uvicorn[standard]>=0.32.0
+pydantic>=2.10.0
+pydantic-settings>=2.6.0
+websockets>=13.1
+shapely>=2.0.6
+geopandas>=1.0.1
+paho-mqtt>=2.1.0
+numpy>=2.1.0
+scipy>=1.14.0

@@ -1,0 +1,59 @@
+:root {
+  /* Color Hunt Curated Palette: Abyss Teal & Sage Defense System */
+  /* #092328 | #12544F | #2A835F | #8BBB92 */
+  
+  --surface-canvas: #092328;        /* Deep Abyss Teal Night */
+  --surface-panel: #0d3137;         /* Deep Forest Teal Panel */
+  --surface-subtle: #12544F;        /* Forest Teal Card Surface */
+  --surface-active: #18635c;        /* Active Elevated Surface */
+  --surface-border: #1d6d63;        /* Hairline Border */
+  --surface-border-subtle: #144943; /* Subtle Divider */
+
+  /* Primary Accent & Highlights */
+  --color-accent-primary: #2A835F;  /* Jade Pine Green */
+  --color-accent-sage: #8BBB92;     /* Sage Mist Green */
+  
+  /* Typography */
+  --text-primary: #f0fdf4;          /* Pure Mist White */
+  --text-secondary: #8BBB92;        /* Sage Accent Text */
+  --text-muted: #5b9076;            /* Muted Forest Sage */
+  --text-inverse: #092328;          /* Inverse Canvas Text */
+
+  /* Functional Status Tokens */
+  --status-good: #8BBB92;
+  --status-good-bg: rgba(139, 187, 146, 0.15);
+  --status-good-border: rgba(139, 187, 146, 0.35);
+  --status-good-text: #8BBB92;
+
+  --status-warning: #f59e0b;
+  --status-warning-bg: rgba(245, 158, 11, 0.15);
+  --status-warning-border: rgba(245, 158, 11, 0.35);
+  --status-warning-text: #fbbf24;
+
+  --status-critical: #ef4444;
+  --status-critical-bg: rgba(239, 68, 68, 0.15);
+  --status-critical-border: rgba(239, 68, 68, 0.35);
+  --status-critical-text: #f87171;
+
+  --status-transit: #8BBB92;
+  --status-transit-bg: rgba(139, 187, 146, 0.1);
+  --status-transit-border: rgba(139, 187, 146, 0.3);
+  --status-transit-text: #8BBB92;
+
+  /* Geometry & Shadows */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-pill: 9999px;
+
+  --shadow-card: 0 2px 8px rgba(9, 35, 40, 0.6);
+  --shadow-drawer: -4px 0 32px rgba(9, 35, 40, 0.9);
+
+  /* Fonts: Anton + Bricolage Grotesque (Zero Monospace) */
+  --font-sans: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: 'Anton', impact, sans-serif;
+  --font-mono: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+

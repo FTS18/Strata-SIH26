@@ -1,0 +1,9786 @@
+{
+  "type": "FeatureCollection",
+  "features": [
+    {
+      "type": "Feature",
+      "id": "seg_mm_0",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8138093,
+            30.7165711
+          ],
+          [
+            76.8145084,
+            30.7158802
+          ],
+          [
+            76.8147263,
+            30.7156642
+          ],
+          [
+            76.8157336,
+            30.7146655
+          ],
+          [
+            76.8161004,
+            30.714433
+          ],
+          [
+            76.8166505,
+            30.7141925
+          ],
+          [
+            76.8179471,
+            30.7137247
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_1",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8178251,
+            30.7135022
+          ],
+          [
+            76.816594,
+            30.7139578
+          ],
+          [
+            76.8161787,
+            30.7141994
+          ],
+          [
+            76.8156814,
+            30.7145778
+          ],
+          [
+            76.8151328,
+            30.7151149
+          ],
+          [
+            76.8144215,
+            30.7158114
+          ],
+          [
+            76.8140351,
+            30.7161874
+          ],
+          [
+            76.8138164,
+            30.7164001
+          ],
+          [
+            76.8128603,
+            30.7173302
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_2",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8190271,
+            30.7130575
+          ],
+          [
+            76.8178251,
+            30.7135022
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_3",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8179471,
+            30.7137247
+          ],
+          [
+            76.8191551,
+            30.7132887
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_4",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.801686,
+            30.7289163
+          ],
+          [
+            76.8017644,
+            30.72873
+          ],
+          [
+            76.8018636,
+            30.7286218
+          ],
+          [
+            76.802156,
+            30.7283029
+          ],
+          [
+            76.804247,
+            30.7261366
+          ],
+          [
+            76.8060216,
+            30.7242947
+          ],
+          [
+            76.806119,
+            30.7241861
+          ],
+          [
+            76.8063934,
+            30.7239271
+          ],
+          [
+            76.806582,
+            30.7237893
+          ],
+          [
+            76.806678,
+            30.7237547
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_5",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8064648,
+            30.7236176
+          ],
+          [
+            76.8063724,
+            30.7237919
+          ],
+          [
+            76.8063519,
+            30.7238135
+          ],
+          [
+            76.8062997,
+            30.7238683
+          ],
+          [
+            76.8061514,
+            30.7240241
+          ],
+          [
+            76.8060389,
+            30.7241423
+          ],
+          [
+            76.8059264,
+            30.7242604
+          ],
+          [
+            76.8041644,
+            30.7261112
+          ],
+          [
+            76.8020892,
+            30.7282428
+          ],
+          [
+            76.801769,
+            30.7285664
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_6",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7914303,
+            30.7399975
+          ],
+          [
+            76.791597,
+            30.7398033
+          ],
+          [
+            76.7916505,
+            30.7397438
+          ],
+          [
+            76.7938644,
+            30.737281
+          ],
+          [
+            76.7955576,
+            30.735366
+          ],
+          [
+            76.7956537,
+            30.7352573
+          ],
+          [
+            76.7957991,
+            30.735099
+          ],
+          [
+            76.7960226,
+            30.7349949
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_7",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7958101,
+            30.7348577
+          ],
+          [
+            76.7957668,
+            30.7349713
+          ],
+          [
+            76.7956667,
+            30.7351185
+          ],
+          [
+            76.7954858,
+            30.73531
+          ],
+          [
+            76.7951297,
+            30.7357162
+          ],
+          [
+            76.7937966,
+            30.7372366
+          ],
+          [
+            76.7920863,
+            30.739143
+          ],
+          [
+            76.7919058,
+            30.7393442
+          ],
+          [
+            76.7916803,
+            30.7395955
+          ],
+          [
+            76.7915298,
+            30.7397633
+          ],
+          [
+            76.791425,
+            30.7398844
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_8",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7963913,
+            30.7345291
+          ],
+          [
+            76.7965412,
+            30.7342823
+          ],
+          [
+            76.7966384,
+            30.7341787
+          ],
+          [
+            76.796886,
+            30.7339109
+          ],
+          [
+            76.7971038,
+            30.7336752
+          ],
+          [
+            76.798842,
+            30.7318303
+          ],
+          [
+            76.7989237,
+            30.7317433
+          ],
+          [
+            76.7992862,
+            30.7313569
+          ],
+          [
+            76.7994771,
+            30.7311535
+          ],
+          [
+            76.8005546,
+            30.7299859
+          ],
+          [
+            76.8009886,
+            30.7295127
+          ],
+          [
+            76.8011243,
+            30.7294156
+          ],
+          [
+            76.801281,
+            30.7293282
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_9",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8010434,
+            30.7291467
+          ],
+          [
+            76.8010048,
+            30.7293045
+          ],
+          [
+            76.8009046,
+            30.7294461
+          ],
+          [
+            76.8008014,
+            30.7295593
+          ],
+          [
+            76.8007394,
+            30.7296273
+          ],
+          [
+            76.7996309,
+            30.730843
+          ],
+          [
+            76.799406,
+            30.7310897
+          ],
+          [
+            76.7988445,
+            30.731693
+          ],
+          [
+            76.7987628,
+            30.7317807
+          ],
+          [
+            76.7968349,
+            30.7338522
+          ],
+          [
+            76.7965609,
+            30.7341466
+          ],
+          [
+            76.7964604,
+            30.7342545
+          ],
+          [
+            76.7962312,
+            30.7344293
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_10",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7731772,
+            30.7623837
+          ],
+          [
+            76.7722988,
+            30.763547
+          ],
+          [
+            76.7721062,
+            30.7637772
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_11",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7755372,
+            30.759074
+          ],
+          [
+            76.7754201,
+            30.7593616
+          ],
+          [
+            76.7741612,
+            30.7610657
+          ],
+          [
+            76.7741379,
+            30.7610997
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_12",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7761183,
+            30.7587456
+          ],
+          [
+            76.7762003,
+            30.7585596
+          ],
+          [
+            76.776401,
+            30.7582918
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_13",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7739061,
+            30.7616035
+          ],
+          [
+            76.7739245,
+            30.761579
+          ],
+          [
+            76.773943,
+            30.7615538
+          ],
+          [
+            76.7742163,
+            30.7611814
+          ],
+          [
+            76.7742406,
+            30.7611483
+          ],
+          [
+            76.7752872,
+            30.759724
+          ],
+          [
+            76.7754936,
+            30.759436
+          ],
+          [
+            76.7755645,
+            30.7593467
+          ],
+          [
+            76.7757497,
+            30.7592112
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_14",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7802617,
+            30.753124
+          ],
+          [
+            76.7801754,
+            30.7532879
+          ],
+          [
+            76.780165,
+            30.7533076
+          ],
+          [
+            76.7800535,
+            30.7534515
+          ],
+          [
+            76.7798929,
+            30.7536585
+          ],
+          [
+            76.7783239,
+            30.7556812
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_15",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7825687,
+            30.7505219
+          ],
+          [
+            76.7833856,
+            30.7495226
+          ],
+          [
+            76.7834321,
+            30.7494656
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_16",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7852096,
+            30.7469606
+          ],
+          [
+            76.7851457,
+            30.7471334
+          ],
+          [
+            76.7849992,
+            30.7473853
+          ],
+          [
+            76.7840671,
+            30.7485341
+          ],
+          [
+            76.7838391,
+            30.7488152
+          ],
+          [
+            76.7837461,
+            30.7489296
+          ],
+          [
+            76.783682,
+            30.7490083
+          ],
+          [
+            76.7835309,
+            30.7491942
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_17",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7834321,
+            30.7494656
+          ],
+          [
+            76.7836152,
+            30.7492417
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_18",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7835309,
+            30.7491942
+          ],
+          [
+            76.7833383,
+            30.7494311
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_19",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7836152,
+            30.7492417
+          ],
+          [
+            76.7837175,
+            30.7491166
+          ],
+          [
+            76.7845998,
+            30.7480456
+          ],
+          [
+            76.784991,
+            30.7475607
+          ],
+          [
+            76.7851106,
+            30.7474124
+          ],
+          [
+            76.7852938,
+            30.7472393
+          ],
+          [
+            76.7855948,
+            30.7471365
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_20",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7823872,
+            30.7506009
+          ],
+          [
+            76.7811889,
+            30.7520746
+          ],
+          [
+            76.7809223,
+            30.7524025
+          ],
+          [
+            76.7808306,
+            30.7525153
+          ],
+          [
+            76.7806456,
+            30.7526535
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_21",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7783239,
+            30.7556812
+          ],
+          [
+            76.7781799,
+            30.7558667
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_22",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.778263,
+            30.755912
+          ],
+          [
+            76.7784053,
+            30.7557303
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_23",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7781799,
+            30.7558667
+          ],
+          [
+            76.7764068,
+            30.7581533
+          ],
+          [
+            76.7763245,
+            30.758261
+          ],
+          [
+            76.7761445,
+            30.7584915
+          ],
+          [
+            76.7759495,
+            30.7586385
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_24",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7784053,
+            30.7557303
+          ],
+          [
+            76.7799759,
+            30.7537294
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_25",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8471656,
+            30.7121471
+          ],
+          [
+            76.8467553,
+            30.7122366
+          ],
+          [
+            76.8466617,
+            30.712257
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_26",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7741379,
+            30.7610997
+          ],
+          [
+            76.7741214,
+            30.7611207
+          ],
+          [
+            76.7740655,
+            30.7611992
+          ],
+          [
+            76.7738408,
+            30.7614993
+          ],
+          [
+            76.7738065,
+            30.761546
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_27",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7738065,
+            30.761546
+          ],
+          [
+            76.773769,
+            30.7615964
+          ],
+          [
+            76.7734241,
+            30.7620603
+          ],
+          [
+            76.7731772,
+            30.7623837
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_28",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7690047,
+            30.768149
+          ],
+          [
+            76.7689587,
+            30.7682759
+          ],
+          [
+            76.768874,
+            30.7685026
+          ],
+          [
+            76.7688376,
+            30.7686579
+          ],
+          [
+            76.7688095,
+            30.7688147
+          ],
+          [
+            76.7687975,
+            30.76896
+          ],
+          [
+            76.7687815,
+            30.7692621
+          ],
+          [
+            76.7687921,
+            30.7695311
+          ],
+          [
+            76.7688269,
+            30.7698023
+          ],
+          [
+            76.7688578,
+            30.7699777
+          ],
+          [
+            76.7689209,
+            30.7702245
+          ],
+          [
+            76.7689902,
+            30.7704682
+          ],
+          [
+            76.7690466,
+            30.7706104
+          ],
+          [
+            76.7691325,
+            30.770771
+          ],
+          [
+            76.769282,
+            30.771051
+          ],
+          [
+            76.769504,
+            30.7714347
+          ],
+          [
+            76.7695969,
+            30.7715764
+          ],
+          [
+            76.7697583,
+            30.7717936
+          ],
+          [
+            76.7697862,
+            30.7718291
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_29",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7719791,
+            30.7639236
+          ],
+          [
+            76.771867,
+            30.764087
+          ],
+          [
+            76.7710877,
+            30.7651865
+          ],
+          [
+            76.7707144,
+            30.7657011
+          ],
+          [
+            76.7703977,
+            30.7661094
+          ],
+          [
+            76.7700408,
+            30.7665869
+          ],
+          [
+            76.7698149,
+            30.7668758
+          ],
+          [
+            76.7695474,
+            30.7672432
+          ],
+          [
+            76.7693185,
+            30.7675806
+          ],
+          [
+            76.7691794,
+            30.7677925
+          ],
+          [
+            76.7690998,
+            30.7679442
+          ],
+          [
+            76.7690047,
+            30.768149
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_30",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.786161,
+            30.7465261
+          ],
+          [
+            76.7861401,
+            30.7462422
+          ],
+          [
+            76.7862479,
+            30.7460359
+          ],
+          [
+            76.7866988,
+            30.7455442
+          ],
+          [
+            76.7880229,
+            30.7439742
+          ],
+          [
+            76.7904549,
+            30.7411539
+          ],
+          [
+            76.7905752,
+            30.7410051
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_31",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7905752,
+            30.7410051
+          ],
+          [
+            76.7909063,
+            30.7406056
+          ],
+          [
+            76.790975,
+            30.740528
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_32",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7904694,
+            30.7409888
+          ],
+          [
+            76.790358,
+            30.7411175
+          ],
+          [
+            76.7879322,
+            30.7439211
+          ],
+          [
+            76.7861418,
+            30.7459903
+          ],
+          [
+            76.786034,
+            30.7460962
+          ],
+          [
+            76.7857524,
+            30.7462063
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_33",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.791425,
+            30.7398844
+          ],
+          [
+            76.7910758,
+            30.7402881
+          ],
+          [
+            76.7909695,
+            30.7404109
+          ],
+          [
+            76.7909057,
+            30.7404846
+          ],
+          [
+            76.790837,
+            30.740564
+          ],
+          [
+            76.7904694,
+            30.7409888
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_34",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7833383,
+            30.7494311
+          ],
+          [
+            76.7832995,
+            30.7494788
+          ],
+          [
+            76.7823872,
+            30.7506009
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_35",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8072069,
+            30.72312
+          ],
+          [
+            76.8073343,
+            30.7229941
+          ],
+          [
+            76.8074768,
+            30.7228533
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_36",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8071049,
+            30.7234013
+          ],
+          [
+            76.8072069,
+            30.72312
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_37",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8117514,
+            30.7184434
+          ],
+          [
+            76.8114922,
+            30.7186909
+          ],
+          [
+            76.8105391,
+            30.7196702
+          ],
+          [
+            76.8094153,
+            30.720784
+          ],
+          [
+            76.8087704,
+            30.7214232
+          ],
+          [
+            76.8073984,
+            30.7227783
+          ],
+          [
+            76.8072098,
+            30.7229646
+          ],
+          [
+            76.8071012,
+            30.7230719
+          ],
+          [
+            76.8068239,
+            30.7231692
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_38",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8074768,
+            30.7228533
+          ],
+          [
+            76.8094809,
+            30.7208535
+          ],
+          [
+            76.8110363,
+            30.7193167
+          ],
+          [
+            76.8117594,
+            30.7186006
+          ],
+          [
+            76.811891,
+            30.7184546
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_39",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7808144,
+            30.7527605
+          ],
+          [
+            76.7809069,
+            30.7525547
+          ],
+          [
+            76.7810084,
+            30.7524306
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_40",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7817193,
+            30.751561
+          ],
+          [
+            76.7818143,
+            30.7514448
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_41",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7818143,
+            30.7514448
+          ],
+          [
+            76.782514,
+            30.7505888
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_42",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.782514,
+            30.7505888
+          ],
+          [
+            76.7825687,
+            30.7505219
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_43",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7774423,
+            30.7569577
+          ],
+          [
+            76.778263,
+            30.755912
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_44",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7773578,
+            30.7570653
+          ],
+          [
+            76.7774423,
+            30.7569577
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_45",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7799759,
+            30.7537294
+          ],
+          [
+            76.779996,
+            30.7537038
+          ],
+          [
+            76.7801602,
+            30.7534946
+          ],
+          [
+            76.7802719,
+            30.7533522
+          ],
+          [
+            76.7804458,
+            30.7532261
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_46",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8191551,
+            30.7132887
+          ],
+          [
+            76.8198646,
+            30.7130327
+          ],
+          [
+            76.8208531,
+            30.71268
+          ],
+          [
+            76.8210402,
+            30.7126323
+          ],
+          [
+            76.8215387,
+            30.7125145
+          ],
+          [
+            76.8216798,
+            30.7124812
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_47",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8211049,
+            30.7124609
+          ],
+          [
+            76.8207816,
+            30.7125596
+          ],
+          [
+            76.8193617,
+            30.7129337
+          ],
+          [
+            76.8190271,
+            30.7130575
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_48",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8123584,
+            30.7180075
+          ],
+          [
+            76.8124693,
+            30.7178976
+          ],
+          [
+            76.8129864,
+            30.7173855
+          ],
+          [
+            76.8135728,
+            30.7168048
+          ],
+          [
+            76.8138093,
+            30.7165711
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_49",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.811891,
+            30.7184546
+          ],
+          [
+            76.8123584,
+            30.7180075
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_50",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8128603,
+            30.7173302
+          ],
+          [
+            76.8123585,
+            30.7178184
+          ],
+          [
+            76.8122497,
+            30.7179391
+          ],
+          [
+            76.8117514,
+            30.7184434
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_51",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.821649,
+            30.7123681
+          ],
+          [
+            76.8211049,
+            30.7124609
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_52",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.790975,
+            30.740528
+          ],
+          [
+            76.7910385,
+            30.7404541
+          ],
+          [
+            76.7911451,
+            30.7403297
+          ],
+          [
+            76.7914303,
+            30.7399975
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_53",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7810084,
+            30.7524306
+          ],
+          [
+            76.7812422,
+            30.7521446
+          ],
+          [
+            76.7817193,
+            30.751561
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_54",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7722299,
+            30.7638296
+          ],
+          [
+            76.7724521,
+            30.7635367
+          ],
+          [
+            76.7732493,
+            30.7624719
+          ],
+          [
+            76.7734489,
+            30.7622271
+          ],
+          [
+            76.7738591,
+            30.7616681
+          ],
+          [
+            76.7738943,
+            30.7616201
+          ],
+          [
+            76.7739061,
+            30.7616035
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_55",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.801769,
+            30.7285664
+          ],
+          [
+            76.8017202,
+            30.7286158
+          ],
+          [
+            76.8015391,
+            30.7287776
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_mm_56",
+      "properties": {
+        "roadName": "Madhya Marg V2 Corridor",
+        "pciScore": 86,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.776401,
+            30.7582918
+          ],
+          [
+            76.7764857,
+            30.7581764
+          ],
+          [
+            76.7773578,
+            30.7570653
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_0",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7329397,
+            30.7152514
+          ],
+          [
+            76.7331845,
+            30.7155604
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_1",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7332667,
+            30.7155235
+          ],
+          [
+            76.7330162,
+            30.7152007
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_2",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7331845,
+            30.7155604
+          ],
+          [
+            76.7332865,
+            30.7156892
+          ],
+          [
+            76.7338572,
+            30.7164096
+          ],
+          [
+            76.7340792,
+            30.7167679
+          ],
+          [
+            76.7345372,
+            30.7175187
+          ],
+          [
+            76.7345951,
+            30.7176137
+          ],
+          [
+            76.7347252,
+            30.7177661
+          ],
+          [
+            76.7350059,
+            30.7179389
+          ],
+          [
+            76.7353849,
+            30.7180417
+          ],
+          [
+            76.7357807,
+            30.7181206
+          ],
+          [
+            76.7360839,
+            30.7181481
+          ],
+          [
+            76.7362381,
+            30.7181556
+          ],
+          [
+            76.7364415,
+            30.7181382
+          ],
+          [
+            76.7373579,
+            30.7178569
+          ],
+          [
+            76.7375757,
+            30.7178188
+          ],
+          [
+            76.73785,
+            30.7177953
+          ],
+          [
+            76.7381511,
+            30.7178098
+          ],
+          [
+            76.7385065,
+            30.7178839
+          ],
+          [
+            76.7388037,
+            30.7179808
+          ],
+          [
+            76.7388758,
+            30.7180225
+          ],
+          [
+            76.7389525,
+            30.7180669
+          ],
+          [
+            76.7391794,
+            30.7181981
+          ],
+          [
+            76.7397214,
+            30.7185424
+          ],
+          [
+            76.7397943,
+            30.7185887
+          ],
+          [
+            76.7399615,
+            30.7187292
+          ],
+          [
+            76.7400888,
+            30.7189024
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_3",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7396632,
+            30.7183933
+          ],
+          [
+            76.7389761,
+            30.7179934
+          ],
+          [
+            76.7387656,
+            30.7178856
+          ],
+          [
+            76.7386004,
+            30.717829
+          ],
+          [
+            76.7385186,
+            30.717801
+          ],
+          [
+            76.7382293,
+            30.717732
+          ],
+          [
+            76.7379312,
+            30.7177074
+          ],
+          [
+            76.7376523,
+            30.717721
+          ],
+          [
+            76.7373354,
+            30.7177703
+          ],
+          [
+            76.7367507,
+            30.7179659
+          ],
+          [
+            76.7365598,
+            30.7180192
+          ],
+          [
+            76.7364212,
+            30.7180543
+          ],
+          [
+            76.7361594,
+            30.7180613
+          ],
+          [
+            76.7358354,
+            30.7180211
+          ],
+          [
+            76.7354384,
+            30.7179663
+          ],
+          [
+            76.7351478,
+            30.7178909
+          ],
+          [
+            76.7349715,
+            30.7178201
+          ],
+          [
+            76.7348001,
+            30.7176828
+          ],
+          [
+            76.7346861,
+            30.7175326
+          ],
+          [
+            76.7346227,
+            30.7174423
+          ],
+          [
+            76.7343604,
+            30.7170256
+          ],
+          [
+            76.7339551,
+            30.7163804
+          ],
+          [
+            76.733424,
+            30.7157262
+          ],
+          [
+            76.7332667,
+            30.7155235
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_4",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7458984,
+            30.7222228
+          ],
+          [
+            76.7458173,
+            30.7221942
+          ],
+          [
+            76.7457091,
+            30.7221503
+          ],
+          [
+            76.7448718,
+            30.7216234
+          ],
+          [
+            76.741233,
+            30.7193212
+          ],
+          [
+            76.7409781,
+            30.7191873
+          ],
+          [
+            76.7408742,
+            30.7190816
+          ],
+          [
+            76.740791,
+            30.7189245
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_5",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7405441,
+            30.7192158
+          ],
+          [
+            76.7407075,
+            30.7192202
+          ],
+          [
+            76.740877,
+            30.719279
+          ],
+          [
+            76.7409488,
+            30.7193233
+          ],
+          [
+            76.741708,
+            30.7197915
+          ],
+          [
+            76.7448041,
+            30.721701
+          ],
+          [
+            76.7452223,
+            30.7219752
+          ],
+          [
+            76.7456038,
+            30.7222253
+          ],
+          [
+            76.745673,
+            30.7222821
+          ],
+          [
+            76.745776,
+            30.7223768
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_6",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7310005,
+            30.7130019
+          ],
+          [
+            76.7311318,
+            30.7130784
+          ],
+          [
+            76.7311667,
+            30.7131024
+          ],
+          [
+            76.7313378,
+            30.7132201
+          ],
+          [
+            76.7314838,
+            30.7133428
+          ],
+          [
+            76.7316488,
+            30.71351
+          ],
+          [
+            76.7329397,
+            30.7152514
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_7",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7330162,
+            30.7152007
+          ],
+          [
+            76.7323091,
+            30.7142157
+          ],
+          [
+            76.7319839,
+            30.7138209
+          ],
+          [
+            76.7316791,
+            30.7134328
+          ],
+          [
+            76.7315375,
+            30.7132884
+          ],
+          [
+            76.7314277,
+            30.7131935
+          ],
+          [
+            76.7313217,
+            30.7131143
+          ],
+          [
+            76.7312182,
+            30.7130411
+          ],
+          [
+            76.7310628,
+            30.7129311
+          ],
+          [
+            76.7309463,
+            30.7128592
+          ],
+          [
+            76.7295158,
+            30.711975
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_8",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7515806,
+            30.7257128
+          ],
+          [
+            76.7513031,
+            30.7256003
+          ],
+          [
+            76.751171,
+            30.7255202
+          ],
+          [
+            76.7495144,
+            30.7244959
+          ],
+          [
+            76.7483193,
+            30.7237569
+          ],
+          [
+            76.7463941,
+            30.7226038
+          ],
+          [
+            76.746227,
+            30.7224482
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_9",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7461226,
+            30.7225729
+          ],
+          [
+            76.7463291,
+            30.7226576
+          ],
+          [
+            76.7511574,
+            30.7256164
+          ],
+          [
+            76.7512411,
+            30.7256654
+          ],
+          [
+            76.7513532,
+            30.7257463
+          ],
+          [
+            76.7514588,
+            30.7258483
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_10",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7635497,
+            30.7334179
+          ],
+          [
+            76.7645775,
+            30.7340509
+          ],
+          [
+            76.765861,
+            30.7348413
+          ],
+          [
+            76.7659533,
+            30.7348988
+          ],
+          [
+            76.767687,
+            30.7359779
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_11",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7739751,
+            30.7393684
+          ],
+          [
+            76.7737002,
+            30.7394206
+          ],
+          [
+            76.7736013,
+            30.7394329
+          ],
+          [
+            76.7735043,
+            30.739445
+          ],
+          [
+            76.7733316,
+            30.7393962
+          ],
+          [
+            76.7731965,
+            30.7393113
+          ],
+          [
+            76.772848,
+            30.7390922
+          ],
+          [
+            76.7701212,
+            30.7373779
+          ],
+          [
+            76.7685596,
+            30.7364117
+          ],
+          [
+            76.7677452,
+            30.7359077
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_12",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7572559,
+            30.7293263
+          ],
+          [
+            76.7570973,
+            30.7292681
+          ],
+          [
+            76.7565137,
+            30.7288959
+          ],
+          [
+            76.752333,
+            30.7262294
+          ],
+          [
+            76.7522673,
+            30.7261788
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_13",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.752288,
+            30.7263099
+          ],
+          [
+            76.7570372,
+            30.7293424
+          ],
+          [
+            76.7571346,
+            30.7294392
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_14",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7623568,
+            30.7325657
+          ],
+          [
+            76.7591952,
+            30.730612
+          ],
+          [
+            76.7577082,
+            30.7296931
+          ],
+          [
+            76.7575728,
+            30.7295531
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_15",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7574686,
+            30.7296773
+          ],
+          [
+            76.7576722,
+            30.7297507
+          ],
+          [
+            76.7623127,
+            30.7326269
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_16",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7909316,
+            30.749892
+          ],
+          [
+            76.7907981,
+            30.7498083
+          ],
+          [
+            76.7907347,
+            30.7497685
+          ],
+          [
+            76.7901147,
+            30.7493798
+          ],
+          [
+            76.7872129,
+            30.7475811
+          ],
+          [
+            76.7865475,
+            30.7471687
+          ],
+          [
+            76.7863493,
+            30.7470044
+          ],
+          [
+            76.7862573,
+            30.746898
+          ],
+          [
+            76.7861854,
+            30.7466912
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_17",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7858029,
+            30.7471161
+          ],
+          [
+            76.7860308,
+            30.7470926
+          ],
+          [
+            76.7862361,
+            30.7471261
+          ],
+          [
+            76.7865121,
+            30.7472599
+          ],
+          [
+            76.790051,
+            30.7494558
+          ],
+          [
+            76.7907383,
+            30.749889
+          ],
+          [
+            76.7908668,
+            30.74997
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_18",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.779164,
+            30.7425371
+          ],
+          [
+            76.7790829,
+            30.7424858
+          ],
+          [
+            76.7786995,
+            30.7422433
+          ],
+          [
+            76.7762225,
+            30.7406766
+          ],
+          [
+            76.7752457,
+            30.7400941
+          ],
+          [
+            76.7751665,
+            30.7400468
+          ],
+          [
+            76.7750087,
+            30.7399527
+          ],
+          [
+            76.7747904,
+            30.7398045
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_19",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7745755,
+            30.7401551
+          ],
+          [
+            76.7748247,
+            30.7401459
+          ],
+          [
+            76.7750724,
+            30.7401581
+          ],
+          [
+            76.7752741,
+            30.7402433
+          ],
+          [
+            76.7755608,
+            30.7403923
+          ],
+          [
+            76.7789437,
+            30.7425174
+          ],
+          [
+            76.7790175,
+            30.7425638
+          ],
+          [
+            76.7790986,
+            30.7426147
+          ],
+          [
+            76.7796667,
+            30.7429699
+          ],
+          [
+            76.7798302,
+            30.7430744
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_20",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8004507,
+            30.7558352
+          ],
+          [
+            76.8003036,
+            30.7557436
+          ],
+          [
+            76.7973035,
+            30.7538756
+          ],
+          [
+            76.7970649,
+            30.7537271
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_21",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7969819,
+            30.7538264
+          ],
+          [
+            76.7972189,
+            30.7539723
+          ],
+          [
+            76.8002312,
+            30.7558263
+          ],
+          [
+            76.8003788,
+            30.7559171
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_22",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8006353,
+            30.7560372
+          ],
+          [
+            76.8008681,
+            30.7562146
+          ],
+          [
+            76.8020844,
+            30.7571938
+          ],
+          [
+            76.8024252,
+            30.7574682
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_23",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.728778,
+            30.7115125
+          ],
+          [
+            76.7281573,
+            30.7111163
+          ],
+          [
+            76.7265889,
+            30.7101197
+          ],
+          [
+            76.7247824,
+            30.7089816
+          ],
+          [
+            76.7237908,
+            30.7083787
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_24",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7853716,
+            30.7462553
+          ],
+          [
+            76.7851231,
+            30.7462092
+          ],
+          [
+            76.7849589,
+            30.7461581
+          ],
+          [
+            76.7847296,
+            30.746015
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_25",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7627857,
+            30.732755
+          ],
+          [
+            76.7625129,
+            30.7326621
+          ],
+          [
+            76.7623568,
+            30.7325657
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_26",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7519176,
+            30.7261478
+          ],
+          [
+            76.7521014,
+            30.7262077
+          ],
+          [
+            76.752288,
+            30.7263099
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_27",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7623127,
+            30.7326269
+          ],
+          [
+            76.7624588,
+            30.7327175
+          ],
+          [
+            76.7625851,
+            30.7328283
+          ],
+          [
+            76.7626361,
+            30.7329178
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_28",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7631499,
+            30.7332657
+          ],
+          [
+            76.7634433,
+            30.7333524
+          ],
+          [
+            76.7635497,
+            30.7334179
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_29",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.773291,
+            30.7395042
+          ],
+          [
+            76.7735277,
+            30.7396795
+          ],
+          [
+            76.7735693,
+            30.7397103
+          ],
+          [
+            76.7737014,
+            30.7398094
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_30",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7636068,
+            30.7333488
+          ],
+          [
+            76.7634871,
+            30.7332749
+          ],
+          [
+            76.7633582,
+            30.7331441
+          ],
+          [
+            76.7633091,
+            30.7330384
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_31",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7798944,
+            30.7429976
+          ],
+          [
+            76.7797351,
+            30.7428962
+          ],
+          [
+            76.7795204,
+            30.7427625
+          ],
+          [
+            76.779256,
+            30.7425953
+          ],
+          [
+            76.779164,
+            30.7425371
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_32",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7847296,
+            30.746015
+          ],
+          [
+            76.782896,
+            30.7448708
+          ],
+          [
+            76.7802209,
+            30.7432014
+          ],
+          [
+            76.7798944,
+            30.7429976
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_33",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7798302,
+            30.7430744
+          ],
+          [
+            76.7799671,
+            30.7431604
+          ],
+          [
+            76.7828261,
+            30.7449564
+          ],
+          [
+            76.7849146,
+            30.7462683
+          ],
+          [
+            76.7850363,
+            30.7464046
+          ],
+          [
+            76.7850946,
+            30.7466061
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_34",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7968234,
+            30.7536071
+          ],
+          [
+            76.7966619,
+            30.7534965
+          ],
+          [
+            76.7965133,
+            30.753397
+          ],
+          [
+            76.7964058,
+            30.7533241
+          ],
+          [
+            76.7919119,
+            30.7505066
+          ],
+          [
+            76.7917477,
+            30.7504037
+          ],
+          [
+            76.7915208,
+            30.7502614
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_35",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7914553,
+            30.7503409
+          ],
+          [
+            76.7916738,
+            30.7504786
+          ],
+          [
+            76.7963169,
+            30.7534053
+          ],
+          [
+            76.7965831,
+            30.7535838
+          ],
+          [
+            76.7967644,
+            30.7537054
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_36",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.767687,
+            30.7359779
+          ],
+          [
+            76.7684984,
+            30.7364829
+          ],
+          [
+            76.7720153,
+            30.7386719
+          ],
+          [
+            76.772064,
+            30.7387022
+          ],
+          [
+            76.773291,
+            30.7395042
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_37",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7677452,
+            30.7359077
+          ],
+          [
+            76.7659178,
+            30.734777
+          ],
+          [
+            76.7638663,
+            30.7335092
+          ],
+          [
+            76.7636068,
+            30.7333488
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_38",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7522673,
+            30.7261788
+          ],
+          [
+            76.752181,
+            30.7261296
+          ],
+          [
+            76.7520335,
+            30.7260142
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_39",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7908668,
+            30.74997
+          ],
+          [
+            76.791042,
+            30.7500804
+          ],
+          [
+            76.7913333,
+            30.750264
+          ],
+          [
+            76.7914553,
+            30.7503409
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_40",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7915208,
+            30.7502614
+          ],
+          [
+            76.7913991,
+            30.7501851
+          ],
+          [
+            76.7911025,
+            30.7499992
+          ],
+          [
+            76.7909316,
+            30.749892
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_41",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7237908,
+            30.7083787
+          ],
+          [
+            76.7236923,
+            30.7083139
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_42",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7291472,
+            30.7117503
+          ],
+          [
+            76.7290582,
+            30.7116914
+          ],
+          [
+            76.728778,
+            30.7115125
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_43",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7295158,
+            30.711975
+          ],
+          [
+            76.7291472,
+            30.7117503
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_jm_44",
+      "properties": {
+        "roadName": "Jan Marg Heritage Corridor",
+        "pciScore": 94,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7403253,
+            30.7186412
+          ],
+          [
+            76.7401391,
+            30.7186258
+          ],
+          [
+            76.7398631,
+            30.7185096
+          ],
+          [
+            76.7396632,
+            30.7183933
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_0",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7904413,
+            30.7038176
+          ],
+          [
+            76.7904821,
+            30.7036727
+          ],
+          [
+            76.7905529,
+            30.7035148
+          ],
+          [
+            76.7907913,
+            30.7032424
+          ],
+          [
+            76.7908137,
+            30.7032214
+          ],
+          [
+            76.7912006,
+            30.7027862
+          ],
+          [
+            76.7931436,
+            30.7007391
+          ],
+          [
+            76.7939962,
+            30.6998365
+          ],
+          [
+            76.7948347,
+            30.6989489
+          ],
+          [
+            76.7952765,
+            30.6984812
+          ],
+          [
+            76.7970648,
+            30.6966083
+          ],
+          [
+            76.7979948,
+            30.6957754
+          ],
+          [
+            76.7981349,
+            30.6956644
+          ],
+          [
+            76.7981633,
+            30.6956419
+          ],
+          [
+            76.7982845,
+            30.6955451
+          ],
+          [
+            76.7985806,
+            30.6953201
+          ],
+          [
+            76.7988212,
+            30.695207
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_1",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7895816,
+            30.7040738
+          ],
+          [
+            76.7895779,
+            30.7042115
+          ],
+          [
+            76.7895186,
+            30.7043666
+          ],
+          [
+            76.7893098,
+            30.7046392
+          ],
+          [
+            76.7892316,
+            30.7047166
+          ],
+          [
+            76.7884517,
+            30.7054876
+          ],
+          [
+            76.7879882,
+            30.7058848
+          ],
+          [
+            76.7876302,
+            30.7061302
+          ],
+          [
+            76.7873248,
+            30.7063396
+          ],
+          [
+            76.7871518,
+            30.706472
+          ],
+          [
+            76.7847805,
+            30.7080959
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_2",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.798543,
+            30.6949776
+          ],
+          [
+            76.7984389,
+            30.6951893
+          ],
+          [
+            76.7982922,
+            30.6953213
+          ],
+          [
+            76.7975986,
+            30.6959451
+          ],
+          [
+            76.7969404,
+            30.6965254
+          ],
+          [
+            76.796131,
+            30.6973255
+          ],
+          [
+            76.7950664,
+            30.6984781
+          ],
+          [
+            76.7947025,
+            30.6988644
+          ],
+          [
+            76.7938801,
+            30.6997374
+          ],
+          [
+            76.7930224,
+            30.7006479
+          ],
+          [
+            76.7915248,
+            30.7022215
+          ],
+          [
+            76.7906337,
+            30.7031546
+          ],
+          [
+            76.7905744,
+            30.7032167
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_3",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7791066,
+            30.7141454
+          ],
+          [
+            76.779609,
+            30.7136116
+          ],
+          [
+            76.780983,
+            30.7121272
+          ],
+          [
+            76.7818695,
+            30.7111695
+          ],
+          [
+            76.7831893,
+            30.7097224
+          ],
+          [
+            76.7833022,
+            30.7096279
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_4",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7834241,
+            30.7092105
+          ],
+          [
+            76.7833748,
+            30.7093146
+          ],
+          [
+            76.7832485,
+            30.7094742
+          ],
+          [
+            76.7831944,
+            30.7095652
+          ],
+          [
+            76.7830818,
+            30.7096985
+          ],
+          [
+            76.7829636,
+            30.7098384
+          ],
+          [
+            76.7813538,
+            30.7115634
+          ],
+          [
+            76.7809054,
+            30.7120704
+          ],
+          [
+            76.7807998,
+            30.7121786
+          ],
+          [
+            76.7793874,
+            30.7136874
+          ],
+          [
+            76.7791416,
+            30.7139267
+          ],
+          [
+            76.7788961,
+            30.7141658
+          ],
+          [
+            76.7787506,
+            30.7143074
+          ],
+          [
+            76.7786104,
+            30.7144029
+          ],
+          [
+            76.7785264,
+            30.7144601
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_5",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7781421,
+            30.7148643
+          ],
+          [
+            76.778116,
+            30.7149653
+          ],
+          [
+            76.7780097,
+            30.7151342
+          ],
+          [
+            76.7778751,
+            30.7152866
+          ],
+          [
+            76.7778072,
+            30.7153635
+          ],
+          [
+            76.7777428,
+            30.7154365
+          ],
+          [
+            76.7775517,
+            30.7156529
+          ],
+          [
+            76.7755846,
+            30.7178805
+          ],
+          [
+            76.7741259,
+            30.7195276
+          ],
+          [
+            76.7738704,
+            30.7198276
+          ],
+          [
+            76.7736181,
+            30.720073
+          ],
+          [
+            76.7735396,
+            30.7201085
+          ],
+          [
+            76.7734395,
+            30.7201538
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_6",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7740381,
+            30.7198658
+          ],
+          [
+            76.7742387,
+            30.7196216
+          ],
+          [
+            76.7743101,
+            30.7195408
+          ],
+          [
+            76.7756476,
+            30.718028
+          ],
+          [
+            76.7757388,
+            30.7179248
+          ],
+          [
+            76.7759237,
+            30.7177157
+          ],
+          [
+            76.7761565,
+            30.7174523
+          ],
+          [
+            76.777684,
+            30.7157246
+          ],
+          [
+            76.7778578,
+            30.7155281
+          ],
+          [
+            76.7779195,
+            30.7154583
+          ],
+          [
+            76.7780543,
+            30.7153305
+          ],
+          [
+            76.7781708,
+            30.7152201
+          ],
+          [
+            76.7783139,
+            30.71513
+          ],
+          [
+            76.7784352,
+            30.7150536
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_7",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7729789,
+            30.7206682
+          ],
+          [
+            76.7729726,
+            30.7208002
+          ],
+          [
+            76.7728839,
+            30.7209597
+          ],
+          [
+            76.7727149,
+            30.7211335
+          ],
+          [
+            76.7726097,
+            30.7212628
+          ],
+          [
+            76.7725764,
+            30.721302
+          ],
+          [
+            76.7722968,
+            30.7216316
+          ],
+          [
+            76.7692854,
+            30.7251814
+          ],
+          [
+            76.7690734,
+            30.7254313
+          ],
+          [
+            76.7689063,
+            30.7256215
+          ],
+          [
+            76.7688851,
+            30.7256532
+          ],
+          [
+            76.7687459,
+            30.725784
+          ],
+          [
+            76.7686402,
+            30.7258615
+          ],
+          [
+            76.7684229,
+            30.7259177
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_8",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7678407,
+            30.7268848
+          ],
+          [
+            76.7676506,
+            30.7271082
+          ],
+          [
+            76.7675932,
+            30.7271637
+          ],
+          [
+            76.7667358,
+            30.7282082
+          ],
+          [
+            76.7655965,
+            30.7296119
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_9",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7687637,
+            30.7261055
+          ],
+          [
+            76.7688086,
+            30.7260072
+          ],
+          [
+            76.768876,
+            30.7258575
+          ],
+          [
+            76.7690075,
+            30.7256799
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_10",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7573651,
+            30.74003
+          ],
+          [
+            76.7563939,
+            30.7413699
+          ],
+          [
+            76.75609,
+            30.7417473
+          ],
+          [
+            76.7554986,
+            30.7424766
+          ],
+          [
+            76.7549272,
+            30.7432773
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_11",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7598477,
+            30.7367915
+          ],
+          [
+            76.759682,
+            30.7370083
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_12",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7597802,
+            30.7370912
+          ],
+          [
+            76.7599446,
+            30.736883
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_13",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7585473,
+            30.7388814
+          ],
+          [
+            76.7586032,
+            30.7386331
+          ],
+          [
+            76.7590986,
+            30.7379547
+          ],
+          [
+            76.7594629,
+            30.7374762
+          ],
+          [
+            76.7597802,
+            30.7370912
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_14",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.749316,
+            30.751198
+          ],
+          [
+            76.7497124,
+            30.7506506
+          ],
+          [
+            76.7510061,
+            30.7488383
+          ],
+          [
+            76.7526074,
+            30.746612
+          ],
+          [
+            76.7532693,
+            30.7457421
+          ],
+          [
+            76.7533606,
+            30.7456358
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_15",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7596465,
+            30.7370547
+          ],
+          [
+            76.759565,
+            30.7371614
+          ],
+          [
+            76.7594514,
+            30.73731
+          ],
+          [
+            76.7589241,
+            30.7379998
+          ],
+          [
+            76.7586755,
+            30.7383249
+          ],
+          [
+            76.7584743,
+            30.7385881
+          ],
+          [
+            76.7582885,
+            30.7387079
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_16",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7469412,
+            30.7539606
+          ],
+          [
+            76.7467999,
+            30.7540568
+          ],
+          [
+            76.7464176,
+            30.7543171
+          ],
+          [
+            76.7453315,
+            30.7549606
+          ],
+          [
+            76.7446165,
+            30.7553844
+          ],
+          [
+            76.7442492,
+            30.7557167
+          ],
+          [
+            76.7439979,
+            30.756049
+          ],
+          [
+            76.7437917,
+            30.756492
+          ],
+          [
+            76.7436048,
+            30.7570596
+          ],
+          [
+            76.743608,
+            30.7573891
+          ],
+          [
+            76.7436531,
+            30.757749
+          ],
+          [
+            76.743806,
+            30.7582035
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_17",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7599446,
+            30.736883
+          ],
+          [
+            76.7605843,
+            30.7360727
+          ],
+          [
+            76.7615616,
+            30.7348346
+          ],
+          [
+            76.7619568,
+            30.7343447
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_18",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7541836,
+            30.7445012
+          ],
+          [
+            76.7542339,
+            30.7444271
+          ],
+          [
+            76.7543577,
+            30.7442585
+          ],
+          [
+            76.7556232,
+            30.7425352
+          ],
+          [
+            76.7561719,
+            30.7417971
+          ],
+          [
+            76.7568656,
+            30.7409091
+          ],
+          [
+            76.7574941,
+            30.7400975
+          ],
+          [
+            76.7579533,
+            30.7395045
+          ],
+          [
+            76.7581106,
+            30.7393716
+          ],
+          [
+            76.7582733,
+            30.7393009
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_19",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7624507,
+            30.7334837
+          ],
+          [
+            76.762337,
+            30.7336319
+          ],
+          [
+            76.7614637,
+            30.7347704
+          ],
+          [
+            76.761416,
+            30.73483
+          ],
+          [
+            76.7610429,
+            30.7352966
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_20",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7999028,
+            30.6942099
+          ],
+          [
+            76.8012217,
+            30.6930423
+          ],
+          [
+            76.8022151,
+            30.6921536
+          ],
+          [
+            76.8024801,
+            30.6918966
+          ],
+          [
+            76.8027081,
+            30.691621
+          ],
+          [
+            76.8027968,
+            30.691478
+          ],
+          [
+            76.8028585,
+            30.6913785
+          ],
+          [
+            76.8029128,
+            30.6912486
+          ],
+          [
+            76.8029368,
+            30.6911914
+          ],
+          [
+            76.8030131,
+            30.691009
+          ],
+          [
+            76.8042307,
+            30.6877333
+          ],
+          [
+            76.8052051,
+            30.6851102
+          ],
+          [
+            76.8059753,
+            30.68307
+          ],
+          [
+            76.8063758,
+            30.6820433
+          ],
+          [
+            76.8069538,
+            30.6808772
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_21",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8084702,
+            30.6774924
+          ],
+          [
+            76.8081513,
+            30.6781316
+          ],
+          [
+            76.8080694,
+            30.6783
+          ],
+          [
+            76.8072507,
+            30.6799841
+          ],
+          [
+            76.8062526,
+            30.6820168
+          ],
+          [
+            76.8058521,
+            30.6830534
+          ],
+          [
+            76.8050741,
+            30.6850904
+          ],
+          [
+            76.804119,
+            30.6877466
+          ],
+          [
+            76.8028806,
+            30.6909772
+          ],
+          [
+            76.8028106,
+            30.6911207
+          ],
+          [
+            76.8027703,
+            30.6912032
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_22",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8069538,
+            30.6808772
+          ],
+          [
+            76.8073641,
+            30.6800573
+          ],
+          [
+            76.8082707,
+            30.6781978
+          ],
+          [
+            76.8085274,
+            30.6776956
+          ],
+          [
+            76.8086099,
+            30.6775342
+          ],
+          [
+            76.8086592,
+            30.6774377
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_23",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7840894,
+            30.7090383
+          ],
+          [
+            76.7841236,
+            30.708889
+          ],
+          [
+            76.7841661,
+            30.708802
+          ],
+          [
+            76.7842294,
+            30.7087348
+          ],
+          [
+            76.7844324,
+            30.7085518
+          ],
+          [
+            76.7844719,
+            30.7085181
+          ],
+          [
+            76.7849028,
+            30.7081447
+          ],
+          [
+            76.7854515,
+            30.7077722
+          ],
+          [
+            76.786498,
+            30.7070619
+          ],
+          [
+            76.7870454,
+            30.7066903
+          ],
+          [
+            76.7882859,
+            30.7057734
+          ],
+          [
+            76.7887856,
+            30.705352
+          ],
+          [
+            76.7889427,
+            30.7051885
+          ],
+          [
+            76.789322,
+            30.7047939
+          ],
+          [
+            76.7893987,
+            30.7047141
+          ],
+          [
+            76.7895856,
+            30.7045262
+          ],
+          [
+            76.7897867,
+            30.7043954
+          ],
+          [
+            76.7899761,
+            30.7043397
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_24",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7787852,
+            30.7146336
+          ],
+          [
+            76.7788692,
+            30.7144648
+          ],
+          [
+            76.7790522,
+            30.7142033
+          ],
+          [
+            76.7791066,
+            30.7141454
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_25",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7833022,
+            30.7096279
+          ],
+          [
+            76.7833826,
+            30.7095606
+          ],
+          [
+            76.7835218,
+            30.7094764
+          ],
+          [
+            76.7837172,
+            30.7093999
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_26",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7533299,
+            30.7452505
+          ],
+          [
+            76.753275,
+            30.7454085
+          ],
+          [
+            76.7532528,
+            30.7454438
+          ],
+          [
+            76.7530532,
+            30.7456822
+          ],
+          [
+            76.7515557,
+            30.7479162
+          ],
+          [
+            76.7504164,
+            30.7495001
+          ],
+          [
+            76.7498007,
+            30.7503678
+          ],
+          [
+            76.7496249,
+            30.7506156
+          ],
+          [
+            76.7492455,
+            30.7511503
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_27",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7492455,
+            30.7511503
+          ],
+          [
+            76.7491924,
+            30.7512251
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_28",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7491924,
+            30.7512251
+          ],
+          [
+            76.7485701,
+            30.7520569
+          ],
+          [
+            76.7480525,
+            30.7527489
+          ],
+          [
+            76.7476017,
+            30.7533515
+          ],
+          [
+            76.7472916,
+            30.7536803
+          ],
+          [
+            76.7469412,
+            30.7539606
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_29",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7439256,
+            30.7582003
+          ],
+          [
+            76.7437498,
+            30.7577573
+          ],
+          [
+            76.7437079,
+            30.7573752
+          ],
+          [
+            76.7437015,
+            30.7570236
+          ],
+          [
+            76.7438626,
+            30.7565169
+          ],
+          [
+            76.7441042,
+            30.7560628
+          ],
+          [
+            76.7442135,
+            30.7559068
+          ],
+          [
+            76.7443394,
+            30.7557499
+          ],
+          [
+            76.7446552,
+            30.7554564
+          ],
+          [
+            76.7453927,
+            30.7550099
+          ],
+          [
+            76.7464434,
+            30.7543739
+          ],
+          [
+            76.7470046,
+            30.7540211
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_30",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7470046,
+            30.7540211
+          ],
+          [
+            76.7474132,
+            30.7537038
+          ],
+          [
+            76.7477,
+            30.753402
+          ],
+          [
+            76.748143,
+            30.7527983
+          ],
+          [
+            76.7489501,
+            30.7516985
+          ],
+          [
+            76.749263,
+            30.751272
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_31",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7626402,
+            30.733121
+          ],
+          [
+            76.7625849,
+            30.7333125
+          ],
+          [
+            76.7624507,
+            30.7334837
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_32",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7610429,
+            30.7352966
+          ],
+          [
+            76.7598477,
+            30.7367915
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_33",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.759682,
+            30.7370083
+          ],
+          [
+            76.7596465,
+            30.7370547
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_34",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7579294,
+            30.7391561
+          ],
+          [
+            76.7578966,
+            30.7392763
+          ],
+          [
+            76.7577188,
+            30.7395422
+          ],
+          [
+            76.7575103,
+            30.7398297
+          ],
+          [
+            76.7573651,
+            30.74003
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_35",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7634882,
+            30.7324147
+          ],
+          [
+            76.7636116,
+            30.7322595
+          ],
+          [
+            76.766808,
+            30.7282401
+          ],
+          [
+            76.7676407,
+            30.7272973
+          ],
+          [
+            76.7679367,
+            30.7269592
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_36",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.753902,
+            30.7448999
+          ],
+          [
+            76.753971,
+            30.7448148
+          ],
+          [
+            76.7541836,
+            30.7445012
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_37",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7625842,
+            30.7335669
+          ],
+          [
+            76.7626107,
+            30.7335341
+          ],
+          [
+            76.7627473,
+            30.73341
+          ],
+          [
+            76.7629333,
+            30.7333104
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_38",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7632833,
+            30.7328904
+          ],
+          [
+            76.7633342,
+            30.7326877
+          ],
+          [
+            76.7633464,
+            30.7326391
+          ],
+          [
+            76.7634882,
+            30.7324147
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_39",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7634358,
+            30.7322733
+          ],
+          [
+            76.7634153,
+            30.7322984
+          ],
+          [
+            76.7633754,
+            30.7323483
+          ],
+          [
+            76.763326,
+            30.7324149
+          ],
+          [
+            76.7632047,
+            30.7325504
+          ],
+          [
+            76.7631521,
+            30.732599
+          ],
+          [
+            76.7630245,
+            30.7327169
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_40",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7655965,
+            30.7296119
+          ],
+          [
+            76.7636508,
+            30.732009
+          ],
+          [
+            76.7635556,
+            30.7321263
+          ],
+          [
+            76.7634358,
+            30.7322733
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_41",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7549272,
+            30.7432773
+          ],
+          [
+            76.7540236,
+            30.7444245
+          ],
+          [
+            76.7539676,
+            30.7444956
+          ],
+          [
+            76.7539357,
+            30.7445361
+          ],
+          [
+            76.7538909,
+            30.7445889
+          ],
+          [
+            76.7537647,
+            30.7447373
+          ],
+          [
+            76.7537038,
+            30.7447868
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_42",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7619568,
+            30.7343447
+          ],
+          [
+            76.7625842,
+            30.7335669
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_43",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7728526,
+            30.7212233
+          ],
+          [
+            76.7731396,
+            30.7210005
+          ],
+          [
+            76.7732026,
+            30.7209651
+          ],
+          [
+            76.7732833,
+            30.7209197
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_44",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7738287,
+            30.7203955
+          ],
+          [
+            76.773805,
+            30.720242
+          ],
+          [
+            76.773863,
+            30.720098
+          ],
+          [
+            76.7740381,
+            30.7198658
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_45",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7533606,
+            30.7456358
+          ],
+          [
+            76.7534129,
+            30.745568
+          ],
+          [
+            76.7535844,
+            30.7453806
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_46",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.749263,
+            30.751272
+          ],
+          [
+            76.749316,
+            30.751198
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_47",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7997559,
+            30.6943146
+          ],
+          [
+            76.7999028,
+            30.6942099
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_48",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7992354,
+            30.6948649
+          ],
+          [
+            76.799402,
+            30.694636
+          ],
+          [
+            76.7997559,
+            30.6943146
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_49",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7905744,
+            30.7032167
+          ],
+          [
+            76.7903649,
+            30.703436
+          ],
+          [
+            76.7902515,
+            30.7035136
+          ],
+          [
+            76.7900422,
+            30.7035594
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_50",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8027703,
+            30.6912032
+          ],
+          [
+            76.8027097,
+            30.6913274
+          ],
+          [
+            76.8026449,
+            30.6914232
+          ],
+          [
+            76.8024894,
+            30.6916528
+          ],
+          [
+            76.8022367,
+            30.6919284
+          ],
+          [
+            76.8019348,
+            30.6922012
+          ],
+          [
+            76.8011014,
+            30.6929346
+          ],
+          [
+            76.799896,
+            30.6939601
+          ],
+          [
+            76.7992961,
+            30.6944704
+          ],
+          [
+            76.7991613,
+            30.6945615
+          ],
+          [
+            76.7989477,
+            30.6946463
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_51",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7679823,
+            30.7266307
+          ],
+          [
+            76.7678576,
+            30.7268593
+          ],
+          [
+            76.7678407,
+            30.7268848
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_52",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7679367,
+            30.7269592
+          ],
+          [
+            76.767965,
+            30.7269315
+          ],
+          [
+            76.768118,
+            30.7268231
+          ],
+          [
+            76.7681504,
+            30.7268008
+          ],
+          [
+            76.7682305,
+            30.7267563
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_53",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7847805,
+            30.7080959
+          ],
+          [
+            76.7844622,
+            30.7083712
+          ],
+          [
+            76.7842442,
+            30.7085598
+          ],
+          [
+            76.7840955,
+            30.7086885
+          ],
+          [
+            76.7839196,
+            30.7087763
+          ],
+          [
+            76.7838084,
+            30.7088063
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_dm_54",
+      "properties": {
+        "roadName": "Dakshin Marg V2 Arterial",
+        "pciScore": 42,
+        "color": "#EF4444",
+        "status": "Severe Distress"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7690075,
+            30.7256799
+          ],
+          [
+            76.7691776,
+            30.7254809
+          ],
+          [
+            76.7697164,
+            30.7248494
+          ],
+          [
+            76.7709571,
+            30.7233953
+          ],
+          [
+            76.7727252,
+            30.721332
+          ],
+          [
+            76.7728526,
+            30.7212233
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_0",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7380173,
+            30.7069849
+          ],
+          [
+            76.7372061,
+            30.7066456
+          ],
+          [
+            76.7363933,
+            30.7062651
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_1",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7386921,
+            30.7072815
+          ],
+          [
+            76.7380173,
+            30.7069849
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_2",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7450869,
+            30.7118222
+          ],
+          [
+            76.7451896,
+            30.7118874
+          ],
+          [
+            76.7452559,
+            30.7119451
+          ],
+          [
+            76.745313,
+            30.7120096
+          ],
+          [
+            76.7453837,
+            30.7120888
+          ],
+          [
+            76.7454331,
+            30.7121641
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_3",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7458107,
+            30.7118491
+          ],
+          [
+            76.7455677,
+            30.7118655
+          ],
+          [
+            76.7454454,
+            30.7118545
+          ],
+          [
+            76.7453722,
+            30.7118289
+          ],
+          [
+            76.7453018,
+            30.711796
+          ],
+          [
+            76.7451006,
+            30.7116962
+          ],
+          [
+            76.7450242,
+            30.7116583
+          ],
+          [
+            76.7448513,
+            30.7115621
+          ],
+          [
+            76.7441523,
+            30.7111238
+          ],
+          [
+            76.7421962,
+            30.7098972
+          ],
+          [
+            76.7420603,
+            30.7098132
+          ],
+          [
+            76.7414989,
+            30.709466
+          ],
+          [
+            76.7411307,
+            30.7092127
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_4",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7460933,
+            30.7125655
+          ],
+          [
+            76.7463291,
+            30.7126314
+          ],
+          [
+            76.7464865,
+            30.7126914
+          ],
+          [
+            76.7465775,
+            30.7127334
+          ],
+          [
+            76.7466685,
+            30.7127754
+          ],
+          [
+            76.7469414,
+            30.7129505
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_5",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7514743,
+            30.7157599
+          ],
+          [
+            76.7512708,
+            30.7156322
+          ],
+          [
+            76.7511783,
+            30.7155767
+          ],
+          [
+            76.7511318,
+            30.7155488
+          ],
+          [
+            76.7470816,
+            30.7129392
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_6",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.740186,
+            30.7084651
+          ],
+          [
+            76.7401435,
+            30.7084187
+          ],
+          [
+            76.7397273,
+            30.707965
+          ],
+          [
+            76.7395143,
+            30.7077692
+          ],
+          [
+            76.7394161,
+            30.7076789
+          ],
+          [
+            76.739068,
+            30.7074537
+          ],
+          [
+            76.7386921,
+            30.7072815
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_7",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7570046,
+            30.7190902
+          ],
+          [
+            76.7569609,
+            30.7190764
+          ],
+          [
+            76.7569419,
+            30.7190704
+          ],
+          [
+            76.7568545,
+            30.7190232
+          ],
+          [
+            76.7567392,
+            30.7189583
+          ],
+          [
+            76.7537026,
+            30.717144
+          ],
+          [
+            76.7536095,
+            30.7170903
+          ],
+          [
+            76.7519132,
+            30.7160479
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_8",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7514871,
+            30.7158874
+          ],
+          [
+            76.7516965,
+            30.7160133
+          ],
+          [
+            76.7525911,
+            30.7165791
+          ],
+          [
+            76.7527885,
+            30.7166975
+          ],
+          [
+            76.7530087,
+            30.7168293
+          ],
+          [
+            76.7535545,
+            30.7171592
+          ],
+          [
+            76.7561058,
+            30.7186953
+          ],
+          [
+            76.7566586,
+            30.7190283
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_9",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7739987,
+            30.7298891
+          ],
+          [
+            76.7740691,
+            30.7299352
+          ],
+          [
+            76.7746564,
+            30.7302951
+          ],
+          [
+            76.7785458,
+            30.7327311
+          ],
+          [
+            76.7789973,
+            30.7330134
+          ],
+          [
+            76.779109,
+            30.7330832
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_10",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.768101,
+            30.7259693
+          ],
+          [
+            76.7680252,
+            30.7259614
+          ],
+          [
+            76.7678878,
+            30.7259212
+          ],
+          [
+            76.7677349,
+            30.7258417
+          ],
+          [
+            76.7672194,
+            30.7255664
+          ],
+          [
+            76.7634885,
+            30.7232142
+          ],
+          [
+            76.7632333,
+            30.723042
+          ],
+          [
+            76.7631632,
+            30.7229988
+          ],
+          [
+            76.7630005,
+            30.7228958
+          ],
+          [
+            76.7628776,
+            30.7228159
+          ],
+          [
+            76.7627985,
+            30.7227643
+          ],
+          [
+            76.7625354,
+            30.7225882
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_11",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7791812,
+            30.7330113
+          ],
+          [
+            76.7746316,
+            30.7301648
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_12",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7573881,
+            30.7195251
+          ],
+          [
+            76.7574922,
+            30.719564
+          ],
+          [
+            76.7575379,
+            30.7195941
+          ],
+          [
+            76.7577008,
+            30.7196877
+          ],
+          [
+            76.7578033,
+            30.719748
+          ],
+          [
+            76.7580385,
+            30.7198981
+          ],
+          [
+            76.7619695,
+            30.7223677
+          ],
+          [
+            76.7624531,
+            30.7226535
+          ],
+          [
+            76.7625637,
+            30.7227213
+          ],
+          [
+            76.7627419,
+            30.7228412
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_13",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7628214,
+            30.722888
+          ],
+          [
+            76.7631726,
+            30.7230926
+          ],
+          [
+            76.7631829,
+            30.7230986
+          ],
+          [
+            76.7637512,
+            30.7234371
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_14",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7848574,
+            30.7365828
+          ],
+          [
+            76.7825799,
+            30.7351564
+          ],
+          [
+            76.7815061,
+            30.734499
+          ],
+          [
+            76.7802986,
+            30.7337598
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_15",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7806748,
+            30.7340777
+          ],
+          [
+            76.7825232,
+            30.7352367
+          ],
+          [
+            76.7841425,
+            30.7362505
+          ],
+          [
+            76.7847094,
+            30.7366053
+          ],
+          [
+            76.7847892,
+            30.7366553
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_16",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7732963,
+            30.7295913
+          ],
+          [
+            76.7733693,
+            30.7294952
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_17",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7735495,
+            30.7304643
+          ],
+          [
+            76.7736469,
+            30.7303883
+          ],
+          [
+            76.7737729,
+            30.7302495
+          ],
+          [
+            76.7738009,
+            30.730221
+          ],
+          [
+            76.7739645,
+            30.7300466
+          ],
+          [
+            76.7740691,
+            30.7299352
+          ],
+          [
+            76.7741406,
+            30.7298548
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_18",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8057777,
+            30.7496889
+          ],
+          [
+            76.8042471,
+            30.7487559
+          ],
+          [
+            76.8028112,
+            30.7478566
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_19",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8022592,
+            30.7476719
+          ],
+          [
+            76.802449,
+            30.7477054
+          ],
+          [
+            76.8028112,
+            30.7478566
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_20",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8028112,
+            30.7478566
+          ],
+          [
+            76.8025124,
+            30.7476256
+          ],
+          [
+            76.8024267,
+            30.7475054
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_21",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8020122,
+            30.7472452
+          ],
+          [
+            76.8018507,
+            30.7472095
+          ],
+          [
+            76.8002736,
+            30.7462158
+          ],
+          [
+            76.7984983,
+            30.7451626
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_22",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7370827,
+            30.7067747
+          ],
+          [
+            76.7380831,
+            30.7072221
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_23",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7380831,
+            30.7072221
+          ],
+          [
+            76.738692,
+            30.7074896
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_24",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7407222,
+            30.7090723
+          ],
+          [
+            76.7410684,
+            30.7093122
+          ],
+          [
+            76.7413925,
+            30.7095282
+          ],
+          [
+            76.7418324,
+            30.7098214
+          ],
+          [
+            76.741968,
+            30.7099047
+          ],
+          [
+            76.7431121,
+            30.7106044
+          ],
+          [
+            76.7434953,
+            30.7108388
+          ],
+          [
+            76.7436434,
+            30.7109294
+          ],
+          [
+            76.7440108,
+            30.7111624
+          ],
+          [
+            76.7449428,
+            30.7117306
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_25",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7408135,
+            30.7090028
+          ],
+          [
+            76.7404303,
+            30.7086896
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_26",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8017763,
+            30.7472791
+          ],
+          [
+            76.8018796,
+            30.7473941
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_27",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7637512,
+            30.7234371
+          ],
+          [
+            76.7671751,
+            30.7256341
+          ],
+          [
+            76.7675922,
+            30.7258968
+          ],
+          [
+            76.7676648,
+            30.7259429
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_28",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7965271,
+            30.7439773
+          ],
+          [
+            76.7967064,
+            30.7440886
+          ],
+          [
+            76.7982711,
+            30.7451013
+          ],
+          [
+            76.7984515,
+            30.7452117
+          ],
+          [
+            76.7998333,
+            30.7460572
+          ],
+          [
+            76.8005876,
+            30.7465304
+          ],
+          [
+            76.8013491,
+            30.7470038
+          ],
+          [
+            76.8017763,
+            30.7472791
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_29",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7917202,
+            30.740993
+          ],
+          [
+            76.7921857,
+            30.741282
+          ],
+          [
+            76.7941772,
+            30.7425183
+          ],
+          [
+            76.7947367,
+            30.7428657
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_30",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7984983,
+            30.7451626
+          ],
+          [
+            76.7981538,
+            30.7449137
+          ],
+          [
+            76.7967756,
+            30.7440224
+          ],
+          [
+            76.7966661,
+            30.7439543
+          ],
+          [
+            76.7965896,
+            30.7439068
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_31",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7947982,
+            30.7427933
+          ],
+          [
+            76.7921458,
+            30.741143
+          ],
+          [
+            76.7917784,
+            30.7409144
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_32",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7902647,
+            30.7400833
+          ],
+          [
+            76.7907661,
+            30.7403976
+          ],
+          [
+            76.7909057,
+            30.7404846
+          ],
+          [
+            76.790975,
+            30.740528
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_33",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7917784,
+            30.7409144
+          ],
+          [
+            76.7914865,
+            30.7407347
+          ],
+          [
+            76.7911521,
+            30.7405253
+          ],
+          [
+            76.7910385,
+            30.7404541
+          ],
+          [
+            76.7909695,
+            30.7404109
+          ],
+          [
+            76.7908276,
+            30.740322
+          ],
+          [
+            76.7903312,
+            30.7400111
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_34",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7802572,
+            30.7338159
+          ],
+          [
+            76.7806748,
+            30.7340777
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_35",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7798941,
+            30.7336776
+          ],
+          [
+            76.780063,
+            30.7337157
+          ],
+          [
+            76.7802572,
+            30.7338159
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_36",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7891961,
+            30.7393002
+          ],
+          [
+            76.7876427,
+            30.7383273
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_37",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7802986,
+            30.7337598
+          ],
+          [
+            76.780131,
+            30.7336354
+          ],
+          [
+            76.7800449,
+            30.7335037
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_38",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7876427,
+            30.7383273
+          ],
+          [
+            76.7856413,
+            30.7370807
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_39",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7903312,
+            30.7400111
+          ],
+          [
+            76.7891961,
+            30.7393002
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_40",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7467264,
+            30.7127218
+          ],
+          [
+            76.7466281,
+            30.7126562
+          ],
+          [
+            76.7464918,
+            30.7125555
+          ],
+          [
+            76.7464035,
+            30.7124584
+          ],
+          [
+            76.7463145,
+            30.7122984
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_41",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7470816,
+            30.7129392
+          ],
+          [
+            76.7467264,
+            30.7127218
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_42",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7505477,
+            30.7152894
+          ],
+          [
+            76.7510806,
+            30.7156222
+          ],
+          [
+            76.7511797,
+            30.7156887
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_43",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7691378,
+            30.7267363
+          ],
+          [
+            76.7690418,
+            30.726681
+          ],
+          [
+            76.7689228,
+            30.7265774
+          ],
+          [
+            76.7688294,
+            30.726449
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_44",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.774065,
+            30.729809
+          ],
+          [
+            76.7735928,
+            30.7295134
+          ],
+          [
+            76.7705682,
+            30.7276197
+          ],
+          [
+            76.7691378,
+            30.7267363
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_45",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7741406,
+            30.7298548
+          ],
+          [
+            76.774065,
+            30.729809
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_46",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7795732,
+            30.7331493
+          ],
+          [
+            76.7793568,
+            30.7330916
+          ],
+          [
+            76.7791812,
+            30.7330113
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_47",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7686049,
+            30.726707
+          ],
+          [
+            76.7687523,
+            30.726725
+          ],
+          [
+            76.7688415,
+            30.7267495
+          ],
+          [
+            76.7689782,
+            30.7267915
+          ],
+          [
+            76.7690605,
+            30.7268332
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_48",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.779109,
+            30.7330832
+          ],
+          [
+            76.7792517,
+            30.7331922
+          ],
+          [
+            76.7793687,
+            30.7333595
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_49",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7690605,
+            30.7268332
+          ],
+          [
+            76.7694035,
+            30.7270458
+          ],
+          [
+            76.7704938,
+            30.7276977
+          ],
+          [
+            76.7733693,
+            30.7294952
+          ],
+          [
+            76.7735933,
+            30.7296354
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_50",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7746316,
+            30.7301648
+          ],
+          [
+            76.7744831,
+            30.730071
+          ],
+          [
+            76.7741406,
+            30.7298548
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_51",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7855813,
+            30.7371521
+          ],
+          [
+            76.7862963,
+            30.7375989
+          ],
+          [
+            76.7864815,
+            30.7377149
+          ],
+          [
+            76.7896929,
+            30.7397253
+          ],
+          [
+            76.7902647,
+            30.7400833
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_52",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7947367,
+            30.7428657
+          ],
+          [
+            76.7948157,
+            30.7429148
+          ],
+          [
+            76.7965271,
+            30.7439773
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_53",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.790975,
+            30.740528
+          ],
+          [
+            76.7910909,
+            30.7406005
+          ],
+          [
+            76.7914247,
+            30.7408095
+          ],
+          [
+            76.7917202,
+            30.740993
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_54",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7469414,
+            30.7129505
+          ],
+          [
+            76.7482171,
+            30.7137932
+          ],
+          [
+            76.7483808,
+            30.7139033
+          ],
+          [
+            76.7489892,
+            30.7143126
+          ],
+          [
+            76.7505477,
+            30.7152894
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_55",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7519132,
+            30.7160479
+          ],
+          [
+            76.751555,
+            30.7158105
+          ],
+          [
+            76.7514743,
+            30.7157599
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_56",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7511797,
+            30.7156887
+          ],
+          [
+            76.751206,
+            30.7157064
+          ],
+          [
+            76.7514019,
+            30.7158284
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_57",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7514019,
+            30.7158284
+          ],
+          [
+            76.7514871,
+            30.7158874
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_58",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7627419,
+            30.7228412
+          ],
+          [
+            76.7628214,
+            30.722888
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_59",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7625354,
+            30.7225882
+          ],
+          [
+            76.7578218,
+            30.7196399
+          ],
+          [
+            76.7575673,
+            30.7194772
+          ],
+          [
+            76.757474,
+            30.719401
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_60",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7735933,
+            30.7296354
+          ],
+          [
+            76.7739987,
+            30.7298891
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_61",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7676648,
+            30.7259429
+          ],
+          [
+            76.7677951,
+            30.7260603
+          ],
+          [
+            76.7678589,
+            30.7261455
+          ],
+          [
+            76.7678641,
+            30.7262411
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_62",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7566586,
+            30.7190283
+          ],
+          [
+            76.7567965,
+            30.719119
+          ],
+          [
+            76.7568454,
+            30.7191868
+          ],
+          [
+            76.7568727,
+            30.7192416
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_63",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7449428,
+            30.7117306
+          ],
+          [
+            76.7450869,
+            30.7118222
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_64",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7411307,
+            30.7092127
+          ],
+          [
+            76.7408135,
+            30.7090028
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_65",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.738692,
+            30.7074896
+          ],
+          [
+            76.7391882,
+            30.7077779
+          ],
+          [
+            76.7395584,
+            30.7080546
+          ],
+          [
+            76.7401002,
+            30.7085366
+          ],
+          [
+            76.7403613,
+            30.708767
+          ],
+          [
+            76.7407222,
+            30.7090723
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_66",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7404303,
+            30.7086896
+          ],
+          [
+            76.740186,
+            30.7084651
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_67",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7847892,
+            30.7366553
+          ],
+          [
+            76.7855157,
+            30.7371123
+          ],
+          [
+            76.7855332,
+            30.7371233
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_68",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7855928,
+            30.7370499
+          ],
+          [
+            76.7849273,
+            30.7366266
+          ],
+          [
+            76.7848574,
+            30.7365828
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_69",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7856413,
+            30.7370807
+          ],
+          [
+            76.7855928,
+            30.7370499
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_hm_70",
+      "properties": {
+        "roadName": "Himalaya Marg City Centre Corridor",
+        "pciScore": 76,
+        "color": "#F59E0B",
+        "status": "Moderate Wear"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7855332,
+            30.7371233
+          ],
+          [
+            76.7855813,
+            30.7371521
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_0",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7727811,
+            30.693243
+          ],
+          [
+            76.7736357,
+            30.6937928
+          ],
+          [
+            76.7743267,
+            30.6942419
+          ],
+          [
+            76.7746217,
+            30.6944773
+          ],
+          [
+            76.7747542,
+            30.6946162
+          ],
+          [
+            76.7748792,
+            30.6947667
+          ],
+          [
+            76.7753135,
+            30.6953254
+          ],
+          [
+            76.7756925,
+            30.6958338
+          ],
+          [
+            76.775868,
+            30.6960128
+          ],
+          [
+            76.7760377,
+            30.6961522
+          ],
+          [
+            76.776234,
+            30.6962693
+          ],
+          [
+            76.7765049,
+            30.6964111
+          ],
+          [
+            76.7767121,
+            30.6964838
+          ],
+          [
+            76.7770756,
+            30.6965509
+          ],
+          [
+            76.7775238,
+            30.6966676
+          ],
+          [
+            76.7776885,
+            30.6966864
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_1",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8065484,
+            30.7143715
+          ],
+          [
+            76.8068496,
+            30.7145599
+          ],
+          [
+            76.8069418,
+            30.7146175
+          ],
+          [
+            76.8072842,
+            30.7148317
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_2",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8186082,
+            30.7224285
+          ],
+          [
+            76.8185155,
+            30.7223647
+          ],
+          [
+            76.8178715,
+            30.721886
+          ],
+          [
+            76.8178148,
+            30.7218438
+          ],
+          [
+            76.8171413,
+            30.7213431
+          ],
+          [
+            76.8163132,
+            30.720767
+          ],
+          [
+            76.8151481,
+            30.7199078
+          ],
+          [
+            76.814993,
+            30.7198032
+          ],
+          [
+            76.8142393,
+            30.7192452
+          ],
+          [
+            76.8137449,
+            30.7188918
+          ],
+          [
+            76.8135366,
+            30.7187428
+          ],
+          [
+            76.8130211,
+            30.7183415
+          ],
+          [
+            76.8128007,
+            30.7181545
+          ],
+          [
+            76.8124693,
+            30.7178976
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_3",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8150401,
+            30.7199386
+          ],
+          [
+            76.8152238,
+            30.7200685
+          ],
+          [
+            76.8175367,
+            30.7217741
+          ],
+          [
+            76.8184331,
+            30.7224468
+          ],
+          [
+            76.8185225,
+            30.7225138
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_4",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8081588,
+            30.715188
+          ],
+          [
+            76.8078001,
+            30.7149665
+          ],
+          [
+            76.8077205,
+            30.7149173
+          ],
+          [
+            76.807471,
+            30.7147633
+          ],
+          [
+            76.8070422,
+            30.7144984
+          ],
+          [
+            76.8069468,
+            30.7144395
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_5",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8123584,
+            30.7180075
+          ],
+          [
+            76.8127144,
+            30.7182298
+          ],
+          [
+            76.812826,
+            30.7182969
+          ],
+          [
+            76.8136923,
+            30.7189454
+          ],
+          [
+            76.8141702,
+            30.7193119
+          ],
+          [
+            76.8149211,
+            30.7198644
+          ],
+          [
+            76.8150401,
+            30.7199386
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_6",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7844115,
+            30.7003861
+          ],
+          [
+            76.7841435,
+            30.7002237
+          ],
+          [
+            76.7840736,
+            30.7001786
+          ],
+          [
+            76.7838155,
+            30.7000064
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_7",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.780045,
+            30.6975116
+          ],
+          [
+            76.779033,
+            30.6969083
+          ],
+          [
+            76.7785638,
+            30.6966547
+          ],
+          [
+            76.7785032,
+            30.6966421
+          ],
+          [
+            76.7778657,
+            30.6965088
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_8",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7776734,
+            30.6964985
+          ],
+          [
+            76.7771508,
+            30.6964221
+          ],
+          [
+            76.7767637,
+            30.6963321
+          ],
+          [
+            76.7764413,
+            30.696203
+          ],
+          [
+            76.776267,
+            30.6960969
+          ],
+          [
+            76.7761577,
+            30.6960185
+          ],
+          [
+            76.7760484,
+            30.695932
+          ],
+          [
+            76.7758731,
+            30.6957633
+          ],
+          [
+            76.7757571,
+            30.6956243
+          ],
+          [
+            76.7754436,
+            30.6952066
+          ],
+          [
+            76.7750652,
+            30.6947044
+          ],
+          [
+            76.7749366,
+            30.694532
+          ],
+          [
+            76.7747879,
+            30.6943651
+          ],
+          [
+            76.7746241,
+            30.6942195
+          ],
+          [
+            76.7744485,
+            30.6940888
+          ],
+          [
+            76.7737001,
+            30.6935852
+          ],
+          [
+            76.7729993,
+            30.6931304
+          ],
+          [
+            76.7725985,
+            30.6928811
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_9",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7776885,
+            30.6966864
+          ],
+          [
+            76.7783506,
+            30.6967908
+          ],
+          [
+            76.7785445,
+            30.6968626
+          ],
+          [
+            76.7799347,
+            30.6976827
+          ],
+          [
+            76.7820479,
+            30.6990539
+          ],
+          [
+            76.7833016,
+            30.6998386
+          ],
+          [
+            76.7835323,
+            30.699983
+          ],
+          [
+            76.7836003,
+            30.7000256
+          ],
+          [
+            76.7837874,
+            30.7001416
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_10",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8124693,
+            30.7178976
+          ],
+          [
+            76.8123585,
+            30.7178184
+          ],
+          [
+            76.8119775,
+            30.7175465
+          ],
+          [
+            76.8117454,
+            30.7174032
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_11",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7943182,
+            30.7065435
+          ],
+          [
+            76.7920877,
+            30.7051142
+          ],
+          [
+            76.791113,
+            30.7045341
+          ],
+          [
+            76.7907274,
+            30.7043125
+          ],
+          [
+            76.7905788,
+            30.7041908
+          ],
+          [
+            76.7905282,
+            30.7040881
+          ],
+          [
+            76.7904677,
+            30.7039654
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_12",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8115441,
+            30.7174961
+          ],
+          [
+            76.8118318,
+            30.717676
+          ],
+          [
+            76.8122497,
+            30.7179391
+          ],
+          [
+            76.8123584,
+            30.7180075
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_13",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.766638,
+            30.6891533
+          ],
+          [
+            76.7665813,
+            30.6891174
+          ],
+          [
+            76.7663749,
+            30.6889869
+          ],
+          [
+            76.7657874,
+            30.6886491
+          ],
+          [
+            76.7652431,
+            30.6882911
+          ],
+          [
+            76.7650143,
+            30.6881465
+          ],
+          [
+            76.7645193,
+            30.6878613
+          ],
+          [
+            76.7640476,
+            30.6875561
+          ],
+          [
+            76.7635619,
+            30.6872148
+          ],
+          [
+            76.7630996,
+            30.6868975
+          ],
+          [
+            76.762217,
+            30.6864116
+          ],
+          [
+            76.7615491,
+            30.686014
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_14",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7619896,
+            30.6864065
+          ],
+          [
+            76.7632712,
+            30.6871688
+          ],
+          [
+            76.7639556,
+            30.6876507
+          ],
+          [
+            76.7651018,
+            30.6883634
+          ],
+          [
+            76.7658011,
+            30.688809
+          ],
+          [
+            76.7664352,
+            30.689213
+          ],
+          [
+            76.7665234,
+            30.6892692
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_15",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8072842,
+            30.7148317
+          ],
+          [
+            76.8076187,
+            30.7150409
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_16",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8076953,
+            30.7150888
+          ],
+          [
+            76.8115441,
+            30.7174961
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_17",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8069468,
+            30.7144395
+          ],
+          [
+            76.8061322,
+            30.7139364
+          ],
+          [
+            76.8011464,
+            30.7108136
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_18",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8011464,
+            30.7108136
+          ],
+          [
+            76.8010678,
+            30.7107644
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_19",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8076187,
+            30.7150409
+          ],
+          [
+            76.8076953,
+            30.7150888
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_20",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7951745,
+            30.707268
+          ],
+          [
+            76.7952737,
+            30.7073309
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_21",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7901934,
+            30.704309
+          ],
+          [
+            76.7903806,
+            30.7043581
+          ],
+          [
+            76.7906319,
+            30.7044555
+          ],
+          [
+            76.7908909,
+            30.7046159
+          ],
+          [
+            76.7939773,
+            30.7065278
+          ],
+          [
+            76.79421,
+            30.706672
+          ],
+          [
+            76.7942943,
+            30.7067242
+          ],
+          [
+            76.7945464,
+            30.7068803
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_22",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8117454,
+            30.7174032
+          ],
+          [
+            76.8111142,
+            30.7170133
+          ],
+          [
+            76.8081588,
+            30.715188
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_23",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7840704,
+            30.7003156
+          ],
+          [
+            76.7856405,
+            30.701298
+          ],
+          [
+            76.7878696,
+            30.7027056
+          ],
+          [
+            76.7890971,
+            30.7034239
+          ],
+          [
+            76.7893234,
+            30.7035808
+          ],
+          [
+            76.7894279,
+            30.703706
+          ],
+          [
+            76.7895063,
+            30.7037999
+          ],
+          [
+            76.7895616,
+            30.7039011
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_24",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7666413,
+            30.6893496
+          ],
+          [
+            76.7671994,
+            30.6897129
+          ],
+          [
+            76.7692986,
+            30.6910446
+          ],
+          [
+            76.7713412,
+            30.6923194
+          ],
+          [
+            76.772055,
+            30.6927885
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_25",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7725136,
+            30.6928299
+          ],
+          [
+            76.7696688,
+            30.6910307
+          ],
+          [
+            76.76682,
+            30.6892569
+          ],
+          [
+            76.7667614,
+            30.6892244
+          ],
+          [
+            76.766638,
+            30.6891533
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_26",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7837874,
+            30.7001416
+          ],
+          [
+            76.7839979,
+            30.7002722
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_27",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7839979,
+            30.7002722
+          ],
+          [
+            76.7840704,
+            30.7003156
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_28",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7836096,
+            30.6998869
+          ],
+          [
+            76.7821221,
+            30.6989348
+          ],
+          [
+            76.780045,
+            30.6975116
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_29",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7836832,
+            30.699934
+          ],
+          [
+            76.7836096,
+            30.6998869
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_30",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7838155,
+            30.7000064
+          ],
+          [
+            76.7836832,
+            30.699934
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_31",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7880127,
+            30.7025334
+          ],
+          [
+            76.7856953,
+            30.7012121
+          ],
+          [
+            76.7844115,
+            30.7003861
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_32",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.772055,
+            30.6927885
+          ],
+          [
+            76.7723838,
+            30.692995
+          ],
+          [
+            76.7724589,
+            30.6930439
+          ],
+          [
+            76.7727811,
+            30.693243
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_33",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7614189,
+            30.6860618
+          ],
+          [
+            76.7614795,
+            30.6861031
+          ],
+          [
+            76.7619896,
+            30.6864065
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_34",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7725985,
+            30.6928811
+          ],
+          [
+            76.7725136,
+            30.6928299
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_35",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7950468,
+            30.7069961
+          ],
+          [
+            76.7944027,
+            30.706596
+          ],
+          [
+            76.7943182,
+            30.7065435
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_36",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7956394,
+            30.7073644
+          ],
+          [
+            76.7953851,
+            30.7072049
+          ],
+          [
+            76.7952849,
+            30.707142
+          ],
+          [
+            76.7950468,
+            30.7069961
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_37",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7952737,
+            30.7073309
+          ],
+          [
+            76.8005672,
+            30.7106098
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_38",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7945464,
+            30.7068803
+          ],
+          [
+            76.7951745,
+            30.707268
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_39",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8010678,
+            30.7107644
+          ],
+          [
+            76.7956394,
+            30.7073644
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_40",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8005672,
+            30.7106098
+          ],
+          [
+            76.8009716,
+            30.7108603
+          ],
+          [
+            76.8010503,
+            30.710909
+          ],
+          [
+            76.8012026,
+            30.7110034
+          ],
+          [
+            76.8014455,
+            30.7111565
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_41",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.7615491,
+            30.686014
+          ],
+          [
+            76.7614859,
+            30.6859723
+          ]
+        ]
+      }
+    },
+    {
+      "type": "Feature",
+      "id": "seg_pm_42",
+      "properties": {
+        "roadName": "Purv Marg Industrial Arterial",
+        "pciScore": 82,
+        "color": "#10B981",
+        "status": "Smooth"
+      },
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            76.8014455,
+            30.7111565
+          ],
+          [
+            76.8060473,
+            30.7140581
+          ],
+          [
+            76.8065484,
+            30.7143715
+          ]
+        ]
+      }
+    }
+  ]
+}
