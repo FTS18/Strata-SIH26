@@ -1,19 +1,26 @@
 import os
 import sys
 import json
+import time
+import shutil
+import re
 
 # Ensure backend root is on PYTHONPATH
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from contextlib import asynccontextmanager
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from fastapi import FastAPI, WebSocket, WebSocketDisconnect, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from src.config import settings
 from src.schemas.telemetry import BusTelemetryPacket, RoadDefectEvent, IncidentEvent, TrafficDensityPacket
 from src.pipeline_manager import pipeline_manager
 
+import asyncio
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
+    # Set the main running asyncio loop for thread-safe WebSocket emissions
+    pipeline_manager.set_event_loop(asyncio.get_running_loop())
     # Auto-start multi-camera edge pipelines and port 8080 MJPEG server on backend boot
     pipeline_manager.start_all_pipelines()
     yield
@@ -114,6 +121,97 @@ async def get_latest_pedestrian():
 @app.get("/api/v1/vision/detections")
 async def get_vision_detections(cam: str = "cam1"):
     return pipeline_manager.get_vision_detections(cam)
+
+@app.get("/api/v1/vision/sources")
+async def get_camera_sources():
+    """Returns the current footage status and filenames for each camera."""
+    return pipeline_manager.get_camera_sources_status()
+
+@app.post("/api/v1/vision/upload-footage")
+async def upload_camera_footage(
+    cam: str = Form(...),
+    file: UploadFile = File(...)
+):
+    """Uploads and hot-swaps live footage for a specified camera stream."""
+    if cam not in ["cam1", "cam2", "cam3", "cam4"]:
+        raise HTTPException(status_code=400, detail=f"Invalid camera ID: '{cam}'. Expected cam1, cam2, cam3, or cam4.")
+
+    allowed_exts = {".mp4", ".avi", ".mov", ".mkv", ".webm", ".mjpeg"}
+    ext = os.path.splitext(file.filename or "")[1].lower()
+    if ext not in allowed_exts:
+        raise HTTPException(
+            status_code=400,
+            detail=f"Unsupported video format '{ext}'. Supported formats: {', '.join(sorted(allowed_exts))}"
+        )
+
+    # Sanitize filename and construct destination path
+    raw_name = file.filename or "custom_footage.mp4"
+    safe_name = re.sub(r"[^a-zA-Z0-9_.-]", "_", raw_name)
+    timestamp = int(time.time())
+    dest_filename = f"{cam}_{timestamp}_{safe_name}"
+
+    upload_dir = os.path.join(pipeline_manager.project_root, "frontend", "public", "videos", "uploads")
+    os.makedirs(upload_dir, exist_ok=True)
+    file_path = os.path.join(upload_dir, dest_filename)
+
+    try:
+        with open(file_path, "wb") as buffer:
+            shutil.copyfileobj(file.file, buffer)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Failed to save uploaded file: {e}")
+    finally:
+        await file.close()
+
+    # Hot-swap camera source in the pipeline manager
+    success = pipeline_manager.update_camera_source(cam, file_path, raw_name)
+    if not success:
+        try:
+            os.remove(file_path)
+        except Exception:
+            pass
+        raise HTTPException(
+            status_code=400,
+            detail="Failed to decode uploaded video stream. Please ensure the file is a valid, uncorrupted video."
+        )
+
+    await broadcast_to_clients("CAMERA_SOURCE_UPDATED", {
+        "cam": cam,
+        "is_custom": True,
+        "filename": raw_name,
+        "source_path": file_path
+    })
+
+    return {
+        "success": True,
+        "cam": cam,
+        "filename": raw_name,
+        "is_custom": True,
+        "message": f"Footage updated for {cam.upper()} successfully."
+    }
+
+@app.post("/api/v1/vision/reset-footage")
+async def reset_camera_footage(cam: str):
+    """Restores the default video footage for a specified camera."""
+    if cam not in ["cam1", "cam2", "cam3", "cam4"]:
+        raise HTTPException(status_code=400, detail=f"Invalid camera ID: '{cam}'.")
+
+    success = pipeline_manager.reset_camera_source(cam)
+    if not success:
+        raise HTTPException(status_code=500, detail=f"Failed to reset footage for {cam}.")
+
+    default_name = os.path.basename(pipeline_manager.default_camera_sources[cam])
+    await broadcast_to_clients("CAMERA_SOURCE_UPDATED", {
+        "cam": cam,
+        "is_custom": False,
+        "filename": default_name
+    })
+
+    return {
+        "success": True,
+        "cam": cam,
+        "is_custom": False,
+        "message": f"Footage for {cam.upper()} restored to default ({default_name})."
+    }
 
 
 @app.post("/api/v1/pedestrian/simulate")

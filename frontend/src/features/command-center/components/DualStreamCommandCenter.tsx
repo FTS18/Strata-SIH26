@@ -1,7 +1,7 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Video, Activity, Wifi, Radio, Zap, Camera, Shield, Eye, Users, Maximize2, X, HardDrive, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import React, { useState, useEffect, useRef } from 'react';
+import { Video, Activity, Wifi, Radio, Zap, Camera, Shield, Eye, Users, Maximize2, X, HardDrive, ShieldCheck, CheckCircle2, Upload, RotateCcw } from 'lucide-react';
 import { MapViewport } from '@/features/gis-map/components/MapViewport';
 import { LiveIncidentFeed } from '@/features/road-defects/components/LiveIncidentFeed';
 import { DefectInspectionDrawer } from '@/features/road-defects/components/DefectInspectionDrawer';
@@ -123,6 +123,117 @@ function ImuWaveform() {
   );
 }
 
+function FiveTierDetectionStrip({ camId }: { camId: string }) {
+  const [summary, setSummary] = useState({
+    vehicles_count: 0,
+    potholes_count: 0,
+    waterlogging_count: 0,
+    pedestrians_count: 0,
+    infrastructure_count: 0,
+  });
+
+  useEffect(() => {
+    let isMounted = true;
+    const poll = async () => {
+      try {
+        const res = await fetch(`http://localhost:8000/api/v1/vision/detections?cam=${camId}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted && data.summary) {
+            setSummary(data.summary);
+          }
+        }
+      } catch {
+        // Fallback
+      }
+    };
+    poll();
+    const iv = setInterval(poll, 1200);
+    return () => {
+      isMounted = false;
+      clearInterval(iv);
+    };
+  }, [camId]);
+
+  return (
+    <div className="rounded-xl border border-[#12544F] bg-[#0d3137] p-3 space-y-2">
+      <div className="flex items-center justify-between text-xs">
+        <div className="flex items-center gap-2">
+          <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
+          <span className="font-bold text-[#f0fdf4] font-mono text-[11px] uppercase tracking-wider">
+            5-Tier Edge AI Perception Engines
+          </span>
+        </div>
+        <span className="text-[10px] font-mono text-[#8BBB92]">
+          All 5 Models Active Simultaneously
+        </span>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-5 gap-1.5 font-mono text-[10px]">
+        {/* Tier 1: ANPR */}
+        <div className="flex flex-col gap-0.5 rounded-lg border border-emerald-800/60 bg-emerald-950/30 p-2 text-emerald-300">
+          <div className="flex items-center justify-between">
+            <span className="font-bold">1. ANPR Engine</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+          </div>
+          <span className="text-[9px] text-emerald-400/80">Plate OCR & Watchlist</span>
+          <span className="mt-1 font-bold text-white text-[11px]">HSRP ACTIVE</span>
+        </div>
+
+        {/* Tier 2: Pothole & Waterlogging */}
+        <div className="flex flex-col gap-0.5 rounded-lg border border-rose-800/60 bg-rose-950/30 p-2 text-rose-300">
+          <div className="flex items-center justify-between">
+            <span className="font-bold">2. Road Distress</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-rose-400 animate-pulse" />
+          </div>
+          <span className="text-[9px] text-rose-400/80">Pothole / Waterlogging</span>
+          <span className="mt-1 font-bold text-white text-[11px]">
+            {summary.potholes_count + summary.waterlogging_count > 0
+              ? `${summary.potholes_count + summary.waterlogging_count} DETECTED`
+              : 'SCANNING'}
+          </span>
+        </div>
+
+        {/* Tier 3: Traffic Density */}
+        <div className="flex flex-col gap-0.5 rounded-lg border border-amber-800/60 bg-amber-950/30 p-2 text-amber-300">
+          <div className="flex items-center justify-between">
+            <span className="font-bold">3. Traffic Flow</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-amber-400 animate-pulse" />
+          </div>
+          <span className="text-[9px] text-amber-400/80">Velocity & Headway</span>
+          <span className="mt-1 font-bold text-white text-[11px]">
+            {summary.vehicles_count > 0 ? `${summary.vehicles_count} VEHICLES` : 'MONITORED'}
+          </span>
+        </div>
+
+        {/* Tier 4: Pedestrian & Crowd */}
+        <div className="flex flex-col gap-0.5 rounded-lg border border-purple-800/60 bg-purple-950/30 p-2 text-purple-300">
+          <div className="flex items-center justify-between">
+            <span className="font-bold">4. Pedestrian/Crowd</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-purple-400 animate-pulse" />
+          </div>
+          <span className="text-[9px] text-purple-400/80">Queue Surge / School</span>
+          <span className="mt-1 font-bold text-white text-[11px]">
+            {summary.pedestrians_count > 0 ? `${summary.pedestrians_count} IN ZONE` : 'GUARD ACTIVE'}
+          </span>
+        </div>
+
+        {/* Tier 5: Road Infrastructure */}
+        <div className="col-span-2 sm:col-span-1 flex flex-col gap-0.5 rounded-lg border border-cyan-800/60 bg-cyan-950/30 p-2 text-cyan-300">
+          <div className="flex items-center justify-between">
+            <span className="font-bold">5. Road Markings</span>
+            <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse" />
+          </div>
+          <span className="text-[9px] text-cyan-400/80">Zebra / Speed Bumps</span>
+          <span className="mt-1 font-bold text-white text-[11px]">
+            {summary.infrastructure_count > 0 ? `${summary.infrastructure_count} ASSETS` : 'AUDITING'}
+          </span>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 const CAMERA_FEEDS = [
   {
     id: 'cam1',
@@ -194,6 +305,74 @@ export function DualStreamCommandCenter() {
   const [isSpeedBreakerModalOpen, setIsSpeedBreakerModalOpen] = useState(false);
   const [isRingBufferModalOpen, setIsRingBufferModalOpen] = useState(false);
   const [telemetryToast, setTelemetryToast] = useState<string | null>(null);
+
+  // Camera Custom Footage State
+  const [cameraSourcesStatus, setCameraSourcesStatus] = useState<Record<string, { is_custom: boolean; filename: string }>>({});
+  const [isUploading, setIsUploading] = useState(false);
+  const [streamBuster, setStreamBuster] = useState<number>(Date.now());
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const modalFileInputRef = useRef<HTMLInputElement | null>(null);
+
+  const fetchCameraSources = async () => {
+    try {
+      const res = await fetch('http://localhost:8000/api/v1/vision/sources');
+      if (res.ok) {
+        const data = await res.json();
+        setCameraSourcesStatus(data);
+      }
+    } catch {
+      // Offline fallback
+    }
+  };
+
+  useEffect(() => {
+    fetchCameraSources();
+    const interval = setInterval(fetchCameraSources, 6000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const handleFileUpload = async (camId: string, file: File) => {
+    setIsUploading(true);
+    showTelemetryToast(`Uploading footage for ${camId.toUpperCase()} (${file.name})...`);
+    const formData = new FormData();
+    formData.append('cam', camId);
+    formData.append('file', file);
+
+    try {
+      const res = await fetch('http://localhost:8000/api/v1/vision/upload-footage', {
+        method: 'POST',
+        body: formData,
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        showTelemetryToast(`Switched ${camId.toUpperCase()} to custom footage: ${file.name}`);
+        setStreamBuster(Date.now());
+        fetchCameraSources();
+      } else {
+        showTelemetryToast(`Upload failed: ${data.detail || 'Could not process video'}`);
+      }
+    } catch (err) {
+      showTelemetryToast(`Network error: ${err instanceof Error ? err.message : 'Upload failed'}`);
+    } finally {
+      setIsUploading(false);
+    }
+  };
+
+  const handleResetFootage = async (camId: string) => {
+    try {
+      const res = await fetch(`http://localhost:8000/api/v1/vision/reset-footage?cam=${camId}`, {
+        method: 'POST',
+      });
+      const data = await res.json();
+      if (res.ok && data.success) {
+        showTelemetryToast(`Restored default benchmark footage for ${camId.toUpperCase()}`);
+        setStreamBuster(Date.now());
+        fetchCameraSources();
+      }
+    } catch {
+      showTelemetryToast('Failed to reset footage');
+    }
+  };
 
   const handleSelectDefect = (defectId: string) => {
     setSelectedDefectId(defectId);
@@ -279,11 +458,12 @@ export function DualStreamCommandCenter() {
             {CAMERA_FEEDS.map((feed) => {
               const Icon = feed.icon;
               const isSelected = feed.id === selectedCamId;
+              const isCustom = cameraSourcesStatus[feed.id]?.is_custom;
               return (
                 <button
                   key={feed.id}
                   onClick={() => setSelectedCamId(feed.id)}
-                  className={`flex items-center justify-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-mono transition-all border ${
+                  className={`flex items-center justify-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-mono transition-all border relative ${
                     isSelected
                       ? 'bg-[#12544F] border-[#8BBB92] text-[#f0fdf4] font-bold shadow-md shadow-[#12544F]/40'
                       : 'bg-[#0d3137] border-[#12544F] text-[#8BBB92] hover:bg-[#12544F]/50 hover:text-[#f0fdf4]'
@@ -291,10 +471,75 @@ export function DualStreamCommandCenter() {
                 >
                   <Icon className={`h-3.5 w-3.5 ${isSelected ? 'text-[#8BBB92]' : 'text-[#5b9076]'}`} />
                   <span className="truncate">{feed.shortName}</span>
+                  {isCustom && (
+                    <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" title="Custom footage active" />
+                  )}
                   {isSelected && <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />}
                 </button>
               );
             })}
+          </div>
+
+          {/* Camera Footage Controls & Dedicated Upload Toolbar */}
+          <div className="flex flex-wrap items-center justify-between gap-2 rounded-lg border border-[#12544F] bg-[#0d3137] px-2.5 py-1.5 font-mono text-xs">
+            <div className="flex items-center gap-2 min-w-0">
+              <span className="text-[10px] font-bold text-[#8BBB92] uppercase">Source:</span>
+              {cameraSourcesStatus[selectedCamId]?.is_custom ? (
+                <div className="flex items-center gap-1.5 truncate">
+                  <span className="h-1.5 w-1.5 rounded-full bg-cyan-400 animate-pulse shrink-0" />
+                  <span className="text-cyan-300 font-bold truncate max-w-[170px] sm:max-w-[240px]">
+                    {cameraSourcesStatus[selectedCamId]?.filename}
+                  </span>
+                  <span className="rounded bg-cyan-950/80 border border-cyan-700/80 px-1 py-0.5 text-[9px] text-cyan-300 font-bold shrink-0">
+                    CUSTOM
+                  </span>
+                </div>
+              ) : (
+                <div className="flex items-center gap-1.5 text-[#5b9076] truncate">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 shrink-0" />
+                  <span className="truncate max-w-[170px] sm:max-w-[240px]">
+                    {cameraSourcesStatus[selectedCamId]?.filename || 'Default Benchmark Feed'}
+                  </span>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center gap-2 shrink-0">
+              <input
+                type="file"
+                ref={fileInputRef}
+                accept="video/mp4,video/quicktime,video/x-msvideo,video/webm"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    handleFileUpload(selectedCamId, file);
+                    e.target.value = '';
+                  }
+                }}
+              />
+
+              <button
+                disabled={isUploading}
+                onClick={() => fileInputRef.current?.click()}
+                className="flex items-center gap-1.5 rounded-lg border border-[#2A835F] bg-[#12544F] px-2.5 py-1 text-xs font-bold text-[#f0fdf4] hover:bg-[#2A835F] transition-all cursor-pointer shadow-sm disabled:opacity-50"
+                title={`Upload custom video footage for ${activeCam.shortName}`}
+              >
+                <Upload className="h-3.5 w-3.5 text-[#8BBB92]" />
+                <span>{isUploading ? 'Uploading...' : `Upload ${activeCam.shortName} Footage`}</span>
+              </button>
+
+              {cameraSourcesStatus[selectedCamId]?.is_custom && (
+                <button
+                  onClick={() => handleResetFootage(selectedCamId)}
+                  className="flex items-center gap-1 rounded-lg border border-amber-800/80 bg-amber-950/40 px-2 py-1 text-xs text-amber-300 hover:bg-amber-900/60 transition-colors cursor-pointer"
+                  title="Reset to default benchmark footage"
+                >
+                  <RotateCcw className="h-3 w-3 text-amber-400" />
+                  <span className="hidden sm:inline">Reset Default</span>
+                </button>
+              )}
+            </div>
           </div>
 
           {/* Live Video Frame Container */}
@@ -302,8 +547,8 @@ export function DualStreamCommandCenter() {
             {/* Live Raw Python YOLOv8 MJPEG Stream */}
             {activeCam.pythonStream && (
               <img
-                key={activeCam.pythonStream}
-                src={activeCam.pythonStream}
+                key={`${activeCam.pythonStream}_${streamBuster}`}
+                src={`${activeCam.pythonStream}&_t=${streamBuster}`}
                 alt={`Live Raw MJPEG Stream - ${activeCam.label}`}
                 className="absolute inset-0 h-full w-full object-cover z-0"
               />
@@ -353,6 +598,8 @@ export function DualStreamCommandCenter() {
             </div>
           </div>
 
+          {/* 5-Tier Edge AI Perception Status Strip */}
+          <FiveTierDetectionStrip camId={selectedCamId} />
 
           {/* Real-time Dynamic IMU Waveform */}
           <ImuWaveform />
@@ -458,6 +705,41 @@ export function DualStreamCommandCenter() {
                 </button>
               ))}
 
+              <input
+                type="file"
+                ref={modalFileInputRef}
+                accept="video/mp4,video/quicktime,video/x-msvideo,video/webm"
+                className="hidden"
+                onChange={(e) => {
+                  const file = e.target.files?.[0];
+                  if (file) {
+                    handleFileUpload(selectedCamId, file);
+                    e.target.value = '';
+                  }
+                }}
+              />
+
+              <button
+                disabled={isUploading}
+                onClick={() => modalFileInputRef.current?.click()}
+                className="flex items-center gap-1 rounded bg-[#12544F] border border-[#2A835F] px-2 py-1 text-xs font-mono text-[#f0fdf4] hover:bg-[#2A835F] transition-colors ml-1 cursor-pointer disabled:opacity-50"
+                title={`Upload footage for ${activeCam.shortName}`}
+              >
+                <Upload className="h-3 w-3 text-[#8BBB92]" />
+                <span className="hidden sm:inline">Upload</span>
+              </button>
+
+              {cameraSourcesStatus[selectedCamId]?.is_custom && (
+                <button
+                  onClick={() => handleResetFootage(selectedCamId)}
+                  className="flex items-center gap-1 rounded bg-amber-950/40 border border-amber-800/80 px-2 py-1 text-xs font-mono text-amber-300 hover:bg-amber-900/60 transition-colors cursor-pointer"
+                  title="Reset to default footage"
+                >
+                  <RotateCcw className="h-3 w-3 text-amber-400" />
+                  <span className="hidden sm:inline">Reset</span>
+                </button>
+              )}
+
               <button
                 onClick={() => setIsExpandedModal(false)}
                 className="flex items-center justify-center rounded-lg bg-[#0d3137] p-1.5 text-[#8BBB92] hover:text-[#f0fdf4] hover:bg-rose-900/50 border border-[#12544F] transition-colors ml-2"
@@ -473,8 +755,8 @@ export function DualStreamCommandCenter() {
             {/* Live Raw Python YOLOv8 MJPEG Stream for active camera */}
             {activeCam.pythonStream && (
               <img
-                key={activeCam.pythonStream}
-                src={activeCam.pythonStream}
+                key={`${activeCam.pythonStream}_modal_${streamBuster}`}
+                src={`${activeCam.pythonStream}&_t=${streamBuster}`}
                 alt={`Expanded Raw MJPEG Stream - ${activeCam.label}`}
                 className="absolute inset-0 h-full w-full object-contain z-0"
               />

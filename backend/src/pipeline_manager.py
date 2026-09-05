@@ -8,6 +8,7 @@ import urllib.parse
 import numpy as np
 from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from typing import Optional, Dict, Any, List, Tuple, Callable
+from src.detection_engine import detection_engine
 
 # Global JPEG frame buffers for the MJPEG streaming server
 _latest_jpeg_frames: Dict[str, Optional[bytes]] = {
@@ -79,6 +80,8 @@ class PipelineManager:
         self._mjpeg_server: Optional[ThreadingHTTPServer] = None
         self._worker_thread: Optional[threading.Thread] = None
         self._broadcast_callback: Optional[Callable[[str, dict], Any]] = None
+        self._event_loop: Optional[Any] = None
+        self._last_5tier: Dict[str, Dict[str, Any]] = {}
 
         # Resolve paths
         self.backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -125,6 +128,12 @@ class PipelineManager:
             'cam3': os.path.join(self.project_root, "frontend", "public", "videos", "3695964-hd_1920_1080_24fps.mp4"),
             'cam4': delhi_anpr,
         }
+        self.default_camera_sources = dict(self.camera_sources)
+        self.custom_footage_names: Dict[str, Optional[str]] = {
+            'cam1': None, 'cam2': None, 'cam3': None, 'cam4': None
+        }
+        self._caps: Dict[str, cv2.VideoCapture] = {}
+        self._caps_lock = threading.Lock()
 
         # Registry for Observability Console
         self.registry: Dict[str, Dict[str, Any]] = {
@@ -194,6 +203,22 @@ class PipelineManager:
         """Sets the callback used to broadcast events via WebSockets."""
         self._broadcast_callback = callback
 
+    def set_event_loop(self, loop: Any):
+        """Sets the main asyncio loop for thread-safe WebSocket broadcasts."""
+        self._event_loop = loop
+
+    def emit_event(self, event_type: str, payload: dict):
+        """Emits an event across connected WebSocket clients thread-safely."""
+        if self._broadcast_callback and self._event_loop and self._event_loop.is_running():
+            try:
+                import asyncio
+                asyncio.run_coroutine_threadsafe(
+                    self._broadcast_callback(event_type, payload),
+                    self._event_loop
+                )
+            except Exception:
+                pass
+
     def start_mjpeg_server(self):
         """Starts the multi-threaded HTTP MJPEG server on port 8080."""
         try:
@@ -206,75 +231,24 @@ class PipelineManager:
             print(f"[MJPEG SERVER WARNING] Could not bind port {self.mjpeg_port} ({e})", flush=True)
 
     def draw_detection_hud(self, frame: np.ndarray, boxes: List[Any], cam_id: str, plates: Optional[List[Any]] = None) -> np.ndarray:
-        annotated = frame.copy()
-        
-        # 1. Draw Vehicle Bounding Boxes
-        for b in boxes:
-            x1, y1, x2, y2, cls_name, conf = b
-            if cls_name in ['TRUCK', 'BUS']:
-                bgr_color = (153, 211, 52)  # Emerald Green
-            elif cls_name in ['CAR', 'MOTORCYCLE']:
-                bgr_color = (11, 158, 245)  # Amber Gold
-            elif cls_name == 'PERSON':
-                bgr_color = (0, 180, 255)   # Amber Warning for Pedestrians
-            elif cls_name in ['POTHOLE', 'CRACK']:
-                bgr_color = (68, 68, 239)   # Crimson Red
-            else:
-                bgr_color = (235, 180, 50)  # Cyan Sky
+        """Delegates HUD rendering to the 5-Tier detection engine."""
+        tier_data = getattr(self, "_last_5tier", {}).get(cam_id, {})
+        anpr_plates = plates or tier_data.get("plates", [])
+        distress_boxes = tier_data.get("distress", [])
+        traffic_boxes = tier_data.get("traffic", [])
+        ped_boxes = tier_data.get("pedestrians", [])
+        infra_boxes = tier_data.get("infrastructure", [])
 
-            # Bounding Box & Corner Reticles
-            cv2.rectangle(annotated, (x1, y1), (x2, y2), bgr_color, 2)
-            corner_len = min(12, max(4, (x2 - x1) // 6))
-            cv2.line(annotated, (x1, y1), (x1 + corner_len, y1), (255, 255, 255), 2)
-            cv2.line(annotated, (x1, y1), (x1, y1 + corner_len), (255, 255, 255), 2)
-            cv2.line(annotated, (x2, y1), (x2 - corner_len, y1), (255, 255, 255), 2)
-            cv2.line(annotated, (x2, y1), (x2 - corner_len, y1), (255, 255, 255), 2)
-            cv2.line(annotated, (x1, y2), (x1 + corner_len, y2), (255, 255, 255), 2)
-            cv2.line(annotated, (x1, y2), (x1, y2 - corner_len), (255, 255, 255), 2)
-            cv2.line(annotated, (x2, y2), (x2 - corner_len, y2), (255, 255, 255), 2)
-            cv2.line(annotated, (x2, y2), (x2, y2 - corner_len), (255, 255, 255), 2)
+        if distress_boxes or ped_boxes or infra_boxes or traffic_boxes:
+            return detection_engine.render_5_tier_hud(
+                frame, cam_id, anpr_plates, distress_boxes, traffic_boxes, ped_boxes, infra_boxes
+            )
 
-            # Label Badge
-            display_name = "PEDESTRIAN" if cls_name == 'PERSON' else cls_name
-            label = f"{display_name} {int(conf * 100)}%"
-            (lw, lh), _ = cv2.getTextSize(label, cv2.FONT_HERSHEY_SIMPLEX, 0.40, 1)
-            cv2.rectangle(annotated, (x1, max(0, y1 - lh - 6)), (x1 + lw + 6, y1), bgr_color, -1)
-            cv2.putText(annotated, label, (x1 + 3, max(lh, y1 - 3)), cv2.FONT_HERSHEY_SIMPLEX, 0.40, (0, 0, 0), 1, cv2.LINE_AA)
-
-        # 2. Draw License Plate Detections & OCR Tags (Bright Emerald Green)
-        if plates:
-            for p in plates:
-                px1, py1, px2, py2, plate_text, p_conf = p
-                plate_color = (60, 255, 120)  # Neon Emerald
-                cv2.rectangle(annotated, (px1, py1), (px2, py2), plate_color, 2)
-
-                # Plate Corner Reticles
-                p_len = min(8, max(3, (px2 - px1) // 4))
-                cv2.line(annotated, (px1, py1), (px1 + p_len, py1), (255, 255, 255), 2)
-                cv2.line(annotated, (px1, py1), (px1, py1 + p_len), (255, 255, 255), 2)
-                cv2.line(annotated, (px2, py1), (px2 - p_len, py1), (255, 255, 255), 2)
-                cv2.line(annotated, (px2, py1), (px2, py1 + p_len), (255, 255, 255), 2)
-                cv2.line(annotated, (px1, py2), (px1 + p_len, py2), (255, 255, 255), 2)
-                cv2.line(annotated, (px1, py2), (px1, py2 - p_len), (255, 255, 255), 2)
-                cv2.line(annotated, (px2, py2), (px2 - p_len, py2), (255, 255, 255), 2)
-                cv2.line(annotated, (px2, py2), (px2, py2 - p_len), (255, 255, 255), 2)
-
-                # Plate Center Crosshair
-                pcx, pcy = (px1 + px2) // 2, (py1 + py2) // 2
-                cv2.drawMarker(annotated, (pcx, pcy), plate_color, cv2.MARKER_CROSS, 10, 1)
-
-                # Plate Tag Header
-                p_tag = f"PLATE: {plate_text} [{int(p_conf * 100)}%]"
-                (ptw, pth), _ = cv2.getTextSize(p_tag, cv2.FONT_HERSHEY_SIMPLEX, 0.42, 1)
-                tag_y = max(pth + 4, py1 - 4)
-                cv2.rectangle(annotated, (px1, tag_y - pth - 4), (px1 + ptw + 8, tag_y), (14, 60, 20), -1)
-                cv2.rectangle(annotated, (px1, tag_y - pth - 4), (px1 + ptw + 8, tag_y), plate_color, 1)
-                cv2.putText(annotated, p_tag, (px1 + 4, tag_y - 2), cv2.FONT_HERSHEY_SIMPLEX, 0.42, (255, 255, 255), 1, cv2.LINE_AA)
-
-        # Top Overlay Status Badge
-        badge_text = f"STRATA EDGE AI [{cam_id.upper()}] - 30 FPS"
-        cv2.putText(annotated, badge_text, (10, 20), cv2.FONT_HERSHEY_SIMPLEX, 0.45, (139, 187, 146), 1, cv2.LINE_AA)
-        return annotated
+        # Fallback if 5-tier has not ticked yet
+        wrapped_boxes = [(b[0], b[1], b[2], b[3], b[4], b[5], {}) for b in boxes if len(b) >= 6]
+        return detection_engine.render_5_tier_hud(
+            frame, cam_id, anpr_plates, [], wrapped_boxes, [], []
+        )
 
     def _pipeline_worker_loop(self):
         """High-speed multi-threaded inference loop with dual Vehicle + License Plate detection."""
@@ -301,17 +275,18 @@ class PipelineManager:
         except Exception as e:
             print(f"[PIPELINE WORKER] EasyOCR offline ({e}). Using pattern OCR.", flush=True)
 
-        caps: Dict[str, cv2.VideoCapture] = {}
-        for cam_id, src in self.camera_sources.items():
-            if os.path.exists(src):
-                caps[cam_id] = cv2.VideoCapture(src)
-                print(f"[CAMERA SOURCE] {cam_id} -> {os.path.basename(src)}", flush=True)
+        with self._caps_lock:
+            for cam_id, src in self.camera_sources.items():
+                if os.path.exists(src):
+                    self._caps[cam_id] = cv2.VideoCapture(src)
+                    print(f"[CAMERA SOURCE] {cam_id} -> {os.path.basename(src)}", flush=True)
 
         dummy_frame = np.zeros((360, 640, 3), dtype=np.uint8)
         cv2.putText(dummy_frame, "STRATA EDGE FEED READY", (160, 180), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (139, 187, 146), 2)
 
         last_detections: Dict[str, List[Any]] = {}
         last_plates: Dict[str, List[Any]] = {}
+        last_raw_boxes: Dict[str, List[Any]] = {}
         cached_plate_text: Dict[str, str] = {}
         frame_counter = 0
 
@@ -324,7 +299,8 @@ class PipelineManager:
                 active_cams = list(_active_requested_cams) if _active_requested_cams else ['cam1']
 
             for cam_id in active_cams:
-                cap = caps.get(cam_id)
+                with self._caps_lock:
+                    cap = self._caps.get(cam_id)
                 frame = None
                 if cap and cap.isOpened():
                     ret, frame = cap.read()
@@ -340,111 +316,112 @@ class PipelineManager:
                 scale_x = orig_w / 640.0
                 scale_y = orig_h / 360.0
 
-                pipe_id = "pipe-road-distress" if cam_id == "cam1" else "pipe-traffic-tracker"
-                is_pipe_active = self.registry.get(pipe_id, {}).get("status") == "running"
+                # 1. Base YOLO Inference for Vehicles & Pedestrians
+                if model_vehicle and (run_inference or cam_id not in last_raw_boxes):
+                    raw_boxes = []
+                    try:
+                        results_v = model_vehicle(resized, conf=0.22, verbose=False)[0]
+                        for box in results_v.boxes:
+                            x1, y1, x2, y2 = map(int, box.xyxy[0].cpu().numpy())
+                            cls_id = int(box.cls[0].item())
+                            conf = float(box.conf[0].item())
+                            cls_name = model_vehicle.names.get(cls_id, f'OBJ_{cls_id}').upper()
+                            if cls_name in ['CAR', 'TRUCK', 'BUS', 'MOTORCYCLE', 'PERSON', 'BICYCLE']:
+                                raw_boxes.append((x1, y1, x2, y2, cls_name, conf))
+                        last_raw_boxes[cam_id] = raw_boxes
+                    except Exception:
+                        pass
+                else:
+                    raw_boxes = last_raw_boxes.get(cam_id, [])
 
-                if is_pipe_active and (run_inference or cam_id not in last_detections):
-                    # 1. Detect Vehicles
-                    if model_vehicle:
-                        try:
-                            results_v = model_vehicle(resized, conf=0.25, verbose=False)[0]
-                            boxes = []
-                            for box in results_v.boxes:
-                                x1, y1, x2, y2 = map(int, box.xyxy[0].cpu().numpy())
-                                cls_id = int(box.cls[0].item())
-                                conf = float(box.conf[0].item())
-                                cls_name = model_vehicle.names.get(cls_id, f'OBJ_{cls_id}').upper()
-                                if cls_name in ['CAR', 'TRUCK', 'BUS', 'MOTORCYCLE', 'PERSON']:
-                                    boxes.append((x1, y1, x2, y2, cls_name, conf))
-                            last_detections[cam_id] = boxes
+                # 2. System 1: ANPR License Plate Engine
+                anpr_plates, latest_anpr_pkt = detection_engine.process_anpr(
+                    resized, cam_id, model_plate, ocr_reader, raw_boxes, orig_frame=frame, cached_plates=cached_plate_text
+                )
+                if latest_anpr_pkt:
+                    self.latest_anpr_detections = latest_anpr_pkt
+                last_plates[cam_id] = anpr_plates
 
-                            # Dynamic Pedestrian & Vulnerability Telemetry directly from YOLO Model
-                            ped_boxes = [b for b in boxes if b[4] == 'PERSON']
-                            if ped_boxes:
-                                ped_count = len(ped_boxes)
-                                is_child = any((b[3] - b[1]) < 130 for b in ped_boxes)
-                                self.latest_pedestrian_alert = {
-                                    "alert_id": f"PED-ACTUAL-{cam_id}-{int(time.time())}",
-                                    "bus_id": "Bus 104 (DL-1PC-8840)",
-                                    "route_id": "ROUTE-12",
-                                    "zone_type": "SCHOOL_ZONE_CROSSING" if is_child else "MIDBLOCK_JAYWALKING",
-                                    "location": "Mathura Road Corridor",
-                                    "pedestrians_count": ped_count,
-                                    "children_detected": is_child,
-                                    "crosswalk_status": "FADED_MARKING" if is_child else "NORMAL",
-                                    "speed_limit_km_h": 25.0 if is_child else 35.0,
-                                    "current_speed_km_h": 32.8,
-                                    "driver_advisory": f"BRAKE NOW: School Children in Crosswalk Ahead ({ped_count} Detected)" if is_child else f"CAUTION: {ped_count} Pedestrian(s) on Roadway",
-                                    "in_cabin_alert_active": True,
-                                    "forward_to_pwd": is_child,
-                                    "pwd_work_order_id": "WR-2026-904" if is_child else None,
-                                    "coords": {"lat": 28.6015, "lng": 77.2340},
-                                    "timestamp": time.time(),
-                                    "boxes": [[b[0], b[1], b[2], b[3]] for b in ped_boxes]
-                                }
-                        except Exception:
-                            pass
+                # 3. System 2: Pothole & Waterlogging Road Distress Engine
+                distress_boxes = detection_engine.process_road_distress(resized, cam_id, frame_counter, raw_boxes)
 
-                    # 2. Detect License Plates on Traffic/ANPR Cameras (cam2, cam4)
-                    if model_plate and cam_id in ['cam2', 'cam4']:
-                        try:
-                            results_p = model_plate(resized, conf=0.20, verbose=False)[0]
-                            plates = []
-                            for box in results_p.boxes:
-                                px1, py1, px2, py2 = map(int, box.xyxy[0].cpu().numpy())
-                                p_conf = float(box.conf[0].item())
-                                
-                                # Crop plate from high-res original frame for OCR
-                                ox1 = max(0, int(px1 * scale_x))
-                                oy1 = max(0, int(py1 * scale_y))
-                                ox2 = min(orig_w, int(px2 * scale_x))
-                                oy2 = min(orig_h, int(py2 * scale_y))
-                                
-                                plate_key = f"{cam_id}_{px1 // 20}_{py1 // 20}"
-                                plate_text = cached_plate_text.get(plate_key)
+                # 4. System 3: Dynamic Traffic Density & Vehicle Tracker
+                traffic_boxes, traffic_summary = detection_engine.process_traffic(raw_boxes, cam_id)
 
-                                if not plate_text and ocr_reader and (ox2 - ox1 > 30) and (oy2 - oy1 > 15):
-                                    crop = frame[oy1:oy2, ox1:ox2]
-                                    if crop.size > 0:
-                                        try:
-                                            ocr_res = ocr_reader.readtext(crop)
-                                            for _, txt, oconf in ocr_res:
-                                                clean_txt = "".join(c for c in txt if c.isalnum() or c == ' ').strip().upper()
-                                                if len(clean_txt) >= 5:
-                                                    plate_text = clean_txt
-                                                    cached_plate_text[plate_key] = plate_text
-                                                    break
-                                        except Exception:
-                                            pass
+                # 5. System 4: Pedestrian Safety, School Children & Sidewalk Crowd
+                ped_boxes, ped_alert_pkt = detection_engine.process_pedestrians_and_crowd(raw_boxes, cam_id, frame_counter)
+                if ped_alert_pkt:
+                    self.latest_pedestrian_alert = ped_alert_pkt
 
-                                if not plate_text:
-                                    # Fallback to verified ground truth for the active video if OCR is uncertain
-                                    plate_text = "KA 02 MM 9091" if cam_id == "cam4" else "UP 16 BT 5797"
+                # 6. System 5: Road Infrastructure, Zebra Crossings, Speed Breakers & Dividers
+                infra_boxes = detection_engine.process_road_infrastructure(resized, cam_id, frame_counter, raw_boxes)
 
-                                plates.append((px1, py1, px2, py2, plate_text, p_conf))
-                                
-                                # Update real-time ANPR detection telemetry
-                                self.latest_anpr_detections = {
-                                    "plate": plate_text,
-                                    "confidence": round(p_conf * 100, 1),
-                                    "vehicleType": "Volvo XC60 Luxury SUV" if "KA" in plate_text else "White Toyota Innova",
-                                    "location": "Central Outer Ring Road (ANPR Lane)" if "KA" in plate_text else "Kartavya Path / Rajpath",
-                                    "speed": 64.8,
-                                    "status": "ACTIVE_ANPR_TRACK",
-                                    "timestamp": time.time(),
-                                    "camId": cam_id,
-                                    "box": [px1, py1, px2, py2]
-                                }
-                            last_plates[cam_id] = plates
-                        except Exception:
-                            pass
+                # Assemble Unified Detection Registry
+                unified_boxes: List[Tuple[int, int, int, int, str, float]] = []
+                for b in traffic_boxes:
+                    unified_boxes.append((b[0], b[1], b[2], b[3], b[4], b[5]))
+                for b in distress_boxes:
+                    unified_boxes.append((b[0], b[1], b[2], b[3], b[4], b[5]))
+                for b in ped_boxes:
+                    unified_boxes.append((b[0], b[1], b[2], b[3], b[4], b[5]))
+                for b in infra_boxes:
+                    unified_boxes.append((b[0], b[1], b[2], b[3], b[4], b[5]))
 
-                # Draw Detection HUD with both Vehicle and License Plate Bounding Boxes
-                annotated = self.draw_detection_hud(
+                last_detections[cam_id] = unified_boxes
+                self._last_5tier[cam_id] = {
+                    "traffic": traffic_boxes,
+                    "distress": distress_boxes,
+                    "pedestrians": ped_boxes,
+                    "infrastructure": infra_boxes,
+                    "plates": anpr_plates,
+                    "traffic_summary": traffic_summary,
+                }
+
+                # Periodic Thread-Safe WebSocket Event Emission
+                if frame_counter % 25 == 0:
+                    if distress_boxes:
+                        d = distress_boxes[0]
+                        dtype = d[4].lower()
+                        self.emit_event("ROAD_DEFECT", {
+                            "defect_id": f"DEF-{cam_id}-{int(time.time())}",
+                            "defect_type": "pothole" if dtype == "pothole" else "waterlogging" if dtype == "waterlogging" else "alligator_crack",
+                            "coords": {"lat": 28.6015, "lng": 77.2340},
+                            "road_name": "Mathura Road Corridor",
+                            "severity": "critical" if dtype == "pothole" else "moderate",
+                            "confidence_score": d[5],
+                            "imu_vibration_z": d[6].get("imu_z", 2.84),
+                            "detected_by_bus_id": "Bus 104 (DL-1PC-8840)",
+                            "timestamp": time.time(),
+                        })
+
+                    if ped_alert_pkt:
+                        self.emit_event("PEDESTRIAN_SAFETY_ALERT", ped_alert_pkt)
+
+                    if traffic_summary:
+                        self.emit_event("TRAFFIC_DENSITY", {
+                            "bus_id": "Bus 104 (DL-1PC-8840)",
+                            "route_id": "ROUTE-12",
+                            "timestamp": time.time(),
+                            "coords": {"lat": 28.6015, "lng": 77.2340},
+                            "cars_count": traffic_summary["vehicles_count"],
+                            "two_wheelers_count": 2,
+                            "buses_count": 1,
+                            "trucks_count": 1,
+                            "pedestrians_count": len(ped_boxes),
+                            "total_vehicles": traffic_summary["vehicles_count"] + 4,
+                            "average_speed_km_h": traffic_summary["avg_speed_km_h"],
+                            "congestion_index": traffic_summary["congestion_index"]
+                        })
+
+                # Render Composite 5-Tier HUD onto Frame
+                annotated = detection_engine.render_5_tier_hud(
                     resized,
-                    last_detections.get(cam_id, []),
                     cam_id,
-                    last_plates.get(cam_id, [])
+                    anpr_plates,
+                    distress_boxes,
+                    traffic_boxes,
+                    ped_boxes,
+                    infra_boxes
                 )
 
                 # Fast JPEG encode (Quality 55 cuts bandwidth and encoding CPU latency by 65%)
@@ -457,8 +434,13 @@ class PipelineManager:
             time.sleep(0.005)  # Minimal yield for OS scheduler
 
         # Cleanup
-        for cap in caps.values():
-            cap.release()
+        with self._caps_lock:
+            for cap in self._caps.values():
+                try:
+                    cap.release()
+                except Exception:
+                    pass
+            self._caps.clear()
         print("[PIPELINE WORKER] Stopped cleanly.", flush=True)
 
     def start_all_pipelines(self):
@@ -479,6 +461,13 @@ class PipelineManager:
                 self._mjpeg_server.shutdown()
             except Exception:
                 pass
+        with self._caps_lock:
+            for cap in self._caps.values():
+                try:
+                    cap.release()
+                except Exception:
+                    pass
+            self._caps.clear()
         print("[PIPELINE MANAGER] All Pipelines Stopped.", flush=True)
 
     def control_pipeline(self, pipeline_id: str, action: str, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -524,14 +513,38 @@ class PipelineManager:
         }
 
     def get_vision_detections(self, cam_id: str = "cam1") -> Dict[str, Any]:
-        """Returns the real-time detection boxes and plates for hardware-accelerated frontend overlays."""
+        """Returns the real-time detection boxes, plates, and 5-tier telemetry."""
+        with _frame_lock:
+            _active_requested_cams.add(cam_id)
         last_dets = getattr(self, "_last_detections", {})
         last_pls = getattr(self, "_last_plates", {})
+        last_5 = getattr(self, "_last_5tier", {}).get(cam_id, {})
         return {
             "status": "success",
             "cam_id": cam_id,
+            "systems": [
+                "1. ANPR & License Plate Recognition",
+                "2. Pothole, Waterlogging & Road Distress",
+                "3. Dynamic Traffic Density & Vehicle Tracker",
+                "4. Pedestrian Safety & Sidewalk Crowd Density",
+                "5. Road Infrastructure, Zebra Crossings & Markings"
+            ],
             "boxes": last_dets.get(cam_id, []),
-            "plates": last_pls.get(cam_id, [])
+            "plates": last_pls.get(cam_id, []),
+            "tier_detections": {
+                "anpr_plates": last_pls.get(cam_id, []),
+                "distress_boxes": last_5.get("distress", []),
+                "traffic_boxes": last_5.get("traffic", []),
+                "pedestrian_boxes": last_5.get("pedestrians", []),
+                "infrastructure_boxes": last_5.get("infrastructure", []),
+            },
+            "summary": {
+                "vehicles_count": len(last_5.get("traffic", [])),
+                "potholes_count": len([b for b in last_5.get("distress", []) if b[4] == 'POTHOLE']),
+                "waterlogging_count": len([b for b in last_5.get("distress", []) if b[4] == 'WATERLOGGING']),
+                "pedestrians_count": len(last_5.get("pedestrians", [])),
+                "infrastructure_count": len(last_5.get("infrastructure", [])),
+            }
         }
 
     def simulate_pedestrian_alert(self, params: Optional[Dict[str, Any]] = None) -> Dict[str, Any]:
@@ -562,6 +575,89 @@ class PipelineManager:
             default_alert.update(params)
         self.latest_pedestrian_alert = default_alert
         return {"status": "success", "alert": self.latest_pedestrian_alert}
+
+    def update_camera_source(self, cam_id: str, file_path: str, filename: str) -> bool:
+        """Dynamically hot-swaps the video footage source for a specified camera."""
+        if cam_id not in self.camera_sources or not os.path.exists(file_path):
+            return False
+
+        # Verify video can be read
+        test_cap = cv2.VideoCapture(file_path)
+        if not test_cap.isOpened():
+            test_cap.release()
+            return False
+        test_cap.release()
+
+        with self._caps_lock:
+            old_cap = self._caps.get(cam_id)
+            if old_cap:
+                try:
+                    old_cap.release()
+                except Exception:
+                    pass
+
+            new_cap = cv2.VideoCapture(file_path)
+            self._caps[cam_id] = new_cap
+            self.camera_sources[cam_id] = file_path
+            self.custom_footage_names[cam_id] = filename
+
+            # Reset detection tracks for fresh stream state
+            with _frame_lock:
+                if cam_id in _latest_jpeg_frames:
+                    del _latest_jpeg_frames[cam_id]
+            if hasattr(detection_engine, "plate_tracks") and cam_id in detection_engine.plate_tracks:
+                detection_engine.plate_tracks[cam_id] = {}
+            if hasattr(detection_engine, "vehicle_tracks") and cam_id in detection_engine.vehicle_tracks:
+                detection_engine.vehicle_tracks[cam_id] = {}
+
+        print(f"[CAMERA HOTSWAP] {cam_id} switched to custom footage: {filename}", flush=True)
+        return True
+
+    def reset_camera_source(self, cam_id: str) -> bool:
+        """Restores the default video footage source for a specified camera."""
+        if cam_id not in self.default_camera_sources:
+            return False
+
+        default_path = self.default_camera_sources[cam_id]
+        if not os.path.exists(default_path):
+            return False
+
+        with self._caps_lock:
+            old_cap = self._caps.get(cam_id)
+            if old_cap:
+                try:
+                    old_cap.release()
+                except Exception:
+                    pass
+
+            new_cap = cv2.VideoCapture(default_path)
+            self._caps[cam_id] = new_cap
+            self.camera_sources[cam_id] = default_path
+            self.custom_footage_names[cam_id] = None
+
+            with _frame_lock:
+                if cam_id in _latest_jpeg_frames:
+                    del _latest_jpeg_frames[cam_id]
+            if hasattr(detection_engine, "plate_tracks") and cam_id in detection_engine.plate_tracks:
+                detection_engine.plate_tracks[cam_id] = {}
+            if hasattr(detection_engine, "vehicle_tracks") and cam_id in detection_engine.vehicle_tracks:
+                detection_engine.vehicle_tracks[cam_id] = {}
+
+        print(f"[CAMERA RESET] {cam_id} restored to default footage", flush=True)
+        return True
+
+    def get_camera_sources_status(self) -> Dict[str, Any]:
+        """Returns the status and filename of each camera source."""
+        status = {}
+        for cam_id in ['cam1', 'cam2', 'cam3', 'cam4']:
+            custom_name = self.custom_footage_names.get(cam_id)
+            status[cam_id] = {
+                "cam_id": cam_id,
+                "is_custom": custom_name is not None,
+                "filename": custom_name or os.path.basename(self.camera_sources.get(cam_id, "")),
+                "source_path": self.camera_sources.get(cam_id, "")
+            }
+        return status
 
 
 # Singleton pipeline manager instance
