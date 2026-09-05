@@ -174,122 +174,10 @@ const CAMERA_FEEDS = [
   },
 ];
 
-interface StabilizedTrack {
-  id: string;
-  x: number;
-  y: number;
-  w: number;
-  h: number;
-  clsName: string;
-  conf: number;
-  lastSeen: number;
-}
-
 export function DualStreamCommandCenter() {
   const [selectedCamId, setSelectedCamId] = useState('cam1');
-  const [streamMode, setStreamMode] = useState<'smooth_hud' | 'live_mjpeg'>('smooth_hud');
-  const [stabilizedBoxes, setStabilizedBoxes] = useState<StabilizedTrack[]>([]);
-  const [livePlates, setLivePlates] = useState<any[]>([]);
   const [isExpandedModal, setIsExpandedModal] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-
-  // Poll real-time vision detections with EMA coordinate smoothing and track persistence
-  useEffect(() => {
-    let isMounted = true;
-    const fetchDetections = async () => {
-      try {
-        const res = await fetch(`http://localhost:8000/api/v1/vision/detections?cam=${selectedCamId}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (!isMounted) return;
-
-          const now = Date.now();
-          const incomingBoxes = (data.boxes || []) as any[];
-          setLivePlates(data.plates || []);
-
-          setStabilizedBoxes((prevTracks) => {
-            const updatedTracks: StabilizedTrack[] = [];
-            const matchedIncoming = new Set<number>();
-
-            // Match incoming detections with existing tracks using centroid distance
-            for (const track of prevTracks) {
-              let bestMatchIdx = -1;
-              let minDistance = 999999;
-
-              for (let i = 0; i < incomingBoxes.length; i++) {
-                if (matchedIncoming.has(i)) continue;
-                const [ix1, iy1, ix2, iy2, iCls] = incomingBoxes[i];
-                if (iCls !== track.clsName) continue;
-
-                const icx = (ix1 + ix2) / 2;
-                const icy = (iy1 + iy2) / 2;
-                const tcx = track.x + track.w / 2;
-                const tcy = track.y + track.h / 2;
-                const dist = Math.hypot(icx - tcx, icy - tcy);
-
-                if (dist < 90 && dist < minDistance) {
-                  minDistance = dist;
-                  bestMatchIdx = i;
-                }
-              }
-
-              if (bestMatchIdx !== -1) {
-                matchedIncoming.add(bestMatchIdx);
-                const [ix1, iy1, ix2, iy2, , iConf] = incomingBoxes[bestMatchIdx];
-                const iw = ix2 - ix1;
-                const ih = iy2 - iy1;
-
-                // Exponential Moving Average (EMA) smoothing: 60% previous + 40% incoming
-                updatedTracks.push({
-                  id: track.id,
-                  clsName: track.clsName,
-                  conf: Math.round(track.conf * 0.7 + iConf * 0.3 * 100) / 100,
-                  x: Math.round(track.x * 0.60 + ix1 * 0.40),
-                  y: Math.round(track.y * 0.60 + iy1 * 0.40),
-                  w: Math.round(track.w * 0.65 + iw * 0.35),
-                  h: Math.round(track.h * 0.65 + ih * 0.35),
-                  lastSeen: now,
-                });
-              } else {
-                // Keep track alive for 500ms to eliminate visual drops
-                if (now - track.lastSeen < 500) {
-                  updatedTracks.push(track);
-                }
-              }
-            }
-
-            // Register newly detected objects with stable track IDs
-            for (let i = 0; i < incomingBoxes.length; i++) {
-              if (!matchedIncoming.has(i)) {
-                const [ix1, iy1, ix2, iy2, iCls, iConf] = incomingBoxes[i];
-                updatedTracks.push({
-                  id: `trk-${iCls}-${Math.round(ix1 / 40)}-${now}-${i}`,
-                  clsName: iCls,
-                  conf: iConf,
-                  x: ix1,
-                  y: iy1,
-                  w: ix2 - ix1,
-                  h: iy2 - iy1,
-                  lastSeen: now,
-                });
-              }
-            }
-
-            return updatedTracks;
-          });
-        }
-      } catch {
-        // Quiet fallback
-      }
-    };
-
-    fetchDetections();
-    const interval = setInterval(fetchDetections, 120);
-    return () => {
-      isMounted = false;
-      clearInterval(interval);
-    };
-  }, [selectedCamId]);
 
   const defects = useTelemetryStore((state) => state.defects);
   const incidents = useTelemetryStore((state) => state.incidents);
@@ -411,117 +299,14 @@ export function DualStreamCommandCenter() {
 
           {/* Live Video Frame Container */}
           <div className="relative flex h-48 sm:h-60 lg:h-64 w-full items-center justify-center rounded-xl border border-[#12544F] bg-black overflow-hidden shadow-xl group">
-            {/* 1. Hardware-Accelerated 60 FPS Native Video Stream */}
-            <video
-              key={activeCam.videoSrc}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 h-full w-full object-cover z-0"
-              src={activeCam.videoSrc}
-            />
-
-            {/* 2. Optional Raw Python YOLOv8 MJPEG Stream (Only when explicitly selected) */}
-            {streamMode === 'live_mjpeg' && activeCam.pythonStream && (
+            {/* Live Raw Python YOLOv8 MJPEG Stream */}
+            {activeCam.pythonStream && (
               <img
                 key={activeCam.pythonStream}
                 src={activeCam.pythonStream}
-                alt="Live Python YOLOv8 Stream"
-                className="absolute inset-0 h-full w-full object-cover z-10"
+                alt={`Live Raw MJPEG Stream - ${activeCam.label}`}
+                className="absolute inset-0 h-full w-full object-cover z-0"
               />
-            )}
-
-            {/* 3. 60 FPS Vector HUD Overlay */}
-            {streamMode === 'smooth_hud' && (
-              <svg className="absolute inset-0 h-full w-full pointer-events-none z-10 overflow-hidden" viewBox="0 0 640 360" preserveAspectRatio="none">
-                {stabilizedBoxes.map((track) => {
-                  const { id, x, y, w, h, clsName, conf } = track;
-                  const color = clsName === 'PERSON' ? '#f59e0b' : clsName === 'BUS' ? '#10b981' : clsName === 'TRUCK' ? '#06b6d4' : '#f97316';
-                  return (
-                    <g key={id}>
-                      <rect
-                        x={x}
-                        y={y}
-                        width={w}
-                        height={h}
-                        fill="none"
-                        stroke={color}
-                        strokeWidth="2"
-                        strokeDasharray="6 3"
-                        style={{
-                          transition: 'x 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), y 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), width 0.12s ease-out, height 0.12s ease-out',
-                        }}
-                      />
-                      <rect
-                        x={x}
-                        y={Math.max(0, y - 16)}
-                        width={Math.min(130, w + 30)}
-                        height="16"
-                        fill={color}
-                        style={{
-                          transition: 'x 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), y 0.12s cubic-bezier(0.2, 0.8, 0.4, 1)',
-                        }}
-                      />
-                      <text
-                        x={x + 4}
-                        y={Math.max(12, y - 4)}
-                        fill="#000000"
-                        fontSize="10"
-                        fontWeight="bold"
-                        fontFamily="monospace"
-                        style={{
-                          transition: 'x 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), y 0.12s cubic-bezier(0.2, 0.8, 0.4, 1)',
-                        }}
-                      >
-                        {clsName === 'PERSON' ? 'PEDESTRIAN' : clsName} {Math.round(conf * 100)}%
-                      </text>
-                    </g>
-                  );
-                })}
-                {livePlates.map((p, idx) => {
-                  const [px1, py1, px2, py2, plateText] = p;
-                  return (
-                    <g key={`plate-${idx}`}>
-                      <rect
-                        x={px1}
-                        y={py1}
-                        width={px2 - px1}
-                        height={py2 - py1}
-                        fill="none"
-                        stroke="#22c55e"
-                        strokeWidth="2"
-                        style={{
-                          transition: 'x 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), y 0.12s cubic-bezier(0.2, 0.8, 0.4, 1)',
-                        }}
-                      />
-                      <rect
-                        x={px1}
-                        y={Math.max(0, py1 - 16)}
-                        width="130"
-                        height="16"
-                        fill="#15803d"
-                        style={{
-                          transition: 'x 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), y 0.12s cubic-bezier(0.2, 0.8, 0.4, 1)',
-                        }}
-                      />
-                      <text
-                        x={px1 + 4}
-                        y={Math.max(12, py1 - 4)}
-                        fill="#ffffff"
-                        fontSize="10"
-                        fontWeight="bold"
-                        fontFamily="monospace"
-                        style={{
-                          transition: 'x 0.12s cubic-bezier(0.2, 0.8, 0.4, 1), y 0.12s cubic-bezier(0.2, 0.8, 0.4, 1)',
-                        }}
-                      >
-                        PLATE: {plateText}
-                      </text>
-                    </g>
-                  );
-                })}
-              </svg>
             )}
 
             {/* Telemetry Header & Footer HUD Overlay */}
@@ -531,34 +316,14 @@ export function DualStreamCommandCenter() {
                 <div className="flex items-center gap-1.5 rounded bg-black/75 px-2 py-0.5 border border-[#12544F]">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                   <span className="text-[#f0fdf4] font-bold">JETSON ORIN NANO</span>
-                  <span className="text-[#8BBB92]">· {streamMode === 'smooth_hud' ? '60.0 FPS (GPU)' : `${avgFleetFps.toFixed(1)} FPS (CPU)`}</span>
+                  <span className="text-[#8BBB92]">· {avgFleetFps.toFixed(1)} FPS (LIVE)</span>
                 </div>
 
                 <div className="flex items-center gap-1.5 pointer-events-auto">
-                  {/* Mode Switcher: 60 FPS Accelerated vs Python MJPEG */}
-                  <div className="flex items-center gap-0.5 rounded bg-black/85 p-0.5 border border-[#12544F]">
-                    <button
-                      onClick={() => setStreamMode('smooth_hud')}
-                      className={`px-2 py-0.5 rounded text-[9px] font-bold font-mono transition-all cursor-pointer ${
-                        streamMode === 'smooth_hud'
-                          ? 'bg-[#2A835F] text-[#f0fdf4] shadow-sm'
-                          : 'text-[#8BBB92] hover:text-[#f0fdf4]'
-                      }`}
-                      title="60 FPS Hardware-Accelerated Playback"
-                    >
-                      60 FPS SMOOTH
-                    </button>
-                    <button
-                      onClick={() => setStreamMode('live_mjpeg')}
-                      className={`px-2 py-0.5 rounded text-[9px] font-bold font-mono transition-all cursor-pointer ${
-                        streamMode === 'live_mjpeg'
-                          ? 'bg-[#2A835F] text-[#f0fdf4] shadow-sm'
-                          : 'text-[#8BBB92] hover:text-[#f0fdf4]'
-                      }`}
-                      title="Raw Python OpenCV Stream"
-                    >
-                      RAW MJPEG
-                    </button>
+                  {/* Raw MJPEG Stream Status Badge */}
+                  <div className="flex items-center gap-1.5 rounded bg-black/85 px-2 py-0.5 border border-[#2A835F] text-[9px] font-bold font-mono text-[#8BBB92]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-[#f0fdf4]">RAW MJPEG</span>
                   </div>
 
                   <div className="rounded bg-black/75 px-2 py-0.5 border border-[#12544F] text-[#8BBB92]">
@@ -566,7 +331,7 @@ export function DualStreamCommandCenter() {
                   </div>
                   <button
                     onClick={() => setIsExpandedModal(true)}
-                    className="flex items-center justify-center rounded bg-black/80 p-1 text-[#8BBB92] hover:text-[#f0fdf4] hover:bg-[#12544F] border border-[#12544F] transition-colors"
+                    className="flex items-center justify-center rounded bg-black/80 p-1 text-[#8BBB92] hover:text-[#f0fdf4] hover:bg-[#12544F] border border-[#12544F] transition-colors cursor-pointer"
                     title="Expand Video Feed"
                   >
                     <Maximize2 className="h-3 w-3" />
@@ -578,12 +343,16 @@ export function DualStreamCommandCenter() {
               <div className="flex items-center justify-between text-[10px] font-mono text-[#8BBB92] bg-black/75 px-2.5 py-1 rounded border border-[#12544F]">
                 <span className="truncate max-w-[55%]">MODEL: {activeCam.model}</span>
                 <span className="text-[#f0fdf4] font-bold hidden sm:inline">
-                  {streamMode === 'smooth_hud' ? 'ACCELERATION: DIRECT3D/NVDEC' : `LATENCY: ${activeCam.latency}`}
+                  ACCELERATION: DIRECT3D/NVDEC
                 </span>
-                <span className="text-emerald-400 font-semibold">LIVE ACTIVE</span>
+                <span className="text-emerald-400 font-semibold flex items-center gap-1">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                  LIVE ACTIVE
+                </span>
               </div>
             </div>
           </div>
+
 
           {/* Real-time Dynamic IMU Waveform */}
           <ImuWaveform />
@@ -701,24 +470,13 @@ export function DualStreamCommandCenter() {
 
           {/* Modal Expanded Video Player */}
           <div className="relative flex flex-1 items-center justify-center rounded-xl border border-[#12544F] bg-black overflow-hidden shadow-2xl">
-            {/* 1. Authentic Video Stream for active camera channel */}
-            <video
-              key={activeCam.videoSrc}
-              autoPlay
-              loop
-              muted
-              playsInline
-              className="absolute inset-0 h-full w-full object-contain z-0"
-              src={activeCam.videoSrc}
-            />
-
-            {/* 2. Live Python YOLOv8 MJPEG Stream for active camera */}
+            {/* Live Raw Python YOLOv8 MJPEG Stream for active camera */}
             {activeCam.pythonStream && (
               <img
                 key={activeCam.pythonStream}
                 src={activeCam.pythonStream}
-                alt="Live Python YOLOv8 Stream"
-                className="absolute inset-0 h-full w-full object-contain z-10"
+                alt={`Expanded Raw MJPEG Stream - ${activeCam.label}`}
+                className="absolute inset-0 h-full w-full object-contain z-0"
               />
             )}
 
@@ -729,6 +487,7 @@ export function DualStreamCommandCenter() {
                   <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
                   <span className="text-[#f0fdf4] font-bold">NVIDIA JETSON ORIN NANO</span>
                   <span>· {avgFleetFps.toFixed(1)} FPS</span>
+                  <span className="ml-1 rounded border border-[#2A835F] bg-[#12544F]/50 px-1.5 py-0.5 text-[10px] text-emerald-400">RAW MJPEG</span>
                 </div>
                 <div className="rounded bg-black/80 px-3 py-1 border border-[#12544F] text-[#8BBB92]">
                   {activeCam.resolution}
