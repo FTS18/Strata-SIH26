@@ -41,44 +41,63 @@ export interface TelemetryState {
   setSelectedDefectId: (id: string | null) => void;
   setSelectedIncidentId: (id: string | null) => void;
   setRoadSegments: (segments: RoadSegmentPCI[]) => void;
+  activeReportModal: { id: string; category: 'defect' | 'incident' } | null;
+  setActiveReportModal: (modal: { id: string; category: 'defect' | 'incident' } | null) => void;
+  publishDefectReport: (defectId: string, notes?: string, agency?: string) => string;
+  publishIncidentReport: (incidentId: string, notes?: string, agency?: string) => string;
 }
 
-export const useTelemetryStore = create<TelemetryState>((set) => ({
+export const useTelemetryStore = create<TelemetryState>((set, get) => ({
   buses: {},
   selectedBusId: null,
   defects: [],
   selectedDefectId: null,
+  activeReportModal: null,
   incidents: [
     {
-      id: 'INC-901-T14',
-      type: 'rash_driving',
+      id: 'ANPR-882-T08',
+      type: 'anpr_plate_hit',
+      coords: { lat: 30.7070, lng: 76.7940 },
+      timestamp: Date.now() - 1000 * 20,
+      reportedByBusId: 'CH-01-GA-9210',
+      locationName: 'Tribune Chowk Southbound Flyover',
+      suspectPlate: 'MH 02 CZ 8820',
+      ocrConfidence: 0.986,
+      speedKmH: 58.4,
+      reason: 'High-Precision Edge ANPR Optical Hit',
+      vehicleDescription: 'White Mercedes-Benz GLS 400d (Track #08)',
+      isFlaggedWatchlist: false,
+    },
+    {
+      id: 'SPD-901-T14',
+      type: 'overspeeding',
       coords: { lat: 30.7485, lng: 76.7925 },
-      timestamp: Date.now() - 1000 * 60 * 4,
-      reportedByBusId: 'BUS-101 (CH-01-TB-4820)',
+      timestamp: Date.now() - 1000 * 60 * 3,
+      reportedByBusId: 'CH-01-TB-4820',
       locationName: 'Madhya Marg (Sec 9/10 Matka Chowk)',
       suspectPlate: 'HR 03 AA 5580',
       ocrConfidence: 0.964,
-      speedKmH: 76.4,
-      reason: 'Erratic High-Speed Lane Weaving Corridor',
-      vehicleDescription: 'Black Hatchback (Track #14)',
+      speedKmH: 74.8,
+      reason: 'Exceeded 50 km/h Urban Arterial Limit',
+      vehicleDescription: 'Black Hyundai Creta (Track #14)',
       isFlaggedWatchlist: true,
     },
     {
-      id: 'INC-882-T08',
-      type: 'hit_and_run',
-      coords: { lat: 30.7070, lng: 76.7940 },
-      timestamp: Date.now() - 1000 * 60 * 25,
-      reportedByBusId: 'BUS-102 (CH-01-GA-9210)',
-      locationName: 'Tribune Chowk Southbound Ramp',
-      suspectPlate: 'PB 65 AB 9142',
-      ocrConfidence: 0.978,
-      speedKmH: 82.0,
-      reason: 'Hit & Run Suspect (Active Police Hotlist)',
-      vehicleDescription: 'Silver Commercial LCV (Track #08)',
-      isFlaggedWatchlist: true,
+      id: 'ANPR-744-T22',
+      type: 'anpr_plate_hit',
+      coords: { lat: 30.7385, lng: 76.7890 },
+      timestamp: Date.now() - 1000 * 60 * 12,
+      reportedByBusId: 'CH-01-TB-4820',
+      locationName: 'Jan Marg (Sector 17 Plaza Corridor)',
+      suspectPlate: 'KA 02 MM 9091',
+      ocrConfidence: 0.974,
+      speedKmH: 42.0,
+      reason: 'Edge OCR Auto-Captured Plate Record',
+      vehicleDescription: 'Grey Tata Nexon EV (Track #22)',
+      isFlaggedWatchlist: false,
     },
   ],
-  selectedIncidentId: 'INC-901-T14',
+  selectedIncidentId: 'ANPR-882-T08',
   trafficDensity: {
     busId: 'CH-01-TB-4820',
     routeId: 'Route 1 (Madhya Marg)',
@@ -143,5 +162,45 @@ export const useTelemetryStore = create<TelemetryState>((set) => ({
   setSelectedDefectId: (id) => set({ selectedDefectId: id }),
   setSelectedIncidentId: (id) => set({ selectedIncidentId: id }),
   setRoadSegments: (segments) => set({ roadSegments: segments }),
+
+  setActiveReportModal: (modal) => set({ activeReportModal: modal }),
+
+  publishDefectReport: (defectId, notes, agency) => {
+    const ref = `PWD-CHD-${Math.floor(10000 + Math.random() * 90000)}`;
+    set((state) => ({
+      defects: state.defects.map((d) =>
+        d.id === defectId
+          ? {
+              ...d,
+              reportStatus: 'published',
+              dispatchReference: ref,
+              publishedAt: Date.now(),
+              inspectorNotes: notes || d.inspectorNotes,
+              assignedAgency: agency || 'Punjab/Chandigarh PWD Civil Works',
+            }
+          : d
+      ),
+    }));
+    return ref;
+  },
+
+  publishIncidentReport: (incidentId, notes, agency) => {
+    const ref = `CTP-CHALLAN-${Math.floor(10000 + Math.random() * 90000)}`;
+    set((state) => ({
+      incidents: state.incidents.map((i) =>
+        i.id === incidentId
+          ? {
+              ...i,
+              reportStatus: 'published',
+              dispatchReference: ref,
+              publishedAt: Date.now(),
+              inspectorNotes: notes || i.inspectorNotes,
+              assignedAgency: agency || 'Chandigarh Traffic Police Central E-Challan Cell',
+            }
+          : i
+      ),
+    }));
+    return ref;
+  },
 }));
 

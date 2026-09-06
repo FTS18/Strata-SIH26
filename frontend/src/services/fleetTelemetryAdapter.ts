@@ -95,20 +95,11 @@ export class FleetTelemetryAdapter {
       imuVibrationZ: 2.84,
       estimatedAreaSqM: 4.2,
       coords: { lat: 30.7305, lng: 76.821 },
-      proofImageUrl:
-        'https://images.unsplash.com/photo-1515865644861-8bedc4fb2344?w=800&auto=format&fit=crop&q=80',
-    },
-    {
-      type: 'damaged_divider',
-      roadName: 'Tribune Chowk Flyover (Dakshin Marg)',
-      wardName: 'MCC Ward 24 (South)',
-      severity: 'critical',
-      confidenceScore: 0.94,
-      imuVibrationZ: 2.45,
-      estimatedAreaSqM: 6.8,
-      coords: { lat: 30.7005, lng: 76.804 },
-      proofImageUrl:
-        'https://images.unsplash.com/photo-1590674899484-d5640e854abe?w=800&auto=format&fit=crop&q=80',
+      proofImageUrl: '/evidence/pothole_cam1_annotated.jpg',
+      cropImageUrl: '/evidence/pothole_cam1_crop.jpg',
+      reportStatus: 'draft',
+      inspectorNotes: 'Class 3 asphalt crater detected. Accelerometer registered 2.84g impact spike. Immediate bituminous patch work order required.',
+      assignedAgency: 'Punjab/Chandigarh PWD Civil Works',
     },
     {
       type: 'waterlogging',
@@ -119,49 +110,96 @@ export class FleetTelemetryAdapter {
       imuVibrationZ: 1.15,
       estimatedAreaSqM: 14.5,
       coords: { lat: 30.7385, lng: 76.789 },
-      proofImageUrl:
-        'https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=800&auto=format&fit=crop&q=80',
+      proofImageUrl: '/evidence/waterlogging_cam1_annotated.jpg',
+      cropImageUrl: '/evidence/waterlogging_cam1_crop.jpg',
+      reportStatus: 'draft',
+      inspectorNotes: 'Severe road surface ponding (14.5 m² area, 5.2 cm depth). High hydroplaning hazard. Recommend stormwater suction dispatch.',
+      assignedAgency: 'MCC Stormwater & Drainage Wing',
     },
     {
-      type: 'missing_zebra_crossing',
-      roadName: 'Panjab University / PGI Gate (Madhya Marg)',
-      wardName: 'MCC Ward 02 (West)',
-      severity: 'high',
-      confidenceScore: 0.91,
-      imuVibrationZ: 1.05,
-      estimatedAreaSqM: 7.5,
-      coords: { lat: 30.763, lng: 76.7725 },
-      proofImageUrl:
-        'https://images.unsplash.com/photo-1578632767115-351597cf2477?w=800&auto=format&fit=crop&q=80',
+      type: 'pothole',
+      roadName: 'Dakshin Marg (Tribune Flyover Approach)',
+      wardName: 'MCC Ward 24 (South)',
+      severity: 'critical',
+      confidenceScore: 0.93,
+      imuVibrationZ: 2.62,
+      estimatedAreaSqM: 3.5,
+      coords: { lat: 30.707, lng: 76.794 },
+      proofImageUrl: '/evidence/pothole_cam1_annotated.jpg',
+      cropImageUrl: '/evidence/pothole_cam1_crop.jpg',
+      reportStatus: 'draft',
+      inspectorNotes: 'Deep wheel-track depression with edge fracturing. Suspension shock logged by CTU Fleet.',
+      assignedAgency: 'Punjab/Chandigarh PWD Civil Works',
     },
   ];
 
   private incidentCatalogue: Partial<VehicleIncident>[] = [
     {
-      type: 'school_children_crossing',
-      locationName: 'Madhya Marg (Press Chowk)',
-      suspectPlate: 'CH 01 BG 4412',
-      speedKmH: 14.0,
-      ocrConfidence: 0.99,
-      coords: { lat: 30.739, lng: 76.8095 },
+      type: 'overspeeding',
+      locationName: 'Dakshin Marg (Tribune Flyover Approach)',
+      suspectPlate: 'HR 26 DQ 5512',
+      vehicleDescription: 'Silver Toyota Innova (Track #19)',
+      speedKmH: 78.5,
+      ocrConfidence: 0.974,
+      reason: 'Extreme Speed Violation: 78.5 km/h in 50 km/h Zone (Rash Driving)',
+      isFlaggedWatchlist: true,
+      coords: { lat: 30.707, lng: 76.794 },
+      proofImageUrl: '/evidence/pothole_cam1_annotated.jpg',
+      cropImageUrl: '/evidence/pothole_cam1_crop.jpg',
+      reportStatus: 'draft',
+      inspectorNotes: 'Vehicle clocked exceeding speed limit by +28.5 km/h with reckless lane changes. E-Challan draft generated.',
+      assignedAgency: 'Chandigarh Traffic Police Central E-Challan Cell',
     },
     {
-      type: 'hit_and_run',
-      locationName: 'Tribune Chowk Southbound Flyover',
-      suspectPlate: 'PB 65 AB 9142',
-      speedKmH: 82.4,
-      ocrConfidence: 0.964,
-      coords: { lat: 30.7005, lng: 76.804 },
+      type: 'crosswalk_incursion',
+      locationName: 'Panjab University / PGI Gate (Madhya Marg)',
+      vehicleDescription: 'Vulnerable Pedestrian in Rapid Transit Busway',
+      ocrConfidence: 0.94,
+      reason: 'Vulnerable Pedestrian Safety Incursion in Active Corridor',
+      isFlaggedWatchlist: true,
+      coords: { lat: 30.763, lng: 76.7725 },
+      proofImageUrl: '/evidence/pothole_cam1_annotated.jpg',
+      cropImageUrl: '/evidence/pothole_cam1_crop.jpg',
+      reportStatus: 'draft',
+      inspectorNotes: 'Pedestrian detected inside barricaded high-speed BRT lane. Audio cab warning triggered.',
+      assignedAgency: 'Chandigarh Municipal Transit Enforcement',
     },
     {
-      type: 'rash_driving',
+      type: 'bus_lane_obstruction',
       locationName: 'Jan Marg (Aroma Chowk Sec 22)',
-      suspectPlate: 'HR 03 AA 5580',
-      speedKmH: 76.0,
-      ocrConfidence: 0.942,
+      suspectPlate: 'PB 01 C 3302',
+      vehicleDescription: 'White Delivery Van (Track #04)',
+      speedKmH: 0.0,
+      ocrConfidence: 0.965,
+      reason: 'Illegal Stationary Corridor Obstruction (> 90s)',
+      isFlaggedWatchlist: false,
       coords: { lat: 30.7295, lng: 76.7795 },
+      proofImageUrl: '/evidence/pothole_cam1_annotated.jpg',
+      cropImageUrl: '/evidence/pothole_cam1_crop.jpg',
+      reportStatus: 'draft',
+      inspectorNotes: 'Commercial van obstructing public transit stop. Towing dispatch notice drafted.',
+      assignedAgency: 'Chandigarh Traffic Police Central E-Challan Cell',
+    },
+    {
+      type: 'overspeeding',
+      locationName: 'Madhya Marg (Press Chowk)',
+      suspectPlate: 'CH 01 BG 9012',
+      vehicleDescription: 'White Hyundai Verna (Track #44)',
+      speedKmH: 82.0,
+      ocrConfidence: 0.981,
+      reason: 'Dangerous Rash Driving & Severe Speeding: 82 km/h in Urban Corridor',
+      isFlaggedWatchlist: true,
+      coords: { lat: 30.739, lng: 76.8095 },
+      proofImageUrl: '/evidence/pothole_cam1_annotated.jpg',
+      cropImageUrl: '/evidence/pothole_cam1_crop.jpg',
+      reportStatus: 'draft',
+      inspectorNotes: 'Radar speed trigger + optical OCR confirmed speed violation. E-Challan draft generated.',
+      assignedAgency: 'Chandigarh Traffic Police Central E-Challan Cell',
     },
   ];
+
+  private knownDefectIds = new Set<string>();
+  private knownIncidentIds = new Set<string>();
 
   connect(callbacks: TelemetryCallbacks) {
     let tick = 0;
@@ -171,8 +209,10 @@ export class FleetTelemetryAdapter {
 
     // Initial defect emit
     this.defectCatalogue.forEach((item, idx) => {
+      const defId = `def_chd_${Date.now()}_${idx}`;
+      this.knownDefectIds.add(defId);
       callbacks.onDefectDetected({
-        id: `def_chd_${Date.now()}_${idx}`,
+        id: defId,
         type: item.type || 'pothole',
         coords: item.coords || { lat: 30.7475, lng: 76.7978 },
         severity: item.severity || 'high',
@@ -185,13 +225,80 @@ export class FleetTelemetryAdapter {
         imuVibrationZ: item.imuVibrationZ || 2.4,
         observationsCount: idx + 1,
         proofImageUrl: item.proofImageUrl,
+        cropImageUrl: item.cropImageUrl,
         status: 'active',
+        reportStatus: item.reportStatus || 'draft',
+        inspectorNotes: item.inspectorNotes,
+        assignedAgency: item.assignedAgency,
       });
     });
 
-    // Real-time GPS Velocity Dispatcher (Every 800ms)
+    // Real-time GPS Velocity Dispatcher & Live Backend Telemetry Ingestion (Every 800ms)
     this.timer = setInterval(() => {
       tick++;
+
+      // Ingest live real-time defects & incidents from backend vision engine
+      if (tick % 2 === 0) {
+        fetch('http://localhost:8000/api/v1/distress/feed')
+          .then((res) => (res.ok ? res.json() : null))
+          .then((data) => {
+            if (!data) return;
+            if (Array.isArray(data.defects)) {
+              data.defects.forEach((d: any) => {
+                if (!this.knownDefectIds.has(d.defect_id)) {
+                  this.knownDefectIds.add(d.defect_id);
+                  callbacks.onDefectDetected({
+                    id: d.defect_id,
+                    type: d.defect_type,
+                    coords: d.coords,
+                    severity: d.severity,
+                    confidenceScore: d.confidence_score,
+                    detectedAt: d.timestamp,
+                    detectedByBusId: d.detected_by_bus_id,
+                    roadName: d.road_name,
+                    wardName: d.wardName || 'MCC Ward 04',
+                    estimatedAreaSqM: d.estimated_area_sq_m,
+                    imuVibrationZ: d.imu_vibration_z,
+                    observationsCount: 1,
+                    proofImageUrl: d.proof_image_url,
+                    cropImageUrl: d.crop_image_url,
+                    status: 'active',
+                    reportStatus: 'draft',
+                    inspectorNotes: d.inspectorNotes,
+                    assignedAgency: d.assignedAgency,
+                  });
+                }
+              });
+            }
+            if (Array.isArray(data.incidents)) {
+              data.incidents.forEach((inc: any) => {
+                if (!this.knownIncidentIds.has(inc.id)) {
+                  this.knownIncidentIds.add(inc.id);
+                  callbacks.onIncidentDetected({
+                    id: inc.id,
+                    type: inc.type,
+                    coords: inc.coords,
+                    timestamp: inc.timestamp,
+                    reportedByBusId: inc.reported_by_bus_id,
+                    locationName: inc.location_name,
+                    speedKmH: inc.speed_km_h,
+                    suspectPlate: inc.suspect_plate,
+                    ocrConfidence: inc.ocr_confidence,
+                    reason: inc.reason,
+                    vehicleDescription: inc.vehicle_description,
+                    isFlaggedWatchlist: inc.is_flagged_watchlist,
+                    proofImageUrl: inc.proof_image_url,
+                    cropImageUrl: inc.crop_image_url,
+                    reportStatus: 'draft',
+                    inspectorNotes: inc.inspectorNotes,
+                    assignedAgency: inc.assignedAgency,
+                  });
+                }
+              });
+            }
+          })
+          .catch(() => {});
+      }
 
       this.buses.forEach((bus) => {
         const route = OSM_BUS_PATHS[bus.routeId];
@@ -258,7 +365,7 @@ export class FleetTelemetryAdapter {
 
         callbacks.onIncidentDetected({
           id: `inc_chd_${Date.now()}`,
-          type: inc.type || 'rash_driving',
+          type: inc.type || 'overspeeding',
           coords: inc.coords || { ...reportingBus.coords },
           timestamp: Date.now(),
           reportedByBusId: reportingBus.busNumber,
@@ -266,6 +373,14 @@ export class FleetTelemetryAdapter {
           suspectPlate: inc.suspectPlate,
           ocrConfidence: inc.ocrConfidence,
           speedKmH: inc.speedKmH,
+          vehicleDescription: inc.vehicleDescription,
+          reason: inc.reason,
+          isFlaggedWatchlist: inc.isFlaggedWatchlist,
+          proofImageUrl: inc.proofImageUrl,
+          cropImageUrl: inc.cropImageUrl,
+          reportStatus: inc.reportStatus || 'draft',
+          inspectorNotes: inc.inspectorNotes,
+          assignedAgency: inc.assignedAgency,
         });
       }
     }, 800);

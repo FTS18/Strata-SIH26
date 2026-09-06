@@ -25,8 +25,10 @@ export interface PedestrianAlertData {
 
 export function SchoolZoneSafetyAlert({
   compact = false,
+  camId,
 }: {
   compact?: boolean;
+  camId?: string;
 }) {
   const [activeAlert, setActiveAlert] = useState<PedestrianAlertData | null>(null);
   const [acknowledged, setAcknowledged] = useState<boolean>(false);
@@ -34,12 +36,15 @@ export function SchoolZoneSafetyAlert({
 
   const createCustomTicket = useWorkOrderStore((state) => state.createCustomTicket);
 
-  // Poll backend for real-time model inference from active video streams
+  // Poll backend for real-time model inference from active video stream
   useEffect(() => {
     let isMounted = true;
     const fetchLatestAlert = async () => {
       try {
-        const res = await fetch('http://localhost:8000/api/v1/pedestrian/latest');
+        const url = camId
+          ? `http://localhost:8000/api/v1/pedestrian/latest?cam=${camId}`
+          : 'http://localhost:8000/api/v1/pedestrian/latest';
+        const res = await fetch(url);
         if (res.ok) {
           const data = await res.json();
           if (isMounted) {
@@ -56,12 +61,12 @@ export function SchoolZoneSafetyAlert({
     };
 
     fetchLatestAlert();
-    const interval = setInterval(fetchLatestAlert, 1500);
+    const interval = setInterval(fetchLatestAlert, 1200);
     return () => {
       isMounted = false;
       clearInterval(interval);
     };
-  }, []);
+  }, [camId]);
 
   // When no pedestrians are detected in the active camera stream:
   if (!activeAlert || activeAlert.pedestrians_count === 0) {

@@ -15,6 +15,7 @@ from src.config import settings
 from src.schemas.telemetry import BusTelemetryPacket, RoadDefectEvent, IncidentEvent, TrafficDensityPacket
 from src.pipeline_manager import pipeline_manager
 
+from typing import Optional
 import asyncio
 
 @asynccontextmanager
@@ -115,12 +116,21 @@ async def get_latest_anpr():
     return pipeline_manager.get_latest_anpr_detection()
 
 @app.get("/api/v1/pedestrian/latest")
-async def get_latest_pedestrian():
-    return pipeline_manager.get_latest_pedestrian_alert()
+async def get_latest_pedestrian(cam: Optional[str] = None):
+    return pipeline_manager.get_latest_pedestrian_alert(cam)
 
 @app.get("/api/v1/vision/detections")
 async def get_vision_detections(cam: str = "cam1"):
     return pipeline_manager.get_vision_detections(cam)
+
+@app.get("/api/v1/distress/feed")
+async def get_distress_feed():
+    """Returns recent authentic road defects and violations with snapshot image evidence."""
+    return {
+        "status": "success",
+        "defects": pipeline_manager.get_recent_defects(),
+        "incidents": pipeline_manager.get_recent_incidents()
+    }
 
 @app.get("/api/v1/vision/sources")
 async def get_camera_sources():

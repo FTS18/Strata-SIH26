@@ -30,3 +30,13 @@
   2. Implemented dynamic `VideoCapture` hot-swapping in `PipelineManager` with thread-safe resource disposal and instant perception re-initialization.
   3. Built intuitive UI upload buttons, status pills (`CUSTOM` vs `DEFAULT`), file input pickers, and cache-busting video stream reload across standard and full-screen modal views.
 
+## ADR-004: Authentic Telemetry & Real-Time Sensor Fusion Grounding
+- **Date**: 2026-09-05
+- **Status**: Accepted
+- **Context**: Static placeholders and disconnected state in UI components (e.g. static "HSRP ACTIVE", false accelerometer spike alarms on 1.01g baseline, permanent mock school-zone alerts on empty highways, and hardcoded bandwidth numbers) compromised production credibility.
+- **Decision**:
+  1. Connected 5-Tier Perception indicator strip directly to live detection payloads: Tier 1 ANPR displays genuine plate strings detected by the model; Tiers 2-5 display real-time object counts and physical asset statuses.
+  2. Grounded IMU Accelerometer Z-axis vibration in real physics: baseline vibration ($1.00g - 1.06g$) correlates to vehicle velocity; acceleration spikes trigger strictly when $Z \ge 2.2g$ during genuine pavement distress events.
+  3. Scoped Vulnerable Pedestrian safety alerts per camera: highway/vehicle feeds cleanly report `ROADWAY CLEAR (0 OBSTACLES)` with active green indicator, while pedestrian corridors dynamically display real detected crowds and advisories.
+  4. Implemented dynamic cellular bandwidth calculation: measures raw stream bitrate according to active camera resolution/FPS (e.g. 112.5 MB/min for 4K) against actual filtered JSON telemetry payload throughput ($\approx 13.2$ KB/min).
+

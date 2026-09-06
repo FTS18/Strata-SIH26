@@ -12,11 +12,14 @@ export type RoadDefectType =
 export type DefectType = RoadDefectType;
 
 export type IncidentType =
+  | 'anpr_plate_hit'
+  | 'overspeeding'
+  | 'bus_lane_obstruction'
+  | 'crosswalk_incursion'
   | 'rash_driving'
   | 'hit_and_run'
   | 'illegal_parking'
   | 'lane_violation'
-  | 'overspeeding'
   | 'school_children_crossing';
 
 export interface GeoCoordinate {
@@ -39,7 +42,14 @@ export interface RoadDefect {
   imuVibrationZ: number;
   observationsCount: number;
   proofImageUrl?: string;
+  cropImageUrl?: string;
+  depthCm?: string;
   status: 'active' | 'in_repair' | 'resolved';
+  reportStatus?: 'draft' | 'published';
+  dispatchReference?: string;
+  publishedAt?: number;
+  inspectorNotes?: string;
+  assignedAgency?: string;
 }
 
 export interface VehicleIncident {
@@ -56,6 +66,13 @@ export interface VehicleIncident {
   reason?: string;
   vehicleDescription?: string;
   isFlaggedWatchlist?: boolean;
+  proofImageUrl?: string;
+  cropImageUrl?: string;
+  reportStatus?: 'draft' | 'published';
+  dispatchReference?: string;
+  publishedAt?: number;
+  inspectorNotes?: string;
+  assignedAgency?: string;
 }
 
 export interface TrafficDensityMetrics {

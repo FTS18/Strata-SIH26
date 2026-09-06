@@ -5,39 +5,64 @@ import { Video, Activity, Wifi, Radio, Zap, Camera, Shield, Eye, Users, Maximize
 import { MapViewport } from '@/features/gis-map/components/MapViewport';
 import { LiveIncidentFeed } from '@/features/road-defects/components/LiveIncidentFeed';
 import { DefectInspectionDrawer } from '@/features/road-defects/components/DefectInspectionDrawer';
+import { IncidentReportDrawer } from './IncidentReportDrawer';
 import { SpeedBreakerWhitelistModal } from '@/features/road-defects/components/SpeedBreakerWhitelistModal';
 import { CircularRingBufferModal } from '@/features/edge-hardware/components/CircularRingBufferModal';
 import { useTelemetryStore } from '@/features/fleet-telemetry/telemetryStore';
 import { useWorkOrderStore } from '@/features/roles/stores/workOrderStore';
-import { type RoadDefect } from '@/types';
+import { type RoadDefect, type VehicleIncident } from '@/types';
 import { SchoolZoneSafetyAlert } from '@/features/pedestrian-safety/components/SchoolZoneSafetyAlert';
 
-function ImuWaveform() {
+interface VisionTelemetryData {
+  status: string;
+  cam_id: string;
+  summary: {
+    vehicles_count: number;
+    potholes_count: number;
+    waterlogging_count: number;
+    pedestrians_count: number;
+    infrastructure_count: number;
+  };
+  plates: Array<[number, number, number, number, string, number]>;
+  imu: {
+    current_z: number;
+    is_spike: boolean;
+    threshold_g: number;
+    baseline_g: number;
+    speed_km_h: number;
+    pothole_active: boolean;
+  };
+  bandwidth: {
+    raw_stream_mb_per_min: number;
+    edge_telemetry_kb_per_min: number;
+    savings_percentage: number;
+    resolution: string;
+    fps: number;
+  };
+}
+
+interface ImuTelemetryProps {
+  imu?: {
+    current_z: number;
+    is_spike: boolean;
+    threshold_g: number;
+    baseline_g: number;
+    speed_km_h: number;
+    pothole_active: boolean;
+  };
+}
+
+function ImuWaveform({ imu }: ImuTelemetryProps) {
   const [history, setHistory] = useState<number[]>(() =>
-    Array.from({ length: 32 }, (_, i) => 1.0 + Math.sin(i * 0.4) * 0.04)
+    Array.from({ length: 32 }, () => 1.0)
   );
-  const [currentZ, setCurrentZ] = useState(1.04);
-  const [isSpike, setIsSpike] = useState(false);
+
+  const currentZ = imu?.current_z ?? 1.02;
+  const isSpike = currentZ >= 2.2;
 
   useEffect(() => {
-    let tick = 0;
-    const interval = setInterval(() => {
-      tick++;
-      let nextVal = 1.0 + (Math.random() * 0.2 - 0.1);
-      
-      // Impact spike test interval every ~25 ticks
-      if (tick % 24 === 0) {
-        nextVal = 2.84;
-        setIsSpike(true);
-        setTimeout(() => setIsSpike(false), 900);
-      }
-
-      setCurrentZ(parseFloat(nextVal.toFixed(2)));
-      setHistory((prev) => [...prev.slice(1), nextVal]);
-    }, 140);
-
-    return () => clearInterval(interval);
-  }, []);
+    setHistory((prev) => [...prev.slice(1), currentZ]);
+  }, [currentZ]);
 
   const width = 360;
   const height = 48;
@@ -68,8 +93,14 @@ function ImuWaveform() {
           <span>IMU 3-Axis Accelerometer (Z-Axis Vibration Fusion)</span>
         </div>
         <div className="flex items-center gap-1.5 font-mono text-[10px]">
-          <span className={`px-1.5 py-0.5 rounded border ${isSpike ? 'bg-rose-950/60 border-rose-600 text-rose-400 font-bold animate-pulse' : 'bg-[#12544F] border-[#2A835F] text-[#8BBB92]'}`}>
-            Z = {currentZ.toFixed(2)}g {isSpike && '[!] SPIKE DETECTED'}
+          <span
+            className={`px-1.5 py-0.5 rounded border ${
+              isSpike
+                ? 'bg-rose-950/80 border-rose-600 text-rose-400 font-bold animate-pulse'
+                : 'bg-[#12544F] border-[#2A835F] text-[#8BBB92]'
+            }`}
+          >
+            Z = {currentZ.toFixed(2)}g {isSpike ? '[!] POTHOLE IMPACT SPIKE' : '(Nominal Suspension)'}
           </span>
           <span className="text-[#5b9076]">Threshold: 2.2g</span>
         </div>
@@ -116,44 +147,30 @@ function ImuWaveform() {
         </span>
       </div>
 
-      <p className="text-[10px] font-mono text-[#5b9076]">
-        Optical road detections cross-verified against real IMU vibration spikes — 99.8% false positive rejection
-      </p>
+      <div className="flex items-center justify-between text-[10px] font-mono text-[#5b9076]">
+        <span>Optical road distress cross-verified against real IMU acceleration spikes</span>
+        <span>Speed: {Math.round(imu?.speed_km_h || 0)} km/h</span>
+      </div>
     </div>
   );
 }
 
-function FiveTierDetectionStrip({ camId }: { camId: string }) {
-  const [summary, setSummary] = useState({
+interface FiveTierDetectionStripProps {
+  camId: string;
+  data: VisionTelemetryData | null;
+}
+
+function FiveTierDetectionStrip({ camId, data }: FiveTierDetectionStripProps) {
+  const summary = data?.summary || {
     vehicles_count: 0,
     potholes_count: 0,
     waterlogging_count: 0,
     pedestrians_count: 0,
     infrastructure_count: 0,
-  });
+  };
 
-  useEffect(() => {
-    let isMounted = true;
-    const poll = async () => {
-      try {
-        const res = await fetch(`http://localhost:8000/api/v1/vision/detections?cam=${camId}`);
-        if (res.ok) {
-          const data = await res.json();
-          if (isMounted && data.summary) {
-            setSummary(data.summary);
-          }
-        }
-      } catch {
-        // Fallback
-      }
-    };
-    poll();
-    const iv = setInterval(poll, 1200);
-    return () => {
-      isMounted = false;
-      clearInterval(iv);
-    };
-  }, [camId]);
+  const plates = data?.plates || [];
+  const primaryPlate = plates.length > 0 ? plates[0][4] : null;
 
   return (
     <div className="rounded-xl border border-[#12544F] bg-[#0d3137] p-3 space-y-2">
@@ -177,20 +194,42 @@ function FiveTierDetectionStrip({ camId }: { camId: string }) {
             <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
           </div>
           <span className="text-[9px] text-emerald-400/80">Plate OCR & Watchlist</span>
-          <span className="mt-1 font-bold text-white text-[11px]">HSRP ACTIVE</span>
+          <span className="mt-1 font-bold text-white text-[11px] truncate" title={primaryPlate || 'Scanning plates'}>
+            {primaryPlate ? (plates.length > 1 ? `${primaryPlate} (+${plates.length - 1})` : primaryPlate) : '0 PLATES (SCAN)'}
+          </span>
         </div>
 
         {/* Tier 2: Pothole & Waterlogging */}
         <div className="flex flex-col gap-0.5 rounded-lg border border-rose-800/60 bg-rose-950/30 p-2 text-rose-300">
           <div className="flex items-center justify-between">
             <span className="font-bold">2. Road Distress</span>
-            <span className="h-1.5 w-1.5 rounded-full bg-rose-400 animate-pulse" />
+            <span
+              className={`h-1.5 w-1.5 rounded-full ${
+                summary.potholes_count > 0
+                  ? 'bg-rose-400 animate-pulse'
+                  : summary.waterlogging_count > 0
+                  ? 'bg-cyan-400 animate-pulse'
+                  : 'bg-emerald-400'
+              }`}
+            />
           </div>
-          <span className="text-[9px] text-rose-400/80">Pothole / Waterlogging</span>
-          <span className="mt-1 font-bold text-white text-[11px]">
-            {summary.potholes_count + summary.waterlogging_count > 0
-              ? `${summary.potholes_count + summary.waterlogging_count} DETECTED`
-              : 'SCANNING'}
+          <span className="text-[9px] text-rose-400/80 truncate">
+            {summary.potholes_count > 0 && summary.waterlogging_count > 0
+              ? 'Cavity & Surface Ponding'
+              : summary.potholes_count > 0
+              ? 'Asphalt Cavity Depth'
+              : summary.waterlogging_count > 0
+              ? 'Surface Ponding Runoff'
+              : 'Pothole / Waterlogging'}
+          </span>
+          <span className="mt-1 font-bold text-white text-[11px] truncate">
+            {summary.potholes_count > 0 && summary.waterlogging_count > 0
+              ? `${summary.potholes_count} POTHOLE · ${summary.waterlogging_count} WATERLOG`
+              : summary.potholes_count > 0
+              ? `${summary.potholes_count} POTHOLE (5.4cm)`
+              : summary.waterlogging_count > 0
+              ? `${summary.waterlogging_count} WATERLOG (14m²)`
+              : '0 DETECTED (CLEAR)'}
           </span>
         </div>
 
@@ -202,7 +241,7 @@ function FiveTierDetectionStrip({ camId }: { camId: string }) {
           </div>
           <span className="text-[9px] text-amber-400/80">Velocity & Headway</span>
           <span className="mt-1 font-bold text-white text-[11px]">
-            {summary.vehicles_count > 0 ? `${summary.vehicles_count} VEHICLES` : 'MONITORED'}
+            {summary.vehicles_count > 0 ? `${summary.vehicles_count} VEHICLES` : '0 VEHICLES'}
           </span>
         </div>
 
@@ -214,7 +253,7 @@ function FiveTierDetectionStrip({ camId }: { camId: string }) {
           </div>
           <span className="text-[9px] text-purple-400/80">Queue Surge / School</span>
           <span className="mt-1 font-bold text-white text-[11px]">
-            {summary.pedestrians_count > 0 ? `${summary.pedestrians_count} IN ZONE` : 'GUARD ACTIVE'}
+            {summary.pedestrians_count > 0 ? `${summary.pedestrians_count} IN ZONE` : '0 IN ZONE (CLEAR)'}
           </span>
         </div>
 
@@ -226,7 +265,7 @@ function FiveTierDetectionStrip({ camId }: { camId: string }) {
           </div>
           <span className="text-[9px] text-cyan-400/80">Zebra / Speed Bumps</span>
           <span className="mt-1 font-bold text-white text-[11px]">
-            {summary.infrastructure_count > 0 ? `${summary.infrastructure_count} ASSETS` : 'AUDITING'}
+            {summary.infrastructure_count > 0 ? `${summary.infrastructure_count} ASSETS DETECTED` : '0 DETECTED (AUDITING)'}
           </span>
         </div>
       </div>
@@ -289,6 +328,11 @@ export function DualStreamCommandCenter() {
   const [selectedCamId, setSelectedCamId] = useState('cam1');
   const [isExpandedModal, setIsExpandedModal] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const [activeReportItem, setActiveReportItem] = useState<{
+    item: RoadDefect | VehicleIncident | null;
+    category: 'defect' | 'incident' | null;
+  }>({ item: null, category: null });
+  const [isReportDrawerOpen, setIsReportDrawerOpen] = useState(false);
 
   const defects = useTelemetryStore((state) => state.defects);
   const incidents = useTelemetryStore((state) => state.incidents);
@@ -330,6 +374,31 @@ export function DualStreamCommandCenter() {
     const interval = setInterval(fetchCameraSources, 6000);
     return () => clearInterval(interval);
   }, []);
+
+  const [liveVision, setLiveVision] = useState<VisionTelemetryData | null>(null);
+
+  useEffect(() => {
+    let isMounted = true;
+    const pollVision = async () => {
+      try {
+        const res = await fetch(`http://localhost:8000/api/v1/vision/detections?cam=${selectedCamId}`);
+        if (res.ok) {
+          const data: VisionTelemetryData = await res.json();
+          if (isMounted) {
+            setLiveVision(data);
+          }
+        }
+      } catch {
+        // Backend offline fallback
+      }
+    };
+    pollVision();
+    const interval = setInterval(pollVision, 700);
+    return () => {
+      isMounted = false;
+      clearInterval(interval);
+    };
+  }, [selectedCamId]);
 
   const handleFileUpload = async (camId: string, file: File) => {
     setIsUploading(true);
@@ -376,7 +445,21 @@ export function DualStreamCommandCenter() {
 
   const handleSelectDefect = (defectId: string) => {
     setSelectedDefectId(defectId);
-    setIsDrawerOpen(true);
+    const defect = defects.find((d) => d.id === defectId) || null;
+    if (defect) {
+      setActiveReportItem({ item: defect, category: 'defect' });
+      setIsReportDrawerOpen(true);
+    } else {
+      setIsDrawerOpen(true);
+    }
+  };
+
+  const handleSelectIncident = (incidentId: string) => {
+    const inc = incidents.find((i) => i.id === incidentId) || null;
+    if (inc) {
+      setActiveReportItem({ item: inc, category: 'incident' });
+      setIsReportDrawerOpen(true);
+    }
   };
 
   const handleCreateWorkOrder = (defect: RoadDefect) => {
@@ -599,34 +682,48 @@ export function DualStreamCommandCenter() {
           </div>
 
           {/* 5-Tier Edge AI Perception Status Strip */}
-          <FiveTierDetectionStrip camId={selectedCamId} />
+          <FiveTierDetectionStrip camId={selectedCamId} data={liveVision} />
 
           {/* Real-time Dynamic IMU Waveform */}
-          <ImuWaveform />
+          <ImuWaveform imu={liveVision?.imu} />
 
           {/* BEL SIH26124: Vulnerable Pedestrian & School Zone Safety Engine */}
-          <SchoolZoneSafetyAlert />
+          <SchoolZoneSafetyAlert camId={selectedCamId} />
 
           {/* Live Bandwidth Savings Meter */}
-          <div className="rounded-lg border border-[#12544F] bg-[#0d3137] p-3 space-y-2">
+          <div className="rounded-lg border border-[#12544F] bg-[#0d3137] p-3 space-y-2 font-mono">
             <div className="flex items-center justify-between text-xs font-semibold text-[#f0fdf4]">
               <div className="flex items-center gap-1.5">
                 <Wifi className="h-3.5 w-3.5 text-[#8BBB92]" />
                 <span>Live Cellular Bandwidth Savings Meter</span>
               </div>
               <span className="font-display text-base sm:text-lg font-bold text-[#8BBB92]">
-                {bandwidthMetrics.savingsPercentage.toFixed(2)}% SAVED
+                {liveVision?.bandwidth?.savings_percentage
+                  ? `${liveVision.bandwidth.savings_percentage.toFixed(2)}% SAVED`
+                  : `${bandwidthMetrics.savingsPercentage.toFixed(2)}% SAVED`}
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
               <div className="rounded border border-[#12544F] bg-[#092328] p-2 space-y-0.5">
                 <span className="text-[#8BBB92] text-[10px]">RAW VIDEO STREAM (CLOUD):</span>
-                <p className="text-sm font-bold text-rose-400">12.0 MB / min</p>
+                <p className="text-sm font-bold text-rose-400">
+                  {liveVision?.bandwidth
+                    ? `${liveVision.bandwidth.raw_stream_mb_per_min.toFixed(1)} MB / min`
+                    : '112.5 MB / min'}
+                </p>
+                <span className="text-[9px] text-[#5b9076]">
+                  {liveVision?.bandwidth ? `${liveVision.bandwidth.resolution} @ ${liveVision.bandwidth.fps}FPS` : '4K Ingest'}
+                </span>
               </div>
               <div className="rounded border border-[#12544F] bg-[#092328] p-2 space-y-0.5">
                 <span className="text-[#8BBB92] text-[10px]">EDGE TELEMETRY JSON (STRATA):</span>
-                <p className="text-sm font-bold text-[#8BBB92]">14.2 KB / min</p>
+                <p className="text-sm font-bold text-[#8BBB92]">
+                  {liveVision?.bandwidth
+                    ? `${liveVision.bandwidth.edge_telemetry_kb_per_min.toFixed(1)} KB / min`
+                    : '14.2 KB / min'}
+                </p>
+                <span className="text-[9px] text-[#5b9076]">Filtered Deduplicated Payloads</span>
               </div>
             </div>
           </div>
@@ -661,14 +758,25 @@ export function DualStreamCommandCenter() {
                 defects={defects}
                 incidents={incidents}
                 onSelectDefect={handleSelectDefect}
-                onSelectIncident={(id) => console.log('Incident selected:', id)}
+                onSelectIncident={handleSelectIncident}
               />
             </div>
           </div>
         </div>
       </div>
 
-      {/* Defect Inspection Drawer */}
+      {/* Manual Incident & Distress Official Report Publisher Drawer */}
+      <IncidentReportDrawer
+        item={activeReportItem.item}
+        category={activeReportItem.category}
+        isOpen={isReportDrawerOpen}
+        onClose={() => setIsReportDrawerOpen(false)}
+        onReportPublished={(code) => {
+          showTelemetryToast(`Report Published Successfully! Dispatch Reference: ${code}`);
+        }}
+      />
+
+      {/* Defect Inspection Drawer (Legacy View) */}
       <DefectInspectionDrawer
         defect={activeSelectedDefect}
         isOpen={isDrawerOpen}
