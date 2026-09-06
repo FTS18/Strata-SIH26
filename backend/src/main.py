@@ -11,6 +11,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from contextlib import asynccontextmanager
 from fastapi import FastAPI, WebSocket, WebSocketDisconnect, UploadFile, File, Form, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.staticfiles import StaticFiles
 from src.config import settings
 from src.schemas.telemetry import BusTelemetryPacket, RoadDefectEvent, IncidentEvent, TrafficDensityPacket
 from src.pipeline_manager import pipeline_manager
@@ -43,6 +44,12 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+# Mount Static Evidence Directory for high-speed direct image fetching
+evidence_dir = os.path.join(pipeline_manager.project_root, "frontend", "public", "evidence")
+os.makedirs(evidence_dir, exist_ok=True)
+os.makedirs(os.path.join(evidence_dir, "snapshots"), exist_ok=True)
+app.mount("/evidence", StaticFiles(directory=evidence_dir), name="evidence")
 
 # Active WebSocket connections
 connected_clients: list[WebSocket] = []

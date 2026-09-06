@@ -401,19 +401,22 @@ class PipelineManager:
                 }
                 c_lat, c_lng, c_road, c_ward = road_meta.get(cam_id, (30.7305, 76.8210, "Madhya Marg (Sec 26 Transit Arterial)", "MCC Ward 04"))
 
-                # 1. Pothole / Waterlogging Distress Snapshot (Strict Single-Shot Capture: Exactly ONE Image Per Defect)
+                # 1. Pothole / Waterlogging Distress Snapshot (Real-Time Vision Engine Capture)
                 if distress_boxes:
                     for d in distress_boxes:
                         dx1, dy1, dx2, dy2, dtype, dconf, dmeta = d
-                        # Keyed strictly by camera and defect type - captures ONLY ONE image per physical defect
                         sig_key = f"{cam_id}_{dtype.lower()}"
+                        last_snap = self._last_snap_time.get(sig_key, 0.0)
 
-                        # Capture exactly once per defect!
-                        if sig_key not in self.captured_signatures:
+                        # Capture if new defect, missing on disk, or after 45s refresh cooldown
+                        if (sig_key not in self.captured_signatures) or (now - last_snap > 45.0):
                             self.captured_signatures.add(sig_key)
+                            self._last_snap_time[sig_key] = now
                             ts_ms = int(now * 1000)
                             snap_name = f"snap_{cam_id}_{dtype.lower()}_{ts_ms}.jpg"
                             crop_name = f"crop_{cam_id}_{dtype.lower()}_{ts_ms}.jpg"
+                            
+                            os.makedirs(snap_dir, exist_ok=True)
                             snap_path = os.path.join(snap_dir, snap_name)
                             crop_path = os.path.join(snap_dir, crop_name)
 
@@ -429,8 +432,9 @@ class PipelineManager:
                                 if crop_roi.size > 0:
                                     cv2.imwrite(crop_path, crop_roi)
                                 cv2.imwrite(snap_path, resized)
-                            except Exception:
-                                pass
+                                print(f"[EVIDENCE CAPTURED] Saved {crop_name} and {snap_name}", flush=True)
+                            except Exception as save_err:
+                                print(f"[EVIDENCE ERROR] Failed to save {snap_name}: {save_err}", flush=True)
 
                             defect_pkt = {
                                 "defect_id": f"def_{cam_id}_{dtype.lower()}",
@@ -456,17 +460,21 @@ class PipelineManager:
                             if len(self.recent_defects) > 20:
                                 self.recent_defects.pop()
 
-                # 2. Rash Driving / Extreme Speeding Violation Snapshot (Strict Single-Shot Capture Per Camera Stream)
+                # 2. Rash Driving / Extreme Speeding Violation Snapshot (Real-Time Violation Capture)
                 rash_vehicles = [t for t in traffic_boxes if t[6].get("speed_km_h", 0) >= 65.0]
                 if rash_vehicles:
                     rv = rash_vehicles[0]
                     rx1, ry1, rx2, ry2, rcls, rconf, rmeta = rv
                     rash_sig = f"{cam_id}_rashdrive"
-                    if rash_sig not in self.captured_signatures:
+                    last_rash_snap = self._last_snap_time.get(rash_sig, 0.0)
+                    if (rash_sig not in self.captured_signatures) or (now - last_rash_snap > 45.0):
                         self.captured_signatures.add(rash_sig)
+                        self._last_snap_time[rash_sig] = now
                         ts_ms = int(now * 1000)
                         snap_name = f"snap_{cam_id}_rashdrive_{ts_ms}.jpg"
                         crop_name = f"crop_{cam_id}_rashdrive_{ts_ms}.jpg"
+                        
+                        os.makedirs(snap_dir, exist_ok=True)
                         snap_path = os.path.join(snap_dir, snap_name)
                         crop_path = os.path.join(snap_dir, crop_name)
 
@@ -480,8 +488,9 @@ class PipelineManager:
                             if crop_roi.size > 0:
                                 cv2.imwrite(crop_path, crop_roi)
                             cv2.imwrite(snap_path, resized)
-                        except Exception:
-                            pass
+                            print(f"[EVIDENCE CAPTURED] Saved {crop_name} and {snap_name}", flush=True)
+                        except Exception as save_err:
+                            print(f"[EVIDENCE ERROR] Failed to save {snap_name}: {save_err}", flush=True)
 
                         inc_pkt = {
                             "id": f"inc_rash_{cam_id}",

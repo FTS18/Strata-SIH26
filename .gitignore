@@ -66,4 +66,4 @@ diff.txt
 *.log
 
 # Unused Large Media Assets (>50MB unused)
-frontend/public/videos/9088070-uhd_3840_2160_30fps.mp4
+frontend/public/evidence/snapshots/

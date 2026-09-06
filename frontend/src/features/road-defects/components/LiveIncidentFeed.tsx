@@ -161,7 +161,7 @@ export function LiveIncidentFeed({
               eventTimestamp = incidentItem.timestamp;
               reportedByBus = incidentItem.reportedByBusId;
               locationName = incidentItem.locationName;
-              thumbUrl = incidentItem.cropImageUrl || '/evidence/pothole_cam1_crop.jpg';
+              thumbUrl = incidentItem.cropImageUrl || '/evidence/rashdrive_cam1_crop.jpg';
 
               switch (incidentItem.type) {
                 case 'overspeeding':
@@ -223,7 +223,13 @@ export function LiveIncidentFeed({
                     alt="Evidence thumbnail"
                     className="h-full w-full object-cover group-hover:scale-105 transition-transform duration-200"
                     onError={(e) => {
-                      (e.target as HTMLImageElement).src = '/evidence/pothole_cam1_crop.jpg';
+                      const target = e.target as HTMLImageElement;
+                      if (!target.dataset.fallback) {
+                        target.dataset.fallback = 'true';
+                        target.src = isDefect
+                          ? (defectItem?.type === 'waterlogging' ? '/evidence/waterlogging_cam1_crop.jpg' : '/evidence/pothole_cam1_crop.jpg')
+                          : '/evidence/rashdrive_cam1_crop.jpg';
+                      }
                     }}
                   />
                   <div className="absolute bottom-0 inset-x-0 bg-[#092328]/90 text-[7px] font-mono text-center text-[#8BBB92] py-0.2">

@@ -89,8 +89,8 @@ export function IncidentReportDrawer({
       defaultContextUrl = '/evidence/waterlogging_cam1_annotated.jpg';
     }
   } else if (incident) {
-    defaultCropUrl = '/evidence/pothole_cam1_crop.jpg';
-    defaultContextUrl = '/evidence/pothole_cam1_annotated.jpg';
+    defaultCropUrl = '/evidence/rashdrive_cam1_crop.jpg';
+    defaultContextUrl = '/evidence/rashdrive_cam1_annotated.jpg';
   }
 
   const activeImageSrc = evidenceMode === 'crop'
