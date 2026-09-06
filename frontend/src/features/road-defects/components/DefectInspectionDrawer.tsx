@@ -85,8 +85,8 @@ export function DefectInspectionDrawer({
     <Drawer
       isOpen={isOpen}
       onClose={onClose}
-      title={`Defect #${defect.id.slice(-6)}`}
-      subtitle={`${defect.coords.lat.toFixed(5)}° N, ${defect.coords.lng.toFixed(5)}° E`}
+      title={`Defect #${defect?.id ? defect.id.slice(-6) : 'DEFECT'}`}
+      subtitle={`${defect?.coords?.lat != null ? defect.coords.lat.toFixed(5) : '30.73050'}° N, ${defect?.coords?.lng != null ? defect.coords.lng.toFixed(5) : '76.82100'}° E`}
       badge={
         <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase border ${
           isCritical
@@ -209,7 +209,7 @@ export function DefectInspectionDrawer({
 
           {/* Bottom GPS Watermark Stamp */}
           <div className="flex items-center justify-between text-[9px] font-mono text-[#8BBB92] bg-[#092328]/85 px-2 py-0.5 rounded border border-[#12544F]">
-            <span>{defect.coords.lat.toFixed(5)}°N, {defect.coords.lng.toFixed(5)}°E</span>
+            <span>{defect?.coords?.lat != null ? defect.coords.lat.toFixed(5) : '30.73050'}°N, {defect?.coords?.lng != null ? defect.coords.lng.toFixed(5) : '76.82100'}°E</span>
             <span className="text-emerald-400 font-bold">
               {evidenceMode === 'crop' ? 'SECTION LOCALIZED' : 'INSPECTED'}
             </span>

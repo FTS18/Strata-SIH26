@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { type VehicleIncident } from '@/types';
 
 export interface DispatchedUnit {
   unitId: string;
@@ -21,6 +22,9 @@ export interface WarrantVehicle {
   status: 'Active Warrant' | 'Impound Immediate' | 'Under Surveillance' | 'Recovered / Closed';
   priority: 'Critical' | 'High' | 'Medium';
   dispatchedUnit?: DispatchedUnit;
+  incidentId?: string;
+  dispatchReference?: string;
+  proofImageUrl?: string;
 }
 
 export interface EChallanRecord {
@@ -40,6 +44,9 @@ export interface EChallanRecord {
   revocationReason?: string;
   paymentReceiptId?: string;
   ownerName?: string;
+  incidentId?: string;
+  dispatchReference?: string;
+  proofImageUrl?: string;
 }
 
 export interface ViolationCorridor {
@@ -77,6 +84,7 @@ export interface PoliceState {
   updateChallanStatus: (id: string, status: EChallanRecord['status'], extra?: { reason?: string; receiptId?: string }) => void;
   revokeChallan: (id: string, reason: string) => void;
   setSelectedChallanId: (id: string | null) => void;
+  syncPublishedIncident: (incident: VehicleIncident, dispatchCode: string, notes?: string) => void;
 
   // Corridor Actions
   toggleCorridorRadar: (id: string) => void;
@@ -383,5 +391,109 @@ export const usePoliceStore = create<PoliceState>((set, get) => ({
     }));
     const corridor = get().corridors.find((c) => c.id === id);
     get().showToast(`Interceptor deployed to ${corridor?.corridorName || 'corridor'}.`);
+  },
+
+  syncPublishedIncident: (incident, dispatchCode, notes) => {
+    const fineAmount =
+      incident.type === 'rash_driving' || incident.type === 'hit_and_run'
+        ? 5000
+        : incident.type === 'bus_lane_obstruction' || incident.type === 'lane_violation'
+        ? 1500
+        : (incident.speedKmH && incident.speedKmH > 70)
+        ? 2500
+        : 2000;
+
+    const plate = incident.suspectPlate || 'HR 26 DQ 5512';
+    const violationType =
+      incident.reason ||
+      `${incident.type.replace(/_/g, ' ').toUpperCase()}${
+        incident.speedKmH ? ` (${incident.speedKmH} km/h clocked)` : ''
+      }`;
+
+    const newChallan: EChallanRecord = {
+      id: dispatchCode,
+      plate,
+      vehicleType: incident.vehicleDescription || 'Private Vehicle (Sedan/SUV)',
+      violationType,
+      fineAmount,
+      speedObservedKmH: incident.speedKmH || 67.4,
+      speedLimitKmH: 50,
+      location: incident.locationName,
+      coords: incident.coords,
+      reportingBusId: incident.reportedByBusId || 'CTU Sensing Bus (CAM1)',
+      ocrConfidence: incident.ocrConfidence || 0.984,
+      timestamp: incident.publishedAt || Date.now(),
+      status: 'UNPAID',
+      ownerName: 'National VAHAN Registry Record',
+      incidentId: incident.id,
+      dispatchReference: dispatchCode,
+      proofImageUrl: incident.proofImageUrl || incident.cropImageUrl,
+    };
+
+    const newWarrant: WarrantVehicle = {
+      id: `WAR-${dispatchCode.replace('CTP-CHALLAN-', '')}`,
+      plate,
+      vehicleModel: incident.vehicleDescription || 'Target Vehicle (Edge Optical Sighting)',
+      warrantReason: violationType,
+      caseFir: dispatchCode,
+      policeStation: 'Sector 26 PS (Chandigarh Traffic Police Central E-Challan Cell)',
+      flaggedDate: 'Today (Just Now)',
+      lastSightedByBus: incident.reportedByBusId || 'CTU Sensing Bus (CAM1)',
+      status:
+        incident.isFlaggedWatchlist || (incident.speedKmH && incident.speedKmH > 70)
+          ? 'Impound Immediate'
+          : 'Active Warrant',
+      priority: incident.speedKmH && incident.speedKmH > 65 ? 'Critical' : 'High',
+      incidentId: incident.id,
+      dispatchReference: dispatchCode,
+      proofImageUrl: incident.proofImageUrl || incident.cropImageUrl,
+    };
+
+    set((state) => {
+      const existingChallanIndex = state.challans.findIndex(
+        (c) => c.id === dispatchCode || (c.incidentId && c.incidentId === incident.id)
+      );
+      const updatedChallans =
+        existingChallanIndex >= 0
+          ? state.challans.map((c, idx) => (idx === existingChallanIndex ? newChallan : c))
+          : [newChallan, ...state.challans];
+
+      const existingWarrantIndex = state.warrants.findIndex(
+        (w) => w.caseFir === dispatchCode || w.plate === plate
+      );
+      const updatedWarrants =
+        existingWarrantIndex >= 0
+          ? state.warrants.map((w, idx) => (idx === existingWarrantIndex ? { ...w, ...newWarrant } : w))
+          : [newWarrant, ...state.warrants];
+
+      const locLower = incident.locationName.toLowerCase();
+      const updatedCorridors = state.corridors.map((corridor) => {
+        const corrLower = corridor.corridorName.toLowerCase();
+        const corrLocLower = corridor.locationName.toLowerCase();
+        const isMatch =
+          (locLower.includes('madhya') && (corrLower.includes('madhya') || corrLocLower.includes('madhya'))) ||
+          (locLower.includes('jan marg') && (corrLower.includes('jan marg') || corrLocLower.includes('jan marg'))) ||
+          (locLower.includes('dakshin') && (corrLower.includes('dakshin') || corrLocLower.includes('dakshin')));
+
+        if (isMatch) {
+          return {
+            ...corridor,
+            violationsCount: corridor.violationsCount + 1,
+            radarActive: true,
+          };
+        }
+        return corridor;
+      });
+
+      return {
+        challans: updatedChallans,
+        warrants: updatedWarrants,
+        corridors: updatedCorridors,
+        selectedChallanId: dispatchCode,
+        selectedWarrantId: newWarrant.id,
+      };
+    });
+
+    get().showToast(`Report Synced to Central E-Challan Cell: ${dispatchCode} (${plate})`);
   },
 }));

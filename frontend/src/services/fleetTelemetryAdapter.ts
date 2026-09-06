@@ -237,9 +237,8 @@ export class FleetTelemetryAdapter {
     this.timer = setInterval(() => {
       tick++;
 
-      // Ingest live real-time defects & incidents from backend vision engine
-      if (tick % 2 === 0) {
-        fetch('http://localhost:8000/api/v1/distress/feed')
+      // Ingest live real-time defects & incidents from backend vision engine (every 800ms)
+      fetch('http://localhost:8000/api/v1/distress/feed')
           .then((res) => (res.ok ? res.json() : null))
           .then((data) => {
             if (!data) return;
@@ -298,7 +297,6 @@ export class FleetTelemetryAdapter {
             }
           })
           .catch(() => {});
-      }
 
       this.buses.forEach((bus) => {
         const route = OSM_BUS_PATHS[bus.routeId];
@@ -356,33 +354,6 @@ export class FleetTelemetryAdapter {
           callbacks.onBusUpdate({ ...bus });
         }
       });
-
-      // Periodic live incidents
-      if (tick % 35 === 0) {
-        const catalogIndex = Math.floor(Math.random() * this.incidentCatalogue.length);
-        const inc = this.incidentCatalogue[catalogIndex];
-        const reportingBus = this.buses[Math.floor(Math.random() * this.buses.length)];
-
-        callbacks.onIncidentDetected({
-          id: `inc_chd_${Date.now()}`,
-          type: inc.type || 'overspeeding',
-          coords: inc.coords || { ...reportingBus.coords },
-          timestamp: Date.now(),
-          reportedByBusId: reportingBus.busNumber,
-          locationName: inc.locationName || 'Chandigarh Sector Corridor',
-          suspectPlate: inc.suspectPlate,
-          ocrConfidence: inc.ocrConfidence,
-          speedKmH: inc.speedKmH,
-          vehicleDescription: inc.vehicleDescription,
-          reason: inc.reason,
-          isFlaggedWatchlist: inc.isFlaggedWatchlist,
-          proofImageUrl: inc.proofImageUrl,
-          cropImageUrl: inc.cropImageUrl,
-          reportStatus: inc.reportStatus || 'draft',
-          inspectorNotes: inc.inspectorNotes,
-          assignedAgency: inc.assignedAgency,
-        });
-      }
     }, 800);
   }
 

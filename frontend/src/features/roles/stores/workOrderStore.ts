@@ -45,7 +45,7 @@ export interface WorkOrderState {
   activeToast: string | null;
 
   // Ticket CRUD
-  createTicketFromDefect: (defect: RoadDefect) => WorkOrderTicket;
+  createTicketFromDefect: (defect: RoadDefect, dispatchRef?: string) => WorkOrderTicket;
   createCustomTicket: (ticket: Omit<WorkOrderTicket, 'id' | 'createdAt'>) => WorkOrderTicket;
   assignTicket: (ticketId: string, contractorName: string) => void;
   updateTicketStatus: (ticketId: string, status: WorkOrderStatus) => void;
@@ -244,8 +244,9 @@ export const useWorkOrderStore = create<WorkOrderState>((set, get) => ({
 
   clearToast: () => set({ activeToast: null }),
 
-  createTicketFromDefect: (defect) => {
+  createTicketFromDefect: (defect, dispatchRef) => {
     const { asphaltTons, estimatedCostInr } = calculateAsphaltRequirement(defect.estimatedAreaSqM);
+    const ref = dispatchRef || defect.dispatchReference;
     const newTicket: WorkOrderTicket = {
       id: `WO-${Math.floor(1000 + Math.random() * 9000)}`,
       defectId: defect.id,
@@ -259,13 +260,19 @@ export const useWorkOrderStore = create<WorkOrderState>((set, get) => ({
       createdAt: Date.now(),
       deadlineAt: Date.now() + 3600000 * 48,
       beforePhotoUrl: defect.proofImageUrl,
+      dispatchReference: ref,
+      assignedAgency: defect.assignedAgency || 'Punjab/Chandigarh PWD Civil Works',
     };
 
     set((state) => ({
       tickets: [newTicket, ...state.tickets],
       selectedTicketId: newTicket.id,
     }));
-    get().showToast(`Work order ${newTicket.id} created from AI defect detection.`);
+    get().showToast(
+      ref
+        ? `Official PWD Docket ${ref} assigned to Work Order ${newTicket.id}`
+        : `Work order ${newTicket.id} created from AI defect detection.`
+    );
     return newTicket;
   },
 

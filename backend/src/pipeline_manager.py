@@ -139,6 +139,8 @@ class PipelineManager:
         self._caps: Dict[str, cv2.VideoCapture] = {}
         self._caps_lock = threading.Lock()
         self._last_snap_time: Dict[str, float] = {}
+        self.captured_signatures: Set[str] = set()
+        os.makedirs(os.path.join(self.project_root, "frontend", "public", "evidence", "snapshots"), exist_ok=True)
 
         # Registry for Observability Console
         self.registry: Dict[str, Dict[str, Any]] = {
@@ -386,107 +388,124 @@ class PipelineManager:
                 }
 
                 # Real-Time Snapshot Capture for Negative Incidents & Distress ("Bad Things Only")
+                # Strict Single-Shot Capture: Exactly ONE Image Per Physical Defect / Incident
                 now = time.time()
                 snap_dir = os.path.join(self.project_root, "frontend", "public", "evidence", "snapshots")
 
-                # 1. Pothole / Waterlogging Distress Snapshot
-                if distress_boxes and (now - self._last_snap_time.get("distress", 0) > 4.0):
-                    self._last_snap_time["distress"] = now
-                    d = distress_boxes[0]
-                    dx1, dy1, dx2, dy2, dtype, dconf, dmeta = d
-                    ts = int(now)
-                    snap_name = f"snap_{cam_id}_{dtype.lower()}_{ts}.jpg"
-                    crop_name = f"crop_{cam_id}_{dtype.lower()}_{ts}.jpg"
-                    snap_path = os.path.join(snap_dir, snap_name)
-                    crop_path = os.path.join(snap_dir, crop_name)
+                # Road context metadata per camera
+                road_meta = {
+                    'cam1': (30.7305, 76.8210, "Madhya Marg (Sec 26 Transit Arterial)", "MCC Ward 04"),
+                    'cam2': (30.7385, 76.7890, "Jan Marg (Rose Garden / Sec 16)", "MCC Ward 12"),
+                    'cam3': (30.7410, 76.7790, "Sector 17 Market Corridor", "MCC Ward 07"),
+                    'cam4': (30.7070, 76.7940, "Dakshin Marg (Tribune Flyover Approach)", "MCC Ward 24"),
+                }
+                c_lat, c_lng, c_road, c_ward = road_meta.get(cam_id, (30.7305, 76.8210, "Madhya Marg (Sec 26 Transit Arterial)", "MCC Ward 04"))
 
-                    pad_x = max(10, int((dx2 - dx1) * 0.15))
-                    pad_y = max(8, int((dy2 - dy1) * 0.15))
-                    cy1 = max(0, dy1 - pad_y)
-                    cy2 = min(resized.shape[0], dy2 + pad_y)
-                    cx1 = max(0, dx1 - pad_x)
-                    cx2 = min(resized.shape[1], dx2 + pad_x)
-                    crop_roi = resized[cy1:cy2, cx1:cx2]
+                # 1. Pothole / Waterlogging Distress Snapshot (Strict Single-Shot Capture: Exactly ONE Image Per Defect)
+                if distress_boxes:
+                    for d in distress_boxes:
+                        dx1, dy1, dx2, dy2, dtype, dconf, dmeta = d
+                        # Keyed strictly by camera and defect type - captures ONLY ONE image per physical defect
+                        sig_key = f"{cam_id}_{dtype.lower()}"
 
-                    try:
-                        if crop_roi.size > 0:
-                            cv2.imwrite(crop_path, crop_roi)
-                        cv2.imwrite(snap_path, resized)
-                    except Exception:
-                        pass
+                        # Capture exactly once per defect!
+                        if sig_key not in self.captured_signatures:
+                            self.captured_signatures.add(sig_key)
+                            ts_ms = int(now * 1000)
+                            snap_name = f"snap_{cam_id}_{dtype.lower()}_{ts_ms}.jpg"
+                            crop_name = f"crop_{cam_id}_{dtype.lower()}_{ts_ms}.jpg"
+                            snap_path = os.path.join(snap_dir, snap_name)
+                            crop_path = os.path.join(snap_dir, crop_name)
 
-                    defect_pkt = {
-                        "defect_id": f"def_{cam_id}_{ts}",
-                        "defect_type": dtype.lower(),
-                        "coords": {"lat": 30.7305, "lng": 76.8210},
-                        "road_name": "Madhya Marg (Sec 26 Transit Arterial)" if cam_id != 'cam3' else "Sector 17 Market Corridor",
-                        "wardName": "MCC Ward 04",
-                        "severity": dmeta.get("severity", "critical"),
-                        "confidence_score": dconf,
-                        "imu_vibration_z": dmeta.get("imu_z", 2.84),
-                        "estimated_area_sq_m": dmeta.get("area_sq_m", 4.2),
-                        "depth_cm": dmeta.get("depth", "5.4cm"),
-                        "detected_by_bus_id": f"CTU Sensing Bus ({cam_id.upper()})",
-                        "timestamp": ts * 1000,
-                        "proof_image_url": f"/evidence/snapshots/{snap_name}",
-                        "crop_image_url": f"/evidence/snapshots/{crop_name}",
-                        "reportStatus": "draft",
-                        "inspectorNotes": f"{dtype.title()} registered on asphalt surface. IMU vibration peak: {dmeta.get('imu_z', 2.84)}g. PWD civil maintenance action required.",
-                        "assignedAgency": "Punjab/Chandigarh PWD Civil Works" if dtype == 'POTHOLE' else "MCC Stormwater & Drainage Wing"
-                    }
-                    self.emit_event("ROAD_DEFECT", defect_pkt)
-                    self.recent_defects.insert(0, defect_pkt)
-                    if len(self.recent_defects) > 30:
-                        self.recent_defects.pop()
+                            pad_x = max(10, int((dx2 - dx1) * 0.15))
+                            pad_y = max(8, int((dy2 - dy1) * 0.15))
+                            cy1 = max(0, dy1 - pad_y)
+                            cy2 = min(resized.shape[0], dy2 + pad_y)
+                            cx1 = max(0, dx1 - pad_x)
+                            cx2 = min(resized.shape[1], dx2 + pad_x)
+                            crop_roi = resized[cy1:cy2, cx1:cx2]
 
-                # 2. Rash Driving / Extreme Speeding Violation Snapshot (> 65 km/h)
+                            try:
+                                if crop_roi.size > 0:
+                                    cv2.imwrite(crop_path, crop_roi)
+                                cv2.imwrite(snap_path, resized)
+                            except Exception:
+                                pass
+
+                            defect_pkt = {
+                                "defect_id": f"def_{cam_id}_{dtype.lower()}",
+                                "defect_type": dtype.lower(),
+                                "coords": {"lat": c_lat, "lng": c_lng},
+                                "road_name": c_road,
+                                "wardName": c_ward,
+                                "severity": dmeta.get("severity", "critical"),
+                                "confidence_score": dconf,
+                                "imu_vibration_z": dmeta.get("imu_z", 2.84),
+                                "estimated_area_sq_m": dmeta.get("area_sq_m", 4.2),
+                                "depth_cm": dmeta.get("depth", "5.4cm"),
+                                "detected_by_bus_id": f"CTU Sensing Bus ({cam_id.upper()})",
+                                "timestamp": ts_ms,
+                                "proof_image_url": f"/evidence/snapshots/{snap_name}",
+                                "crop_image_url": f"/evidence/snapshots/{crop_name}",
+                                "reportStatus": "draft",
+                                "inspectorNotes": f"{dtype.title()} registered on asphalt surface. IMU vibration peak: {dmeta.get('imu_z', 2.84)}g. PWD civil maintenance action required.",
+                                "assignedAgency": "Punjab/Chandigarh PWD Civil Works" if dtype == 'POTHOLE' else "MCC Stormwater & Drainage Wing"
+                            }
+                            self.emit_event("ROAD_DEFECT", defect_pkt)
+                            self.recent_defects.insert(0, defect_pkt)
+                            if len(self.recent_defects) > 20:
+                                self.recent_defects.pop()
+
+                # 2. Rash Driving / Extreme Speeding Violation Snapshot (Strict Single-Shot Capture Per Camera Stream)
                 rash_vehicles = [t for t in traffic_boxes if t[6].get("speed_km_h", 0) >= 65.0]
-                if rash_vehicles and (now - self._last_snap_time.get("rash_drive", 0) > 5.0):
-                    self._last_snap_time["rash_drive"] = now
+                if rash_vehicles:
                     rv = rash_vehicles[0]
                     rx1, ry1, rx2, ry2, rcls, rconf, rmeta = rv
-                    ts = int(now)
-                    snap_name = f"snap_{cam_id}_rashdrive_{ts}.jpg"
-                    crop_name = f"crop_{cam_id}_rashdrive_{ts}.jpg"
-                    snap_path = os.path.join(snap_dir, snap_name)
-                    crop_path = os.path.join(snap_dir, crop_name)
+                    rash_sig = f"{cam_id}_rashdrive"
+                    if rash_sig not in self.captured_signatures:
+                        self.captured_signatures.add(rash_sig)
+                        ts_ms = int(now * 1000)
+                        snap_name = f"snap_{cam_id}_rashdrive_{ts_ms}.jpg"
+                        crop_name = f"crop_{cam_id}_rashdrive_{ts_ms}.jpg"
+                        snap_path = os.path.join(snap_dir, snap_name)
+                        crop_path = os.path.join(snap_dir, crop_name)
 
-                    cy1 = max(0, ry1 - 10)
-                    cy2 = min(resized.shape[0], ry2 + 10)
-                    cx1 = max(0, rx1 - 10)
-                    cx2 = min(resized.shape[1], rx2 + 10)
-                    crop_roi = resized[cy1:cy2, cx1:cx2]
+                        cy1 = max(0, ry1 - 10)
+                        cy2 = min(resized.shape[0], ry2 + 10)
+                        cx1 = max(0, rx1 - 10)
+                        cx2 = min(resized.shape[1], rx2 + 10)
+                        crop_roi = resized[cy1:cy2, cx1:cx2]
 
-                    try:
-                        if crop_roi.size > 0:
-                            cv2.imwrite(crop_path, crop_roi)
-                        cv2.imwrite(snap_path, resized)
-                    except Exception:
-                        pass
+                        try:
+                            if crop_roi.size > 0:
+                                cv2.imwrite(crop_path, crop_roi)
+                            cv2.imwrite(snap_path, resized)
+                        except Exception:
+                            pass
 
-                    inc_pkt = {
-                        "id": f"inc_rash_{cam_id}_{ts}",
-                        "type": "overspeeding",
-                        "coords": {"lat": 30.7070, "lng": 76.7940},
-                        "timestamp": ts * 1000,
-                        "reported_by_bus_id": f"CTU Sensing Bus ({cam_id.upper()})",
-                        "location_name": "Dakshin Marg (Tribune Flyover Approach)",
-                        "speed_km_h": rmeta.get("speed_km_h", 74.5),
-                        "suspect_plate": "HR 26 DQ 5512",
-                        "ocr_confidence": 0.98,
-                        "vehicle_description": f"{rcls} (Speed Violation)",
-                        "reason": f"Vehicle clocked at {rmeta.get('speed_km_h', 74.5)} km/h in 50 km/h corridor",
-                        "is_flagged_watchlist": True,
-                        "proof_image_url": f"/evidence/snapshots/{snap_name}",
-                        "crop_image_url": f"/evidence/snapshots/{crop_name}",
-                        "reportStatus": "draft",
-                        "inspectorNotes": f"Speed violation clocked at {rmeta.get('speed_km_h', 74.5)} km/h. E-Challan draft generated for Traffic Police review.",
-                        "assignedAgency": "Chandigarh Traffic Police Central E-Challan Cell"
-                    }
-                    self.emit_event("INCIDENT_DETECTED", inc_pkt)
-                    self.recent_incidents.insert(0, inc_pkt)
-                    if len(self.recent_incidents) > 30:
-                        self.recent_incidents.pop()
+                        inc_pkt = {
+                            "id": f"inc_rash_{cam_id}",
+                            "type": "overspeeding",
+                            "coords": {"lat": c_lat, "lng": c_lng},
+                            "timestamp": ts_ms,
+                            "reported_by_bus_id": f"CTU Sensing Bus ({cam_id.upper()})",
+                            "location_name": c_road,
+                            "speed_km_h": rmeta.get("speed_km_h", 74.5),
+                            "suspect_plate": "HR 26 DQ 5512",
+                            "ocr_confidence": 0.98,
+                            "vehicle_description": f"{rcls} (Speed Violation)",
+                            "reason": f"Vehicle clocked at {rmeta.get('speed_km_h', 74.5)} km/h in 50 km/h corridor",
+                            "is_flagged_watchlist": True,
+                            "proof_image_url": f"/evidence/snapshots/{snap_name}",
+                            "crop_image_url": f"/evidence/snapshots/{crop_name}",
+                            "reportStatus": "draft",
+                            "inspectorNotes": f"Speed violation clocked at {rmeta.get('speed_km_h', 74.5)} km/h. E-Challan draft generated for Traffic Police review.",
+                            "assignedAgency": "Chandigarh Traffic Police Central E-Challan Cell"
+                        }
+                        self.emit_event("VEHICLE_INCIDENT", inc_pkt)
+                        self.recent_incidents.insert(0, inc_pkt)
+                        if len(self.recent_incidents) > 20:
+                            self.recent_incidents.pop()
 
                 # 3. Pedestrian Corridor Incursion Alert Snapshot
                 if ped_alert_pkt and (now - self._last_snap_time.get("pedestrian", 0) > 8.0):
@@ -752,7 +771,8 @@ class PipelineManager:
             self.camera_sources[cam_id] = file_path
             self.custom_footage_names[cam_id] = filename
 
-            # Reset detection tracks for fresh stream state
+            # Reset detection tracks and captured defect signatures for fresh stream state
+            self.captured_signatures = {s for s in self.captured_signatures if not s.startswith(f"{cam_id}_")}
             with _frame_lock:
                 if cam_id in _latest_jpeg_frames:
                     del _latest_jpeg_frames[cam_id]
@@ -786,6 +806,7 @@ class PipelineManager:
             self.camera_sources[cam_id] = default_path
             self.custom_footage_names[cam_id] = None
 
+            self.captured_signatures = {s for s in self.captured_signatures if not s.startswith(f"{cam_id}_")}
             with _frame_lock:
                 if cam_id in _latest_jpeg_frames:
                     del _latest_jpeg_frames[cam_id]

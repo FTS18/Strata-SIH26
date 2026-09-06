@@ -140,12 +140,19 @@ export const useTelemetryStore = create<TelemetryState>((set, get) => ({
 
   addRoadDefect: (defect) =>
     set((state) => {
-      const existingIndex = state.defects.findIndex((d) => d.id === defect.id);
+      // Deduplicate: same ID, or same defect type on the same camera/bus, or within 300m
+      const existingIndex = state.defects.findIndex((d) =>
+        d.id === defect.id ||
+        (d.type === defect.type &&
+          (d.detectedByBusId === defect.detectedByBusId ||
+            (Math.abs(d.coords.lat - defect.coords.lat) < 0.003 &&
+             Math.abs(d.coords.lng - defect.coords.lng) < 0.003)))
+      );
       if (existingIndex >= 0) {
         const updated = [...state.defects];
         updated[existingIndex] = {
           ...updated[existingIndex],
-          observationsCount: updated[existingIndex].observationsCount + 1,
+          observationsCount: (updated[existingIndex].observationsCount || 1) + 1,
           lastDetectedAt: defect.detectedAt,
         } as any;
         return { defects: updated };
@@ -154,9 +161,16 @@ export const useTelemetryStore = create<TelemetryState>((set, get) => ({
     }),
 
   addVehicleIncident: (incident) =>
-    set((state) => ({
-      incidents: [incident, ...state.incidents],
-    })),
+    set((state) => {
+      const existingIndex = state.incidents.findIndex((i) =>
+        i.id === incident.id ||
+        (i.type === incident.type &&
+          (i.reportedByBusId === incident.reportedByBusId ||
+           (i.suspectPlate && i.suspectPlate === incident.suspectPlate)))
+      );
+      if (existingIndex >= 0) return state;
+      return { incidents: [incident, ...state.incidents] };
+    }),
 
   setSelectedBusId: (id) => set({ selectedBusId: id }),
   setSelectedDefectId: (id) => set({ selectedDefectId: id }),

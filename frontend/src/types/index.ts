@@ -144,6 +144,8 @@ export interface WorkOrder {
   beforePhotoUrl?: string;
   afterPhotoUrl?: string;
   verifiedByBusId?: string;
+  dispatchReference?: string;
+  assignedAgency?: string;
 }
 
 export type WorkOrderTicket = WorkOrder;

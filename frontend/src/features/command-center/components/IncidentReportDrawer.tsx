@@ -26,6 +26,7 @@ import {
 import { formatTimestamp } from '@/lib/utils';
 import { useTelemetryStore } from '@/features/fleet-telemetry/telemetryStore';
 import { useWorkOrderStore } from '@/features/roles/stores/workOrderStore';
+import { usePoliceStore } from '@/features/roles/stores/policeStore';
 
 export interface IncidentReportDrawerProps {
   item: RoadDefect | VehicleIncident | null;
@@ -46,23 +47,32 @@ export function IncidentReportDrawer({
   const [imageError, setImageError] = useState(false);
   const [copied, setCopied] = useState(false);
   const [isPublishing, setIsPublishing] = useState(false);
+  const [notes, setNotes] = useState<string>('');
 
   const publishDefectReport = useTelemetryStore((state) => state.publishDefectReport);
   const publishIncidentReport = useTelemetryStore((state) => state.publishIncidentReport);
   const createTicketFromDefect = useWorkOrderStore((state) => state.createTicketFromDefect);
+  const syncPublishedIncident = usePoliceStore((state) => state.syncPublishedIncident);
+
+  React.useEffect(() => {
+    if (!item || !category) return;
+    const isDefect = category === 'defect';
+    const latStr = item.coords?.lat != null ? item.coords.lat.toFixed(5) : '30.73050';
+    const lngStr = item.coords?.lng != null ? item.coords.lng.toFixed(5) : '76.82100';
+    setNotes(
+      item.inspectorNotes ||
+        (isDefect
+          ? `Mobile sensing unit registered road distress at ${latStr}°N, ${lngStr}°E. Automated civil engineering maintenance action recommended.`
+          : `Traffic perception unit detected violation at ${latStr}°N, ${lngStr}°E. Notice under Motor Vehicles Act drafted.`)
+    );
+    setImageError(false);
+  }, [item, category]);
 
   if (!item || !category) return null;
 
   const isDefect = category === 'defect';
   const defect = isDefect ? (item as RoadDefect) : null;
   const incident = !isDefect ? (item as VehicleIncident) : null;
-
-  const [notes, setNotes] = useState<string>(
-    item.inspectorNotes ||
-      (defect
-        ? `Mobile sensing unit registered road distress at ${item.coords.lat.toFixed(5)}°N, ${item.coords.lng.toFixed(5)}°E. Automated civil engineering maintenance action recommended.`
-        : `Traffic perception unit detected violation at ${item.coords.lat.toFixed(5)}°N, ${item.coords.lng.toFixed(5)}°E. Notice under Motor Vehicles Act drafted.`)
-  );
 
   const isPublished = item.reportStatus === 'published';
   const isCritical = defect ? defect.severity === 'critical' : incident?.isFlaggedWatchlist;
@@ -93,9 +103,10 @@ export function IncidentReportDrawer({
       let dispatchCode = '';
       if (isDefect && defect) {
         dispatchCode = publishDefectReport(defect.id, notes, defect.assignedAgency);
-        createTicketFromDefect(defect);
+        createTicketFromDefect(defect, dispatchCode);
       } else if (incident) {
         dispatchCode = publishIncidentReport(incident.id, notes, incident.assignedAgency);
+        syncPublishedIncident(incident, dispatchCode, notes);
       }
       setIsPublishing(false);
       if (dispatchCode) {
@@ -121,7 +132,7 @@ export function IncidentReportDrawer({
           ? `Report: ${defect.type.replace('_', ' ').toUpperCase()}`
           : `Violation: ${incident?.type.replace('_', ' ').toUpperCase()}`
       }
-      subtitle={`${item.coords.lat.toFixed(5)}° N, ${item.coords.lng.toFixed(5)}° E`}
+      subtitle={`${item?.coords?.lat != null ? item.coords.lat.toFixed(5) : '30.73050'}° N, ${item?.coords?.lng != null ? item.coords.lng.toFixed(5) : '76.82100'}° E`}
       badge={
         isPublished ? (
           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] font-mono font-bold uppercase border bg-emerald-950/70 border-emerald-600/80 text-emerald-400">

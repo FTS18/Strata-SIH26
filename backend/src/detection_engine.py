@@ -281,8 +281,8 @@ class DetectionEngine:
         work_w, work_h = 640, 360
         resized = cv2.resize(frame, (work_w, work_h)) if (w != work_w or h != work_h) else frame
 
-        # Drivable road surface region of interest (lower perspective road lane, excluding camera vehicle hood)
-        roi_y1 = int(work_h * 0.44)
+        # Drivable road surface region of interest (strictly on lower ground pavement, excluding car windows, windshields, rooflines and vehicle hood)
+        roi_y1 = int(work_h * 0.54)
         roi_y2 = int(work_h * 0.82)
         roi_x1 = int(work_w * 0.08)
         roi_x2 = int(work_w * 0.92)
@@ -291,21 +291,23 @@ class DetectionEngine:
         if rh < 10 or rw < 10:
             return distress_boxes
 
-        # 1. Mask out detected vehicles and obstacles (including undercarriage shadow)
+        # 1. Mask out detected vehicles and obstacles (generous envelope covering windows, bumpers and undercarriage shadow)
         obstacle_mask = np.zeros((rh, rw), dtype=np.uint8)
         if raw_boxes:
             for b in raw_boxes:
                 bx1, by1, bx2, by2, bcls = b[0], b[1], b[2], b[3], b[4]
-                if bcls in ['CAR', 'TRUCK', 'BUS', 'MOTORCYCLE', 'PERSON', 'CONCRETE_BARRIER', 'BICYCLE']:
-                    ox1 = max(0, min(rw, bx1 - roi_x1 - 8))
-                    oy1 = max(0, min(rh, by1 - roi_y1 - 8))
-                    ox2 = max(0, min(rw, bx2 - roi_x1 + 8))
-                    # Pad 25px downward to fully mask out dark undercarriage tire shadows
-                    oy2 = max(0, min(rh, by2 - roi_y1 + 25))
+                if bcls in ['CAR', 'TRUCK', 'BUS', 'MOTORCYCLE', 'PERSON', 'CONCRETE_BARRIER', 'BICYCLE', 'VAN', 'VEHICLE', 'AUTO']:
+                    ox1 = max(0, min(rw, bx1 - roi_x1 - 20))
+                    oy1 = max(0, min(rh, by1 - roi_y1 - 25))
+                    ox2 = max(0, min(rw, bx2 - roi_x1 + 20))
+                    # Pad 45px downward to fully mask out dark undercarriage tire shadows, exhausts and wheel wells
+                    oy2 = max(0, min(rh, by2 - roi_y1 + 45))
                     if ox2 > ox1 and oy2 > oy1:
                         cv2.rectangle(obstacle_mask, (ox1, oy1), (ox2, oy2), 255, -1)
 
         gray_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2GRAY)
+        hsv_roi = cv2.cvtColor(roi, cv2.COLOR_BGR2HSV)
+        sat_roi = hsv_roi[:, :, 1]
         mean_road = float(np.mean(gray_roi))
 
         # 2. Real Pothole Detection: Black-Hat Morphological Filter (extracts dark depressions on asphalt)
@@ -313,7 +315,7 @@ class DetectionEngine:
         blackhat = cv2.morphologyEx(gray_roi, cv2.MORPH_BLACKHAT, kernel)
         blackhat[obstacle_mask > 0] = 0
 
-        # Dynamic threshold based on asphalt texture contrast (28 rejects normal road grain/glare)
+        # Dynamic threshold based on asphalt texture contrast (rejects smooth panels and pavement glare)
         _, p_thresh = cv2.threshold(blackhat, 26, 255, cv2.THRESH_BINARY)
         p_thresh = cv2.morphologyEx(p_thresh, cv2.MORPH_CLOSE, cv2.getStructuringElement(cv2.MORPH_ELLIPSE, (9, 7)))
 
@@ -321,24 +323,58 @@ class DetectionEngine:
         candidate_potholes = []
         for c in contours:
             area = cv2.contourArea(c)
-            if 200 < area < 16000:
+            # Physical pothole area in 640x360 perspective: 160 to 18000 px
+            if 160 < area < 18000:
                 x, y, cw, ch = cv2.boundingRect(c)
                 aspect = cw / max(1, ch)
-                if 0.70 <= aspect <= 3.2:
+                # Perspective road potholes are horizontally elongated (0.90 to 3.8); car seams or tall curves have lower aspect
+                if 0.90 <= aspect <= 3.8 and cw >= 16 and ch >= 8:
                     crater_roi = gray_roi[y:y+ch, x:x+cw]
                     if crater_roi.size < 20:
                         continue
-                    # Pothole craters have rough broken aggregate texture (std dev >= 12)
-                    if np.std(crater_roi) < 12.0:
+
+                    # Texture check: broken aggregate stone texture has high std dev
+                    if np.std(crater_roi) < 11.5:
                         continue
+
+                    # Specular glare / window reflection rejection:
+                    # Tinted windows and curved car chrome have specular reflection peaks (V > 225) next to dark glass (V < 50)
+                    c_max = int(np.max(crater_roi))
+                    c_min = int(np.min(crater_roi))
+                    if c_max > 225 and (c_max - c_min) > 150:
+                        continue
+
+                    # Surrounding asphalt collar check:
+                    # Potholes are embedded in road asphalt with low color saturation.
+                    # Painted car bodywork, tail lamps, and window frames have higher saturation.
+                    collar_y1 = max(0, y - 6)
+                    collar_y2 = min(rh, y + ch + 6)
+                    collar_x1 = max(0, x - 6)
+                    collar_x2 = min(rw, x + cw + 6)
+                    collar_sat = sat_roi[collar_y1:collar_y2, collar_x1:collar_x2]
+                    if collar_sat.size > 0 and float(np.mean(collar_sat)) > 55.0:
+                        continue
+
                     # Pothole core must be darker than surrounding pavement average
-                    if np.mean(crater_roi) > (mean_road - 8.0):
+                    if np.mean(crater_roi) > (mean_road - 6.0):
                         continue
 
                     rx1 = roi_x1 + x
                     ry1 = roi_y1 + y
                     rx2 = rx1 + cw
                     ry2 = ry1 + ch
+
+                    # Direct proximity check: ensure candidate does not touch or fall inside any detected vehicle box
+                    near_vehicle = False
+                    if raw_boxes:
+                        for vb in raw_boxes:
+                            vbx1, vby1, vbx2, vby2, vbcls = vb[0], vb[1], vb[2], vb[3], vb[4]
+                            if vbcls in ['CAR', 'TRUCK', 'BUS', 'MOTORCYCLE', 'PERSON', 'CONCRETE_BARRIER', 'BICYCLE', 'VAN']:
+                                if not (rx2 < (vbx1 - 15) or rx1 > (vbx2 + 15) or ry2 < (vby1 - 15) or ry1 > (vby2 + 30)):
+                                    near_vehicle = True
+                                    break
+                    if near_vehicle:
+                        continue
 
                     # Physical road metrics
                     depth_cm = round(3.8 + (area / 1500.0) * 1.6, 1)
@@ -370,7 +406,7 @@ class DetectionEngine:
                     break
             if not overlap:
                 final_pothole_boxes.append(p)
-            if len(final_pothole_boxes) >= 2:
+            if len(final_pothole_boxes) >= 4:
                 break
 
         # 3. Real Waterlogging Detection: Specular Water Sheen & Blue Dominance

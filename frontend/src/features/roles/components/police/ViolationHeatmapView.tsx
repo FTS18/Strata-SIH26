@@ -23,11 +23,13 @@ export function ViolationHeatmapView({ onNavigateToFeed }: { onNavigateToFeed?: 
   const [isCameraPreviewOpen, setIsCameraPreviewOpen] = useState(false);
 
   const corridors = usePoliceStore((s) => s.corridors);
+  const challans = usePoliceStore((s) => s.challans);
   const dispatchCorridorInterceptor = usePoliceStore((s) => s.dispatchCorridorInterceptor);
   const toggleCorridorRadar = usePoliceStore((s) => s.toggleCorridorRadar);
   const activeToast = usePoliceStore((s) => s.activeToast);
 
   const activeCorridor = corridors.find((c) => c.id === selectedCorridorId) || corridors[0];
+  const newChallansCount = Math.max(0, challans.length - 4);
 
   const columns: Column<ViolationCorridor>[] = [
     {
@@ -86,10 +88,10 @@ export function ViolationHeatmapView({ onNavigateToFeed }: { onNavigateToFeed?: 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-3.5 shrink-0">
         <MetricCard
           label="Total Violations Logged (24h)"
-          value="97"
+          value={String(97 + newChallansCount)}
           unit="Incidents"
           caption="Captured by on-bus AI cameras"
-          change="+12% vs Average"
+          change={newChallansCount > 0 ? `+${newChallansCount} New Live` : '+12% vs Average'}
           changeType="negative"
           icon={<ShieldAlert className="h-4 w-4 text-rose-400" />}
         />
@@ -113,7 +115,7 @@ export function ViolationHeatmapView({ onNavigateToFeed }: { onNavigateToFeed?: 
         />
         <MetricCard
           label="Automated E-Challans Generated"
-          value="78"
+          value={String(78 + newChallansCount)}
           unit="Challans"
           caption="Ready for MoRTH court dispatch"
           change="82% Conversion"

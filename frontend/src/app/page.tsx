@@ -11,13 +11,14 @@ import { RoleSwitcherModal } from '@/components/ui/RoleSwitcherModal';
 import { LoginPage } from '@/features/auth/components/LoginPage';
 import { useAuthStore } from '@/features/auth/authStore';
 import { ROLE_NAVIGATION } from '@/features/navigation/roleNavConfig';
-import { type RoadDefect } from '@/types';
+import { type RoadDefect, type VehicleIncident } from '@/types';
 import { type UserRole } from '@/config/site';
 
 // Spatial Map & HUD
 import { MapViewport } from '@/features/gis-map/components/MapViewport';
 import { DefectInspectionDrawer } from '@/features/road-defects/components/DefectInspectionDrawer';
 import { DualStreamCommandCenter } from '@/features/command-center/components/DualStreamCommandCenter';
+import { IncidentReportDrawer } from '@/features/command-center/components/IncidentReportDrawer';
 
 // Executive Sub-Pages
 import { WardComplianceView } from '@/features/roles/components/executive/WardComplianceView';
@@ -68,6 +69,11 @@ function DashboardContent() {
   const [isRoleSwitcherOpen, setIsRoleSwitcherOpen] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
+  const [activeReportItem, setActiveReportItem] = useState<{
+    item: RoadDefect | VehicleIncident | null;
+    category: 'defect' | 'incident' | null;
+  }>({ item: null, category: null });
+  const [isReportDrawerOpen, setIsReportDrawerOpen] = useState(false);
 
   // Read URL query params on initial mount
   const urlRole = searchParams.get('role') as UserRole | null;
@@ -167,11 +173,19 @@ function DashboardContent() {
 
   const handleSelectDefect = (defectId: string) => {
     setSelectedDefectId(defectId);
-    setIsDrawerOpen(true);
+    const defect = defects.find((d) => d.id === defectId) || null;
+    if (defect) {
+      setActiveReportItem({ item: defect, category: 'defect' });
+      setIsReportDrawerOpen(true);
+    }
   };
 
-  const handleCreateWorkOrder = (defect: RoadDefect) => {
-    createTicketFromDefect(defect);
+  const handleSelectIncident = (incidentId: string) => {
+    const inc = incidents.find((i) => i.id === incidentId) || null;
+    if (inc) {
+      setActiveReportItem({ item: inc, category: 'incident' });
+      setIsReportDrawerOpen(true);
+    }
   };
 
   // Find active label for header title
@@ -262,16 +276,19 @@ function DashboardContent() {
               bandwidthMetrics={bandwidthMetrics}
               activeBusCount={activeBusCount}
               onSelectDefect={handleSelectDefect}
-              onSelectIncident={(id) => console.log('Incident selected:', id)}
+              onSelectIncident={handleSelectIncident}
             />
           )}
 
-          {/* Defect Inspection Drawer */}
-          <DefectInspectionDrawer
-            defect={activeSelectedDefect}
-            isOpen={isDrawerOpen}
-            onClose={() => setIsDrawerOpen(false)}
-            onCreateWorkOrder={handleCreateWorkOrder}
+          {/* Incident & Distress Official Report Publisher Drawer */}
+          <IncidentReportDrawer
+            item={activeReportItem.item}
+            category={activeReportItem.category}
+            isOpen={isReportDrawerOpen}
+            onClose={() => setIsReportDrawerOpen(false)}
+            onReportPublished={() => {
+              soundEffects.playAlertPing('radar');
+            }}
           />
         </div>
 

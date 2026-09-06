@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ShieldAlert, Search, FileText, CheckCircle2, Navigation, AlertTriangle, Flag, Download } from 'lucide-react';
 import { calculateLevenshteinDistance } from '@/lib/geoAlgorithms';
 import { Button } from '@/components/ui/Button';
@@ -17,77 +17,153 @@ export function PoliceConsole() {
   const [showBoundingBoxes, setShowBoundingBoxes] = useState<boolean>(true);
 
   const incidents = useTelemetryStore((state) => state.incidents);
+  const warrants = usePoliceStore((state) => state.warrants);
+  const challans = usePoliceStore((state) => state.challans);
   const issueChallan = usePoliceStore((state) => state.issueChallan);
   const addWarrant = usePoliceStore((state) => state.addWarrant);
   const activeToast = usePoliceStore((state) => state.activeToast);
 
-  const hotlist = [
-    {
-      plate: 'KA 02 MM 9091',
-      reason: 'Commercial Lane Infraction & HSRP Verification',
-      status: 'Live Radar Sighting',
-      flaggedAt: 'Live (Just Now)',
-      location: 'Central Outer Ring Road (ANPR Lane)',
-      speed: 64.8,
-      busId: 'Bus 104 (DL-1PC-8840)',
-      confidence: 98.4,
-      vehicleType: 'Volvo XC60 Luxury SUV (Black)',
-      sourceTag: 'YOLOV8 + PLATENET DETECTED',
-      targetMode: 'auto_anpr' as const,
-    },
-    {
-      plate: 'UP 16 BT 5797',
-      reason: 'Commercial Carrier Speeding in High Security Zone',
-      status: 'Live Radar Sighting',
-      flaggedAt: '2 mins ago',
-      location: 'Kartavya Path / Rajpath (India Gate Corridor)',
-      speed: 68.2,
-      busId: 'Bus 102 (DL-1PC-9210)',
-      confidence: 98.4,
-      vehicleType: 'White Toyota Innova (Balaji Travels)',
-      sourceTag: 'BYTETRACK VERIFIED',
-      targetMode: 'delhi_gif' as const,
-    },
-    {
-      plate: 'DL 2C AS 7150',
-      reason: 'Dangerous Overtaking & Corridor Speeding',
-      status: 'Active Police Warrant',
-      flaggedAt: '12 mins ago',
-      location: 'C-Hexagon Corridor (India Gate)',
-      speed: 74.0,
-      busId: 'Bus 102 (DL-1PC-9210)',
-      confidence: 96.8,
-      vehicleType: 'Silver Toyota Innova',
-      sourceTag: 'ANPR RADAR SIGHTING',
-      targetMode: 'delhi_mp4' as const,
-    },
-    {
-      plate: 'KA 02 MH 7256',
-      reason: 'Suspected False Registration Tag',
-      status: 'Investigation Alert',
-      flaggedAt: '35 mins ago',
-      location: 'Outer Ring Road (Tech Corridor)',
-      speed: 52.0,
-      busId: 'Bus 104 (DL-1PC-8840)',
-      confidence: 94.6,
-      vehicleType: 'Blue Honda City Sedan',
-      sourceTag: 'ANPR OCR CONFIRMED',
-      targetMode: 'auto_anpr' as const,
-    },
-    {
-      plate: 'DL 1P B 4820',
-      reason: 'Missing Commercial Fitness Certificate & Lane Weaving',
-      status: 'Impound Notice',
-      flaggedAt: 'Today 08:30 AM',
-      location: 'Janpath Light Point (Central Secretariat)',
-      speed: 42.0,
-      busId: 'Bus 108 (DL-1PC-4820)',
-      confidence: 94.2,
-      vehicleType: 'Yellow-Green Auto Rickshaw',
-      sourceTag: 'HSRP OCR CONFIRMED',
-      targetMode: 'delhi_gif' as const,
-    },
-  ];
+  const baselineHotlist = useMemo(
+    () => [
+      {
+        plate: 'KA 02 MM 9091',
+        reason: 'Commercial Lane Infraction & HSRP Verification',
+        status: 'Live Radar Sighting',
+        flaggedAt: 'Live (Just Now)',
+        location: 'Central Outer Ring Road (ANPR Lane)',
+        speed: 64.8,
+        busId: 'Bus 104 (DL-1PC-8840)',
+        confidence: 98.4,
+        vehicleType: 'Volvo XC60 Luxury SUV (Black)',
+        sourceTag: 'YOLOV8 + PLATENET DETECTED',
+        targetMode: 'auto_anpr' as const,
+        proofImageUrl: undefined as string | undefined,
+        isPublished: false,
+        dispatchReference: undefined as string | undefined,
+      },
+      {
+        plate: 'UP 16 BT 5797',
+        reason: 'Commercial Carrier Speeding in High Security Zone',
+        status: 'Live Radar Sighting',
+        flaggedAt: '2 mins ago',
+        location: 'Kartavya Path / Rajpath (India Gate Corridor)',
+        speed: 68.2,
+        busId: 'Bus 102 (DL-1PC-9210)',
+        confidence: 98.4,
+        vehicleType: 'White Toyota Innova (Balaji Travels)',
+        sourceTag: 'BYTETRACK VERIFIED',
+        targetMode: 'delhi_gif' as const,
+        proofImageUrl: undefined as string | undefined,
+        isPublished: false,
+        dispatchReference: undefined as string | undefined,
+      },
+      {
+        plate: 'DL 2C AS 7150',
+        reason: 'Dangerous Overtaking & Corridor Speeding',
+        status: 'Active Police Warrant',
+        flaggedAt: '12 mins ago',
+        location: 'C-Hexagon Corridor (India Gate)',
+        speed: 74.0,
+        busId: 'Bus 102 (DL-1PC-9210)',
+        confidence: 96.8,
+        vehicleType: 'Silver Toyota Innova',
+        sourceTag: 'ANPR RADAR SIGHTING',
+        targetMode: 'delhi_mp4' as const,
+        proofImageUrl: undefined as string | undefined,
+        isPublished: false,
+        dispatchReference: undefined as string | undefined,
+      },
+      {
+        plate: 'KA 02 MH 7256',
+        reason: 'Suspected False Registration Tag',
+        status: 'Investigation Alert',
+        flaggedAt: '35 mins ago',
+        location: 'Outer Ring Road (Tech Corridor)',
+        speed: 52.0,
+        busId: 'Bus 104 (DL-1PC-8840)',
+        confidence: 94.6,
+        vehicleType: 'Blue Honda City Sedan',
+        sourceTag: 'ANPR OCR CONFIRMED',
+        targetMode: 'auto_anpr' as const,
+        proofImageUrl: undefined as string | undefined,
+        isPublished: false,
+        dispatchReference: undefined as string | undefined,
+      },
+      {
+        plate: 'DL 1P B 4820',
+        reason: 'Missing Commercial Fitness Certificate & Lane Weaving',
+        status: 'Impound Notice',
+        flaggedAt: 'Today 08:30 AM',
+        location: 'Janpath Light Point (Central Secretariat)',
+        speed: 42.0,
+        busId: 'Bus 108 (DL-1PC-4820)',
+        confidence: 94.2,
+        vehicleType: 'Yellow-Green Auto Rickshaw',
+        sourceTag: 'HSRP OCR CONFIRMED',
+        targetMode: 'delhi_gif' as const,
+        proofImageUrl: undefined as string | undefined,
+        isPublished: false,
+        dispatchReference: undefined as string | undefined,
+      },
+    ],
+    []
+  );
+
+  const hotlist = useMemo(() => {
+    // 1. ONLY include incidents that have been officially PUBLISHED by the operator
+    const dynamicItems = incidents
+      .filter((inc) => inc.suspectPlate && inc.reportStatus === 'published')
+      .map((inc) => {
+        const matchingChallan = challans.find(
+          (c) => c.incidentId === inc.id || c.plate === inc.suspectPlate || c.id === inc.dispatchReference
+        );
+        const matchingWarrant = warrants.find(
+          (w) => w.incidentId === inc.id || w.plate === inc.suspectPlate || w.caseFir === inc.dispatchReference
+        );
+        const ref = inc.dispatchReference || matchingChallan?.id || matchingWarrant?.caseFir;
+
+        return {
+          plate: inc.suspectPlate!,
+          reason: inc.reason || `${inc.type.replace(/_/g, ' ').toUpperCase()}`,
+          status: `DISPATCHED · ${ref || 'CTP-CHALLAN'}`,
+          flaggedAt: inc.publishedAt ? 'Dispatched' : 'Just Now (Edge Bus)',
+          location: inc.locationName,
+          speed: inc.speedKmH || 65.0,
+          busId: inc.reportedByBusId || 'CTU Sensing Bus (CAM1)',
+          confidence: Math.round((inc.ocrConfidence || 0.98) * 100),
+          vehicleType: inc.vehicleDescription || 'Private Vehicle (Sedan/SUV)',
+          sourceTag: 'CENTRAL E-CHALLAN DISPATCHED',
+          targetMode: 'auto_anpr' as const,
+          proofImageUrl: inc.cropImageUrl || inc.proofImageUrl || '/evidence/pothole_cam1_crop.jpg',
+          isPublished: true,
+          dispatchReference: ref,
+        };
+      });
+
+    // 2. Add any official challans not already mapped
+    const challanItems = challans
+      .filter((c) => !dynamicItems.some((d) => d.plate === c.plate))
+      .map((c) => ({
+        plate: c.plate,
+        reason: c.violationType,
+        status: `DISPATCHED · ${c.id}`,
+        flaggedAt: 'E-Challan Cell',
+        location: c.location,
+        speed: c.speedObservedKmH,
+        busId: c.reportingBusId,
+        confidence: Math.round(c.ocrConfidence * 100),
+        vehicleType: c.vehicleType,
+        sourceTag: 'OFFICIAL E-CHALLAN RECORD',
+        targetMode: 'auto_anpr' as const,
+        proofImageUrl: c.proofImageUrl || '/evidence/pothole_cam1_crop.jpg',
+        isPublished: true,
+        dispatchReference: c.id,
+      }));
+
+    const combined = [...dynamicItems, ...challanItems];
+    const baselineFiltered = baselineHotlist.filter((b) => !combined.some((c) => c.plate === b.plate));
+    return [...combined, ...baselineFiltered];
+  }, [incidents, challans, warrants, baselineHotlist]);
 
   const filteredHotlist = hotlist.filter((item) => {
     if (!searchQuery.trim()) return true;
@@ -97,7 +173,7 @@ export function PoliceConsole() {
 
   const activeEvidence = hotlist.find((h) => h.plate === selectedPlate) || hotlist[0];
 
-  const handleSelectHotlistItem = (item: typeof hotlist[0]) => {
+  const handleSelectHotlistItem = (item: (typeof hotlist)[0]) => {
     setSelectedPlate(item.plate);
     if (item.targetMode) {
       setMediaMode(item.targetMode);
@@ -135,7 +211,7 @@ export function PoliceConsole() {
 
   const handleExportDossier = () => {
     exportEChallanDossier({
-      challanNumber: `ECH-2026-${Math.floor(1000 + Math.random() * 9000)}`,
+      challanNumber: activeEvidence.dispatchReference || `ECH-2026-${Math.floor(1000 + Math.random() * 9000)}`,
       plateNumber: activeEvidence.plate,
       violationType: activeEvidence.reason,
       fineAmount: 2000,
@@ -224,9 +300,16 @@ export function PoliceConsole() {
                     </span>
                     <span className="text-[11px] text-[#8BBB92]">({item.vehicleType})</span>
                   </div>
-                  <span className="rounded border border-rose-800/40 bg-rose-950/40 px-2 py-0.5 text-[10px] font-mono text-rose-400 shrink-0">
-                    {item.status}
-                  </span>
+                  {item.isPublished ? (
+                    <span className="rounded border border-emerald-500/70 bg-emerald-950/80 px-2 py-0.5 text-[10px] font-mono text-emerald-300 font-bold shrink-0 flex items-center gap-1">
+                      <CheckCircle2 className="h-3 w-3 text-emerald-400" />
+                      {item.dispatchReference || 'DISPATCHED'}
+                    </span>
+                  ) : (
+                    <span className="rounded border border-rose-800/40 bg-rose-950/40 px-2 py-0.5 text-[10px] font-mono text-rose-400 shrink-0">
+                      {item.status}
+                    </span>
+                  )}
                 </div>
                 <p className="text-xs text-[#8BBB92]">{item.reason}</p>
                 <div className="flex justify-between text-[11px] font-mono text-[#5b9076]">
@@ -330,6 +413,41 @@ export function PoliceConsole() {
                     className="h-full w-full object-cover"
                     onError={() => setStreamSource('video_hud')}
                   />
+                ) : activeEvidence.proofImageUrl ? (
+                  <div className="relative h-full w-full flex items-center justify-center bg-[#06191c]">
+                    <img
+                      src={activeEvidence.proofImageUrl}
+                      alt="Captured ANPR Optical Evidence"
+                      className="h-full w-full object-cover"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/evidence/pothole_cam1_crop.jpg';
+                      }}
+                    />
+                    <div className="absolute inset-0 pointer-events-none p-3 flex flex-col justify-between bg-gradient-to-t from-[#092328]/80 via-transparent to-[#092328]/50">
+                      <div className="flex items-center justify-between text-[9px] font-mono">
+                        <span className="bg-[#092328]/90 text-emerald-400 border border-emerald-500/50 px-2 py-0.5 rounded font-bold">
+                          RADAR LOCKED · {activeEvidence.speed} km/h
+                        </span>
+                        {activeEvidence.isPublished && (
+                          <span className="bg-emerald-950/90 text-emerald-300 border border-emerald-500/70 px-2 py-0.5 rounded font-bold">
+                            {activeEvidence.dispatchReference}
+                          </span>
+                        )}
+                      </div>
+                      <div className="mx-auto my-auto w-48 h-18 border-2 border-dashed border-emerald-400/90 rounded relative flex flex-col justify-between p-1.5 bg-emerald-950/30 shadow-[0_0_15px_rgba(52,211,153,0.3)]">
+                        <span className="text-[10px] font-mono font-bold text-emerald-300 text-center">
+                          {activeEvidence.plate}
+                        </span>
+                        <span className="text-[8px] font-mono text-[#8BBB92] text-center">
+                          {activeEvidence.vehicleType}
+                        </span>
+                      </div>
+                      <div className="flex justify-between text-[8px] font-mono text-[#8BBB92] bg-[#092328]/80 px-2 py-0.5 rounded">
+                        <span>{activeEvidence.location}</span>
+                        <span className="text-emerald-400 font-bold">{activeEvidence.confidence}% OCR CONF</span>
+                      </div>
+                    </div>
+                  </div>
                 ) : mediaMode === 'delhi_gif' ? (
                   <img
                     src="/videos/tracker_output.gif"
@@ -457,6 +575,17 @@ export function PoliceConsole() {
                 <span className="text-emerald-400 font-bold">STATUS: {activeEvidence.sourceTag || 'ACTIVE RADAR TRACK'}</span>
               </div>
             </div>
+
+            {activeEvidence.isPublished && (
+              <div className="flex items-center justify-between rounded-lg border border-emerald-600/70 bg-emerald-950/50 p-2.5 text-xs font-mono text-emerald-300">
+                <div className="flex items-center gap-2">
+                  <CheckCircle2 className="h-4 w-4 text-emerald-400 shrink-0" />
+                  <span>
+                    Official E-Challan Dispatched: <strong className="text-emerald-200">{activeEvidence.dispatchReference}</strong> (Chandigarh Traffic Police Central E-Challan Cell)
+                  </span>
+                </div>
+              </div>
+            )}
 
             <div className="rounded-lg border border-[#12544F] bg-[#12544F]/40 p-3 text-xs space-y-2 font-mono">
               <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5">

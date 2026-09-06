@@ -168,9 +168,16 @@ export function PwdConsole() {
                       className="rounded-lg border border-[#12544F] bg-[#12544F]/40 p-3 shadow-sm space-y-2 select-none hover:border-[#2A835F] transition-colors"
                     >
                       <div className="flex items-center justify-between">
-                        <span className="font-mono text-[11px] text-[#8BBB92]">
-                          {ticket.id}
-                        </span>
+                        <div className="flex items-center gap-1.5 min-w-0">
+                          <span className="font-mono text-[11px] text-[#8BBB92]">
+                            {ticket.id}
+                          </span>
+                          {ticket.dispatchReference && (
+                            <span className="inline-flex items-center rounded border border-emerald-600/60 bg-emerald-950/60 px-1.5 py-0.2 text-[9px] font-mono text-emerald-300 font-bold truncate">
+                              {ticket.dispatchReference}
+                            </span>
+                          )}
+                        </div>
                         <div className="flex items-center gap-1.5">
                           <span
                             className={`inline-flex items-center rounded border px-1.5 py-0.2 text-[10px] font-mono font-medium ${
