@@ -10,6 +10,7 @@ export interface HeaderProps {
   activeViewTitle?: string;
   onOpenRoleSwitcher?: () => void;
   onToggleMobileNav?: () => void;
+  onOpenLanding?: () => void;
 }
 
 export function Header({
@@ -17,6 +18,7 @@ export function Header({
   activeViewTitle = 'GIS SPATIAL INTELLIGENCE CANVAS',
   onOpenRoleSwitcher,
   onToggleMobileNav,
+  onOpenLanding,
 }: HeaderProps) {
   const currentUser = useAuthStore((state) => state.currentUser);
 
@@ -45,7 +47,7 @@ export function Header({
         </span>
       </div>
 
-      {/* Right: Indicators + Theme Toggle + Switch Role */}
+      {/* Right: Indicators + Theme Toggle + Switch Role + Landing Portal */}
       <div className="flex items-center gap-2 sm:gap-3 text-xs font-mono shrink-0">
         {/* Bus Count */}
         <div className="hidden sm:flex items-center gap-1.5 text-[#8BBB92]">
@@ -60,6 +62,16 @@ export function Header({
           <span className="hidden md:inline text-[11px] font-semibold text-[#f0fdf4]">EDGE MESH</span>
         </div>
 
+        {/* Return to Landing Page Button */}
+        {onOpenLanding && (
+          <button
+            onClick={onOpenLanding}
+            title="Return to Public Landing Page"
+            className="flex items-center gap-1 sm:gap-1.5 rounded border border-[#144943] bg-[#0d3137] px-2.5 py-1 text-[11px] font-semibold text-[#8BBB92] transition-all hover:bg-[#12544F] hover:text-[#f0fdf4] cursor-pointer shadow-sm active:scale-95 shrink-0"
+          >
+            <span>Landing Page</span>
+          </button>
+        )}
 
         {/* Switch Role Button */}
         <button
