@@ -200,6 +200,14 @@ export default function AppClient() {
     }
   };
 
+  const currentActiveReportItem = useMemo(() => {
+    if (!activeReportItem.item || !activeReportItem.category) return null;
+    if (activeReportItem.category === 'defect') {
+      return defects.find((d) => d.id === activeReportItem.item?.id) || activeReportItem.item;
+    }
+    return incidents.find((i) => i.id === activeReportItem.item?.id) || activeReportItem.item;
+  }, [activeReportItem, defects, incidents]);
+
   // Find active label for header title
   const currentNavConfig = roleNavItems.find((item) => item.id === activeView);
   const activeViewTitle = currentNavConfig?.label.toUpperCase() || 'OPERATIONAL CONSOLE';
@@ -314,7 +322,7 @@ export default function AppClient() {
 
           {/* Incident & Distress Official Report Publisher Drawer */}
           <IncidentReportDrawer
-            item={activeReportItem.item}
+            item={currentActiveReportItem}
             category={activeReportItem.category}
             isOpen={isReportDrawerOpen}
             onClose={() => setIsReportDrawerOpen(false)}

@@ -152,13 +152,13 @@ export const useTelemetryStore = create<TelemetryState>((set, get) => ({
 
   addRoadDefect: (defect) =>
     set((state) => {
-      // Deduplicate: same ID, or same defect type on the same camera/bus, or within 300m
+      // Deduplicate strictly: exact same ID, or exact same physical crater within 20m and 45s
       const existingIndex = state.defects.findIndex((d) =>
         d.id === defect.id ||
         (d.type === defect.type &&
-          (d.detectedByBusId === defect.detectedByBusId ||
-            (Math.abs(d.coords.lat - defect.coords.lat) < 0.003 &&
-             Math.abs(d.coords.lng - defect.coords.lng) < 0.003)))
+          Math.abs(d.coords.lat - defect.coords.lat) < 0.0002 &&
+          Math.abs(d.coords.lng - defect.coords.lng) < 0.0002 &&
+          Math.abs(d.detectedAt - defect.detectedAt) < 45000)
       );
       if (existingIndex >= 0) {
         const updated = [...state.defects];
@@ -174,11 +174,12 @@ export const useTelemetryStore = create<TelemetryState>((set, get) => ({
 
   addVehicleIncident: (incident) =>
     set((state) => {
+      // Deduplicate strictly: exact same ID, or exact same suspect plate within 30 seconds
       const existingIndex = state.incidents.findIndex((i) =>
         i.id === incident.id ||
-        (i.type === incident.type &&
-          (i.reportedByBusId === incident.reportedByBusId ||
-           (i.suspectPlate && i.suspectPlate === incident.suspectPlate)))
+        (Boolean(incident.suspectPlate && incident.suspectPlate !== 'N/A (Pedestrian Hazard)') &&
+          i.suspectPlate === incident.suspectPlate &&
+          Math.abs(i.timestamp - incident.timestamp) < 30000)
       );
       if (existingIndex >= 0) return state;
       return { incidents: [incident, ...state.incidents] };

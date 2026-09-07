@@ -130,6 +130,11 @@ async def get_latest_pedestrian(cam: Optional[str] = None):
 async def get_vision_detections(cam: str = "cam1"):
     return pipeline_manager.get_vision_detections(cam)
 
+@app.get("/api/v1/vision/all-detections")
+async def get_all_vision_detections():
+    """Returns simultaneous detection & telemetry payloads for all 4 camera streams."""
+    return pipeline_manager.get_all_vision_detections()
+
 @app.get("/api/v1/distress/feed")
 async def get_distress_feed():
     """Returns recent authentic road defects and violations with snapshot image evidence."""

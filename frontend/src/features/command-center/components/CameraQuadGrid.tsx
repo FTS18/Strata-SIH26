@@ -1,0 +1,372 @@
+'use client';
+
+import React, { useRef } from 'react';
+import {
+  Camera,
+  Shield,
+  Eye,
+  Users,
+  Maximize2,
+  Upload,
+  RotateCcw,
+  LayoutGrid,
+  Square,
+} from 'lucide-react';
+
+export interface CameraFeedConfig {
+  id: string;
+  label: string;
+  shortName: string;
+  description: string;
+  pythonStream: string;
+  model: string;
+  resolution: string;
+  latency: string;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+export const CAMERA_FEEDS: CameraFeedConfig[] = [
+  {
+    id: 'cam1',
+    label: 'CAM 1 · FRONT (4K)',
+    shortName: 'CAM 1',
+    description: 'Road Surface Distress & Lead Traffic Tracking',
+    pythonStream: 'http://localhost:8081/stream',
+    model: 'YOLOv8s-RoadDistress · TensorRT INT8',
+    resolution: '3840x2160 @ 30FPS',
+    latency: '12.4ms',
+    icon: Camera,
+  },
+  {
+    id: 'cam2',
+    label: 'CAM 2 · REAR (UHD)',
+    shortName: 'CAM 2',
+    description: 'ANPR Plate Recognition & Tailgating Analytics',
+    pythonStream: 'http://localhost:8082/stream',
+    model: 'PaddleOCR + ByteTrack · TensorRT INT8',
+    resolution: '3840x2160 @ 30FPS',
+    latency: '14.2ms',
+    icon: Shield,
+  },
+  {
+    id: 'cam3',
+    label: 'CAM 3 · KERB (1080P)',
+    shortName: 'CAM 3',
+    description: 'Passenger Queue Density & Stop Encroachment',
+    pythonStream: 'http://localhost:8083/stream',
+    model: 'OpticalFlow-QueueCount · TensorRT INT8',
+    resolution: '1920x1080 @ 24FPS',
+    latency: '9.8ms',
+    icon: Eye,
+  },
+  {
+    id: 'cam4',
+    label: 'CAM 4 · CABIN (DMS)',
+    shortName: 'CAM 4',
+    description: 'Driver Fatigue & Attention Monitoring',
+    pythonStream: 'http://localhost:8084/stream',
+    model: 'Driver-DMS PERCLOS · TensorRT INT8',
+    resolution: '1920x1080 @ 30FPS',
+    latency: '11.1ms',
+    icon: Users,
+  },
+];
+
+interface CameraQuadGridProps {
+  viewMode: 'grid' | 'single';
+  onViewModeChange: (mode: 'grid' | 'single') => void;
+  selectedCamId: string;
+  onSelectCamId: (camId: string) => void;
+  avgFleetFps: number;
+  cameraSourcesStatus: Record<string, { is_custom: boolean; filename: string }>;
+  onFileUpload: (camId: string, file: File) => void;
+  onResetFootage: (camId: string) => void;
+  isUploading: boolean;
+  streamBuster: number;
+  onExpandModal: () => void;
+  allDetectionsSummary?: Record<string, { vehicles: number; potholes: number; pedestrians: number }>;
+}
+
+export function CameraQuadGrid({
+  viewMode,
+  onViewModeChange,
+  selectedCamId,
+  onSelectCamId,
+  avgFleetFps,
+  cameraSourcesStatus,
+  onFileUpload,
+  onResetFootage,
+  isUploading,
+  streamBuster,
+  onExpandModal,
+  allDetectionsSummary,
+}: CameraQuadGridProps) {
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const activeCam = CAMERA_FEEDS.find((c) => c.id === selectedCamId) || CAMERA_FEEDS[0];
+
+  const handleQuadrantClick = (camId: string) => {
+    if (viewMode === 'grid') {
+      onSelectCamId(camId);
+      onViewModeChange('single');
+    } else {
+      onViewModeChange('grid');
+    }
+  };
+
+  return (
+    <div className="flex flex-col space-y-2">
+      {/* Top View Mode & Camera Selector Toolbar */}
+      <div className="flex flex-wrap items-center justify-between gap-1.5 font-mono text-xs">
+        {/* Mode & Cam Pills */}
+        <div className="flex flex-wrap items-center gap-1">
+          {/* 2x2 Quad Grid Mode Toggle Button */}
+          <button
+            type="button"
+            onClick={() => onViewModeChange('grid')}
+            className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-mono transition-all border cursor-pointer ${
+              viewMode === 'grid'
+                ? 'bg-[#12544F] border-[#8BBB92] text-[#f0fdf4] font-bold shadow-md shadow-[#12544F]/40'
+                : 'bg-[#0d3137] border-[#12544F] text-[#8BBB92] hover:bg-[#12544F]/50 hover:text-[#f0fdf4]'
+            }`}
+            title="Switch to 2x2 Quad Camera Grid View"
+          >
+            <LayoutGrid className="h-3.5 w-3.5 text-[#8BBB92]" />
+            <span>2x2 QUAD GRID</span>
+            {viewMode === 'grid' && (
+              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            )}
+          </button>
+
+          {/* Individual Camera Buttons */}
+          {CAMERA_FEEDS.map((feed) => {
+            const Icon = feed.icon;
+            const isSelected = viewMode === 'single' && feed.id === selectedCamId;
+            const isCustom = cameraSourcesStatus[feed.id]?.is_custom;
+            return (
+              <button
+                key={feed.id}
+                type="button"
+                onClick={() => {
+                  onSelectCamId(feed.id);
+                  onViewModeChange('single');
+                }}
+                className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-mono transition-all border cursor-pointer ${
+                  isSelected
+                    ? 'bg-[#12544F] border-[#8BBB92] text-[#f0fdf4] font-bold shadow-md shadow-[#12544F]/40'
+                    : 'bg-[#0d3137] border-[#12544F] text-[#8BBB92] hover:bg-[#12544F]/50 hover:text-[#f0fdf4]'
+                }`}
+                title={`Focus ${feed.label}`}
+              >
+                <Icon className={`h-3.5 w-3.5 ${isSelected ? 'text-[#8BBB92]' : 'text-[#5b9076]'}`} />
+                <span>{feed.shortName}</span>
+                {isCustom && (
+                  <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" title="Custom footage active" />
+                )}
+                {isSelected && (
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* Action Controls: Upload / Reset / Expand */}
+        <div className="flex items-center gap-1.5 shrink-0">
+          <input
+            type="file"
+            ref={fileInputRef}
+            accept="video/mp4,video/quicktime,video/x-msvideo,video/webm"
+            className="hidden"
+            onChange={(e) => {
+              const file = e.target.files?.[0];
+              if (file) {
+                onFileUpload(selectedCamId, file);
+                e.target.value = '';
+              }
+            }}
+          />
+
+          <button
+            type="button"
+            disabled={isUploading}
+            onClick={() => fileInputRef.current?.click()}
+            className="flex items-center gap-1 rounded-lg border border-[#2A835F] bg-[#12544F] px-2 py-1 text-xs font-mono font-bold text-[#f0fdf4] hover:bg-[#2A835F] transition-all cursor-pointer shadow-sm disabled:opacity-50"
+            title={`Upload custom footage for ${activeCam.shortName}`}
+          >
+            <Upload className="h-3 w-3 text-[#8BBB92]" />
+            <span className="hidden sm:inline">{isUploading ? 'Uploading...' : `Upload ${activeCam.shortName}`}</span>
+            <span className="sm:hidden">Upload</span>
+          </button>
+
+          {cameraSourcesStatus[selectedCamId]?.is_custom && (
+            <button
+              type="button"
+              onClick={() => onResetFootage(selectedCamId)}
+              className="flex items-center gap-1 rounded-lg border border-amber-800/80 bg-amber-950/40 px-2 py-1 text-xs font-mono text-amber-300 hover:bg-amber-900/60 transition-colors cursor-pointer"
+              title="Reset to benchmark footage"
+            >
+              <RotateCcw className="h-3 w-3 text-amber-400" />
+              <span className="hidden sm:inline">Reset</span>
+            </button>
+          )}
+
+          <button
+            type="button"
+            onClick={onExpandModal}
+            className="flex items-center justify-center rounded-lg bg-[#0d3137] p-1.5 text-[#8BBB92] hover:text-[#f0fdf4] hover:bg-[#12544F] border border-[#12544F] transition-colors cursor-pointer"
+            title="Expand Fullscreen"
+          >
+            <Maximize2 className="h-3.5 w-3.5" />
+          </button>
+        </div>
+      </div>
+
+      {/* Main Stream Canvas: 2x2 Grid or 1-Up Focus */}
+      {viewMode === 'grid' ? (
+        /* ================= 2x2 QUAD CAMERA GRID ================= */
+        <div className="grid grid-cols-2 gap-2 h-72 sm:h-80 lg:h-88 w-full">
+          {CAMERA_FEEDS.map((feed) => {
+            const isCustom = cameraSourcesStatus[feed.id]?.is_custom;
+            const summary = allDetectionsSummary?.[feed.id];
+            return (
+              <div
+                key={feed.id}
+                onClick={() => handleQuadrantClick(feed.id)}
+                className="group relative flex items-center justify-center rounded-lg border border-[#12544F] hover:border-[#8BBB92] bg-black overflow-hidden shadow-lg cursor-pointer transition-all duration-150 hover:scale-[1.008]"
+                title={`Click to focus ${feed.label}`}
+              >
+                {/* Live MJPEG Stream for this quadrant */}
+                <img
+                  src={feed.pythonStream}
+                  alt={`Live Stream - ${feed.label}`}
+                  className="absolute inset-0 h-full w-full object-cover z-0"
+                  onError={(e) => {
+                    const target = e.currentTarget;
+                    if (!target.dataset.retried) {
+                      target.dataset.retried = 'true';
+                      target.src = `http://localhost:8080/stream?cam=${feed.id}`;
+                    }
+                  }}
+                />
+
+                {/* Top Overlay Badge */}
+                <div className="absolute top-1.5 inset-x-1.5 flex items-center justify-between z-10 pointer-events-none text-[9px] font-mono">
+                  <div className="flex items-center gap-1 rounded bg-black/80 px-1.5 py-0.5 border border-[#12544F]">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="font-bold text-[#f0fdf4]">{feed.shortName}</span>
+                    <span className="text-[#8BBB92] hidden sm:inline">· {feed.resolution.split('@')[0].trim()}</span>
+                  </div>
+
+                  <div className="flex items-center gap-1">
+                    {isCustom && (
+                      <span className="rounded bg-cyan-950/80 border border-cyan-700/80 px-1 py-0.2 text-[8px] text-cyan-300 font-bold">
+                        CUSTOM
+                      </span>
+                    )}
+                    <span className="rounded bg-black/80 px-1.5 py-0.5 border border-[#12544F] text-[#8BBB92]">
+                      30 FPS
+                    </span>
+                  </div>
+                </div>
+
+                {/* Hover Cue Center Overlay */}
+                <div className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-black/40 pointer-events-none">
+                  <div className="flex items-center gap-1.5 rounded-md bg-[#12544F]/90 border border-[#8BBB92] px-2.5 py-1 text-[10px] font-mono font-bold text-[#f0fdf4] shadow-lg">
+                    <Square className="h-3 w-3 text-[#8BBB92]" />
+                    <span>CLICK TO FOCUS (1-UP)</span>
+                  </div>
+                </div>
+
+                {/* Bottom Overlay Ticker */}
+                <div className="absolute bottom-1.5 inset-x-1.5 flex items-center justify-between z-10 pointer-events-none text-[9px] font-mono bg-black/75 px-1.5 py-0.5 rounded border border-[#12544F]/80">
+                  <span className="text-[#8BBB92] truncate max-w-[65%]">
+                    {feed.model.split('·')[0].trim()}
+                  </span>
+                  <span className="text-[#f0fdf4] font-semibold text-[8px] truncate">
+                    {summary
+                      ? `${summary.vehicles} VEH · ${summary.potholes} DEF · ${summary.pedestrians} PED`
+                      : 'LIVE ACTIVE'}
+                  </span>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      ) : (
+        /* ================= 1-UP SINGLE FOCUS VIEW ================= */
+        <div
+          onClick={() => handleQuadrantClick(selectedCamId)}
+          className="group relative flex h-72 sm:h-80 lg:h-88 w-full items-center justify-center rounded-xl border-2 border-[#12544F] hover:border-[#8BBB92] bg-black overflow-hidden shadow-2xl cursor-pointer transition-all"
+          title="Click feed to return to 2x2 Quad Grid"
+        >
+          {/* Focused Live MJPEG Stream */}
+          <img
+            key={activeCam.id}
+            src={activeCam.pythonStream}
+            alt={`Live Focused Stream - ${activeCam.label}`}
+            className="absolute inset-0 h-full w-full object-cover z-0"
+            onError={(e) => {
+              const target = e.currentTarget;
+              if (!target.dataset.retried) {
+                target.dataset.retried = 'true';
+                target.src = `http://localhost:8080/stream?cam=${activeCam.id}`;
+              }
+            }}
+          />
+
+          {/* Telemetry Header & Footer HUD Overlay */}
+          <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-2.5 sm:p-3 bg-gradient-to-t from-black/60 via-transparent to-black/40 z-20">
+            {/* Top HUD Row */}
+            <div className="flex items-center justify-between text-[10px] font-mono text-[#8BBB92]">
+              <div className="flex items-center gap-1.5 rounded bg-black/80 px-2 py-0.5 border border-[#12544F]">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="text-[#f0fdf4] font-bold">JETSON ORIN NANO</span>
+                <span className="text-[#8BBB92]">· {avgFleetFps.toFixed(1)} FPS (LIVE)</span>
+              </div>
+
+              <div className="flex items-center gap-1.5 pointer-events-auto">
+                {/* Back to 2x2 Grid Badge Button */}
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onViewModeChange('grid');
+                  }}
+                  className="flex items-center gap-1 rounded bg-[#12544F] px-2 py-0.5 border border-[#2A835F] text-[9px] font-bold font-mono text-[#f0fdf4] hover:bg-[#2A835F] transition-colors cursor-pointer shadow-sm"
+                  title="Return to 2x2 Grid"
+                >
+                  <LayoutGrid className="h-3 w-3 text-[#8BBB92]" />
+                  <span>BACK TO 2x2 GRID</span>
+                </button>
+
+                <div className="rounded bg-black/80 px-2 py-0.5 border border-[#12544F] text-[#8BBB92]">
+                  {activeCam.label}
+                </div>
+              </div>
+            </div>
+
+            {/* Center Hover Cue */}
+            <div className="flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none">
+              <div className="flex items-center gap-1.5 rounded-md bg-[#0d3137]/90 border border-[#8BBB92] px-3 py-1.5 text-xs font-mono font-bold text-[#f0fdf4] shadow-lg">
+                <LayoutGrid className="h-3.5 w-3.5 text-[#8BBB92]" />
+                <span>CLICK ANYWHERE TO RETURN TO 2x2 GRID</span>
+              </div>
+            </div>
+
+            {/* Bottom Telemetry Footer */}
+            <div className="flex items-center justify-between text-[10px] font-mono text-[#8BBB92] bg-black/80 px-2.5 py-1 rounded border border-[#12544F]">
+              <span className="truncate max-w-[55%]">MODEL: {activeCam.model}</span>
+              <span className="text-[#f0fdf4] font-bold hidden sm:inline">
+                ACCELERATION: DIRECT3D/NVDEC
+              </span>
+              <span className="text-emerald-400 font-semibold flex items-center gap-1">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                LIVE ACTIVE
+              </span>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}

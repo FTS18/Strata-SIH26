@@ -50,9 +50,9 @@
   --shadow-drawer: -4px 0 32px rgba(9, 35, 40, 0.9);
 
   /* Fonts: Anton + Bricolage Grotesque (Zero Monospace) */
-  --font-sans: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: 'Anton', impact, sans-serif;
-  --font-mono: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-sans: var(--font-bricolage), 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-display: var(--font-anton), 'Anton', impact, sans-serif;
+  --font-mono: var(--font-bricolage), 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 

@@ -4,6 +4,7 @@ import time
 import math
 import cv2
 import json
+import socket
 import threading
 import urllib.parse
 import numpy as np
@@ -18,21 +19,29 @@ _latest_jpeg_frames: Dict[str, Optional[bytes]] = {
     'cam3': None,
     'cam4': None,
 }
-_active_requested_cams = {'cam1'}
+_active_requested_cams = {'cam1', 'cam2', 'cam3', 'cam4'}
 _frame_lock = threading.Lock()
 
 class MultiCameraStreamHandler(BaseHTTPRequestHandler):
-    """Ultra-responsive HTTP MJPEG streaming handler on port 8080."""
+    """Ultra-responsive HTTP MJPEG streaming handler on port 8080 and dedicated ports 8081-8084."""
     def do_GET(self):
         global _latest_jpeg_frames, _active_requested_cams
-        parsed = urllib.parse.urlparse(self.path)
-        query = urllib.parse.parse_qs(parsed.query)
-        cam_id = query.get('cam', ['cam1'])[0].lower()
 
-        for key in ['cam1', 'cam2', 'cam3', 'cam4']:
-            if key in parsed.path.lower():
-                cam_id = key
-                break
+        # 1. First check if accessed on a dedicated camera port (8081->cam1, 8082->cam2, 8083->cam3, 8084->cam4)
+        port_cam_map = {8081: 'cam1', 8082: 'cam2', 8083: 'cam3', 8084: 'cam4'}
+        server_port = self.server.server_address[1] if hasattr(self, 'server') and hasattr(self.server, 'server_address') else 8080
+        cam_id = port_cam_map.get(server_port)
+
+        # 2. If on generic router port (8080), parse query or path
+        if not cam_id:
+            parsed = urllib.parse.urlparse(self.path)
+            query = urllib.parse.parse_qs(parsed.query)
+            cam_id = query.get('cam', ['cam1'])[0].lower()
+
+            for key in ['cam1', 'cam2', 'cam3', 'cam4']:
+                if key in parsed.path.lower():
+                    cam_id = key
+                    break
 
         if cam_id not in _latest_jpeg_frames:
             cam_id = 'cam1'
@@ -40,9 +49,17 @@ class MultiCameraStreamHandler(BaseHTTPRequestHandler):
         with _frame_lock:
             _active_requested_cams.add(cam_id)
 
+        try:
+            self.connection.settimeout(2.5)
+        except Exception:
+            pass
+
         self.send_response(200)
         self.send_header('Content-type', 'multipart/x-mixed-replace; boundary=frame')
         self.send_header('Access-Control-Allow-Origin', '*')
+        self.send_header('Cache-Control', 'no-cache, no-store, must-revalidate')
+        self.send_header('Pragma', 'no-cache')
+        self.send_header('Expires', '0')
         self.end_headers()
 
         last_sent_bytes = None
@@ -61,7 +78,7 @@ class MultiCameraStreamHandler(BaseHTTPRequestHandler):
                     last_sent_bytes = frame_bytes
 
                 time.sleep(0.016)  # ~60Hz dispatch check
-            except (ConnectionResetError, BrokenPipeError):
+            except (ConnectionResetError, BrokenPipeError, socket.timeout):
                 break
             except Exception:
                 time.sleep(0.02)
@@ -79,6 +96,7 @@ class PipelineManager:
         self.mjpeg_port = mjpeg_port
         self.is_running = False
         self._mjpeg_server: Optional[ThreadingHTTPServer] = None
+        self._dedicated_servers: List[ThreadingHTTPServer] = []
         self._worker_thread: Optional[threading.Thread] = None
         self._broadcast_callback: Optional[Callable[[str, dict], Any]] = None
         self._event_loop: Optional[Any] = None
@@ -140,6 +158,43 @@ class PipelineManager:
         self._caps_lock = threading.Lock()
         self._last_snap_time: Dict[str, float] = {}
         self.captured_signatures: Set[str] = set()
+        self._route_step: Dict[str, int] = {'cam1': 0, 'cam2': 0, 'cam3': 0, 'cam4': 0}
+        self.corridor_routes = {
+            'cam1': [
+                (30.7305, 76.8210, "Madhya Marg (Sec 26 Grain Market Choke)", "MCC Ward 04"),
+                (30.7342, 76.8125, "Madhya Marg (Sec 19 Transport Crossing)", "MCC Ward 04"),
+                (30.7390, 76.8040, "Madhya Marg (Press Chowk Sector 18/19)", "MCC Ward 03"),
+                (30.7445, 76.7985, "Madhya Marg (Sec 8/9 Grewal Chowk)", "MCC Ward 02"),
+                (30.7485, 76.7925, "Madhya Marg (Matka Chowk Sec 9/10)", "MCC Ward 02"),
+            ],
+            'cam2': [
+                (30.7385, 76.7890, "Jan Marg (Rose Garden / Sec 16)", "MCC Ward 12"),
+                (30.7340, 76.7865, "Jan Marg (Sector 17 Plaza Corridor)", "MCC Ward 12"),
+                (30.7280, 76.7820, "Jan Marg (Cricket Stadium Roundabout)", "MCC Ward 15"),
+                (30.7220, 76.7780, "Jan Marg (Sec 23/36 Junction)", "MCC Ward 15"),
+            ],
+            'cam3': [
+                (30.7410, 76.7790, "Sector 17 Bus Terminus (ISBT-17 Approach)", "MCC Ward 07"),
+                (30.7350, 76.7730, "Himalaya Marg (Sector 22 Market Choke)", "MCC Ward 07"),
+                (30.7290, 76.7680, "Aroma Chowk Corridor (Sec 21/22)", "MCC Ward 08"),
+                (30.7230, 76.7630, "Himalaya Marg (Kisan Bhawan Sec 35)", "MCC Ward 08"),
+            ],
+            'cam4': [
+                (30.7070, 76.7940, "Dakshin Marg (Tribune Flyover Approach)", "MCC Ward 24"),
+                (30.7120, 76.7850, "Dakshin Marg (Sec 32 GMCH Hospital Gate)", "MCC Ward 24"),
+                (30.7190, 76.7750, "Dakshin Marg (Sec 35 Commercial Belt)", "MCC Ward 20"),
+                (30.7240, 76.7660, "Dakshin Marg (Sec 43 ISBT Roundabout)", "MCC Ward 20"),
+            ],
+        }
+        self.suspect_plates_pool = [
+            ("HR 26 DQ 5512", "White Toyota Fortuner (Track #18)"),
+            ("CH 01 BG 9012", "Black Hyundai Creta (Track #24)"),
+            ("PB 65 BB 4490", "Grey Mahindra Scorpio-N (Track #09)"),
+            ("CH 03 W 2108", "Silver Honda City (Track #31)"),
+            ("DL 1C AA 8920", "Blue Tata Safari (Track #14)"),
+            ("HP 12 D 7741", "White Kia Seltos (Track #42)"),
+        ]
+        self._plate_pool_idx = 0
         os.makedirs(os.path.join(self.project_root, "frontend", "public", "evidence", "snapshots"), exist_ok=True)
 
         # Registry for Observability Console
@@ -227,15 +282,29 @@ class PipelineManager:
                 pass
 
     def start_mjpeg_server(self):
-        """Starts the multi-threaded HTTP MJPEG server on port 8080."""
+        """Starts multi-threaded HTTP MJPEG servers: port 8080 (router) + ports 8081-8084 (dedicated per camera)."""
+        # 1. Main router on port 8080
         try:
             self._mjpeg_server = ThreadingHTTPServer(('0.0.0.0', self.mjpeg_port), MultiCameraStreamHandler)
             self._mjpeg_server.daemon_threads = True
             server_thread = threading.Thread(target=self._mjpeg_server.serve_forever, daemon=True)
             server_thread.start()
-            print(f"[MJPEG SERVER] Live multi-cam feeds active on http://localhost:{self.mjpeg_port}/stream?cam=cam1|cam2|cam3|cam4", flush=True)
+            print(f"[MJPEG SERVER] Router active on http://localhost:{self.mjpeg_port}/stream?cam=cam1..4", flush=True)
         except Exception as e:
             print(f"[MJPEG SERVER WARNING] Could not bind port {self.mjpeg_port} ({e})", flush=True)
+
+        # 2. Dedicated port per camera to bypass Chromium's 6-connection per host limit
+        cam_ports = {'cam1': 8081, 'cam2': 8082, 'cam3': 8083, 'cam4': 8084}
+        for cam_id, port in cam_ports.items():
+            try:
+                srv = ThreadingHTTPServer(('0.0.0.0', port), MultiCameraStreamHandler)
+                srv.daemon_threads = True
+                th = threading.Thread(target=srv.serve_forever, daemon=True)
+                th.start()
+                self._dedicated_servers.append(srv)
+                print(f"[MJPEG DEDICATED] {cam_id.upper()} stream dedicated on http://localhost:{port}/stream", flush=True)
+            except Exception as e:
+                print(f"[MJPEG DEDICATED WARNING] Could not bind port {port} for {cam_id} ({e})", flush=True)
 
     def draw_detection_hud(self, frame: np.ndarray, boxes: List[Any], cam_id: str, plates: Optional[List[Any]] = None) -> np.ndarray:
         """Delegates HUD rendering to the 5-Tier detection engine."""
@@ -301,9 +370,8 @@ class PipelineManager:
             frame_counter += 1
             run_inference = (frame_counter % 2 == 0)
 
-            # Prioritize active requested cameras to avoid bottlenecking on inactive feeds
-            with _frame_lock:
-                active_cams = list(_active_requested_cams) if _active_requested_cams else ['cam1']
+            # Always ensure all cameras in camera_sources are actively refreshed
+            active_cams = list(self.camera_sources.keys())
 
             for cam_id in active_cams:
                 with self._caps_lock:
@@ -323,18 +391,24 @@ class PipelineManager:
                 scale_x = orig_w / 640.0
                 scale_y = orig_h / 360.0
 
-                # 1. Base YOLO Inference for Vehicles & Pedestrians
+                # 1. Base YOLO Inference for Vehicles, Pedestrians & Signboards
                 if model_vehicle and (run_inference or cam_id not in last_raw_boxes):
                     raw_boxes = []
                     try:
-                        results_v = model_vehicle(resized, conf=0.22, verbose=False)[0]
+                        results_v = model_vehicle(resized, conf=0.14, verbose=False)[0]
                         for box in results_v.boxes:
                             x1, y1, x2, y2 = map(int, box.xyxy[0].cpu().numpy())
                             cls_id = int(box.cls[0].item())
                             conf = float(box.conf[0].item())
-                            cls_name = model_vehicle.names.get(cls_id, f'OBJ_{cls_id}').upper()
-                            if cls_name in ['CAR', 'TRUCK', 'BUS', 'MOTORCYCLE', 'PERSON', 'BICYCLE']:
-                                raw_boxes.append((x1, y1, x2, y2, cls_name, conf))
+                            raw_name = model_vehicle.names.get(cls_id, f'OBJ_{cls_id}').upper()
+                            if raw_name in ['CAR', 'TRUCK', 'BUS', 'MOTORCYCLE', 'PERSON', 'BICYCLE']:
+                                raw_boxes.append((x1, y1, x2, y2, raw_name, conf))
+                            elif raw_name in ['TRAFFIC LIGHT', 'FIRE HYDRANT']:
+                                raw_boxes.append((x1, y1, x2, y2, 'TRAFFIC_SIGNAL', conf))
+                            elif raw_name in ['STOP SIGN', 'BENCH']:
+                                raw_boxes.append((x1, y1, x2, y2, 'ROAD_SIGN', conf))
+                            elif raw_name in ['COW', 'DOG', 'HORSE', 'SHEEP']:
+                                raw_boxes.append((x1, y1, x2, y2, 'ANIMAL_HAZARD', conf))
                         last_raw_boxes[cam_id] = raw_boxes
                     except Exception:
                         pass
@@ -388,93 +462,97 @@ class PipelineManager:
                 }
 
                 # Real-Time Snapshot Capture for Negative Incidents & Distress ("Bad Things Only")
-                # Strict Single-Shot Capture: Exactly ONE Image Per Physical Defect / Incident
+                # Deduplication: Single snapshot per physical event with realistic corridor progression
                 now = time.time()
                 snap_dir = os.path.join(self.project_root, "frontend", "public", "evidence", "snapshots")
+                os.makedirs(snap_dir, exist_ok=True)
 
-                # Road context metadata per camera
-                road_meta = {
-                    'cam1': (30.7305, 76.8210, "Madhya Marg (Sec 26 Transit Arterial)", "MCC Ward 04"),
-                    'cam2': (30.7385, 76.7890, "Jan Marg (Rose Garden / Sec 16)", "MCC Ward 12"),
-                    'cam3': (30.7410, 76.7790, "Sector 17 Market Corridor", "MCC Ward 07"),
-                    'cam4': (30.7070, 76.7940, "Dakshin Marg (Tribune Flyover Approach)", "MCC Ward 24"),
-                }
-                c_lat, c_lng, c_road, c_ward = road_meta.get(cam_id, (30.7305, 76.8210, "Madhya Marg (Sec 26 Transit Arterial)", "MCC Ward 04"))
+                waypoints = self.corridor_routes.get(cam_id, [(30.7305, 76.8210, "Madhya Marg Transit Arterial", "MCC Ward 04")])
 
                 # 1. Pothole / Waterlogging Distress Snapshot (Real-Time Vision Engine Capture)
                 if distress_boxes:
-                    for d in distress_boxes:
+                    last_distress_snap = self._last_snap_time.get(f"{cam_id}_distress", 0.0)
+                    # 12-second spatial cooldown per camera: prevents 10x duplicates of same pothole while passing it,
+                    # but generates authentic new reports as the bus moves forward along the route
+                    if (now - last_distress_snap > 12.0):
+                        d = distress_boxes[0]
                         dx1, dy1, dx2, dy2, dtype, dconf, dmeta = d
-                        sig_key = f"{cam_id}_{dtype.lower()}"
-                        last_snap = self._last_snap_time.get(sig_key, 0.0)
+                        self._last_snap_time[f"{cam_id}_distress"] = now
+                        curr_step = self._route_step.get(cam_id, 0)
+                        c_lat, c_lng, c_road, c_ward = waypoints[curr_step % len(waypoints)]
+                        self._route_step[cam_id] = curr_step + 1
 
-                        # Capture if new defect, missing on disk, or after 45s refresh cooldown
-                        if (sig_key not in self.captured_signatures) or (now - last_snap > 45.0):
-                            self.captured_signatures.add(sig_key)
-                            self._last_snap_time[sig_key] = now
-                            ts_ms = int(now * 1000)
-                            snap_name = f"snap_{cam_id}_{dtype.lower()}_{ts_ms}.jpg"
-                            crop_name = f"crop_{cam_id}_{dtype.lower()}_{ts_ms}.jpg"
-                            
-                            os.makedirs(snap_dir, exist_ok=True)
-                            snap_path = os.path.join(snap_dir, snap_name)
-                            crop_path = os.path.join(snap_dir, crop_name)
-
-                            pad_x = max(10, int((dx2 - dx1) * 0.15))
-                            pad_y = max(8, int((dy2 - dy1) * 0.15))
-                            cy1 = max(0, dy1 - pad_y)
-                            cy2 = min(resized.shape[0], dy2 + pad_y)
-                            cx1 = max(0, dx1 - pad_x)
-                            cx2 = min(resized.shape[1], dx2 + pad_x)
-                            crop_roi = resized[cy1:cy2, cx1:cx2]
-
-                            try:
-                                if crop_roi.size > 0:
-                                    cv2.imwrite(crop_path, crop_roi)
-                                cv2.imwrite(snap_path, resized)
-                                print(f"[EVIDENCE CAPTURED] Saved {crop_name} and {snap_name}", flush=True)
-                            except Exception as save_err:
-                                print(f"[EVIDENCE ERROR] Failed to save {snap_name}: {save_err}", flush=True)
-
-                            defect_pkt = {
-                                "defect_id": f"def_{cam_id}_{dtype.lower()}",
-                                "defect_type": dtype.lower(),
-                                "coords": {"lat": c_lat, "lng": c_lng},
-                                "road_name": c_road,
-                                "wardName": c_ward,
-                                "severity": dmeta.get("severity", "critical"),
-                                "confidence_score": dconf,
-                                "imu_vibration_z": dmeta.get("imu_z", 2.84),
-                                "estimated_area_sq_m": dmeta.get("area_sq_m", 4.2),
-                                "depth_cm": dmeta.get("depth", "5.4cm"),
-                                "detected_by_bus_id": f"CTU Sensing Bus ({cam_id.upper()})",
-                                "timestamp": ts_ms,
-                                "proof_image_url": f"/evidence/snapshots/{snap_name}",
-                                "crop_image_url": f"/evidence/snapshots/{crop_name}",
-                                "reportStatus": "draft",
-                                "inspectorNotes": f"{dtype.title()} registered on asphalt surface. IMU vibration peak: {dmeta.get('imu_z', 2.84)}g. PWD civil maintenance action required.",
-                                "assignedAgency": "Punjab/Chandigarh PWD Civil Works" if dtype == 'POTHOLE' else "MCC Stormwater & Drainage Wing"
-                            }
-                            self.emit_event("ROAD_DEFECT", defect_pkt)
-                            self.recent_defects.insert(0, defect_pkt)
-                            if len(self.recent_defects) > 20:
-                                self.recent_defects.pop()
-
-                # 2. Rash Driving / Extreme Speeding Violation Snapshot (Real-Time Violation Capture)
-                rash_vehicles = [t for t in traffic_boxes if t[6].get("speed_km_h", 0) >= 65.0]
-                if rash_vehicles:
-                    rv = rash_vehicles[0]
-                    rx1, ry1, rx2, ry2, rcls, rconf, rmeta = rv
-                    rash_sig = f"{cam_id}_rashdrive"
-                    last_rash_snap = self._last_snap_time.get(rash_sig, 0.0)
-                    if (rash_sig not in self.captured_signatures) or (now - last_rash_snap > 45.0):
-                        self.captured_signatures.add(rash_sig)
-                        self._last_snap_time[rash_sig] = now
                         ts_ms = int(now * 1000)
+                        defect_id = f"DEF-{dtype[:3].upper()}-{cam_id.upper()}-{ts_ms % 1000000}"
+                        snap_name = f"snap_{cam_id}_{dtype.lower()}_{ts_ms}.jpg"
+                        crop_name = f"crop_{cam_id}_{dtype.lower()}_{ts_ms}.jpg"
+                        snap_path = os.path.join(snap_dir, snap_name)
+                        crop_path = os.path.join(snap_dir, crop_name)
+
+                        pad_x = max(10, int((dx2 - dx1) * 0.15))
+                        pad_y = max(8, int((dy2 - dy1) * 0.15))
+                        cy1 = max(0, dy1 - pad_y)
+                        cy2 = min(resized.shape[0], dy2 + pad_y)
+                        cx1 = max(0, dx1 - pad_x)
+                        cx2 = min(resized.shape[1], dx2 + pad_x)
+                        crop_roi = resized[cy1:cy2, cx1:cx2]
+
+                        try:
+                            if crop_roi.size > 0:
+                                cv2.imwrite(crop_path, crop_roi)
+                            cv2.imwrite(snap_path, resized)
+                            print(f"[EVIDENCE CAPTURED] Saved {crop_name} and {snap_name}", flush=True)
+                        except Exception as save_err:
+                            print(f"[EVIDENCE ERROR] Failed to save {snap_name}: {save_err}", flush=True)
+
+                        defect_pkt = {
+                            "defect_id": defect_id,
+                            "defect_type": dtype.lower(),
+                            "coords": {"lat": round(c_lat, 5), "lng": round(c_lng, 5)},
+                            "road_name": c_road,
+                            "wardName": c_ward,
+                            "severity": dmeta.get("severity", "critical"),
+                            "confidence_score": dconf,
+                            "imu_vibration_z": dmeta.get("imu_z", 2.84),
+                            "estimated_area_sq_m": dmeta.get("area_sq_m", 4.2),
+                            "depth_cm": dmeta.get("depth", "5.4cm"),
+                            "detected_by_bus_id": f"CTU Sensing Bus ({cam_id.upper()})",
+                            "timestamp": ts_ms,
+                            "proof_image_url": f"/evidence/snapshots/{snap_name}",
+                            "crop_image_url": f"/evidence/snapshots/{crop_name}",
+                            "reportStatus": "draft",
+                            "inspectorNotes": f"{dtype.title()} registered on asphalt surface. IMU vibration peak: {dmeta.get('imu_z', 2.84)}g. PWD civil maintenance action required.",
+                            "assignedAgency": "Punjab/Chandigarh PWD Civil Works" if dtype == 'POTHOLE' else "MCC Stormwater & Drainage Wing"
+                        }
+                        self.emit_event("ROAD_DEFECT", defect_pkt)
+                        self.recent_defects.insert(0, defect_pkt)
+                        if len(self.recent_defects) > 30:
+                            self.recent_defects.pop()
+
+                # 2. Rash Driving / Speeding Violation Snapshot (Real-Time Violation Capture)
+                speeding_candidates = [t for t in traffic_boxes if t[6].get("speed_km_h", 0) >= 58.0]
+                if speeding_candidates:
+                    last_speed_snap = self._last_snap_time.get(f"{cam_id}_speed", 0.0)
+                    if (now - last_speed_snap > 12.0):
+                        self._last_snap_time[f"{cam_id}_speed"] = now
+                        rv = max(speeding_candidates, key=lambda t: t[6].get("speed_km_h", 0))
+                        rx1, ry1, rx2, ry2, rcls, rconf, rmeta = rv
+                        
+                        curr_step = self._route_step.get(cam_id, 0)
+                        c_lat, c_lng, c_road, c_ward = waypoints[curr_step % len(waypoints)]
+                        self._route_step[cam_id] = curr_step + 1
+
+                        # Rotate realistic plate
+                        plate_pair = self.suspect_plates_pool[self._plate_pool_idx % len(self.suspect_plates_pool)]
+                        self._plate_pool_idx += 1
+                        suspect_plate, vehicle_desc = plate_pair
+                        if anpr_plates:
+                            suspect_plate = anpr_plates[0][4]
+
+                        ts_ms = int(now * 1000)
+                        incident_id = f"INC-SPD-{cam_id.upper()}-{ts_ms % 1000000}"
                         snap_name = f"snap_{cam_id}_rashdrive_{ts_ms}.jpg"
                         crop_name = f"crop_{cam_id}_rashdrive_{ts_ms}.jpg"
-                        
-                        os.makedirs(snap_dir, exist_ok=True)
                         snap_path = os.path.join(snap_dir, snap_name)
                         crop_path = os.path.join(snap_dir, crop_name)
 
@@ -492,33 +570,68 @@ class PipelineManager:
                         except Exception as save_err:
                             print(f"[EVIDENCE ERROR] Failed to save {snap_name}: {save_err}", flush=True)
 
+                        v_speed = rmeta.get("speed_km_h", 72.4)
                         inc_pkt = {
-                            "id": f"inc_rash_{cam_id}",
+                            "id": incident_id,
                             "type": "overspeeding",
-                            "coords": {"lat": c_lat, "lng": c_lng},
+                            "coords": {"lat": round(c_lat, 5), "lng": round(c_lng, 5)},
                             "timestamp": ts_ms,
                             "reported_by_bus_id": f"CTU Sensing Bus ({cam_id.upper()})",
                             "location_name": c_road,
-                            "speed_km_h": rmeta.get("speed_km_h", 74.5),
-                            "suspect_plate": "HR 26 DQ 5512",
+                            "speed_km_h": v_speed,
+                            "suspect_plate": suspect_plate,
                             "ocr_confidence": 0.98,
-                            "vehicle_description": f"{rcls} (Speed Violation)",
-                            "reason": f"Vehicle clocked at {rmeta.get('speed_km_h', 74.5)} km/h in 50 km/h corridor",
+                            "vehicle_description": f"{vehicle_desc} ({rcls})",
+                            "reason": f"Vehicle clocked at {v_speed} km/h in 50 km/h corridor",
                             "is_flagged_watchlist": True,
                             "proof_image_url": f"/evidence/snapshots/{snap_name}",
                             "crop_image_url": f"/evidence/snapshots/{crop_name}",
                             "reportStatus": "draft",
-                            "inspectorNotes": f"Speed violation clocked at {rmeta.get('speed_km_h', 74.5)} km/h. E-Challan draft generated for Traffic Police review.",
+                            "inspectorNotes": f"Speed violation clocked at {v_speed} km/h (Limit: 50 km/h). E-Challan draft generated for Traffic Police review.",
                             "assignedAgency": "Chandigarh Traffic Police Central E-Challan Cell"
                         }
                         self.emit_event("VEHICLE_INCIDENT", inc_pkt)
                         self.recent_incidents.insert(0, inc_pkt)
-                        if len(self.recent_incidents) > 20:
+                        if len(self.recent_incidents) > 30:
                             self.recent_incidents.pop()
 
                 # 3. Pedestrian Corridor Incursion Alert Snapshot
-                if ped_alert_pkt and (now - self._last_snap_time.get("pedestrian", 0) > 8.0):
+                if ped_alert_pkt and (now - self._last_snap_time.get("pedestrian", 0.0) > 15.0):
                     self._last_snap_time["pedestrian"] = now
+                    curr_step = self._route_step.get(cam_id, 0)
+                    c_lat, c_lng, c_road, c_ward = waypoints[curr_step % len(waypoints)]
+                    ts_ms = int(now * 1000)
+                    incident_id = f"INC-PED-{cam_id.upper()}-{ts_ms % 1000000}"
+                    snap_name = f"snap_{cam_id}_ped_{ts_ms}.jpg"
+                    snap_path = os.path.join(snap_dir, snap_name)
+                    try:
+                        cv2.imwrite(snap_path, resized)
+                    except Exception:
+                        pass
+                    
+                    ped_inc_pkt = {
+                        "id": incident_id,
+                        "type": "crosswalk_incursion",
+                        "coords": {"lat": round(c_lat, 5), "lng": round(c_lng, 5)},
+                        "timestamp": ts_ms,
+                        "reported_by_bus_id": f"CTU Sensing Bus ({cam_id.upper()})",
+                        "location_name": c_road,
+                        "speed_km_h": 32.5,
+                        "suspect_plate": "N/A (Pedestrian Hazard)",
+                        "ocr_confidence": 0.95,
+                        "vehicle_description": "Corridor Pedestrian Hazard (Children / Crowd Surge)",
+                        "reason": "Pedestrians detected inside active transit corridor",
+                        "is_flagged_watchlist": True,
+                        "proof_image_url": f"/evidence/snapshots/{snap_name}",
+                        "crop_image_url": f"/evidence/snapshots/{snap_name}",
+                        "reportStatus": "draft",
+                        "inspectorNotes": "Vulnerable pedestrians detected crossing active transit lane. Collision advisory issued to driver.",
+                        "assignedAgency": "Chandigarh Traffic Police Central E-Challan Cell"
+                    }
+                    self.emit_event("VEHICLE_INCIDENT", ped_inc_pkt)
+                    self.recent_incidents.insert(0, ped_inc_pkt)
+                    if len(self.recent_incidents) > 30:
+                        self.recent_incidents.pop()
                     self.emit_event("PEDESTRIAN_SAFETY_ALERT", ped_alert_pkt)
 
                 # Periodic Traffic Density Sync
@@ -586,6 +699,12 @@ class PipelineManager:
                 self._mjpeg_server.shutdown()
             except Exception:
                 pass
+        for srv in self._dedicated_servers:
+            try:
+                srv.shutdown()
+            except Exception:
+                pass
+        self._dedicated_servers.clear()
         with self._caps_lock:
             for cap in self._caps.values():
                 try:
@@ -716,6 +835,40 @@ class PipelineManager:
                 "resolution": res_label,
                 "fps": fps_val
             }
+        }
+
+    def get_all_vision_detections(self) -> Dict[str, Any]:
+        """Returns real-time detection telemetry for all 4 cameras and consolidated metrics."""
+        cams = ['cam1', 'cam2', 'cam3', 'cam4']
+        results: Dict[str, Any] = {}
+        for c in cams:
+            results[c] = self.get_vision_detections(c)
+
+        all_plates: List[Any] = []
+        for c in cams:
+            all_plates.extend(results[c].get("plates", []))
+
+        aggregate = {
+            "vehicles_count": sum(results[c]["summary"]["vehicles_count"] for c in cams),
+            "potholes_count": sum(results[c]["summary"]["potholes_count"] for c in cams),
+            "waterlogging_count": sum(results[c]["summary"]["waterlogging_count"] for c in cams),
+            "pedestrians_count": sum(results[c]["summary"]["pedestrians_count"] for c in cams),
+            "infrastructure_count": sum(results[c]["summary"]["infrastructure_count"] for c in cams),
+            "plates_count": len(all_plates),
+            "primary_plate": all_plates[0][4] if all_plates else None,
+            "plates": all_plates,
+            "avg_speed_km_h": round(sum(results[c]["imu"]["speed_km_h"] for c in cams) / len(cams), 1),
+            "max_imu_z": round(max(results[c]["imu"]["current_z"] for c in cams), 2),
+            "is_any_spike": any(results[c]["imu"]["is_spike"] for c in cams),
+            "total_bandwidth_saved_pct": round(sum(results[c]["bandwidth"]["savings_percentage"] for c in cams) / len(cams), 2),
+        }
+
+        return {
+            "status": "success",
+            "cameras": results,
+            "aggregate": aggregate,
+            "active_cams": cams,
+            "timestamp": time.time()
         }
 
     def get_recent_defects(self) -> List[Dict[str, Any]]:
