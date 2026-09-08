@@ -94,37 +94,37 @@ export function PwdConsole() {
   };
 
   return (
-    <div className="flex h-full flex-col gap-3 overflow-hidden p-4 bg-[#092328] text-[#f0fdf4]">
+    <div className="flex h-full flex-col gap-3 overflow-hidden p-4 bg-[var(--surface-canvas)] text-[var(--text-primary)]">
       {/* Toast Notification Banner */}
       {activeToast && (
-        <div className="flex items-center justify-between rounded-lg border border-[#2A835F] bg-[#12544F] px-4 py-2 font-mono text-xs text-[#f0fdf4] shadow-md animate-in fade-in duration-200">
+        <div className="flex items-center justify-between rounded-lg border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-4 py-2 font-mono text-xs text-[var(--text-primary)] shadow-md animate-in fade-in duration-200">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-[#8BBB92]" />
+            <CheckCircle2 className="h-4 w-4 text-[var(--text-secondary)]" />
             <span>{activeToast}</span>
           </div>
         </div>
       )}
 
       {/* Top Header Summary */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#12544F] pb-3 shrink-0">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[var(--surface-border)] pb-3 shrink-0">
         <div>
-          <h2 className="text-sm font-semibold text-[#f0fdf4]">
+          <h2 className="text-sm font-semibold text-[var(--text-primary)]">
             PWD Automated Maintenance & Work Order Pipeline
           </h2>
-          <p className="text-xs text-[#8BBB92]">
+          <p className="text-xs text-[var(--text-secondary)]">
             Closed-loop lifecycle: AI Detection to Contractor Tendering to Autonomous Bus Pass Verification
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 rounded-lg border border-[#12544F] bg-[#0d3137] px-3 py-1.5 text-xs font-mono">
-            <Search className="h-3.5 w-3.5 text-[#8BBB92]" />
+          <div className="flex items-center gap-2 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-1.5 text-xs font-mono">
+            <Search className="h-3.5 w-3.5 text-[var(--text-secondary)]" />
             <input
               type="text"
               placeholder="Search work orders..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-transparent outline-none text-[#f0fdf4] placeholder:text-[#5b9076] w-36 sm:w-48 text-xs"
+              className="bg-transparent outline-none text-[var(--text-primary)] placeholder:text-[var(--text-muted)] w-36 sm:w-48 text-xs"
             />
           </div>
 
@@ -132,7 +132,7 @@ export function PwdConsole() {
             variant="primary"
             size="sm"
             onClick={() => setIsCreateModalOpen(true)}
-            className="bg-[#2A835F] text-[#f0fdf4] hover:bg-[#12544F] text-xs font-bold"
+            className="bg-[#2563eb] text-[var(--text-primary)] hover:bg-[var(--surface-subtle)] text-xs font-bold"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>New Work Order</span>
@@ -147,29 +147,29 @@ export function PwdConsole() {
           return (
             <div
               key={col.id}
-              className="flex flex-col rounded-lg border border-[#12544F] bg-[#0d3137] overflow-hidden min-h-[300px]"
+              className="flex flex-col rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] overflow-hidden min-h-[300px]"
             >
               {/* Column Header */}
-              <div className="flex items-center justify-between border-b border-[#12544F] bg-[#092328] px-3.5 py-2.5">
-                <span className="text-xs font-semibold text-[#f0fdf4]">{col.title}</span>
-                <span className="font-mono text-xs font-semibold text-[#8BBB92]">{col.count}</span>
+              <div className="flex items-center justify-between border-b border-[var(--surface-border)] bg-[var(--surface-canvas)] px-3.5 py-2.5">
+                <span className="text-xs font-semibold text-[var(--text-primary)]">{col.title}</span>
+                <span className="font-mono text-xs font-semibold text-[var(--text-secondary)]">{col.count}</span>
               </div>
 
               {/* Column Cards */}
               <div className="flex-1 overflow-y-auto p-2.5 space-y-2.5">
                 {colTickets.length === 0 ? (
-                  <div className="flex h-24 items-center justify-center text-xs text-[#5b9076]">
+                  <div className="flex h-24 items-center justify-center text-xs text-[var(--text-muted)]">
                     No work orders in this stage
                   </div>
                 ) : (
                   colTickets.map((ticket) => (
                     <div
                       key={ticket.id}
-                      className="rounded-lg border border-[#12544F] bg-[#12544F]/40 p-3 shadow-sm space-y-2 select-none hover:border-[#2A835F] transition-colors"
+                      className="rounded-lg border border-[var(--surface-border)] bg-[var(--surface-subtle)]/40 p-3 shadow-sm space-y-2 select-none hover:border-[var(--color-accent-primary)] transition-colors"
                     >
                       <div className="flex items-center justify-between">
                         <div className="flex items-center gap-1.5 min-w-0">
-                          <span className="font-mono text-[11px] text-[#8BBB92]">
+                          <span className="font-mono text-[11px] text-[var(--text-secondary)]">
                             {ticket.id}
                           </span>
                           {ticket.dispatchReference && (
@@ -191,41 +191,41 @@ export function PwdConsole() {
                           <button
                             onClick={() => deleteTicket(ticket.id)}
                             title="Delete / Archive Work Order"
-                            className="text-[#5b9076] hover:text-rose-400 p-0.5 cursor-pointer"
+                            className="text-[var(--text-muted)] hover:text-rose-400 p-0.5 cursor-pointer"
                           >
                             <Trash2 className="h-3 w-3" />
                           </button>
                         </div>
                       </div>
 
-                      <h4 className="text-xs font-semibold text-[#f0fdf4] line-clamp-1">
+                      <h4 className="text-xs font-semibold text-[var(--text-primary)] line-clamp-1">
                         {ticket.title}
                       </h4>
-                      <p className="text-[11px] text-[#8BBB92] line-clamp-1">
+                      <p className="text-[11px] text-[var(--text-secondary)] line-clamp-1">
                         {ticket.locationName}
                       </p>
 
-                      <div className="rounded border border-[#12544F] bg-[#0d3137] p-2 text-[11px] font-mono space-y-1">
+                      <div className="rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] p-2 text-[11px] font-mono space-y-1">
                         <div className="flex justify-between">
-                          <span className="text-[#8BBB92]">Asphalt:</span>
-                          <span className="text-[#f0fdf4]">{ticket.estimatedAsphaltTons} MT</span>
+                          <span className="text-[var(--text-secondary)]">Asphalt:</span>
+                          <span className="text-[var(--text-primary)]">{ticket.estimatedAsphaltTons} MT</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-[#8BBB92]">Budget:</span>
-                          <span className="font-semibold text-[#8BBB92]">
+                          <span className="text-[var(--text-secondary)]">Budget:</span>
+                          <span className="font-semibold text-[var(--text-secondary)]">
                             {formatCurrency(ticket.estimatedCostInr || 0)}
                           </span>
                         </div>
                         {ticket.assignedContractor && (
-                          <div className="flex justify-between pt-1 border-t border-[#12544F]">
-                            <span className="text-[#8BBB92]">Contractor:</span>
-                            <span className="font-sans text-[#f0fdf4] truncate max-w-[130px]">
+                          <div className="flex justify-between pt-1 border-t border-[var(--surface-border)]">
+                            <span className="text-[var(--text-secondary)]">Contractor:</span>
+                            <span className="font-sans text-[var(--text-primary)] truncate max-w-[130px]">
                               {ticket.assignedContractor}
                             </span>
                           </div>
                         )}
                         {ticket.verifiedByBusId && (
-                          <div className="flex justify-between pt-1 border-t border-[#12544F] text-[#8BBB92] font-semibold">
+                          <div className="flex justify-between pt-1 border-t border-[var(--surface-border)] text-[var(--text-secondary)] font-semibold">
                             <span>Audited By:</span>
                             <span>{ticket.verifiedByBusId}</span>
                           </div>
@@ -236,7 +236,7 @@ export function PwdConsole() {
                         <Button
                           variant="secondary"
                           size="sm"
-                          className="w-full text-xs h-7 justify-between bg-[#12544F] text-[#f0fdf4] border-[#2A835F] hover:bg-[#2A835F]"
+                          className="w-full text-xs h-7 justify-between bg-[var(--surface-subtle)] text-[var(--text-primary)] border-[var(--color-accent-primary)] hover:bg-[#2563eb]"
                           onClick={() => handleAdvanceStatus(ticket.id, ticket.status)}
                         >
                           <span>
@@ -259,31 +259,31 @@ export function PwdConsole() {
       {/* Assign Contractor Modal */}
       {assigningTicketId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-xl border border-[#12544F] bg-[#092328] p-5 shadow-2xl font-mono text-xs">
-            <div className="flex items-center justify-between border-b border-[#12544F] pb-3 mb-4">
+          <div className="w-full max-w-md rounded-xl border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-5 shadow-2xl font-mono text-xs">
+            <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-3 mb-4">
               <div className="flex items-center gap-2">
-                <UserCheck className="h-4 w-4 text-[#8BBB92]" />
-                <span className="font-bold text-[#f0fdf4] text-sm">
+                <UserCheck className="h-4 w-4 text-[var(--text-secondary)]" />
+                <span className="font-bold text-[var(--text-primary)] text-sm">
                   Assign Authorized Maintenance Contractor
                 </span>
               </div>
               <button
                 onClick={() => setAssigningTicketId(null)}
-                className="text-[#8BBB92] hover:text-[#f0fdf4]"
+                className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
               >
                 <X className="h-4 w-4" />
               </button>
             </div>
 
             <div className="space-y-3">
-              <p className="text-[#8BBB92]">
+              <p className="text-[var(--text-secondary)]">
                 Select CPWD-empanelled contractor for Ticket {assigningTicketId}:
               </p>
 
               <select
                 value={selectedContractor}
                 onChange={(e) => setSelectedContractor(e.target.value)}
-                className="w-full rounded border border-[#12544F] bg-[#0d3137] p-2 text-[#f0fdf4] outline-none text-xs"
+                className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] p-2 text-[var(--text-primary)] outline-none text-xs"
               >
                 <option value="Shree Balaji Infra Works Ltd (Chandigarh)">Shree Balaji Infra Works Ltd</option>
                 <option value="Apex Roadways Ltd">Apex Roadways Ltd</option>
@@ -291,11 +291,11 @@ export function PwdConsole() {
                 <option value="MCC Direct Works Department">MCC Direct Works Department</option>
               </select>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#12544F] mt-4">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[var(--surface-border)] mt-4">
                 <Button variant="secondary" size="sm" onClick={() => setAssigningTicketId(null)}>
                   Cancel
                 </Button>
-                <Button variant="primary" size="sm" onClick={handleConfirmAssign} className="bg-[#2A835F] text-[#f0fdf4] hover:bg-[#12544F]">
+                <Button variant="primary" size="sm" onClick={handleConfirmAssign} className="bg-[#2563eb] text-[var(--text-primary)] hover:bg-[var(--surface-subtle)]">
                   Confirm Tender Assignment
                 </Button>
               </div>
@@ -307,15 +307,15 @@ export function PwdConsole() {
       {/* New Work Order Modal */}
       {isCreateModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-xl border border-[#12544F] bg-[#092328] p-5 shadow-2xl font-mono text-xs">
-            <div className="flex items-center justify-between border-b border-[#12544F] pb-3 mb-4">
+          <div className="w-full max-w-lg rounded-xl border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-5 shadow-2xl font-mono text-xs">
+            <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-3 mb-4">
               <div className="flex items-center gap-2">
-                <Wrench className="h-4 w-4 text-[#8BBB92]" />
-                <span className="font-bold text-[#f0fdf4] text-sm">Issue Custom PWD Work Order</span>
+                <Wrench className="h-4 w-4 text-[var(--text-secondary)]" />
+                <span className="font-bold text-[var(--text-primary)] text-sm">Issue Custom PWD Work Order</span>
               </div>
               <button
                 onClick={() => setIsCreateModalOpen(false)}
-                className="text-[#8BBB92] hover:text-[#f0fdf4]"
+                className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -323,36 +323,36 @@ export function PwdConsole() {
 
             <form onSubmit={handleCreateTicket} className="space-y-3">
               <div>
-                <label className="block text-[11px] text-[#8BBB92] mb-1">Work Order Title *</label>
+                <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Work Order Title *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Emergency Bitumen Pothole Patching"
                   value={newTitle}
                   onChange={(e) => setNewTitle(e.target.value)}
-                  className="w-full rounded border border-[#12544F] bg-[#0d3137] px-3 py-2 text-[#f0fdf4] outline-none"
+                  className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-2 text-[var(--text-primary)] outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] text-[#8BBB92] mb-1">Road / Corridor Location *</label>
+                <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Road / Corridor Location *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Madhya Marg Near Sec 26 Grain Market"
                   value={newLocation}
                   onChange={(e) => setNewLocation(e.target.value)}
-                  className="w-full rounded border border-[#12544F] bg-[#0d3137] px-3 py-2 text-[#f0fdf4] outline-none"
+                  className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-2 text-[var(--text-primary)] outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-[11px] text-[#8BBB92] mb-1">Severity</label>
+                  <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Severity</label>
                   <select
                     value={newSeverity}
                     onChange={(e) => setNewSeverity(e.target.value as any)}
-                    className="w-full rounded border border-[#12544F] bg-[#0d3137] px-2 py-2 text-[#f0fdf4] outline-none text-xs"
+                    className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-2 py-2 text-[var(--text-primary)] outline-none text-xs"
                   >
                     <option value="critical">Critical</option>
                     <option value="high">High</option>
@@ -362,32 +362,32 @@ export function PwdConsole() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] text-[#8BBB92] mb-1">Asphalt (MT)</label>
+                  <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Asphalt (MT)</label>
                   <input
                     type="number"
                     step="0.1"
                     value={newAsphaltTons}
                     onChange={(e) => setNewAsphaltTons(Number(e.target.value))}
-                    className="w-full rounded border border-[#12544F] bg-[#0d3137] px-3 py-2 text-[#f0fdf4] outline-none"
+                    className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-2 text-[var(--text-primary)] outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-[11px] text-[#8BBB92] mb-1">Budget (INR)</label>
+                  <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Budget (INR)</label>
                   <input
                     type="number"
                     value={newCost}
                     onChange={(e) => setNewCost(Number(e.target.value))}
-                    className="w-full rounded border border-[#12544F] bg-[#0d3137] px-3 py-2 text-[#f0fdf4] outline-none"
+                    className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-2 text-[var(--text-primary)] outline-none"
                   />
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#12544F] mt-4">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[var(--surface-border)] mt-4">
                 <Button type="button" variant="secondary" size="sm" onClick={() => setIsCreateModalOpen(false)}>
                   Cancel
                 </Button>
-                <Button type="submit" variant="primary" size="sm" className="bg-[#2A835F] text-[#f0fdf4] hover:bg-[#12544F]">
+                <Button type="submit" variant="primary" size="sm" className="bg-[#2563eb] text-[var(--text-primary)] hover:bg-[var(--surface-subtle)]">
                   Create Work Order
                 </Button>
               </div>

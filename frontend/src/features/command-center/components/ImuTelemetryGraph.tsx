@@ -81,12 +81,12 @@ export function ImuTelemetryGraph({ imu }: ImuTelemetryGraphProps) {
   const polylineY = pointsY.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
 
   return (
-    <div className="rounded-xl border border-[#12544F] bg-[#0d3137] p-3.5 space-y-3 font-mono shadow-md">
+    <div className="rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-3.5 space-y-3 font-mono shadow-md">
       {/* Header bar */}
-      <div className="flex flex-wrap items-center justify-between gap-2 text-xs border-b border-[#12544F]/80 pb-2">
+      <div className="flex flex-wrap items-center justify-between gap-2 text-xs border-b border-[var(--surface-border)]/80 pb-2">
         <div className="flex items-center gap-2">
-          <Activity className="h-4 w-4 text-[#8BBB92]" />
-          <span className="text-xs font-bold uppercase tracking-wider text-[#f0fdf4]">
+          <Activity className="h-4 w-4 text-[var(--text-secondary)]" />
+          <span className="text-xs font-bold uppercase tracking-wider text-[var(--text-primary)]">
             IMU 3-Axis Accelerometer (2-Axis Vibration Fusion)
           </span>
         </div>
@@ -95,15 +95,15 @@ export function ImuTelemetryGraph({ imu }: ImuTelemetryGraphProps) {
         <div className="flex items-center gap-2.5 text-[11px]">
           <div className="flex items-center gap-1">
             <span className="h-2 w-2 rounded-full bg-[#00e5bf]" />
-            <span className="text-[#8BBB92]">X</span>
+            <span className="text-[var(--text-secondary)]">X</span>
           </div>
           <div className="flex items-center gap-1">
             <span className="h-2 w-2 rounded-full bg-[#fbbf24]" />
-            <span className="text-[#8BBB92]">Y</span>
+            <span className="text-[var(--text-secondary)]">Y</span>
           </div>
           <div className="flex items-center gap-1">
             <span className="h-2 w-2 rounded-full bg-[#f43f5e]" />
-            <span className="text-[#8BBB92]">Z</span>
+            <span className="text-[var(--text-secondary)]">Z</span>
           </div>
         </div>
 
@@ -112,23 +112,23 @@ export function ImuTelemetryGraph({ imu }: ImuTelemetryGraphProps) {
           <span
             className={`px-2 py-0.5 rounded-full border text-[10px] font-bold transition-colors ${
               isSpike
-                ? 'bg-rose-950/90 border-rose-500 text-rose-300 animate-pulse'
-                : 'bg-emerald-950/80 border-emerald-500/70 text-emerald-300'
+                ? 'bg-rose-100 border-rose-300 text-rose-800 dark:bg-rose-950/90 dark:border-rose-500 dark:text-rose-300 animate-pulse'
+                : 'bg-emerald-100 border-emerald-300 text-emerald-800 dark:bg-emerald-950/80 dark:border-emerald-500/70 dark:text-emerald-300'
             }`}
           >
             Z = {currentZ.toFixed(2)}g {isSpike ? '[!] SHOCK IMPACT' : '(Nominal Suspension)'}
           </span>
-          <span className="text-[#5b9076]">Threshold: 2.2g</span>
+          <span className="text-[var(--text-muted)]">Threshold: 2.2g</span>
         </div>
       </div>
 
       {/* SVG Multi-Axis Waveform Canvas */}
-      <div className="relative h-16 w-full overflow-hidden rounded-lg bg-[#081e22] border border-[#12544F]">
+      <div className="relative h-16 w-full overflow-hidden rounded-lg bg-[var(--surface-canvas)] border border-[var(--surface-border)]">
         <svg viewBox={`0 0 ${width} ${height}`} className="h-full w-full" preserveAspectRatio="none">
           {/* Subtle Gridlines */}
-          <line x1="0" y1={getY(0.5)} x2={width} y2={getY(0.5)} stroke="#12544F" strokeWidth="0.5" opacity="0.3" />
-          <line x1="0" y1={baselineY} x2={width} y2={baselineY} stroke="#12544F" strokeWidth="0.8" opacity="0.6" strokeDasharray="3 3" />
-          <line x1="0" y1={getY(1.5)} x2={width} y2={getY(1.5)} stroke="#12544F" strokeWidth="0.5" opacity="0.3" />
+          <line x1="0" y1={getY(0.5)} x2={width} y2={getY(0.5)} stroke="var(--surface-border)" strokeWidth="0.5" opacity="0.6" />
+          <line x1="0" y1={baselineY} x2={width} y2={baselineY} stroke="var(--surface-border)" strokeWidth="0.8" opacity="0.8" strokeDasharray="3 3" />
+          <line x1="0" y1={getY(1.5)} x2={width} y2={getY(1.5)} stroke="var(--surface-border)" strokeWidth="0.5" opacity="0.6" />
           <line x1="0" y1={thresholdY} x2={width} y2={thresholdY} stroke="#ef4444" strokeWidth="1" opacity="0.7" strokeDasharray="4 2" />
 
           {/* Curve X (Cyan) */}
@@ -159,24 +159,24 @@ export function ImuTelemetryGraph({ imu }: ImuTelemetryGraphProps) {
       </div>
 
       {/* Bottom Readout & Speed Gauge matching reference image */}
-      <div className="flex items-center justify-between pt-1 border-t border-[#12544F]/50">
+      <div className="flex items-center justify-between pt-1 border-t border-[var(--surface-border)]/50">
         <div className="flex flex-col">
           <div className="flex items-baseline gap-2">
-            <span className="text-2xl font-bold text-[#f0fdf4] tabular-nums font-mono">
+            <span className="text-2xl font-bold text-[var(--text-primary)] tabular-nums font-mono">
               {currentZ.toFixed(2)}g
             </span>
-            <span className="text-[11px] text-[#8BBB92]">
+            <span className="text-[11px] text-[var(--text-secondary)]">
               {isSpike ? 'Surface Degradation Spike Detected' : 'Nominal Suspension Acceleration'}
             </span>
           </div>
-          <span className="text-[10px] text-[#5b9076]">
+          <span className="text-[10px] text-[var(--text-muted)]">
             Optical road distress cross-verified against real IMU acceleration spikes
           </span>
         </div>
 
-        <div className="flex items-center gap-2 rounded-xl bg-[#092328] border border-[#12544F] px-3.5 py-1.5 shrink-0">
-          <Gauge className="h-4 w-4 text-[#8BBB92]" />
-          <span className="text-xs font-bold text-[#f0fdf4] tabular-nums font-mono">
+        <div className="flex items-center gap-2 rounded-xl bg-[var(--surface-panel)] border border-[var(--surface-border)] px-3.5 py-1.5 shrink-0 shadow-xs">
+          <Gauge className="h-4 w-4 text-[var(--text-secondary)]" />
+          <span className="text-xs font-bold text-[var(--text-primary)] tabular-nums font-mono">
             Speed: {speed} km/h
           </span>
         </div>

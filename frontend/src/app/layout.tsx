@@ -1,11 +1,10 @@
 import type { Metadata } from 'next';
-import { Anton, Bricolage_Grotesque } from 'next/font/google';
+import { Space_Grotesk, Bricolage_Grotesque } from 'next/font/google';
 import './globals.css';
 
-const anton = Anton({
-  weight: '400',
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  variable: '--font-anton',
+  variable: '--font-display',
   display: 'swap',
 });
 
@@ -26,8 +25,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`h-full w-full dark ${anton.variable} ${bricolage.variable}`}>
-      <body className="min-h-screen w-full bg-[#092328] font-sans text-[#f0fdf4] antialiased">
+    <html lang="en" className={`h-full w-full dark ${spaceGrotesk.variable} ${bricolage.variable}`} suppressHydrationWarning>
+      <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `(function(){try{var t=localStorage.getItem('strata_theme_mode');if(t==='light'){document.documentElement.classList.remove('dark');document.documentElement.classList.add('light');document.documentElement.setAttribute('data-theme','light');}else{document.documentElement.classList.add('dark');document.documentElement.setAttribute('data-theme','dark');}}catch(e){}})();`,
+          }}
+        />
+      </head>
+      <body className="min-h-screen w-full bg-[var(--surface-canvas)] font-sans text-[var(--text-primary)] antialiased">
         {children}
       </body>
     </html>

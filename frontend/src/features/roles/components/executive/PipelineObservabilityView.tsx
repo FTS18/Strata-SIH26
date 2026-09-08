@@ -292,7 +292,7 @@ export function PipelineObservabilityView() {
         ctx.fillRect(0, 0, w, h);
 
         // Scanline grid
-        ctx.strokeStyle = 'rgba(18, 84, 79, 0.4)';
+        ctx.strokeStyle = 'rgba(17, 28, 51, 0.4)';
         ctx.lineWidth = 1;
         for (let y = 0; y < h; y += 12) {
           ctx.beginPath();
@@ -306,7 +306,7 @@ export function PipelineObservabilityView() {
         ctx.textAlign = 'center';
         ctx.fillText('PROCESS DAEMON STOPPED — NO INGESTION', w / 2, h / 2 - 10);
 
-        ctx.fillStyle = '#8BBB92';
+        ctx.fillStyle = '#94a3b8';
         ctx.font = '11px monospace';
         ctx.fillText(`Pipeline [${activePipeline.id}] is currently offline. Click 'Start' to activate.`, w / 2, h / 2 + 15);
         animFrameId = requestAnimationFrame(render);
@@ -323,7 +323,7 @@ export function PipelineObservabilityView() {
         ctx.textAlign = 'center';
         ctx.fillText('HOT-RELOAD: SYNCHRONIZING CUDA INT8 ENGINE...', w / 2, h / 2 - 5);
 
-        ctx.fillStyle = '#8BBB92';
+        ctx.fillStyle = '#94a3b8';
         ctx.font = '11px monospace';
         ctx.fillText('Allocating memory blocks and binding tensor buffers...', w / 2, h / 2 + 18);
         animFrameId = requestAnimationFrame(render);
@@ -336,7 +336,7 @@ export function PipelineObservabilityView() {
       // Sky / City Skyline Background
       const skyGrad = ctx.createLinearGradient(0, 0, 0, horizonY);
       skyGrad.addColorStop(0, '#041013');
-      skyGrad.addColorStop(1, '#092328');
+      skyGrad.addColorStop(1, '#080e1a');
       ctx.fillStyle = skyGrad;
       ctx.fillRect(0, 0, w, horizonY);
 
@@ -348,7 +348,7 @@ export function PipelineObservabilityView() {
       ctx.fillRect(0, horizonY, w, h - horizonY);
 
       // Road Lane Perspective Lines
-      ctx.strokeStyle = '#1d6d63';
+      ctx.strokeStyle = '#1e314d';
       ctx.lineWidth = 2;
 
       // Left Curb
@@ -365,7 +365,7 @@ export function PipelineObservabilityView() {
 
       // Dashed Center Lanes (Animated moving towards camera)
       const offset = (tick * 4) % 40;
-      ctx.strokeStyle = '#8BBB92';
+      ctx.strokeStyle = '#94a3b8';
       ctx.setLineDash([20, 20]);
       ctx.lineDashOffset = -offset;
 
@@ -393,14 +393,14 @@ export function PipelineObservabilityView() {
           ctx.fill();
 
           // Defect Bounding Box
-          ctx.strokeStyle = activeImpactTest ? '#ef4444' : '#2A835F';
+          ctx.strokeStyle = activeImpactTest ? '#ef4444' : '#2563eb';
           ctx.lineWidth = 2;
           ctx.strokeRect(potholeX, potholeY, potholeW, potholeH);
 
           // Badge
-          ctx.fillStyle = activeImpactTest ? '#ef4444' : '#2A835F';
+          ctx.fillStyle = activeImpactTest ? '#ef4444' : '#2563eb';
           ctx.fillRect(potholeX, potholeY - 18, 140, 18);
-          ctx.fillStyle = '#f0fdf4';
+          ctx.fillStyle = '#f8fafc';
           ctx.font = 'bold 10px monospace';
           ctx.textAlign = 'left';
           ctx.fillText(activeImpactTest ? 'POTHOLE (94.2%) [Z=2.9g]' : 'POTHOLE (91.8%)', potholeX + 4, potholeY - 5);
@@ -450,14 +450,14 @@ export function PipelineObservabilityView() {
           const plateX = w / 2 - plateW / 2;
           const plateY = h / 2 - plateH / 2;
 
-          ctx.fillStyle = 'rgba(9, 35, 40, 0.85)';
+          ctx.fillStyle = 'rgba(8, 14, 26, 0.85)';
           ctx.fillRect(plateX - 10, plateY - 25, plateW + 20, plateH + 45);
-          ctx.strokeStyle = '#2A835F';
+          ctx.strokeStyle = '#2563eb';
           ctx.lineWidth = 2;
           ctx.strokeRect(plateX - 10, plateY - 25, plateW + 20, plateH + 45);
 
           // Plate Graphic
-          ctx.fillStyle = '#f0fdf4';
+          ctx.fillStyle = '#f8fafc';
           ctx.fillRect(plateX, plateY, plateW, plateH);
           ctx.strokeStyle = '#000000';
           ctx.lineWidth = 3;
@@ -477,7 +477,7 @@ export function PipelineObservabilityView() {
           ctx.textAlign = 'center';
           ctx.fillText('HR 26 DQ 4410', plateX + plateW / 2 + 10, plateY + plateH / 2 + 8);
 
-          ctx.fillStyle = '#8BBB92';
+          ctx.fillStyle = '#94a3b8';
           ctx.font = '10px monospace';
           ctx.textAlign = 'center';
           ctx.fillText('OCR CONFIDENCE: 96.4% · STATE: HARYANA', w / 2, plateY + plateH + 15);
@@ -485,23 +485,23 @@ export function PipelineObservabilityView() {
           // Kerb-Side Pedestrian Crowd Heatmap
           ctx.fillStyle = 'rgba(42, 131, 95, 0.25)';
           ctx.fillRect(w * 0.05, horizonY + 20, 160, h - horizonY - 40);
-          ctx.strokeStyle = '#8BBB92';
+          ctx.strokeStyle = '#94a3b8';
           ctx.lineWidth = 2;
           ctx.strokeRect(w * 0.05, horizonY + 20, 160, h - horizonY - 40);
 
-          ctx.fillStyle = '#8BBB92';
+          ctx.fillStyle = '#94a3b8';
           ctx.fillRect(w * 0.05, horizonY + 2, 140, 18);
-          ctx.fillStyle = '#092328';
+          ctx.fillStyle = '#080e1a';
           ctx.font = 'bold 10px monospace';
           ctx.textAlign = 'left';
           ctx.fillText('BUS STOP QUEUE: 4 PAX', w * 0.05 + 4, horizonY + 14);
         } else {
           // Default Front Camera HUD
-          ctx.fillStyle = 'rgba(9, 35, 40, 0.7)';
+          ctx.fillStyle = 'rgba(8, 14, 26, 0.7)';
           ctx.fillRect(10, 10, 200, 30);
-          ctx.strokeStyle = '#12544F';
+          ctx.strokeStyle = '#111c33';
           ctx.strokeRect(10, 10, 200, 30);
-          ctx.fillStyle = '#8BBB92';
+          ctx.fillStyle = '#94a3b8';
           ctx.font = '10px monospace';
           ctx.textAlign = 'left';
           ctx.fillText('FEED: LIVE INFERENCE READY', 20, 28);
@@ -509,21 +509,21 @@ export function PipelineObservabilityView() {
       }
 
       // 4. Top Telemetry HUD Overlay on Video
-      ctx.fillStyle = 'rgba(9, 35, 40, 0.85)';
+      ctx.fillStyle = 'rgba(8, 14, 26, 0.85)';
       ctx.fillRect(0, 0, w, 28);
-      ctx.strokeStyle = '#12544F';
+      ctx.strokeStyle = '#111c33';
       ctx.beginPath();
       ctx.moveTo(0, 28);
       ctx.lineTo(w, 28);
       ctx.stroke();
 
-      ctx.fillStyle = '#8BBB92';
+      ctx.fillStyle = '#94a3b8';
       ctx.font = '10px monospace';
       ctx.textAlign = 'left';
       ctx.fillText(`STRATA LIVE SENSING | DAEMON: ${activePipeline.id.toUpperCase()} | ${activePipeline.currentFps.toFixed(1)} FPS | INT8 TENSORRT`, 12, 18);
 
       ctx.textAlign = 'right';
-      ctx.fillStyle = '#f0fdf4';
+      ctx.fillStyle = '#f8fafc';
       ctx.fillText(`LATENCY: ${liveLatency} MS | FRAME #${totalProcessedFrames}`, w - 12, 18);
 
       animFrameId = requestAnimationFrame(render);
@@ -655,22 +655,22 @@ export function PipelineObservabilityView() {
   };
 
   return (
-    <div className="flex h-full w-full flex-col gap-3.5 overflow-y-auto p-4 sm:p-5 bg-[#092328] text-[#f0fdf4]">
+    <div className="flex h-full w-full flex-col gap-3.5 overflow-y-auto p-4 sm:p-5 bg-[var(--surface-canvas)] text-[var(--text-primary)]">
       {/* Top Header & Orchestration Controls */}
-      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 border-b border-[#12544F] pb-3.5 shrink-0">
+      <div className="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 border-b border-[var(--surface-border)] pb-3.5 shrink-0">
         <div>
           <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[#12544F] border border-[#2A835F] text-[#8BBB92]">
+            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-[var(--surface-subtle)] border border-[var(--color-accent-primary)] text-[var(--text-secondary)]">
               <Activity className="h-4 w-4" />
             </div>
-            <h2 className="text-base font-semibold text-[#f0fdf4]">
+            <h2 className="text-base font-semibold text-[var(--text-primary)]">
               Edge AI Pipeline Observability & Process Orchestration
             </h2>
-            <span className="rounded border border-[#2A835F] bg-[#12544F] px-2 py-0.5 text-[11px] font-mono text-[#8BBB92] font-medium">
+            <span className="rounded border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-2 py-0.5 text-[11px] font-mono text-[var(--text-secondary)] font-medium">
               {runningCount} / {pipelines.length} Active Engines
             </span>
           </div>
-          <p className="text-xs text-[#8BBB92] mt-0.5">
+          <p className="text-xs text-[var(--text-secondary)] mt-0.5">
             Real-time process daemon control, live camera visualizer, dynamic parameter tuning, and hot reloading across mobile bus fleets
           </p>
         </div>
@@ -680,7 +680,7 @@ export function PipelineObservabilityView() {
           <Button
             variant="secondary"
             size="sm"
-            className="bg-[#12544F] text-[#f0fdf4] border-[#2A835F] hover:bg-[#2A835F] py-1.5 text-xs font-mono"
+            className="bg-[var(--surface-subtle)] text-[var(--text-primary)] border-[var(--color-accent-primary)] hover:bg-[#2563eb] py-1.5 text-xs font-mono"
             onClick={handleStartAll}
           >
             <Play className="h-3.5 w-3.5 text-emerald-400" />
@@ -690,7 +690,7 @@ export function PipelineObservabilityView() {
           <Button
             variant="secondary"
             size="sm"
-            className="bg-[#12544F] text-[#f0fdf4] border-[#2A835F] hover:bg-[#2A835F] py-1.5 text-xs font-mono"
+            className="bg-[var(--surface-subtle)] text-[var(--text-primary)] border-[var(--color-accent-primary)] hover:bg-[#2563eb] py-1.5 text-xs font-mono"
             onClick={handleRestartAll}
           >
             <RotateCw className="h-3.5 w-3.5 text-amber-400" />
@@ -717,7 +717,7 @@ export function PipelineObservabilityView() {
           caption="Speed-proportional adaptive ingestion"
           change="Real-time Live"
           changeType="positive"
-          icon={<Layers className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Layers className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
         <MetricCard
           label="Average Engine Latency"
@@ -725,7 +725,7 @@ export function PipelineObservabilityView() {
           caption="Sub-20ms Jetson Orin budget"
           change="Within SLA"
           changeType="positive"
-          icon={<Zap className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Zap className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
         <MetricCard
           label="Cluster GPU Compute Load"
@@ -733,7 +733,7 @@ export function PipelineObservabilityView() {
           caption="TensorRT INT8 Precision"
           change="Optimal Thermal"
           changeType="positive"
-          icon={<Cpu className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Cpu className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
         <MetricCard
           label="Process Health Score"
@@ -741,19 +741,19 @@ export function PipelineObservabilityView() {
           caption="Zero unhandled process crashes"
           change="Nominal"
           changeType="positive"
-          icon={<CheckCircle2 className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<CheckCircle2 className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
       </div>
 
       {/* Main Studio Grid: Left Pipeline Controls, Right Live Video Visualizer + Terminal Logs */}
       <div className="grid flex-1 grid-cols-1 lg:grid-cols-12 gap-4 overflow-hidden min-h-[560px]">
         {/* Left 5 Columns: Interactive Pipeline Daemon List */}
-        <div className="lg:col-span-5 flex flex-col rounded-xl border border-[#12544F] bg-[#0d3137] overflow-hidden shadow-sm">
-          <div className="flex items-center justify-between border-b border-[#12544F] bg-[#092328] px-4 py-2.5 shrink-0">
-            <span className="text-xs font-semibold text-[#f0fdf4]">
+        <div className="lg:col-span-5 flex flex-col rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] overflow-hidden shadow-sm">
+          <div className="flex items-center justify-between border-b border-[var(--surface-border)] bg-[var(--surface-canvas)] px-4 py-2.5 shrink-0">
+            <span className="text-xs font-semibold text-[var(--text-primary)]">
               Edge AI Daemon Controls ({pipelines.length})
             </span>
-            <span className="text-[11px] font-mono text-[#8BBB92]">
+            <span className="text-[11px] font-mono text-[var(--text-secondary)]">
               Click to inspect feed
             </span>
           </div>
@@ -770,8 +770,8 @@ export function PipelineObservabilityView() {
                   onClick={() => setSelectedPipelineId(pipe.id)}
                   className={`flex flex-col gap-2 rounded-lg border p-3 transition-all select-none cursor-pointer ${
                     isSelected
-                      ? 'border-[#2A835F] bg-[#12544F] shadow-md ring-1 ring-[#2A835F]/60'
-                      : 'border-[#12544F] bg-[#092328]/60 hover:bg-[#12544F]/40'
+                      ? 'border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] shadow-md ring-1 ring-[#2563eb]/60'
+                      : 'border-[var(--surface-border)] bg-[var(--surface-canvas)]/60 hover:bg-[var(--surface-subtle)]/40'
                   }`}
                 >
                   {/* Card Header: Title & Status Badge */}
@@ -786,7 +786,7 @@ export function PipelineObservabilityView() {
                             : 'bg-zinc-500'
                         }`}
                       />
-                      <h4 className="text-xs font-bold text-[#f0fdf4] truncate">{pipe.name}</h4>
+                      <h4 className="text-xs font-bold text-[var(--text-primary)] truncate">{pipe.name}</h4>
                     </div>
 
                     <span
@@ -803,26 +803,26 @@ export function PipelineObservabilityView() {
                   </div>
 
                   {/* Telemetry Metrics Bar */}
-                  <div className="grid grid-cols-3 gap-1.5 rounded bg-[#092328] p-2 text-[10px] font-mono border border-[#144943]">
+                  <div className="grid grid-cols-3 gap-1.5 rounded bg-[var(--surface-canvas)] p-2 text-[10px] font-mono border border-[var(--surface-border-subtle)]">
                     <div>
-                      <span className="text-[#5b9076]">FPS: </span>
+                      <span className="text-[var(--text-muted)]">FPS: </span>
                       <span className={`font-bold ${isRunning ? 'text-emerald-400' : 'text-zinc-500'}`}>
                         {pipe.currentFps.toFixed(1)} / {pipe.targetFps}
                       </span>
                     </div>
                     <div>
-                      <span className="text-[#5b9076]">GPU: </span>
-                      <span className="text-[#8BBB92]">{pipe.gpuLoadPct}%</span>
+                      <span className="text-[var(--text-muted)]">GPU: </span>
+                      <span className="text-[var(--text-secondary)]">{pipe.gpuLoadPct}%</span>
                     </div>
                     <div>
-                      <span className="text-[#5b9076]">Target: </span>
+                      <span className="text-[var(--text-muted)]">Target: </span>
                       <span className="text-cyan-400 truncate">{pipe.hardwareDevice.split(' ')[0]}</span>
                     </div>
                   </div>
 
                   {/* Control Action Buttons Bar */}
-                  <div className="flex items-center justify-between gap-1.5 pt-1 border-t border-[#12544F]/50">
-                    <span className="text-[10px] font-mono text-[#5b9076] truncate">
+                  <div className="flex items-center justify-between gap-1.5 pt-1 border-t border-[var(--surface-border)]/50">
+                    <span className="text-[10px] font-mono text-[var(--text-muted)] truncate">
                       {pipe.category}
                     </span>
 
@@ -856,7 +856,7 @@ export function PipelineObservabilityView() {
                           e.stopPropagation();
                           handleRestartPipeline(pipe.id);
                         }}
-                        className="flex items-center gap-1 rounded border border-[#12544F] bg-[#092328] px-2 py-1 text-[10px] font-mono text-[#8BBB92] hover:bg-[#12544F] hover:text-[#f0fdf4]"
+                        className="flex items-center gap-1 rounded border border-[var(--surface-border)] bg-[var(--surface-canvas)] px-2 py-1 text-[10px] font-mono text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)] hover:text-[var(--text-primary)]"
                       >
                         <RotateCw className="h-3 w-3" />
                         <span>Restart</span>
@@ -867,7 +867,7 @@ export function PipelineObservabilityView() {
                           e.stopPropagation();
                           openConfigModal(pipe);
                         }}
-                        className="flex items-center gap-1 rounded border border-[#12544F] bg-[#092328] px-2 py-1 text-[10px] font-mono text-[#8BBB92] hover:bg-[#12544F] hover:text-[#f0fdf4]"
+                        className="flex items-center gap-1 rounded border border-[var(--surface-border)] bg-[var(--surface-canvas)] px-2 py-1 text-[10px] font-mono text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)] hover:text-[var(--text-primary)]"
                       >
                         <Sliders className="h-3 w-3" />
                         <span>Tune</span>
@@ -883,26 +883,26 @@ export function PipelineObservabilityView() {
         {/* Right 7 Columns: Live AI Visualizer Monitor (Top) + Daemon Logs (Bottom) */}
         <div className="lg:col-span-7 flex flex-col gap-3.5 overflow-hidden">
           {/* ================= 1. LIVE VIDEO VISUALIZER MONITOR ================= */}
-          <div className="flex flex-col rounded-xl border border-[#12544F] bg-black overflow-hidden shadow-xl shrink-0">
+          <div className="flex flex-col rounded-xl border border-[var(--surface-border)] bg-black overflow-hidden shadow-xl shrink-0">
             {/* Monitor Header */}
-            <div className="flex items-center justify-between border-b border-[#12544F] bg-[#092328] px-4 py-2 text-xs font-mono text-[#8BBB92]">
+            <div className="flex items-center justify-between border-b border-[var(--surface-border)] bg-[var(--surface-canvas)] px-4 py-2 text-xs font-mono text-[var(--text-secondary)]">
               <div className="flex items-center gap-2">
                 <Video className="h-3.5 w-3.5 text-emerald-400 animate-pulse" />
-                <span className="font-bold text-[#f0fdf4]">
+                <span className="font-bold text-[var(--text-primary)]">
                   LIVE INFERENCE MONITOR: {activePipeline.name.toUpperCase()}
                 </span>
               </div>
               <div className="flex items-center gap-2">
                 <button
                   onClick={triggerImpactTest}
-                  className="flex items-center gap-1 rounded border border-[#2A835F] bg-[#12544F] px-2 py-0.5 text-[10px] font-mono text-[#8BBB92] hover:bg-[#2A835F] hover:text-[#f0fdf4]"
+                  className="flex items-center gap-1 rounded border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-2 py-0.5 text-[10px] font-mono text-[var(--text-secondary)] hover:bg-[#2563eb] hover:text-[var(--text-primary)]"
                 >
                   <Zap className="h-3 w-3 text-amber-400" />
                   <span>Trigger Test Impact</span>
                 </button>
                 <button
                   onClick={() => setShowOverlays(!showOverlays)}
-                  className="flex items-center gap-1 rounded border border-[#12544F] bg-[#0d3137] px-2 py-0.5 text-[10px] font-mono text-[#8BBB92] hover:bg-[#12544F]"
+                  className="flex items-center gap-1 rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-2 py-0.5 text-[10px] font-mono text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]"
                 >
                   <Eye className="h-3 w-3" />
                   <span>{showOverlays ? 'Hide Boxes' : 'Show Boxes'}</span>
@@ -922,10 +922,10 @@ export function PipelineObservabilityView() {
           </div>
 
           {/* ================= 2. LIVE DAEMON TERMINAL LOGS ================= */}
-          <div className="flex flex-1 flex-col rounded-xl border border-[#12544F] bg-[#06191c] overflow-hidden shadow-sm min-h-[220px]">
+          <div className="flex flex-1 flex-col rounded-xl border border-[var(--surface-border)] bg-[#06191c] overflow-hidden shadow-sm min-h-[220px]">
             {/* Terminal Header */}
-            <div className="flex items-center justify-between border-b border-[#144943] bg-[#092328] px-4 py-2 shrink-0 font-mono">
-              <div className="flex items-center gap-2 text-xs text-[#8BBB92]">
+            <div className="flex items-center justify-between border-b border-[var(--surface-border-subtle)] bg-[var(--surface-canvas)] px-4 py-2 shrink-0 font-mono">
+              <div className="flex items-center gap-2 text-xs text-[var(--text-secondary)]">
                 <Terminal className="h-3.5 w-3.5 text-emerald-400" />
                 <span>DAEMON LOGS: {activePipeline.id.toUpperCase()}</span>
               </div>
@@ -933,7 +933,7 @@ export function PipelineObservabilityView() {
                 <span className="text-[10px] font-mono text-emerald-400 animate-pulse">● LIVE STREAMING</span>
                 <button
                   onClick={() => setLogs([])}
-                  className="text-[11px] text-[#5b9076] hover:text-[#f0fdf4]"
+                  className="text-[11px] text-[var(--text-muted)] hover:text-[var(--text-primary)]"
                   title="Clear Logs"
                 >
                   <Trash2 className="h-3 w-3" />
@@ -947,13 +947,13 @@ export function PipelineObservabilityView() {
               className="flex-1 overflow-y-auto p-3 font-mono text-[11px] space-y-1.5 bg-[#051417] leading-relaxed select-text"
             >
               {logs.length === 0 ? (
-                <div className="flex h-full items-center justify-center text-[#5b9076]">
+                <div className="flex h-full items-center justify-center text-[var(--text-muted)]">
                   No active log events. Trigger pipeline action above.
                 </div>
               ) : (
                 logs.map((log) => (
                   <div key={log.id} className="flex items-start gap-2">
-                    <span className="text-[#5b9076] shrink-0">[{log.time}]</span>
+                    <span className="text-[var(--text-muted)] shrink-0">[{log.time}]</span>
                     <span
                       className={`font-semibold shrink-0 ${
                         log.level === 'WARN'
@@ -965,7 +965,7 @@ export function PipelineObservabilityView() {
                     >
                       [{log.level}]
                     </span>
-                    <span className="text-[#f0fdf4] break-all">{log.message}</span>
+                    <span className="text-[var(--text-primary)] break-all">{log.message}</span>
                   </div>
                 ))
               )}
@@ -977,19 +977,19 @@ export function PipelineObservabilityView() {
       {/* Parameter Tuning Modal */}
       {isConfigModalOpen && editingConfig && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4">
-          <div className="w-full max-w-lg rounded-xl border border-[#2A835F] bg-[#0d3137] p-5 shadow-2xl space-y-4">
-            <div className="flex items-center justify-between border-b border-[#12544F] pb-3">
+          <div className="w-full max-w-lg rounded-xl border border-[var(--color-accent-primary)] bg-[var(--surface-panel)] p-5 shadow-2xl space-y-4">
+            <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-3">
               <div>
-                <h3 className="text-sm font-semibold text-[#f0fdf4]">
+                <h3 className="text-sm font-semibold text-[var(--text-primary)]">
                   Engine Tuning: {editingConfig.name}
                 </h3>
-                <p className="text-xs text-[#8BBB92]">
+                <p className="text-xs text-[var(--text-secondary)]">
                   Live runtime hyperparameter calibration without stopping inference loop
                 </p>
               </div>
               <button
                 onClick={() => setIsConfigModalOpen(false)}
-                className="text-xs font-mono text-[#8BBB92] hover:text-[#f0fdf4]"
+                className="text-xs font-mono text-[var(--text-secondary)] hover:text-[var(--text-primary)]"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -998,9 +998,9 @@ export function PipelineObservabilityView() {
             <div className="space-y-3.5 text-xs font-mono">
               {/* Target FPS */}
               <div className="space-y-1">
-                <div className="flex justify-between text-[#8BBB92]">
+                <div className="flex justify-between text-[var(--text-secondary)]">
                   <span>Target Ingestion Framerate:</span>
-                  <span className="text-[#f0fdf4] font-bold">{editingConfig.targetFps} FPS</span>
+                  <span className="text-[var(--text-primary)] font-bold">{editingConfig.targetFps} FPS</span>
                 </div>
                 <input
                   type="range"
@@ -1011,15 +1011,15 @@ export function PipelineObservabilityView() {
                   onChange={(e) =>
                     setEditingConfig({ ...editingConfig, targetFps: Number(e.target.value) })
                   }
-                  className="w-full accent-[#2A835F]"
+                  className="w-full accent-[#2563eb]"
                 />
               </div>
 
               {/* Confidence Threshold */}
               <div className="space-y-1">
-                <div className="flex justify-between text-[#8BBB92]">
+                <div className="flex justify-between text-[var(--text-secondary)]">
                   <span>Vision Confidence Gate:</span>
-                  <span className="text-[#f0fdf4] font-bold">
+                  <span className="text-[var(--text-primary)] font-bold">
                     {(editingConfig.confidenceThresh * 100).toFixed(0)}%
                   </span>
                 </div>
@@ -1032,13 +1032,13 @@ export function PipelineObservabilityView() {
                   onChange={(e) =>
                     setEditingConfig({ ...editingConfig, confidenceThresh: Number(e.target.value) })
                   }
-                  className="w-full accent-[#2A835F]"
+                  className="w-full accent-[#2563eb]"
                 />
               </div>
 
               {/* Quantization Engine */}
               <div className="space-y-1">
-                <label className="text-[#8BBB92]">Inference Quantization:</label>
+                <label className="text-[var(--text-secondary)]">Inference Quantization:</label>
                 <select
                   value={editingConfig.quantization}
                   onChange={(e) =>
@@ -1047,7 +1047,7 @@ export function PipelineObservabilityView() {
                       quantization: e.target.value as any,
                     })
                   }
-                  className="w-full rounded border border-[#12544F] bg-[#092328] p-2 text-xs text-[#f0fdf4] outline-none"
+                  className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-2 text-xs text-[var(--text-primary)] outline-none"
                 >
                   <option value="TensorRT INT8">TensorRT INT8 (High-Throughput Sub-15W)</option>
                   <option value="FP16 Half">FP16 Half Precision (Balanced)</option>
@@ -1057,25 +1057,25 @@ export function PipelineObservabilityView() {
 
               {/* Hardware Device Target */}
               <div className="space-y-1">
-                <label className="text-[#8BBB92]">Compute Core Target:</label>
+                <label className="text-[var(--text-secondary)]">Compute Core Target:</label>
                 <input
                   type="text"
                   value={editingConfig.hardwareDevice}
                   onChange={(e) =>
                     setEditingConfig({ ...editingConfig, hardwareDevice: e.target.value })
                   }
-                  className="w-full rounded border border-[#12544F] bg-[#092328] p-2 text-xs text-[#f0fdf4] outline-none"
+                  className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-2 text-xs text-[var(--text-primary)] outline-none"
                 />
               </div>
             </div>
 
             {/* Modal Actions */}
-            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[#12544F]">
+            <div className="flex items-center justify-end gap-2 pt-2 border-t border-[var(--surface-border)]">
               <Button
                 variant="secondary"
                 size="sm"
                 onClick={() => setIsConfigModalOpen(false)}
-                className="bg-[#12544F] text-[#f0fdf4]"
+                className="bg-[var(--surface-subtle)] text-[var(--text-primary)]"
               >
                 Cancel
               </Button>
@@ -1083,7 +1083,7 @@ export function PipelineObservabilityView() {
                 variant="primary"
                 size="sm"
                 onClick={saveConfig}
-                className="bg-[#2A835F] hover:bg-[#18635c] text-[#f0fdf4]"
+                className="bg-[#2563eb] hover:bg-[var(--surface-active)] text-[var(--text-primary)]"
               >
                 Apply Parameters Hot
               </Button>

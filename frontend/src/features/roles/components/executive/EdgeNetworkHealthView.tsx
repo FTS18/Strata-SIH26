@@ -122,18 +122,18 @@ export function EdgeNetworkHealthView() {
     {
       key: 'hardware',
       header: 'Hardware Target',
-      render: (n) => <span className="font-mono text-xs text-[#8BBB92]">{n.hardware}</span>,
+      render: (n) => <span className="font-mono text-xs text-[var(--text-secondary)]">{n.hardware}</span>,
     },
     {
       key: 'quantization',
       header: 'Precision Engine',
-      render: (n) => <span className="font-mono text-xs text-[#8BBB92]">{n.quantization}</span>,
+      render: (n) => <span className="font-mono text-xs text-[var(--text-secondary)]">{n.quantization}</span>,
     },
     {
       key: 'inferenceFps',
       header: 'Compute Speed',
       align: 'right',
-      render: (n) => <span className="font-mono font-bold text-[#f0fdf4]">{n.inferenceFps} FPS</span>,
+      render: (n) => <span className="font-mono font-bold text-[var(--text-primary)]">{n.inferenceFps} FPS</span>,
     },
     {
       key: 'cpuTempC',
@@ -149,14 +149,14 @@ export function EdgeNetworkHealthView() {
       key: 'bandwidthSavedPct',
       header: 'Bandwidth Saved',
       align: 'right',
-      render: (n) => <span className="font-mono font-bold text-[#8BBB92]">{n.bandwidthSavedPct}%</span>,
+      render: (n) => <span className="font-mono font-bold text-[var(--text-secondary)]">{n.bandwidthSavedPct}%</span>,
     },
     {
       key: 'connectionState',
       header: 'Mesh State',
       align: 'center',
       render: (n) => (
-        <span className="inline-flex items-center rounded border border-[#2A835F] bg-[#12544F] px-2 py-0.5 text-[11px] font-mono text-[#8BBB92] font-semibold">
+        <span className="inline-flex items-center rounded border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-2 py-0.5 text-[11px] font-mono text-[var(--text-secondary)] font-semibold">
           {n.connectionState}
         </span>
       ),
@@ -164,12 +164,12 @@ export function EdgeNetworkHealthView() {
   ];
 
   return (
-    <div className="flex h-full w-full flex-col gap-3 sm:gap-4 overflow-y-auto p-3 sm:p-5 bg-[#092328] text-[#f0fdf4]">
+    <div className="flex h-full w-full flex-col gap-3 sm:gap-4 overflow-y-auto p-3 sm:p-5 bg-[var(--surface-canvas)] text-[var(--text-primary)]">
       {/* Toast Notification Banner */}
       {activeToast && (
-        <div className="flex items-center justify-between rounded-lg border border-[#2A835F] bg-[#12544F] px-4 py-2 font-mono text-xs text-[#f0fdf4] shadow-md animate-in fade-in duration-200">
+        <div className="flex items-center justify-between rounded-lg border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-4 py-2 font-mono text-xs text-[var(--text-primary)] shadow-md animate-in fade-in duration-200">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-[#8BBB92]" />
+            <CheckCircle2 className="h-4 w-4 text-[var(--text-secondary)]" />
             <span>{activeToast}</span>
           </div>
         </div>
@@ -183,7 +183,7 @@ export function EdgeNetworkHealthView() {
           caption="Metadata JSON vs Raw Video Upload"
           change="99.9% Goal"
           changeType="positive"
-          icon={<Wifi className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Wifi className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
         <MetricCard
           label="Average Fleet Compute"
@@ -191,7 +191,7 @@ export function EdgeNetworkHealthView() {
           caption="Speed-adaptive INT8 inference"
           change="Target: 30 FPS"
           changeType="positive"
-          icon={<Cpu className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Cpu className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
         <MetricCard
           label="Active Edge Nodes"
@@ -200,7 +200,7 @@ export function EdgeNetworkHealthView() {
           caption="NVIDIA Jetson Orin Nano fleet"
           change="Online"
           changeType="positive"
-          icon={<Server className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Server className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
         <MetricCard
           label="Average SoC Temp"
@@ -208,24 +208,24 @@ export function EdgeNetworkHealthView() {
           caption="Passive heatsink + bus airflow"
           change="Nominal"
           changeType="neutral"
-          icon={<Zap className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Zap className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
       </div>
 
       {/* Main Full-Height Content Stack */}
       <div className="flex flex-1 flex-col gap-3 sm:gap-4">
         {/* Main Table Card */}
-        <div className="w-full rounded-xl border border-[#12544F] bg-[#0d3137] p-3 sm:p-4 shadow-sm">
+        <div className="w-full rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-3 sm:p-4 shadow-sm">
           <div className="mb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
             <div>
-              <h3 className="text-sm font-semibold text-[#f0fdf4]">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)]">
                 CTU Fleet Edge Compute Telemetry Grid
               </h3>
-              <p className="text-xs text-[#8BBB92]">
+              <p className="text-xs text-[var(--text-secondary)]">
                 Real-time health, thermal diagnostics, and INT8 model quantization per bus
               </p>
             </div>
-            <span className="self-start sm:self-auto rounded border border-[#12544F] bg-[#12544F]/50 px-2.5 py-1 text-xs font-mono text-[#8BBB92]">
+            <span className="self-start sm:self-auto rounded border border-[var(--surface-border)] bg-[var(--surface-subtle)]/50 px-2.5 py-1 text-xs font-mono text-[var(--text-secondary)]">
               Mesh Sync: 2s Interval
             </span>
           </div>
@@ -242,27 +242,27 @@ export function EdgeNetworkHealthView() {
 
         {/* Selected Node Real-Time Diagnostics Strip */}
         {activeNode && (
-          <div className="w-full rounded-xl border border-[#1d6d63] bg-[#0d3137] p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 shadow-sm">
+          <div className="w-full rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#12544F] border border-[#2A835F] text-[#8BBB92] shrink-0">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--surface-subtle)] border border-[var(--color-accent-primary)] text-[var(--text-secondary)] shrink-0">
                 <Server className="h-5 w-5" />
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-base font-bold text-[#f0fdf4]">
+                  <span className="font-mono text-base font-bold text-[var(--text-primary)]">
                     {activeNode.busId}
                   </span>
-                  <span className="text-xs text-[#8BBB92]">({activeNode.hardware})</span>
-                  <span className="rounded border border-[#2A835F] bg-[#12544F] px-2 py-0.5 text-[10px] font-mono text-[#8BBB92] font-semibold">
+                  <span className="text-xs text-[var(--text-secondary)]">({activeNode.hardware})</span>
+                  <span className="rounded border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-2 py-0.5 text-[10px] font-mono text-[var(--text-secondary)] font-semibold">
                     {activeNode.quantization}
                   </span>
                 </div>
-                <p className="text-xs text-[#8BBB92]">
-                  Edge IP: <span className="text-[#f0fdf4] font-mono">{activeNode.ipAddress}</span> · Inference:{' '}
+                <p className="text-xs text-[var(--text-secondary)]">
+                  Edge IP: <span className="text-[var(--text-primary)] font-mono">{activeNode.ipAddress}</span> · Inference:{' '}
                   <span className="text-emerald-400 font-mono font-bold">{activeNode.inferenceFps} FPS</span> · SoC Temp:{' '}
-                  <span className="text-[#f0fdf4] font-mono">{activeNode.cpuTempC}°C</span>
+                  <span className="text-[var(--text-primary)] font-mono">{activeNode.cpuTempC}°C</span>
                 </p>
-                <p className="text-[11px] font-mono text-[#5b9076]">
+                <p className="text-[11px] font-mono text-[var(--text-muted)]">
                   Uptime: {activeNode.uptimeHours}h continuous · Uplink: 4G/5G Cellular MQTT (0.1% Bandwidth Load)
                 </p>
               </div>
@@ -274,7 +274,7 @@ export function EdgeNetworkHealthView() {
                 size="sm"
                 onClick={handleRunStressTest}
                 disabled={isStressTesting}
-                className="flex-1 lg:flex-initial bg-[#8BBB92] text-[#092328] font-bold hover:bg-[#f0fdf4] text-xs cursor-pointer"
+                className="flex-1 lg:flex-initial bg-[#94a3b8] text-[#080e1a] font-bold hover:bg-[#f8fafc] text-xs cursor-pointer"
               >
                 <Activity className={`h-3.5 w-3.5 ${isStressTesting ? 'animate-pulse' : ''}`} />
                 <span>{isStressTesting ? 'Running Thermal Test...' : 'Run Thermal Stress Test'}</span>
@@ -284,7 +284,7 @@ export function EdgeNetworkHealthView() {
                 size="sm"
                 onClick={handleSyncModels}
                 disabled={isSyncing}
-                className="flex-1 lg:flex-initial bg-[#12544F] text-[#f0fdf4] border-[#2A835F] hover:bg-[#2A835F] text-xs cursor-pointer"
+                className="flex-1 lg:flex-initial bg-[var(--surface-subtle)] text-[var(--text-primary)] border-[var(--color-accent-primary)] hover:bg-[#2563eb] text-xs cursor-pointer"
               >
                 <RefreshCw className={`h-3.5 w-3.5 ${isSyncing ? 'animate-spin' : ''}`} />
                 <span>{isSyncing ? 'Syncing Models...' : 'Sync Jetson Models'}</span>

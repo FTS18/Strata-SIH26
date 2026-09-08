@@ -45,7 +45,7 @@ export function RoleSwitcherModal({
       badge: 'ICCC-ADMIN-8821',
       name: 'Dr. Alok Verma, IAS',
       dept: 'Delhi Integrated Command & Control Center (ICCC)',
-      icon: <LayoutDashboard className="h-5 w-5 text-[#8BBB92]" />,
+      icon: <LayoutDashboard className="h-5 w-5 text-[var(--text-secondary)]" />,
     },
     {
       id: 'pwd_engineer',
@@ -53,7 +53,7 @@ export function RoleSwitcherModal({
       badge: 'PWD-EXEC-4091',
       name: 'Er. Rajesh K. Mehta',
       dept: 'Public Works Department (PWD Road Infra)',
-      icon: <Wrench className="h-5 w-5 text-[#8BBB92]" />,
+      icon: <Wrench className="h-5 w-5 text-[var(--text-secondary)]" />,
     },
     {
       id: 'traffic_police',
@@ -69,7 +69,7 @@ export function RoleSwitcherModal({
       badge: 'DTC-DISPATCH-311',
       name: 'Sunil G. Nair',
       dept: 'Delhi Transport Corporation (DTC Fleet Ops)',
-      icon: <Bus className="h-5 w-5 text-[#8BBB92]" />,
+      icon: <Bus className="h-5 w-5 text-[var(--text-secondary)]" />,
     },
     {
       id: 'field_crew',
@@ -83,18 +83,18 @@ export function RoleSwitcherModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm p-4 animate-in fade-in select-none">
-      <div className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-[#12544F] bg-[#0d3137] shadow-2xl shadow-black">
+      <div className="relative w-full max-w-xl overflow-hidden rounded-2xl border border-[var(--surface-border)] bg-[var(--surface-panel)] shadow-2xl shadow-black">
         {/* Modal Header */}
-        <div className="flex items-center justify-between border-b border-[#12544F] bg-[#092328] px-5 py-4">
+        <div className="flex items-center justify-between border-b border-[var(--surface-border)] bg-[var(--surface-canvas)] px-5 py-4">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#12544F] border border-[#2A835F] text-[#8BBB92]">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--surface-subtle)] border border-[var(--color-accent-primary)] text-[var(--text-secondary)]">
               <Sparkles className="h-4 w-4" />
             </div>
             <div>
-              <h2 className="text-sm font-semibold text-[#f0fdf4]">
+              <h2 className="text-sm font-semibold text-[var(--text-primary)]">
                 Switch Department Role (Multi-Agency RBAC)
               </h2>
-              <p className="text-xs text-[#8BBB92]">
+              <p className="text-xs text-[var(--text-secondary)]">
                 Instant 1-click multi-agency department switching (ICCC, PWD, Police, CTU, Field Crew)
               </p>
             </div>
@@ -102,7 +102,7 @@ export function RoleSwitcherModal({
 
           <button
             onClick={onClose}
-            className="flex h-8 w-8 items-center justify-center rounded-lg text-[#8BBB92] hover:bg-[#12544F] hover:text-[#f0fdf4] transition-colors"
+            className="flex h-8 w-8 items-center justify-center rounded-lg text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)] hover:text-[var(--text-primary)] transition-colors"
           >
             <X className="h-4 w-4" />
           </button>
@@ -121,40 +121,40 @@ export function RoleSwitcherModal({
                 }}
                 className={`group flex cursor-pointer items-center justify-between rounded-xl border p-3.5 transition-all ${
                   isSelected
-                    ? 'border-[#2A835F] bg-[#12544F] shadow-md'
-                    : 'border-[#12544F] bg-[#092328] hover:bg-[#12544F]/50 hover:border-[#2A835F]/60'
+                    ? 'border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] shadow-md'
+                    : 'border-[var(--surface-border)] bg-[var(--surface-canvas)] hover:bg-[var(--surface-subtle)]/50 hover:border-[var(--color-accent-primary)]/60'
                 }`}
               >
                 <div className="flex items-center gap-3.5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[#0d3137] border border-[#12544F]">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-[var(--surface-panel)] border border-[var(--surface-border)]">
                     {opt.icon}
                   </div>
 
                   <div className="space-y-0.5">
                     <div className="flex items-center gap-2">
-                      <span className="text-xs font-bold text-[#f0fdf4]">
+                      <span className="text-xs font-bold text-[var(--text-primary)]">
                         {opt.title}
                       </span>
                       {isSelected && (
-                        <span className="flex items-center gap-1 rounded bg-[#2A835F] px-1.5 py-0.2 text-[9px] font-mono font-bold text-[#f0fdf4]">
+                        <span className="flex items-center gap-1 rounded bg-[#2563eb] px-1.5 py-0.2 text-[9px] font-mono font-bold text-[var(--text-primary)]">
                           <CheckCircle2 className="h-2.5 w-2.5" />
                           ACTIVE
                         </span>
                       )}
                     </div>
-                    <p className="text-xs text-[#f0fdf4] font-medium">
+                    <p className="text-xs text-[var(--text-primary)] font-medium">
                       {opt.name}{' '}
-                      <span className="text-[11px] font-mono text-[#8BBB92]">
+                      <span className="text-[11px] font-mono text-[var(--text-secondary)]">
                         ({opt.badge})
                       </span>
                     </p>
-                    <p className="text-[11px] text-[#8BBB92] truncate max-w-sm">
+                    <p className="text-[11px] text-[var(--text-secondary)] truncate max-w-sm">
                       {opt.dept}
                     </p>
                   </div>
                 </div>
 
-                <div className="flex items-center text-[#8BBB92] group-hover:text-[#f0fdf4] transition-colors">
+                <div className="flex items-center text-[var(--text-secondary)] group-hover:text-[var(--text-primary)] transition-colors">
                   <ChevronRight className="h-4 w-4 group-hover:translate-x-0.5 transition-transform" />
                 </div>
               </div>
@@ -163,7 +163,7 @@ export function RoleSwitcherModal({
         </div>
 
         {/* Modal Footer */}
-        <div className="border-t border-[#12544F] bg-[#092328] px-5 py-3 text-center text-xs font-mono text-[#5b9076]">
+        <div className="border-t border-[var(--surface-border)] bg-[var(--surface-canvas)] px-5 py-3 text-center text-xs font-mono text-[var(--text-muted)]">
           BEL Multi-Agency Role-Based Access Control (RBAC) System
         </div>
       </div>

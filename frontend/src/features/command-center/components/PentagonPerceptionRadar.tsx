@@ -65,17 +65,17 @@ export function PentagonPerceptionRadar({
   ).toFixed(1);
 
   return (
-    <div className="flex flex-col rounded-xl border border-[#12544F] bg-[#0d3137]/90 p-3 shadow-md">
+    <div className="flex flex-col rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-3 shadow-md">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-[#12544F]/70 pb-2 mb-2 font-mono text-xs">
+      <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-2 mb-2 font-mono text-xs">
         <div className="flex items-center gap-2">
-          <Radar className="h-4 w-4 text-[#00e5bf] animate-pulse" />
-          <span className="font-bold text-white tracking-wider uppercase text-xs">
+          <Radar className="h-4 w-4 text-[var(--color-accent-primary)] animate-pulse" />
+          <span className="font-bold text-[var(--text-primary)] tracking-wider uppercase text-xs">
             5-TIER PERCEPTION RADAR
           </span>
         </div>
-        <div className="flex items-center gap-1.5 text-[10px] text-[#00e5bf]">
-          <ShieldCheck className="h-3 w-3 text-emerald-400" />
+        <div className="flex items-center gap-1.5 text-[10px] text-teal-700 dark:text-[#00e5bf]">
+          <ShieldCheck className="h-3 w-3 text-emerald-600 dark:text-emerald-400" />
           <span>FUSION {compositeScore}%</span>
         </div>
       </div>
@@ -90,12 +90,12 @@ export function PentagonPerceptionRadar({
         >
           <defs>
             <radialGradient id="radarFillGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#00e5bf" stopOpacity="0.35" />
-              <stop offset="60%" stopColor="#12544F" stopOpacity="0.25" />
-              <stop offset="100%" stopColor="#092328" stopOpacity="0.05" />
+              <stop offset="0%" stopColor="#2563eb" stopOpacity="0.30" />
+              <stop offset="60%" stopColor="#2563eb" stopOpacity="0.10" />
+              <stop offset="100%" stopColor="#2563eb" stopOpacity="0.0" />
             </radialGradient>
             <linearGradient id="polyStrokeGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#00e5bf" />
+              <stop offset="0%" stopColor="#2563eb" />
               <stop offset="50%" stopColor="#38bdf8" />
               <stop offset="100%" stopColor="#10b981" />
             </linearGradient>
@@ -107,10 +107,10 @@ export function PentagonPerceptionRadar({
               key={`ring_${idx}`}
               points={points}
               fill="none"
-              stroke="#12544F"
+              stroke="var(--surface-border)"
               strokeWidth={idx === rings.length - 1 ? '1.5' : '1'}
               strokeDasharray={idx === rings.length - 1 ? 'none' : '2,2'}
-              opacity={0.8}
+              opacity={1}
             />
           ))}
 
@@ -124,9 +124,9 @@ export function PentagonPerceptionRadar({
                 y1={center}
                 x2={vx}
                 y2={vy}
-                stroke="#12544F"
+                stroke="var(--surface-border)"
                 strokeWidth="1"
-                opacity={0.6}
+                opacity={0.8}
               />
             );
           })}
@@ -158,8 +158,8 @@ export function PentagonPerceptionRadar({
                   cx={dx}
                   cy={dy}
                   r="3.5"
-                  fill="#00e5bf"
-                  stroke="#092328"
+                  fill="#2563eb"
+                  stroke="var(--surface-panel)"
                   strokeWidth="1.5"
                 />
 
@@ -169,10 +169,10 @@ export function PentagonPerceptionRadar({
                   y={labelY}
                   textAnchor={textAnchor}
                   dominantBaseline="central"
-                  className="font-mono text-[9px] font-semibold fill-[#8BBB92]"
+                  className="font-mono text-[9px] font-semibold fill-[var(--text-secondary)]"
                 >
                   {axis.shortLabel}{' '}
-                  <tspan className="fill-white font-bold">{axis.value}%</tspan>
+                  <tspan className="fill-[var(--text-primary)] font-bold">{axis.value}%</tspan>
                 </text>
               </g>
             );
@@ -181,14 +181,14 @@ export function PentagonPerceptionRadar({
       </div>
 
       {/* Metric Mini Pills Strip */}
-      <div className="grid grid-cols-5 gap-1 pt-1.5 border-t border-[#12544F]/60 text-center font-mono text-[9px]">
+      <div className="grid grid-cols-5 gap-1 pt-1.5 border-t border-[var(--surface-border)]/60 text-center font-mono text-[9px]">
         {axes.map((a) => (
           <div
             key={a.shortLabel}
-            className="flex flex-col rounded bg-[#092328] px-1 py-0.5 border border-[#12544F]/80"
+            className="flex flex-col rounded bg-[var(--surface-canvas)] px-1 py-0.5 border border-[var(--surface-border)]"
           >
-            <span className="text-[#8BBB92] truncate">{a.shortLabel}</span>
-            <span className="font-bold text-white">{a.value}%</span>
+            <span className="text-[var(--text-secondary)] truncate">{a.shortLabel}</span>
+            <span className="font-bold text-[var(--text-primary)]">{a.value}%</span>
           </div>
         ))}
       </div>

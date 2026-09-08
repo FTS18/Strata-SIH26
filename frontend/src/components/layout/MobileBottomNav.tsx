@@ -29,7 +29,7 @@ export function MobileBottomNav({
   const visibleItems = hasMore ? allNavItems.slice(0, 3) : allNavItems.slice(0, 4);
 
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-40 flex h-14 w-full items-center justify-around border-t border-[#12544F] bg-[#092328]/95 backdrop-blur-md px-1 md:hidden select-none">
+    <nav className="fixed bottom-0 left-0 right-0 z-40 flex h-14 w-full items-center justify-around border-t border-[var(--surface-border)] bg-[var(--surface-canvas)]/95 backdrop-blur-md px-1 md:hidden select-none">
       {/* 1. Visible Core Sub-Page Tabs */}
       {visibleItems.map((item) => {
         const Icon = item.icon;
@@ -40,14 +40,14 @@ export function MobileBottomNav({
             key={item.id}
             onClick={() => onViewChange(item.id)}
             className={`relative flex flex-1 flex-col items-center justify-center py-1 transition-all cursor-pointer ${
-              isActive ? 'text-[#f0fdf4]' : 'text-[#8BBB92] hover:text-[#f0fdf4]'
+              isActive ? 'text-[var(--text-primary)]' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
             }`}
           >
             <div
               className={`flex h-7 w-7 items-center justify-center rounded-lg transition-all ${
                 isActive
-                  ? 'bg-[#12544F] border border-[#2A835F] text-[#f0fdf4] shadow-sm'
-                  : 'bg-transparent text-[#8BBB92]'
+                  ? 'bg-[var(--surface-subtle)] border border-[var(--color-accent-primary)] text-[var(--text-primary)] shadow-sm'
+                  : 'bg-transparent text-[var(--text-secondary)]'
               }`}
             >
               <Icon className="h-4 w-4" />
@@ -55,7 +55,7 @@ export function MobileBottomNav({
 
             <span
               className={`mt-0.5 text-[9px] font-medium tracking-tight truncate max-w-[72px] text-center ${
-                isActive ? 'font-bold text-[#f0fdf4]' : 'text-[#8BBB92]'
+                isActive ? 'font-bold text-[var(--text-primary)]' : 'text-[var(--text-secondary)]'
               }`}
             >
               {item.label.replace('&', '').split(' ').filter(Boolean).slice(0, 2).join(' ')}
@@ -63,7 +63,7 @@ export function MobileBottomNav({
 
             {/* Badge Indicator */}
             {item.badge && (
-              <span className="absolute top-1 right-2 flex h-2 w-2 rounded-full bg-[#2A835F] ring-1 ring-[#092328]" />
+              <span className="absolute top-1 right-2 flex h-2 w-2 rounded-full bg-[#2563eb] ring-1 ring-[#080e1a]" />
             )}
           </button>
         );
@@ -73,9 +73,9 @@ export function MobileBottomNav({
       {hasMore && (
         <button
           onClick={onOpenMobileDrawer}
-          className="flex flex-1 flex-col items-center justify-center py-1 text-[#8BBB92] hover:text-[#f0fdf4] transition-all cursor-pointer"
+          className="flex flex-1 flex-col items-center justify-center py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all cursor-pointer"
         >
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg text-[#8BBB92]">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg text-[var(--text-secondary)]">
             <MoreHorizontal className="h-4 w-4" />
           </div>
           <span className="mt-0.5 text-[9px] font-medium tracking-tight">More</span>
@@ -86,12 +86,12 @@ export function MobileBottomNav({
       <button
         onClick={onOpenRoleSwitcher}
         title="Switch Department Role"
-        className="flex flex-1 flex-col items-center justify-center py-1 text-[#8BBB92] hover:text-[#f0fdf4] transition-all cursor-pointer"
+        className="flex flex-1 flex-col items-center justify-center py-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-all cursor-pointer"
       >
-        <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-[#2A835F] bg-[#12544F] text-[#8BBB92]">
+        <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] text-[var(--text-secondary)]">
           <Sparkles className="h-3.5 w-3.5" />
         </div>
-        <span className="mt-0.5 text-[9px] font-medium tracking-tight text-[#8BBB92]">Role</span>
+        <span className="mt-0.5 text-[9px] font-medium tracking-tight text-[var(--text-secondary)]">Role</span>
       </button>
     </nav>
   );

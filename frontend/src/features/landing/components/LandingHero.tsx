@@ -35,8 +35,8 @@ export function LandingHero({ onOpenLogin }: LandingHeroProps) {
       subtitle: 'Outer Ring Road (Nehru Place -> AIIMS)',
       metric: '30 FPS · 12ms Edge Latency',
       status: 'Active Stream',
-      statusColor: 'text-[#2A835F] bg-[#2A835F]/15 border-[#2A835F]/30',
-      icon: <Bus className="h-4 w-4 text-[#2A835F]" />,
+      statusColor: 'text-[var(--color-accent-cyan)] bg-[#2563eb]/15 border-[var(--color-accent-primary)]/30',
+      icon: <Bus className="h-4 w-4 text-[var(--color-accent-cyan)]" />,
       badge: '99.8% Compressed'
     },
     {
@@ -71,8 +71,8 @@ export function LandingHero({ onOpenLogin }: LandingHeroProps) {
       subtitle: 'Raw Bitrate: 112.5 MB/min -> Telemetry: 13.2 KB/min',
       metric: 'Zero Cellular Congestion · On-Device Jetson Orin',
       status: 'Optimal',
-      statusColor: 'text-[#2A835F] bg-[#2A835F]/15 border-[#2A835F]/30',
-      icon: <Activity className="h-4 w-4 text-[#2A835F]" />,
+      statusColor: 'text-[var(--color-accent-cyan)] bg-[#2563eb]/15 border-[var(--color-accent-primary)]/30',
+      icon: <Activity className="h-4 w-4 text-[var(--color-accent-cyan)]" />,
       badge: 'Sovereign Edge'
     }
   ];
@@ -82,34 +82,34 @@ export function LandingHero({ onOpenLogin }: LandingHeroProps) {
     : mockTelemetryItems.filter(item => item.type === activeFilter);
 
   return (
-    <section className="relative overflow-hidden bg-[#FBFDFB] pt-12 pb-24 text-[#092328]">
+    <section className="relative overflow-hidden bg-[#FBFDFB] pt-12 pb-24 text-[#080e1a]">
       {/* Mint / Sage Ambient Glow Orbs behind the mockup */}
       <div 
         className="pointer-events-none absolute -top-24 left-1/2 -translate-x-1/2 h-[600px] w-[900px] rounded-full opacity-35 blur-[120px]"
         style={{
-          background: 'radial-gradient(circle, #8BBB92 0%, #2A835F 45%, transparent 70%)'
+          background: 'radial-gradient(circle, #94a3b8 0%, #2563eb 45%, transparent 70%)'
         }}
       />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Top Tagline / Beacon */}
         <div className="flex flex-col items-center text-center">
-          <div className="inline-flex items-center gap-2 rounded-full border border-[#2A835F]/30 bg-[#2A835F]/10 px-4 py-1.5 text-xs font-semibold text-[#092328] mb-6">
+          <div className="inline-flex items-center gap-2 rounded-full border border-[var(--color-accent-primary)]/30 bg-[#2563eb]/10 px-4 py-1.5 text-xs font-semibold text-[#080e1a] mb-6">
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2A835F] opacity-75"></span>
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2A835F]"></span>
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-[#2563eb] opacity-75"></span>
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-[#2563eb]"></span>
             </span>
             <span>Real-time edge telemetry active across 40+ transit corridors</span>
           </div>
 
           {/* Hero Typography */}
-          <h1 className="max-w-4xl font-display text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#092328] leading-[1.08] uppercase">
+          <h1 className="max-w-4xl font-display text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-[#080e1a] leading-[1.08] uppercase">
             One platform. Zero blindspots. <br className="hidden sm:inline" />
-            <span className="text-[#2A835F]">Your city intelligence</span>, on the edge.
+            <span className="text-[var(--color-accent-cyan)]">Your city intelligence</span>, on the edge.
           </h1>
 
           {/* Subtitle */}
-          <p className="mt-6 max-w-2xl text-base sm:text-lg text-[#092328]/80 leading-relaxed font-sans">
+          <p className="mt-6 max-w-2xl text-base sm:text-lg text-[#080e1a]/80 leading-relaxed font-sans">
             Equip municipal transit fleets with sovereign edge AI to autonomously audit road hazards, track stolen vehicles, quantify traffic kinematics, and streamline civic maintenance in real time.
           </p>
 
@@ -118,13 +118,13 @@ export function LandingHero({ onOpenLogin }: LandingHeroProps) {
             <button
               type="button"
               onClick={onOpenLogin}
-              className="group flex h-13 items-center gap-3 rounded-full bg-[#092328] px-8 text-sm font-bold text-[#f0fdf4] transition-all hover:bg-[#12544F] hover:shadow-xl hover:shadow-[#092328]/20 active:scale-95 cursor-pointer uppercase tracking-wider"
+              className="group flex h-13 items-center gap-3 rounded-full bg-[var(--surface-canvas)] px-8 text-sm font-bold text-[var(--text-primary)] transition-all hover:bg-[var(--surface-subtle)] hover:shadow-xl hover:shadow-[#080e1a]/20 active:scale-95 cursor-pointer uppercase tracking-wider"
             >
               <span>Launch Command Console</span>
-              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 text-[#8BBB92]" />
+              <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1 text-[var(--text-secondary)]" />
             </button>
 
-            <span className="text-xs font-mono text-[#092328]/60">
+            <span className="text-xs font-mono text-[#080e1a]/60">
               Live in Delhi NCR · 4 DTC Depots Active
             </span>
           </div>
@@ -136,22 +136,22 @@ export function LandingHero({ onOpenLogin }: LandingHeroProps) {
           <div 
             className="pointer-events-none absolute -inset-2 sm:-inset-4 rounded-3xl opacity-30 blur-2xl"
             style={{
-              background: 'linear-gradient(135deg, rgba(42, 131, 95, 0.4), rgba(139, 187, 146, 0.4))'
+              background: 'linear-gradient(135deg, rgba(42, 131, 95, 0.4), rgba(148, 163, 184, 0.4))'
             }}
           />
 
-          <div className="relative rounded-2xl sm:rounded-3xl border border-[#12544F]/30 bg-[#092328] p-3 sm:p-6 shadow-2xl shadow-[#092328]/40 text-[#f0fdf4] overflow-hidden">
+          <div className="relative rounded-2xl sm:rounded-3xl border border-[var(--surface-border)]/30 bg-[var(--surface-canvas)] p-3 sm:p-6 shadow-2xl shadow-[#080e1a]/40 text-[var(--text-primary)] overflow-hidden">
             {/* Mockup Top Header */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-[#12544F] pb-4 mb-4 gap-3">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between border-b border-[var(--surface-border)] pb-4 mb-4 gap-3">
               <div className="flex items-center gap-3">
-                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2A835F] text-[#f0fdf4] font-display text-sm font-bold">
+                <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#2563eb] text-[var(--text-primary)] font-display text-sm font-bold">
                   S
                 </div>
                 <div>
-                  <h2 className="text-xs sm:text-sm font-bold tracking-wide uppercase font-display text-[#f0fdf4]">
+                  <h2 className="text-xs sm:text-sm font-bold tracking-wide uppercase font-display text-[var(--text-primary)]">
                     STRATA Command Stream · Real-Time Telemetry
                   </h2>
-                  <p className="text-[11px] font-mono text-[#8BBB92]">
+                  <p className="text-[11px] font-mono text-[var(--text-secondary)]">
                     5-Tier Autonomous Neural Engine · Active Edge Uplink
                   </p>
                 </div>
@@ -159,42 +159,42 @@ export function LandingHero({ onOpenLogin }: LandingHeroProps) {
 
               {/* Status Badges & Controls */}
               <div className="flex items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 rounded-full border border-[#2A835F]/40 bg-[#12544F]/60 px-3 py-1 text-[11px] font-mono text-[#8BBB92]">
-                  <span className="h-2 w-2 rounded-full bg-[#2A835F] animate-pulse"></span>
+                <span className="inline-flex items-center gap-1.5 rounded-full border border-[var(--color-accent-primary)]/40 bg-[var(--surface-subtle)]/60 px-3 py-1 text-[11px] font-mono text-[var(--text-secondary)]">
+                  <span className="h-2 w-2 rounded-full bg-[#2563eb] animate-pulse"></span>
                   4 DTC Corridors Live
                 </span>
-                <span className="rounded-full border border-[#12544F] bg-[#0d3137] px-3 py-1 text-[11px] font-mono text-[#f0fdf4]">
+                <span className="rounded-full border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-1 text-[11px] font-mono text-[var(--text-primary)]">
                   99.8% Bandwidth Saved
                 </span>
               </div>
             </div>
 
             {/* Dashboard Overview Metrics Banner */}
-            <div className="rounded-xl border border-[#144943] bg-[#0d3137]/80 p-4 sm:p-5 mb-4">
+            <div className="rounded-xl border border-[var(--surface-border-subtle)] bg-[var(--surface-panel)]/80 p-4 sm:p-5 mb-4">
               <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
                 <div>
-                  <span className="text-[11px] font-mono text-[#8BBB92] uppercase tracking-wider">
+                  <span className="text-[11px] font-mono text-[var(--text-secondary)] uppercase tracking-wider">
                     Total Municipal Events Ingested
                   </span>
                   <div className="flex items-baseline gap-2 mt-1">
-                    <span className="font-display text-3xl sm:text-4xl font-bold text-[#f0fdf4] tracking-tight">
+                    <span className="font-display text-3xl sm:text-4xl font-bold text-[var(--text-primary)] tracking-tight">
                       150,216
                     </span>
-                    <span className="text-xs font-mono text-[#2A835F] font-semibold flex items-center gap-0.5">
+                    <span className="text-xs font-mono text-[var(--color-accent-cyan)] font-semibold flex items-center gap-0.5">
                       <TrendingUp className="h-3.5 w-3.5" /> +24.8% edge efficiency
                     </span>
                   </div>
                 </div>
 
                 {/* Filter / Category Pills */}
-                <div className="flex flex-wrap items-center gap-1.5 bg-[#092328] p-1 rounded-xl border border-[#144943]">
+                <div className="flex flex-wrap items-center gap-1.5 bg-[var(--surface-canvas)] p-1 rounded-xl border border-[var(--surface-border-subtle)]">
                   <button
                     type="button"
                     onClick={() => setActiveFilter('all')}
                     className={`rounded-lg px-3 py-1.5 text-xs font-mono transition-all cursor-pointer ${
                       activeFilter === 'all'
-                        ? 'bg-[#2A835F] text-[#f0fdf4] font-semibold'
-                        : 'text-[#8BBB92] hover:text-[#f0fdf4]'
+                        ? 'bg-[#2563eb] text-[var(--text-primary)] font-semibold'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                     }`}
                   >
                     All Events
@@ -204,8 +204,8 @@ export function LandingHero({ onOpenLogin }: LandingHeroProps) {
                     onClick={() => setActiveFilter('defects')}
                     className={`rounded-lg px-3 py-1.5 text-xs font-mono transition-all cursor-pointer ${
                       activeFilter === 'defects'
-                        ? 'bg-[#2A835F] text-[#f0fdf4] font-semibold'
-                        : 'text-[#8BBB92] hover:text-[#f0fdf4]'
+                        ? 'bg-[#2563eb] text-[var(--text-primary)] font-semibold'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                     }`}
                   >
                     PWD Hazards
@@ -215,8 +215,8 @@ export function LandingHero({ onOpenLogin }: LandingHeroProps) {
                     onClick={() => setActiveFilter('anpr')}
                     className={`rounded-lg px-3 py-1.5 text-xs font-mono transition-all cursor-pointer ${
                       activeFilter === 'anpr'
-                        ? 'bg-[#2A835F] text-[#f0fdf4] font-semibold'
-                        : 'text-[#8BBB92] hover:text-[#f0fdf4]'
+                        ? 'bg-[#2563eb] text-[var(--text-primary)] font-semibold'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                     }`}
                   >
                     ANPR Hotlists
@@ -226,8 +226,8 @@ export function LandingHero({ onOpenLogin }: LandingHeroProps) {
                     onClick={() => setActiveFilter('fleet')}
                     className={`rounded-lg px-3 py-1.5 text-xs font-mono transition-all cursor-pointer ${
                       activeFilter === 'fleet'
-                        ? 'bg-[#2A835F] text-[#f0fdf4] font-semibold'
-                        : 'text-[#8BBB92] hover:text-[#f0fdf4]'
+                        ? 'bg-[#2563eb] text-[var(--text-primary)] font-semibold'
+                        : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                     }`}
                   >
                     Transit Edge
@@ -241,22 +241,22 @@ export function LandingHero({ onOpenLogin }: LandingHeroProps) {
               {filteredItems.map((item) => (
                 <div
                   key={item.id}
-                  className="group flex flex-col sm:flex-row sm:items-center justify-between rounded-xl border border-[#144943] bg-[#0d3137]/60 p-3.5 sm:p-4 transition-all hover:border-[#2A835F]/60 hover:bg-[#12544F]/40 gap-3"
+                  className="group flex flex-col sm:flex-row sm:items-center justify-between rounded-xl border border-[var(--surface-border-subtle)] bg-[var(--surface-panel)]/60 p-3.5 sm:p-4 transition-all hover:border-[var(--color-accent-primary)]/60 hover:bg-[var(--surface-subtle)]/40 gap-3"
                 >
                   <div className="flex items-start gap-3.5">
-                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#144943] bg-[#092328]">
+                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[var(--surface-border-subtle)] bg-[var(--surface-canvas)]">
                       {item.icon}
                     </div>
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="text-xs sm:text-sm font-semibold text-[#f0fdf4]">
+                        <span className="text-xs sm:text-sm font-semibold text-[var(--text-primary)]">
                           {item.title}
                         </span>
-                        <span className="rounded border border-[#144943] bg-[#092328] px-1.5 py-0.5 text-[10px] font-mono text-[#8BBB92]">
+                        <span className="rounded border border-[var(--surface-border-subtle)] bg-[var(--surface-canvas)] px-1.5 py-0.5 text-[10px] font-mono text-[var(--text-secondary)]">
                           {item.badge}
                         </span>
                       </div>
-                      <div className="mt-0.5 text-xs font-mono text-[#8BBB92]">
+                      <div className="mt-0.5 text-xs font-mono text-[var(--text-secondary)]">
                         {item.vehicle} · {item.subtitle}
                       </div>
                     </div>
@@ -264,29 +264,29 @@ export function LandingHero({ onOpenLogin }: LandingHeroProps) {
 
                   <div className="flex items-center justify-between sm:justify-end gap-3 sm:gap-4 pl-13 sm:pl-0">
                     <div className="text-left sm:text-right">
-                      <div className="text-xs font-mono text-[#f0fdf4] font-medium">
+                      <div className="text-xs font-mono text-[var(--text-primary)] font-medium">
                         {item.metric}
                       </div>
                     </div>
                     <span className={`rounded-full border px-2.5 py-1 text-[11px] font-mono font-medium ${item.statusColor}`}>
                       {item.status}
                     </span>
-                    <ChevronRight className="h-4 w-4 text-[#8BBB92] transition-transform group-hover:translate-x-1" />
+                    <ChevronRight className="h-4 w-4 text-[var(--text-secondary)] transition-transform group-hover:translate-x-1" />
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Bottom Quick Action bar inside mockup */}
-            <div className="mt-4 flex flex-col sm:flex-row items-center justify-between pt-3 border-t border-[#12544F] text-xs font-mono text-[#8BBB92] gap-2">
+            <div className="mt-4 flex flex-col sm:flex-row items-center justify-between pt-3 border-t border-[var(--surface-border)] text-xs font-mono text-[var(--text-secondary)] gap-2">
               <div className="flex items-center gap-2">
-                <CheckCircle className="h-3.5 w-3.5 text-[#2A835F]" />
+                <CheckCircle className="h-3.5 w-3.5 text-[var(--color-accent-cyan)]" />
                 <span>Zero bandwidth video storage · Edge cryptographic proof active</span>
               </div>
               <button
                 type="button"
                 onClick={onOpenLogin}
-                className="flex items-center gap-1.5 text-[#f0fdf4] hover:text-[#8BBB92] font-semibold transition-colors cursor-pointer"
+                className="flex items-center gap-1.5 text-[var(--text-primary)] hover:text-[var(--text-secondary)] font-semibold transition-colors cursor-pointer"
               >
                 <span>Enter Live Operational Map</span>
                 <ChevronRight className="h-3.5 w-3.5" />

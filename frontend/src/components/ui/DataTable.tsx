@@ -29,14 +29,14 @@ export function DataTable<T>({
   return (
     <div
       className={cn(
-        'w-full overflow-hidden rounded-lg border border-[#12544F] bg-[#0d3137] shadow-sm',
+        'w-full overflow-hidden rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] shadow-sm',
         className
       )}
     >
       <div className="w-full overflow-x-auto">
         <table className="w-full border-collapse text-left text-xs">
           <thead>
-            <tr className="border-b border-[#12544F] bg-[#092328] text-[#8BBB92]">
+            <tr className="border-b border-[var(--surface-border)] bg-[var(--surface-canvas)] text-[var(--text-secondary)]">
               {columns.map((col) => (
                 <th
                   key={col.key}
@@ -52,12 +52,12 @@ export function DataTable<T>({
               ))}
             </tr>
           </thead>
-          <tbody className="divide-y divide-[#12544F]">
+          <tbody className="divide-y divide-[#111c33]">
             {data.length === 0 ? (
               <tr>
                 <td
                   colSpan={columns.length}
-                  className="px-4 py-8 text-center text-xs text-[#8BBB92]"
+                  className="px-4 py-8 text-center text-xs text-[var(--text-secondary)]"
                 >
                   {emptyMessage}
                 </td>
@@ -70,7 +70,7 @@ export function DataTable<T>({
                     key={key}
                     onClick={() => onRowClick?.(item)}
                     className={cn(
-                      'transition-colors hover:bg-[#12544F]/40',
+                      'transition-colors hover:bg-[var(--surface-subtle)]/40',
                       onRowClick && 'cursor-pointer'
                     )}
                   >
@@ -80,7 +80,7 @@ export function DataTable<T>({
                         <td
                           key={col.key}
                           className={cn(
-                            'px-4 py-3 text-[#f0fdf4] align-middle text-xs',
+                            'px-4 py-3 text-[var(--text-primary)] align-middle text-xs',
                             col.align === 'right' && 'text-right font-mono tabular-nums',
                             col.align === 'center' && 'text-center'
                           )}

@@ -1,29 +1,29 @@
 :root {
   /* Color Hunt Curated Palette: Abyss Teal & Sage Defense System */
-  /* #092328 | #12544F | #2A835F | #8BBB92 */
+  /* #080e1a | #111c33 | #2563eb | #94a3b8 */
   
-  --surface-canvas: #092328;        /* Deep Abyss Teal Night */
-  --surface-panel: #0d3137;         /* Deep Forest Teal Panel */
-  --surface-subtle: #12544F;        /* Forest Teal Card Surface */
-  --surface-active: #18635c;        /* Active Elevated Surface */
-  --surface-border: #1d6d63;        /* Hairline Border */
-  --surface-border-subtle: #144943; /* Subtle Divider */
+  --surface-canvas: #080e1a;        /* Deep Abyss Teal Night */
+  --surface-panel: #0d1527;         /* Deep Forest Teal Panel */
+  --surface-subtle: #111c33;        /* Forest Teal Card Surface */
+  --surface-active: #1d4ed8;        /* Active Elevated Surface */
+  --surface-border: #1e314d;        /* Hairline Border */
+  --surface-border-subtle: #152238; /* Subtle Divider */
 
   /* Primary Accent & Highlights */
-  --color-accent-primary: #2A835F;  /* Jade Pine Green */
-  --color-accent-sage: #8BBB92;     /* Sage Mist Green */
+  --color-accent-primary: #2563eb;  /* Jade Pine Green */
+  --color-accent-sage: #94a3b8;     /* Sage Mist Green */
   
   /* Typography */
-  --text-primary: #f0fdf4;          /* Pure Mist White */
-  --text-secondary: #8BBB92;        /* Sage Accent Text */
-  --text-muted: #5b9076;            /* Muted Forest Sage */
-  --text-inverse: #092328;          /* Inverse Canvas Text */
+  --text-primary: #f8fafc;          /* Pure Mist White */
+  --text-secondary: #94a3b8;        /* Sage Accent Text */
+  --text-muted: #64748b;            /* Muted Forest Sage */
+  --text-inverse: #080e1a;          /* Inverse Canvas Text */
 
   /* Functional Status Tokens */
-  --status-good: #8BBB92;
-  --status-good-bg: rgba(139, 187, 146, 0.15);
-  --status-good-border: rgba(139, 187, 146, 0.35);
-  --status-good-text: #8BBB92;
+  --status-good: #94a3b8;
+  --status-good-bg: rgba(148, 163, 184, 0.15);
+  --status-good-border: rgba(148, 163, 184, 0.35);
+  --status-good-text: #94a3b8;
 
   --status-warning: #f59e0b;
   --status-warning-bg: rgba(245, 158, 11, 0.15);
@@ -35,10 +35,10 @@
   --status-critical-border: rgba(239, 68, 68, 0.35);
   --status-critical-text: #f87171;
 
-  --status-transit: #8BBB92;
-  --status-transit-bg: rgba(139, 187, 146, 0.1);
-  --status-transit-border: rgba(139, 187, 146, 0.3);
-  --status-transit-text: #8BBB92;
+  --status-transit: #94a3b8;
+  --status-transit-bg: rgba(148, 163, 184, 0.1);
+  --status-transit-border: rgba(148, 163, 184, 0.3);
+  --status-transit-text: #94a3b8;
 
   /* Geometry & Shadows */
   --radius-sm: 4px;
@@ -46,12 +46,12 @@
   --radius-lg: 8px;
   --radius-pill: 9999px;
 
-  --shadow-card: 0 2px 8px rgba(9, 35, 40, 0.6);
-  --shadow-drawer: -4px 0 32px rgba(9, 35, 40, 0.9);
+  --shadow-card: 0 2px 8px rgba(8, 14, 26, 0.6);
+  --shadow-drawer: -4px 0 32px rgba(8, 14, 26, 0.9);
 
-  /* Fonts: Anton + Bricolage Grotesque (Zero Monospace) */
+  /* Fonts: Space Grotesk + Bricolage Grotesque (Zero Monospace) */
   --font-sans: var(--font-bricolage), 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, sans-serif;
-  --font-display: var(--font-anton), 'Anton', impact, sans-serif;
+  --font-display: var(--font-display), 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: var(--font-bricolage), 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, sans-serif;
 }
 

@@ -23,28 +23,28 @@ export function FieldCrewConsole() {
   };
 
   return (
-    <div className="flex h-full flex-col gap-4 overflow-hidden p-4 bg-[#092328] text-[#f0fdf4]">
-      <div className="flex items-center justify-between border-b border-[#12544F] pb-3">
+    <div className="flex h-full flex-col gap-4 overflow-hidden p-4 bg-[var(--surface-canvas)] text-[var(--text-primary)]">
+      <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-3">
         <div className="flex items-center gap-2">
-          <HardHat className="h-5 w-5 text-[#8BBB92]" />
+          <HardHat className="h-5 w-5 text-[var(--text-secondary)]" />
           <div>
-            <h2 className="text-sm font-semibold text-[#f0fdf4]">
+            <h2 className="text-sm font-semibold text-[var(--text-primary)]">
               Field Maintenance Queue (Mobile-Ready)
             </h2>
-            <p className="text-xs text-[#8BBB92]">
+            <p className="text-xs text-[var(--text-secondary)]">
               Turn-by-turn GPS dispatch and photographic repair verification
             </p>
           </div>
         </div>
-        <span className="rounded border border-[#12544F] bg-[#0d3137] px-3 py-1 text-xs font-mono text-[#8BBB92]">
+        <span className="rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-1 text-xs font-mono text-[var(--text-secondary)]">
           Contractor: Shree Balaji Infra Works
         </span>
       </div>
 
       <div className="grid flex-1 grid-cols-1 lg:grid-cols-2 gap-4 overflow-y-auto">
         {/* Left: Task List */}
-        <div className="flex flex-col rounded-lg border border-[#12544F] bg-[#0d3137] overflow-hidden">
-          <div className="border-b border-[#12544F] bg-[#092328] px-4 py-2.5 text-xs font-semibold text-[#f0fdf4]">
+        <div className="flex flex-col rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] overflow-hidden">
+          <div className="border-b border-[var(--surface-border)] bg-[var(--surface-canvas)] px-4 py-2.5 text-xs font-semibold text-[var(--text-primary)]">
             Assigned Work Orders ({activeTickets.length})
           </div>
 
@@ -55,12 +55,12 @@ export function FieldCrewConsole() {
                 onClick={() => setSelectedTicketId(ticket.id)}
                 className={`flex cursor-pointer flex-col gap-1.5 rounded-lg border p-3 transition-all select-none ${
                   selectedTicket?.id === ticket.id
-                    ? 'border-[#2A835F] bg-[#12544F]'
-                    : 'border-[#12544F] bg-[#092328] hover:bg-[#12544F]/40'
+                    ? 'border-[var(--color-accent-primary)] bg-[var(--surface-subtle)]'
+                    : 'border-[var(--surface-border)] bg-[var(--surface-canvas)] hover:bg-[var(--surface-subtle)]/40'
                 }`}
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-[#f0fdf4]">{ticket.id}</span>
+                  <span className="font-mono text-xs font-bold text-[var(--text-primary)]">{ticket.id}</span>
                   <span
                     className={`rounded border px-2 py-0.5 text-[10px] font-mono font-medium ${
                       ticket.severity === 'critical'
@@ -71,8 +71,8 @@ export function FieldCrewConsole() {
                     {formatEnumLabel(ticket.status)}
                   </span>
                 </div>
-                <h4 className="text-xs font-semibold text-[#f0fdf4]">{ticket.title}</h4>
-                <p className="text-[11px] text-[#8BBB92]">{ticket.locationName}</p>
+                <h4 className="text-xs font-semibold text-[var(--text-primary)]">{ticket.title}</h4>
+                <p className="text-[11px] text-[var(--text-secondary)]">{ticket.locationName}</p>
               </div>
             ))}
           </div>
@@ -80,42 +80,42 @@ export function FieldCrewConsole() {
 
         {/* Right: Active Task Details */}
         {selectedTicket && (
-          <div className="flex flex-col rounded-lg border border-[#12544F] bg-[#0d3137] p-4 overflow-y-auto space-y-3">
+          <div className="flex flex-col rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] p-4 overflow-y-auto space-y-3">
             <div className="flex items-center justify-between">
-              <span className="font-mono text-sm font-bold text-[#f0fdf4]">{selectedTicket.id}</span>
+              <span className="font-mono text-sm font-bold text-[var(--text-primary)]">{selectedTicket.id}</span>
               <a
                 href={`https://www.google.com/maps/dir/?api=1&destination=${selectedTicket.coords.lat},${selectedTicket.coords.lng}`}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex items-center gap-1.5 rounded border border-[#2A835F] bg-[#12544F] px-2.5 py-1 text-xs font-medium text-[#f0fdf4] hover:bg-[#2A835F]"
+                className="inline-flex items-center gap-1.5 rounded border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-2.5 py-1 text-xs font-medium text-[var(--text-primary)] hover:bg-[#2563eb]"
               >
-                <Navigation className="h-3.5 w-3.5 text-[#8BBB92]" />
+                <Navigation className="h-3.5 w-3.5 text-[var(--text-secondary)]" />
                 <span>Navigate to GPS</span>
               </a>
             </div>
 
-            <h3 className="text-sm font-semibold text-[#f0fdf4]">{selectedTicket.title}</h3>
-            <p className="text-xs text-[#8BBB92]">{selectedTicket.locationName}</p>
+            <h3 className="text-sm font-semibold text-[var(--text-primary)]">{selectedTicket.title}</h3>
+            <p className="text-xs text-[var(--text-secondary)]">{selectedTicket.locationName}</p>
 
             {/* Before Photo */}
             <div className="space-y-1">
-              <span className="text-[11px] font-medium text-[#8BBB92]">Before Repair (Captured by Bus Camera):</span>
+              <span className="text-[11px] font-medium text-[var(--text-secondary)]">Before Repair (Captured by Bus Camera):</span>
               <img
                 src={selectedTicket.beforePhotoUrl || 'https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?w=600&auto=format&fit=crop&q=80'}
                 alt="Before repair"
-                className="h-32 w-full rounded-md object-cover border border-[#12544F]"
+                className="h-32 w-full rounded-md object-cover border border-[var(--surface-border)]"
               />
             </div>
 
             {/* Material & Cost Specs */}
-            <div className="rounded-lg border border-[#12544F] bg-[#12544F]/40 p-3 text-xs font-mono space-y-1.5">
+            <div className="rounded-lg border border-[var(--surface-border)] bg-[var(--surface-subtle)]/40 p-3 text-xs font-mono space-y-1.5">
               <div className="flex justify-between">
-                <span className="text-[#8BBB92]">Asphalt Required:</span>
-                <span className="font-semibold text-[#f0fdf4]">{selectedTicket.estimatedAsphaltTons} MT</span>
+                <span className="text-[var(--text-secondary)]">Asphalt Required:</span>
+                <span className="font-semibold text-[var(--text-primary)]">{selectedTicket.estimatedAsphaltTons} MT</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#8BBB92]">Approved Budget:</span>
-                <span className="font-semibold text-[#8BBB92]">{formatCurrency(selectedTicket.estimatedCostInr || 0)}</span>
+                <span className="text-[var(--text-secondary)]">Approved Budget:</span>
+                <span className="font-semibold text-[var(--text-secondary)]">{formatCurrency(selectedTicket.estimatedCostInr || 0)}</span>
               </div>
             </div>
 
@@ -124,7 +124,7 @@ export function FieldCrewConsole() {
               <Button
                 variant="primary"
                 size="md"
-                className="w-full justify-center bg-[#8BBB92] text-[#092328] font-semibold hover:bg-[#f0fdf4]"
+                className="w-full justify-center bg-[#94a3b8] text-[#080e1a] font-semibold hover:bg-[#f8fafc]"
                 onClick={() => handleCompleteFieldRepair(selectedTicket.id)}
               >
                 <Upload className="h-4 w-4" />

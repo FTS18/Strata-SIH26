@@ -47,23 +47,23 @@ export function Drawer({
       {/* Drawer Panel */}
       <div
         className={cn(
-          'relative z-10 flex h-full flex-col border-l border-[#12544F] bg-[#092328] text-[#f0fdf4] shadow-[0_0_40px_rgba(0,0,0,0.9)] transition-transform duration-200 ease-out animate-in slide-in-from-right',
+          'relative z-10 flex h-full flex-col border-l border-[var(--surface-border)] bg-[var(--surface-canvas)] text-[var(--text-primary)] shadow-[0_0_40px_rgba(0,0,0,0.9)] transition-transform duration-200 ease-out animate-in slide-in-from-right',
           width
         )}
       >
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#12544F] px-5 py-4 bg-[#0d3137]">
+        <div className="flex items-center justify-between border-b border-[var(--surface-border)] px-5 py-4 bg-[var(--surface-panel)]">
           <div className="flex flex-col gap-0.5">
             <div className="flex items-center gap-2">
-              <h2 className="text-sm font-semibold text-[#f0fdf4] font-display">{title}</h2>
+              <h2 className="text-sm font-semibold text-[var(--text-primary)] font-display">{title}</h2>
               {badge}
             </div>
             {subtitle && (
-              <p className="text-xs text-[#8BBB92] font-mono">{subtitle}</p>
+              <p className="text-xs text-[var(--text-secondary)] font-mono">{subtitle}</p>
             )}
           </div>
 
-          <Button variant="ghost" size="sm" onClick={onClose} aria-label="Close drawer" className="text-[#8BBB92] hover:text-[#f0fdf4] hover:bg-[#12544F]">
+          <Button variant="ghost" size="sm" onClick={onClose} aria-label="Close drawer" className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-subtle)]">
             <X className="h-4 w-4" />
           </Button>
         </div>
@@ -73,7 +73,7 @@ export function Drawer({
 
         {/* Footer Actions */}
         {footer && (
-          <div className="border-t border-[#12544F] bg-[#0d3137] px-5 py-3.5">
+          <div className="border-t border-[var(--surface-border)] bg-[var(--surface-panel)] px-5 py-3.5">
             {footer}
           </div>
         )}

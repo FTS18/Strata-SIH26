@@ -144,20 +144,20 @@ export function MaterialInventoryView() {
     {
       key: 'materialId',
       header: 'Item SKU',
-      render: (i) => <span className="font-mono text-xs text-[#8BBB92] font-semibold">{i.materialId}</span>,
+      render: (i) => <span className="font-mono text-xs text-[var(--text-secondary)] font-semibold">{i.materialId}</span>,
     },
     { key: 'name', header: 'Material Name' },
     {
       key: 'category',
       header: 'Category',
-      render: (i) => <span className="font-mono text-xs text-[#8BBB92]">{i.category}</span>,
+      render: (i) => <span className="font-mono text-xs text-[var(--text-secondary)]">{i.category}</span>,
     },
     {
       key: 'currentStockNum',
       header: 'Available Stock',
       align: 'right',
       render: (i) => (
-        <span className="font-mono font-bold text-[#f0fdf4]">
+        <span className="font-mono font-bold text-[var(--text-primary)]">
           {i.currentStockNum} {i.unit}
         </span>
       ),
@@ -166,7 +166,7 @@ export function MaterialInventoryView() {
       key: 'consumedToday',
       header: 'Used Today',
       align: 'right',
-      render: (i) => <span className="font-mono text-[#8BBB92]">{i.consumedToday}</span>,
+      render: (i) => <span className="font-mono text-[var(--text-secondary)]">{i.consumedToday}</span>,
     },
     {
       key: 'status',
@@ -176,7 +176,7 @@ export function MaterialInventoryView() {
         <span
           className={`inline-flex items-center rounded border px-2 py-0.5 text-[11px] font-mono font-medium ${
             i.status === 'Adequate'
-              ? 'border-[#2A835F] bg-[#12544F] text-[#8BBB92] font-semibold'
+              ? 'border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] text-[var(--text-secondary)] font-semibold'
               : i.status === 'Reorder Dispatched'
               ? 'border-cyan-800/40 bg-cyan-950/40 text-cyan-300 font-bold'
               : 'border-amber-800/40 bg-amber-950/40 text-amber-400 font-bold'
@@ -189,12 +189,12 @@ export function MaterialInventoryView() {
   ];
 
   return (
-    <div className="flex h-full w-full flex-col gap-3 sm:gap-4 overflow-y-auto p-3 sm:p-5 bg-[#092328] text-[#f0fdf4]">
+    <div className="flex h-full w-full flex-col gap-3 sm:gap-4 overflow-y-auto p-3 sm:p-5 bg-[var(--surface-canvas)] text-[var(--text-primary)]">
       {/* Toast Notification Banner */}
       {activeToast && (
-        <div className="flex items-center justify-between rounded-lg border border-[#2A835F] bg-[#12544F] px-4 py-2 font-mono text-xs text-[#f0fdf4] shadow-md animate-in fade-in duration-200">
+        <div className="flex items-center justify-between rounded-lg border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-4 py-2 font-mono text-xs text-[var(--text-primary)] shadow-md animate-in fade-in duration-200">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-[#8BBB92]" />
+            <CheckCircle2 className="h-4 w-4 text-[var(--text-secondary)]" />
             <span>{activeToast}</span>
           </div>
         </div>
@@ -208,7 +208,7 @@ export function MaterialInventoryView() {
           caption="Ready for batching & dispatch"
           change="Optimal"
           changeType="positive"
-          icon={<Layers className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Layers className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
         <MetricCard
           label="Material Consumed (Today)"
@@ -216,7 +216,7 @@ export function MaterialInventoryView() {
           caption="Used across 3 pothole repairs"
           change="3 Sites Filled"
           changeType="neutral"
-          icon={<Boxes className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Boxes className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
         <MetricCard
           label="Active Compaction Rollers"
@@ -225,7 +225,7 @@ export function MaterialInventoryView() {
           caption="8-tonne tandem vibratory rollers"
           change="Deployed"
           changeType="positive"
-          icon={<Truck className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Truck className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
         <MetricCard
           label="Yard Reorder Status"
@@ -239,31 +239,31 @@ export function MaterialInventoryView() {
       </div>
 
       {/* Search Bar */}
-      <div className="flex items-center gap-2 rounded-lg border border-[#12544F] bg-[#0d3137] px-3.5 py-1.5 shrink-0">
-        <Search className="h-4 w-4 text-[#8BBB92] shrink-0" />
+      <div className="flex items-center gap-2 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3.5 py-1.5 shrink-0">
+        <Search className="h-4 w-4 text-[var(--text-secondary)] shrink-0" />
         <input
           type="text"
           placeholder="Search materials, SKUs, suppliers, depots..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full bg-transparent text-xs font-mono text-[#f0fdf4] outline-none placeholder:text-[#5b9076]"
+          className="w-full bg-transparent text-xs font-mono text-[var(--text-primary)] outline-none placeholder:text-[var(--text-muted)]"
         />
       </div>
 
       {/* Main Full-Height Content Stack */}
       <div className="flex flex-1 flex-col gap-3 sm:gap-4">
         {/* Main Table Card */}
-        <div className="w-full rounded-xl border border-[#12544F] bg-[#0d3137] p-3 sm:p-4 shadow-sm">
+        <div className="w-full rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-3 sm:p-4 shadow-sm">
           <div className="mb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
             <div>
-              <h3 className="text-sm font-semibold text-[#f0fdf4]">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)]">
                 Field Contractor Material & Heavy Machinery Inventory
               </h3>
-              <p className="text-xs text-[#8BBB92]">
+              <p className="text-xs text-[var(--text-secondary)]">
                 Real-time consumption tracking linked to completed road repair work orders
               </p>
             </div>
-            <span className="self-start sm:self-auto rounded border border-[#12544F] bg-[#12544F]/50 px-2.5 py-1 text-xs font-mono text-[#8BBB92]">
+            <span className="self-start sm:self-auto rounded border border-[var(--surface-border)] bg-[var(--surface-subtle)]/50 px-2.5 py-1 text-xs font-mono text-[var(--text-secondary)]">
               Shree Balaji Depot Log
             </span>
           </div>
@@ -280,21 +280,21 @@ export function MaterialInventoryView() {
 
         {/* Selected SKU Requisition Strip */}
         {activeItem && (
-          <div className="w-full rounded-xl border border-[#1d6d63] bg-[#0d3137] p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 shadow-sm">
+          <div className="w-full rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#12544F] border border-[#2A835F] text-[#8BBB92] shrink-0">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--surface-subtle)] border border-[var(--color-accent-primary)] text-[var(--text-secondary)] shrink-0">
                 <Boxes className="h-5 w-5" />
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-base font-bold text-[#f0fdf4]">
+                  <span className="font-mono text-base font-bold text-[var(--text-primary)]">
                     {activeItem.materialId}
                   </span>
-                  <span className="text-xs text-[#8BBB92]">· {activeItem.name}</span>
+                  <span className="text-xs text-[var(--text-secondary)]">· {activeItem.name}</span>
                   <span
                     className={`rounded border px-2 py-0.5 text-[10px] font-mono font-bold ${
                       activeItem.status === 'Adequate'
-                        ? 'border-[#2A835F] bg-[#12544F] text-[#8BBB92]'
+                        ? 'border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] text-[var(--text-secondary)]'
                         : activeItem.status === 'Reorder Dispatched'
                         ? 'border-cyan-800/40 bg-cyan-950/40 text-cyan-300'
                         : 'border-amber-800/40 bg-amber-950/40 text-amber-400'
@@ -303,15 +303,15 @@ export function MaterialInventoryView() {
                     {activeItem.status}
                   </span>
                 </div>
-                <p className="text-xs text-[#8BBB92]">
-                  Depot: <span className="text-[#f0fdf4] font-medium">{activeItem.depotLocation}</span> · Stock:{' '}
+                <p className="text-xs text-[var(--text-secondary)]">
+                  Depot: <span className="text-[var(--text-primary)] font-medium">{activeItem.depotLocation}</span> · Stock:{' '}
                   <span className="text-emerald-400 font-mono font-bold">
                     {activeItem.currentStockNum} {activeItem.unit}
                   </span>{' '}
                   (Reorder threshold: &lt;{activeItem.reorderLevel})
                 </p>
-                <p className="text-[11px] font-mono text-[#5b9076]">
-                  Primary Supplier: <span className="text-[#8BBB92]">{activeItem.supplier}</span> · Consumption Today:{' '}
+                <p className="text-[11px] font-mono text-[var(--text-muted)]">
+                  Primary Supplier: <span className="text-[var(--text-secondary)]">{activeItem.supplier}</span> · Consumption Today:{' '}
                   {activeItem.consumedToday}
                 </p>
               </div>
@@ -322,7 +322,7 @@ export function MaterialInventoryView() {
                 variant="primary"
                 size="sm"
                 onClick={() => setIsReorderModalOpen(true)}
-                className="bg-[#8BBB92] text-[#092328] font-bold hover:bg-[#f0fdf4] text-xs"
+                className="bg-[#94a3b8] text-[#080e1a] font-bold hover:bg-[#f8fafc] text-xs"
               >
                 <ShoppingCart className="h-3.5 w-3.5" />
                 <span>Reorder Batch Requisition</span>
@@ -331,7 +331,7 @@ export function MaterialInventoryView() {
                 variant="secondary"
                 size="sm"
                 onClick={() => setIsDeliveryModalOpen(true)}
-                className="bg-[#12544F] text-[#f0fdf4] border-[#2A835F] hover:bg-[#2A835F] text-xs font-semibold"
+                className="bg-[var(--surface-subtle)] text-[var(--text-primary)] border-[var(--color-accent-primary)] hover:bg-[#2563eb] text-xs font-semibold"
               >
                 <PlusCircle className="h-3.5 w-3.5" />
                 <span>Log Stock Delivery</span>
@@ -344,38 +344,38 @@ export function MaterialInventoryView() {
       {/* Reorder Modal */}
       {isReorderModalOpen && activeItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-xl border border-[#12544F] bg-[#092328] p-5 shadow-2xl font-mono text-xs">
-            <div className="flex items-center justify-between border-b border-[#12544F] pb-3 mb-3">
+          <div className="w-full max-w-md rounded-xl border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-5 shadow-2xl font-mono text-xs">
+            <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-3 mb-3">
               <div className="flex items-center gap-2">
-                <ShoppingCart className="h-4 w-4 text-[#8BBB92]" />
-                <span className="font-bold text-[#f0fdf4] text-sm">Purchase Order: {activeItem.name}</span>
+                <ShoppingCart className="h-4 w-4 text-[var(--text-secondary)]" />
+                <span className="font-bold text-[var(--text-primary)] text-sm">Purchase Order: {activeItem.name}</span>
               </div>
-              <button onClick={() => setIsReorderModalOpen(false)} className="text-[#8BBB92] hover:text-[#f0fdf4]">
+              <button onClick={() => setIsReorderModalOpen(false)} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
                 <X className="h-4 w-4" />
               </button>
             </div>
 
             <div className="space-y-3">
-              <div className="rounded border border-[#12544F] bg-[#0d3137] p-2.5 space-y-1">
-                <p className="text-[#8BBB92]">Supplier: <span className="text-[#f0fdf4] font-bold">{activeItem.supplier}</span></p>
-                <p className="text-[#8BBB92]">Target Yard: <span className="text-[#f0fdf4]">{activeItem.depotLocation}</span></p>
+              <div className="rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] p-2.5 space-y-1">
+                <p className="text-[var(--text-secondary)]">Supplier: <span className="text-[var(--text-primary)] font-bold">{activeItem.supplier}</span></p>
+                <p className="text-[var(--text-secondary)]">Target Yard: <span className="text-[var(--text-primary)]">{activeItem.depotLocation}</span></p>
               </div>
 
               <div>
-                <label className="block text-[11px] text-[#8BBB92] mb-1">Reorder Quantity ({activeItem.unit}) *</label>
+                <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Reorder Quantity ({activeItem.unit}) *</label>
                 <input
                   type="number"
                   value={reorderQty}
                   onChange={(e) => setReorderQty(Number(e.target.value))}
-                  className="w-full rounded border border-[#12544F] bg-[#0d3137] px-3 py-2 text-[#f0fdf4] outline-none font-bold"
+                  className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-2 text-[var(--text-primary)] outline-none font-bold"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#12544F]">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[var(--surface-border)]">
                 <Button variant="secondary" size="sm" onClick={() => setIsReorderModalOpen(false)}>
                   Cancel
                 </Button>
-                <Button variant="primary" size="sm" onClick={handleConfirmReorder} className="bg-[#2A835F] text-[#f0fdf4] hover:bg-[#12544F]">
+                <Button variant="primary" size="sm" onClick={handleConfirmReorder} className="bg-[#2563eb] text-[var(--text-primary)] hover:bg-[var(--surface-subtle)]">
                   Transmit Purchase Order
                 </Button>
               </div>
@@ -387,44 +387,44 @@ export function MaterialInventoryView() {
       {/* Log Delivery Modal */}
       {isDeliveryModalOpen && activeItem && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-xl border border-[#12544F] bg-[#092328] p-5 shadow-2xl font-mono text-xs">
-            <div className="flex items-center justify-between border-b border-[#12544F] pb-3 mb-3">
+          <div className="w-full max-w-md rounded-xl border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-5 shadow-2xl font-mono text-xs">
+            <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-3 mb-3">
               <div className="flex items-center gap-2">
                 <PackageCheck className="h-4 w-4 text-emerald-400" />
-                <span className="font-bold text-[#f0fdf4] text-sm">Log Yard Intake Delivery</span>
+                <span className="font-bold text-[var(--text-primary)] text-sm">Log Yard Intake Delivery</span>
               </div>
-              <button onClick={() => setIsDeliveryModalOpen(false)} className="text-[#8BBB92] hover:text-[#f0fdf4]">
+              <button onClick={() => setIsDeliveryModalOpen(false)} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
                 <X className="h-4 w-4" />
               </button>
             </div>
 
             <div className="space-y-3">
               <div>
-                <label className="block text-[11px] text-[#8BBB92] mb-1">Delivery Challan / Invoice # *</label>
+                <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Delivery Challan / Invoice # *</label>
                 <input
                   type="text"
                   placeholder="e.g. IOCL-CHL-99410"
                   value={deliveryChallan}
                   onChange={(e) => setDeliveryChallan(e.target.value)}
-                  className="w-full rounded border border-[#12544F] bg-[#0d3137] px-3 py-2 text-[#f0fdf4] outline-none"
+                  className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-2 text-[var(--text-primary)] outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] text-[#8BBB92] mb-1">Delivered Quantity ({activeItem.unit}) *</label>
+                <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Delivered Quantity ({activeItem.unit}) *</label>
                 <input
                   type="number"
                   value={deliveryQty}
                   onChange={(e) => setDeliveryQty(Number(e.target.value))}
-                  className="w-full rounded border border-[#12544F] bg-[#0d3137] px-3 py-2 text-[#f0fdf4] outline-none font-bold"
+                  className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-2 text-[var(--text-primary)] outline-none font-bold"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#12544F]">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[var(--surface-border)]">
                 <Button variant="secondary" size="sm" onClick={() => setIsDeliveryModalOpen(false)}>
                   Cancel
                 </Button>
-                <Button variant="primary" size="sm" onClick={handleConfirmDelivery} className="bg-[#2A835F] text-[#f0fdf4] hover:bg-[#12544F]">
+                <Button variant="primary" size="sm" onClick={handleConfirmDelivery} className="bg-[#2563eb] text-[var(--text-primary)] hover:bg-[var(--surface-subtle)]">
                   Update Stock Inventory
                 </Button>
               </div>

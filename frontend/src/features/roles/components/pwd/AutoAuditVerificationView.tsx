@@ -46,18 +46,18 @@ export function AutoAuditVerificationView() {
     {
       key: 'ticketId',
       header: 'Work Order ID',
-      render: (a) => <span className="font-mono text-xs font-semibold text-[#f0fdf4]">{a.ticketId}</span>,
+      render: (a) => <span className="font-mono text-xs font-semibold text-[var(--text-primary)]">{a.ticketId}</span>,
     },
     { key: 'roadName', header: 'Road Location' },
     {
       key: 'contractor',
       header: 'Assigned Contractor',
-      render: (a) => <span className="font-sans text-xs text-[#8BBB92]">{a.contractor}</span>,
+      render: (a) => <span className="font-sans text-xs text-[var(--text-secondary)]">{a.contractor}</span>,
     },
     {
       key: 'verifiedByBus',
       header: 'Auditing Bus Unit',
-      render: (a) => <span className="font-mono text-xs text-[#8BBB92]">{a.verifiedByBus}</span>,
+      render: (a) => <span className="font-mono text-xs text-[var(--text-secondary)]">{a.verifiedByBus}</span>,
     },
     {
       key: 'postRepairZSpike',
@@ -109,12 +109,12 @@ export function AutoAuditVerificationView() {
   ];
 
   return (
-    <div className="flex h-full w-full flex-col gap-3 sm:gap-4 overflow-y-auto p-3 sm:p-5 bg-[#092328] text-[#f0fdf4]">
+    <div className="flex h-full w-full flex-col gap-3 sm:gap-4 overflow-y-auto p-3 sm:p-5 bg-[var(--surface-canvas)] text-[var(--text-primary)]">
       {/* Toast Notification Banner */}
       {activeToast && (
-        <div className="flex items-center justify-between rounded-lg border border-[#2A835F] bg-[#12544F] px-4 py-2 font-mono text-xs text-[#f0fdf4] shadow-md animate-in fade-in duration-200">
+        <div className="flex items-center justify-between rounded-lg border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-4 py-2 font-mono text-xs text-[var(--text-primary)] shadow-md animate-in fade-in duration-200">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-[#8BBB92]" />
+            <CheckCircle2 className="h-4 w-4 text-[var(--text-secondary)]" />
             <span>{activeToast}</span>
           </div>
         </div>
@@ -129,7 +129,7 @@ export function AutoAuditVerificationView() {
           caption="Verified smooth by public buses"
           change="100% Autonomous"
           changeType="positive"
-          icon={<CheckCircle2 className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<CheckCircle2 className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
         <MetricCard
           label="Contractor Audit Pass Rate"
@@ -137,7 +137,7 @@ export function AutoAuditVerificationView() {
           caption="Vibration Z < 1.5g threshold"
           change="Passing"
           changeType="positive"
-          icon={<ShieldCheck className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<ShieldCheck className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
         <MetricCard
           label="Substandard Patch Rejections"
@@ -155,30 +155,30 @@ export function AutoAuditVerificationView() {
           caption="Continuous passive road inspection"
           change="Always Scanning"
           changeType="positive"
-          icon={<Bus className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Bus className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
       </div>
 
       {/* Filter and Search Bar */}
       <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 shrink-0">
-        <div className="flex flex-1 items-center gap-2 rounded-lg border border-[#12544F] bg-[#0d3137] px-3.5 py-1.5">
-          <Search className="h-4 w-4 text-[#8BBB92] shrink-0" />
+        <div className="flex flex-1 items-center gap-2 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3.5 py-1.5">
+          <Search className="h-4 w-4 text-[var(--text-secondary)] shrink-0" />
           <input
             type="text"
             placeholder="Search audit records (Ticket ID, road, contractor)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-transparent text-xs font-mono text-[#f0fdf4] outline-none placeholder:text-[#5b9076]"
+            className="w-full bg-transparent text-xs font-mono text-[var(--text-primary)] outline-none placeholder:text-[var(--text-muted)]"
           />
         </div>
 
-        <div className="flex items-center gap-1 rounded-lg border border-[#12544F] bg-[#0d3137] p-1 text-[11px] font-mono">
+        <div className="flex items-center gap-1 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] p-1 text-[11px] font-mono">
           {['ALL', 'Verified Smooth', 'Defect Persists'].map((st) => (
             <button
               key={st}
               onClick={() => setStatusFilter(st)}
               className={`rounded px-2.5 py-1 transition-all cursor-pointer ${
-                statusFilter === st ? 'bg-[#12544F] text-[#f0fdf4] font-bold' : 'text-[#8BBB92] hover:text-[#f0fdf4]'
+                statusFilter === st ? 'bg-[var(--surface-subtle)] text-[var(--text-primary)] font-bold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
               }`}
             >
               {st}
@@ -190,17 +190,17 @@ export function AutoAuditVerificationView() {
       {/* Main Full-Height Content Stack */}
       <div className="flex flex-1 flex-col gap-3 sm:gap-4">
         {/* Audit Log Table */}
-        <div className="w-full rounded-xl border border-[#12544F] bg-[#0d3137] p-3 sm:p-4 shadow-sm">
+        <div className="w-full rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-3 sm:p-4 shadow-sm">
           <div className="mb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
             <div>
-              <h3 className="text-sm font-semibold text-[#f0fdf4]">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)]">
                 Closed-Loop Autonomous Bus Pass Re-Audit Stream
               </h3>
-              <p className="text-xs text-[#8BBB92]">
+              <p className="text-xs text-[var(--text-secondary)]">
                 When contractors mark repairs complete, subsequent bus passes automatically verify road smoothness using camera + IMU fusion
               </p>
             </div>
-            <span className="self-start sm:self-auto rounded border border-[#12544F] bg-[#12544F]/50 px-2.5 py-1 text-xs font-mono text-[#8BBB92]">
+            <span className="self-start sm:self-auto rounded border border-[var(--surface-border)] bg-[var(--surface-subtle)]/50 px-2.5 py-1 text-xs font-mono text-[var(--text-secondary)]">
               Self-Auditing Infrastructure
             </span>
           </div>
@@ -217,17 +217,17 @@ export function AutoAuditVerificationView() {
 
         {/* Selected Audit Record Details Panel */}
         {activeAudit && (
-          <div className="w-full rounded-xl border border-[#1d6d63] bg-[#0d3137] p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 shadow-sm">
+          <div className="w-full rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#12544F] border border-[#2A835F] text-[#8BBB92] shrink-0">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--surface-subtle)] border border-[var(--color-accent-primary)] text-[var(--text-secondary)] shrink-0">
                 <FileCheck className="h-5 w-5" />
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-base font-bold text-[#f0fdf4]">
+                  <span className="font-mono text-base font-bold text-[var(--text-primary)]">
                     {activeAudit.ticketId}
                   </span>
-                  <span className="text-xs text-[#8BBB92]">· {activeAudit.roadName}</span>
+                  <span className="text-xs text-[var(--text-secondary)]">· {activeAudit.roadName}</span>
                   <span
                     className={`rounded border px-2 py-0.5 text-[10px] font-mono font-bold ${
                       activeAudit.auditResult === 'Verified Smooth'
@@ -237,16 +237,16 @@ export function AutoAuditVerificationView() {
                   >
                     {activeAudit.auditResult}
                   </span>
-                  <span className="rounded border border-[#12544F] bg-[#092328] px-2 py-0.5 text-[10px] font-mono text-[#8BBB92]">
+                  <span className="rounded border border-[var(--surface-border)] bg-[var(--surface-canvas)] px-2 py-0.5 text-[10px] font-mono text-[var(--text-secondary)]">
                     Milestone: {formatCurrency(activeAudit.milestonePaymentInr)}
                   </span>
                 </div>
-                <p className="text-xs text-[#8BBB92]">
-                  Contractor: <span className="text-[#f0fdf4] font-medium">{activeAudit.contractor}</span> · Repaired: <span className="text-[#f0fdf4]">{activeAudit.repairDate}</span> · IMU Reading: <span className="font-mono font-bold text-emerald-400">{activeAudit.postRepairZSpike}g (Threshold &lt;1.5g)</span>
+                <p className="text-xs text-[var(--text-secondary)]">
+                  Contractor: <span className="text-[var(--text-primary)] font-medium">{activeAudit.contractor}</span> · Repaired: <span className="text-[var(--text-primary)]">{activeAudit.repairDate}</span> · IMU Reading: <span className="font-mono font-bold text-emerald-400">{activeAudit.postRepairZSpike}g (Threshold &lt;1.5g)</span>
                 </p>
-                <div className="flex items-center gap-2 text-[11px] font-mono text-[#5b9076]">
+                <div className="flex items-center gap-2 text-[11px] font-mono text-[var(--text-muted)]">
                   <span>Verified Pass by: {activeAudit.verifiedByBus}</span>
-                  <span>· Status: <strong className="text-[#f0fdf4]">{activeAudit.paymentStatus}</strong></span>
+                  <span>· Status: <strong className="text-[var(--text-primary)]">{activeAudit.paymentStatus}</strong></span>
                 </div>
               </div>
             </div>
@@ -260,8 +260,8 @@ export function AutoAuditVerificationView() {
                   disabled={activeAudit.paymentStatus === 'Payment Released'}
                   className={`text-xs font-bold ${
                     activeAudit.paymentStatus === 'Payment Released'
-                      ? 'bg-[#12544F] text-[#8BBB92] cursor-default'
-                      : 'bg-[#2A835F] text-[#f0fdf4] hover:bg-[#12544F]'
+                      ? 'bg-[var(--surface-subtle)] text-[var(--text-secondary)] cursor-default'
+                      : 'bg-[#2563eb] text-[var(--text-primary)] hover:bg-[var(--surface-subtle)]'
                   }`}
                 >
                   <CreditCard className="h-3.5 w-3.5" />

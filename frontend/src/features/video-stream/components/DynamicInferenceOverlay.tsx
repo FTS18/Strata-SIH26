@@ -45,7 +45,7 @@ export function DynamicInferenceOverlay({
       ctx.closePath();
       ctx.fillStyle = 'rgba(42, 131, 95, 0.05)';
       ctx.fill();
-      ctx.strokeStyle = 'rgba(139, 187, 146, 0.2)';
+      ctx.strokeStyle = 'rgba(148, 163, 184, 0.2)';
       ctx.lineWidth = 1;
       ctx.setLineDash([4, 6]);
       ctx.stroke();

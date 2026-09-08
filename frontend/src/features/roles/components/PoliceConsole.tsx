@@ -238,29 +238,29 @@ export function PoliceConsole() {
   };
 
   return (
-    <div className="flex h-full w-full flex-col gap-3 sm:gap-4 overflow-y-auto p-3 sm:p-4 bg-[#092328] text-[#f0fdf4]">
+    <div className="flex h-full w-full flex-col gap-3 sm:gap-4 overflow-y-auto p-3 sm:p-4 bg-[var(--surface-canvas)] text-[var(--text-primary)]">
       {/* Toast Notification Banner */}
       {activeToast && (
-        <div className="flex items-center justify-between rounded-lg border border-[#2A835F] bg-[#12544F] px-4 py-2 font-mono text-xs text-[#f0fdf4] shadow-md animate-in fade-in duration-200">
+        <div className="flex items-center justify-between rounded-lg border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-4 py-2 font-mono text-xs text-[var(--text-primary)] shadow-md animate-in fade-in duration-200">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-[#8BBB92]" />
+            <CheckCircle2 className="h-4 w-4 text-[var(--text-secondary)]" />
             <span>{activeToast}</span>
           </div>
         </div>
       )}
       {/* Top Search Bar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-[#12544F] pb-3 shrink-0">
-        <div className="flex flex-1 items-center gap-2 rounded-lg border border-[#12544F] bg-[#0d3137] px-3.5 py-2 shadow-sm">
-          <Search className="h-4 w-4 text-[#8BBB92] shrink-0" />
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-[var(--surface-border)] pb-3 shrink-0">
+        <div className="flex flex-1 items-center gap-2 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3.5 py-2 shadow-sm">
+          <Search className="h-4 w-4 text-[var(--text-secondary)] shrink-0" />
           <input
             type="text"
             placeholder="Search License Plate (Fuzzy ANPR: e.g. HR 26 DQ 4410)..."
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full bg-transparent text-xs font-mono text-[#f0fdf4] outline-none placeholder:text-[#5b9076]"
+            className="w-full bg-transparent text-xs font-mono text-[var(--text-primary)] outline-none placeholder:text-[var(--text-muted)]"
           />
           {searchQuery && (
-            <button onClick={() => setSearchQuery('')} className="text-xs text-[#8BBB92] hover:text-[#f0fdf4] shrink-0">
+            <button onClick={() => setSearchQuery('')} className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] shrink-0">
               Clear
             </button>
           )}
@@ -274,12 +274,12 @@ export function PoliceConsole() {
       {/* Main Responsive Grid: 1 Col on Mobile/Tablet, 2 Cols on Large Desktop */}
       <div className="grid flex-1 grid-cols-1 lg:grid-cols-2 gap-3 sm:gap-4 overflow-y-auto">
         {/* Left: Hotlist & Live Incident Database */}
-        <div className="flex flex-col rounded-lg border border-[#12544F] bg-[#0d3137] overflow-hidden min-h-[280px]">
-          <div className="flex items-center justify-between border-b border-[#12544F] bg-[#092328] px-3.5 py-2.5 shrink-0">
-            <span className="text-xs font-semibold text-[#f0fdf4]">
+        <div className="flex flex-col rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] overflow-hidden min-h-[280px]">
+          <div className="flex items-center justify-between border-b border-[var(--surface-border)] bg-[var(--surface-canvas)] px-3.5 py-2.5 shrink-0">
+            <span className="text-xs font-semibold text-[var(--text-primary)]">
               Active Incidents & Police Hotlist (ByteTrack + ANPR)
             </span>
-            <span className="text-[11px] font-mono text-[#8BBB92]">Fuzzy Match Enabled</span>
+            <span className="text-[11px] font-mono text-[var(--text-secondary)]">Fuzzy Match Enabled</span>
           </div>
 
           <div className="flex-1 overflow-y-auto p-3 space-y-2.5">
@@ -290,15 +290,15 @@ export function PoliceConsole() {
                 className={`flex cursor-pointer flex-col gap-1.5 rounded-lg border p-3 transition-all select-none ${
                   selectedPlate === item.plate
                     ? 'border-rose-600/60 bg-rose-950/30'
-                    : 'border-[#12544F] bg-[#12544F]/40 hover:bg-[#12544F]'
+                    : 'border-[var(--surface-border)] bg-[var(--surface-subtle)]/40 hover:bg-[var(--surface-subtle)]'
                 }`}
               >
                 <div className="flex items-center justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-sm font-bold text-[#f0fdf4]">
+                    <span className="font-mono text-sm font-bold text-[var(--text-primary)]">
                       {item.plate}
                     </span>
-                    <span className="text-[11px] text-[#8BBB92]">({item.vehicleType})</span>
+                    <span className="text-[11px] text-[var(--text-secondary)]">({item.vehicleType})</span>
                   </div>
                   {item.isPublished ? (
                     <span className="rounded border border-emerald-500/70 bg-emerald-950/80 px-2 py-0.5 text-[10px] font-mono text-emerald-300 font-bold shrink-0 flex items-center gap-1">
@@ -311,8 +311,8 @@ export function PoliceConsole() {
                     </span>
                   )}
                 </div>
-                <p className="text-xs text-[#8BBB92]">{item.reason}</p>
-                <div className="flex justify-between text-[11px] font-mono text-[#5b9076]">
+                <p className="text-xs text-[var(--text-secondary)]">{item.reason}</p>
+                <div className="flex justify-between text-[11px] font-mono text-[var(--text-muted)]">
                   <span>Speed: {item.speed} km/h</span>
                   <span>{item.flaggedAt}</span>
                 </div>
@@ -322,36 +322,36 @@ export function PoliceConsole() {
         </div>
 
         {/* Right: Live Sighting Evidence & Kinematics Dossier */}
-        <div className="flex flex-col rounded-lg border border-[#12544F] bg-[#0d3137] overflow-hidden min-h-[320px]">
-          <div className="flex items-center justify-between border-b border-[#12544F] bg-[#092328] px-3.5 py-2.5 shrink-0">
-            <span className="text-xs font-semibold text-[#f0fdf4]">
+        <div className="flex flex-col rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] overflow-hidden min-h-[320px]">
+          <div className="flex items-center justify-between border-b border-[var(--surface-border)] bg-[var(--surface-canvas)] px-3.5 py-2.5 shrink-0">
+            <span className="text-xs font-semibold text-[var(--text-primary)]">
               Live Edge Sighting Evidence & Trajectory Kinematics
             </span>
-            <span className="rounded border border-[#2A835F] bg-[#12544F] px-2 py-0.5 text-[10px] font-mono text-[#8BBB92] font-medium">
+            <span className="rounded border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-2 py-0.5 text-[10px] font-mono text-[var(--text-secondary)] font-medium">
               {activeEvidence.confidence}% OCR Confidence
             </span>
           </div>
 
           <div className="flex-1 overflow-y-auto p-3 sm:p-4 space-y-3">
             {/* ANPR Live Video Tracking Stream */}
-            <div className="relative flex min-h-[220px] w-full flex-col justify-between rounded-lg border border-[#12544F] bg-[#06191c] overflow-hidden font-mono shadow-md">
+            <div className="relative flex min-h-[220px] w-full flex-col justify-between rounded-lg border border-[var(--surface-border)] bg-[#06191c] overflow-hidden font-mono shadow-md">
               {/* Media Header & Mode Switcher */}
-              <div className="flex flex-wrap justify-between items-center gap-1.5 text-[10px] text-[#8BBB92] bg-[#092328]/95 px-3 py-1.5 border-b border-[#144943] z-20">
+              <div className="flex flex-wrap justify-between items-center gap-1.5 text-[10px] text-[var(--text-secondary)] bg-[var(--surface-canvas)]/95 px-3 py-1.5 border-b border-[var(--surface-border-subtle)] z-20">
                 <div className="flex items-center gap-1.5">
                   <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="font-bold text-[#f0fdf4]">{activeEvidence.busId.toUpperCase()}</span>
-                  <span className="hidden sm:inline text-[#5b9076]">· YOLOV8 + PLATENET</span>
+                  <span className="font-bold text-[var(--text-primary)]">{activeEvidence.busId.toUpperCase()}</span>
+                  <span className="hidden sm:inline text-[var(--text-muted)]">· YOLOV8 + PLATENET</span>
                 </div>
                 
                 <div className="flex items-center gap-1 flex-wrap">
                   {/* Stream Engine Selector */}
-                  <div className="flex items-center bg-[#06191c] rounded p-0.5 border border-[#144943] mr-1">
+                  <div className="flex items-center bg-[#06191c] rounded p-0.5 border border-[var(--surface-border-subtle)] mr-1">
                     <button
                       onClick={() => setStreamSource('live_model')}
                       className={`px-1.5 py-0.5 rounded text-[9px] font-bold cursor-pointer transition-all ${
                         streamSource === 'live_model'
                           ? 'bg-emerald-600 text-white shadow'
-                          : 'text-[#8BBB92] hover:text-white'
+                          : 'text-[var(--text-secondary)] hover:text-white'
                       }`}
                       title="Direct Python YOLOv8 Inference Stream on Port 8080"
                     >
@@ -361,8 +361,8 @@ export function PoliceConsole() {
                       onClick={() => setStreamSource('video_hud')}
                       className={`px-1.5 py-0.5 rounded text-[9px] font-bold cursor-pointer transition-all ${
                         streamSource === 'video_hud'
-                          ? 'bg-[#2A835F] text-[#f0fdf4]'
-                          : 'text-[#8BBB92] hover:text-white'
+                          ? 'bg-[#2563eb] text-[var(--text-primary)]'
+                          : 'text-[var(--text-secondary)] hover:text-white'
                       }`}
                       title="HD Video Stream with Vehicle Detection HUD"
                     >
@@ -375,8 +375,8 @@ export function PoliceConsole() {
                     onClick={() => handleModeSwitch('auto_anpr')}
                     className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all ${
                       mediaMode === 'auto_anpr'
-                        ? 'bg-[#2A835F] text-[#f0fdf4]'
-                        : 'bg-[#0d3137] text-[#8BBB92] hover:text-[#f0fdf4]'
+                        ? 'bg-[#2563eb] text-[var(--text-primary)]'
+                        : 'bg-[var(--surface-panel)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                     }`}
                   >
                     ANPR LANE (VOLVO)
@@ -385,8 +385,8 @@ export function PoliceConsole() {
                     onClick={() => handleModeSwitch('delhi_gif')}
                     className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all ${
                       mediaMode === 'delhi_gif'
-                        ? 'bg-[#2A835F] text-[#f0fdf4]'
-                        : 'bg-[#0d3137] text-[#8BBB92] hover:text-[#f0fdf4]'
+                        ? 'bg-[#2563eb] text-[var(--text-primary)]'
+                        : 'bg-[var(--surface-panel)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                     }`}
                   >
                     DELHI RAJPATH (INNOVA)
@@ -395,8 +395,8 @@ export function PoliceConsole() {
                     onClick={() => handleModeSwitch('delhi_mp4')}
                     className={`px-2 py-0.5 rounded text-[10px] font-bold cursor-pointer transition-all ${
                       mediaMode === 'delhi_mp4'
-                        ? 'bg-[#2A835F] text-[#f0fdf4]'
-                        : 'bg-[#0d3137] text-[#8BBB92] hover:text-[#f0fdf4]'
+                        ? 'bg-[#2563eb] text-[var(--text-primary)]'
+                        : 'bg-[var(--surface-panel)] text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                     }`}
                   >
                     DELHI RADAR
@@ -423,9 +423,9 @@ export function PoliceConsole() {
                         (e.target as HTMLImageElement).src = '/evidence/pothole_cam1_crop.jpg';
                       }}
                     />
-                    <div className="absolute inset-0 pointer-events-none p-3 flex flex-col justify-between bg-gradient-to-t from-[#092328]/80 via-transparent to-[#092328]/50">
+                    <div className="absolute inset-0 pointer-events-none p-3 flex flex-col justify-between bg-gradient-to-t from-[#080e1a]/80 via-transparent to-[#080e1a]/50">
                       <div className="flex items-center justify-between text-[9px] font-mono">
-                        <span className="bg-[#092328]/90 text-emerald-400 border border-emerald-500/50 px-2 py-0.5 rounded font-bold">
+                        <span className="bg-[var(--surface-canvas)]/90 text-emerald-400 border border-emerald-500/50 px-2 py-0.5 rounded font-bold">
                           RADAR LOCKED · {activeEvidence.speed} km/h
                         </span>
                         {activeEvidence.isPublished && (
@@ -438,11 +438,11 @@ export function PoliceConsole() {
                         <span className="text-[10px] font-mono font-bold text-emerald-300 text-center">
                           {activeEvidence.plate}
                         </span>
-                        <span className="text-[8px] font-mono text-[#8BBB92] text-center">
+                        <span className="text-[8px] font-mono text-[var(--text-secondary)] text-center">
                           {activeEvidence.vehicleType}
                         </span>
                       </div>
-                      <div className="flex justify-between text-[8px] font-mono text-[#8BBB92] bg-[#092328]/80 px-2 py-0.5 rounded">
+                      <div className="flex justify-between text-[8px] font-mono text-[var(--text-secondary)] bg-[var(--surface-canvas)]/80 px-2 py-0.5 rounded">
                         <span>{activeEvidence.location}</span>
                         <span className="text-emerald-400 font-bold">{activeEvidence.confidence}% OCR CONF</span>
                       </div>
@@ -488,7 +488,7 @@ export function PoliceConsole() {
                           <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 border-b-2 border-r-2 border-white" />
                           
                           {/* Vehicle Classification Badge */}
-                          <div className="absolute -top-5 left-0 bg-[#092328]/95 border border-emerald-400 px-1.5 py-0.5 text-[9px] font-mono font-bold text-emerald-300">
+                          <div className="absolute -top-5 left-0 bg-[var(--surface-canvas)]/95 border border-emerald-400 px-1.5 py-0.5 text-[9px] font-mono font-bold text-emerald-300">
                             [CAR 94.2%] VOLVO XC60
                           </div>
                         </div>
@@ -529,7 +529,7 @@ export function PoliceConsole() {
                           <div className="absolute -bottom-0.5 -left-0.5 w-3 h-3 border-b-2 border-l-2 border-white" />
                           <div className="absolute -bottom-0.5 -right-0.5 w-3 h-3 border-b-2 border-r-2 border-white" />
                           
-                          <div className="absolute -top-5 left-0 bg-[#092328]/95 border border-emerald-400 px-1.5 py-0.5 text-[9px] font-mono font-bold text-emerald-300">
+                          <div className="absolute -top-5 left-0 bg-[var(--surface-canvas)]/95 border border-emerald-400 px-1.5 py-0.5 text-[9px] font-mono font-bold text-emerald-300">
                             [CAR 98.4%] TOYOTA INNOVA
                           </div>
                         </div>
@@ -557,11 +557,11 @@ export function PoliceConsole() {
 
                 {/* Floating Telemetry Badge from Model */}
                 <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between pointer-events-none z-20">
-                  <div className="rounded border border-[#2A835F] bg-[#092328]/90 backdrop-blur-sm px-2.5 py-1 text-center shadow-lg">
-                    <span className="text-xs sm:text-sm font-bold text-[#f0fdf4] tracking-wider">
+                  <div className="rounded border border-[var(--color-accent-primary)] bg-[var(--surface-canvas)]/90 backdrop-blur-sm px-2.5 py-1 text-center shadow-lg">
+                    <span className="text-xs sm:text-sm font-bold text-[var(--text-primary)] tracking-wider">
                       {activeEvidence.plate}
                     </span>
-                    <p className="text-[8px] text-[#8BBB92]">IND · HSRP DETECTED</p>
+                    <p className="text-[8px] text-[var(--text-secondary)]">IND · HSRP DETECTED</p>
                   </div>
                   <div className="rounded border border-emerald-500/40 bg-emerald-950/80 px-2 py-0.5 text-[10px] text-emerald-400 font-bold">
                     {activeEvidence.confidence}% OCR CONF
@@ -570,7 +570,7 @@ export function PoliceConsole() {
               </div>
 
               {/* Canvas Bottom Bar */}
-              <div className="flex justify-between items-center text-[10px] text-[#5b9076] bg-[#092328]/95 px-3 py-1 border-t border-[#144943] z-10 font-mono">
+              <div className="flex justify-between items-center text-[10px] text-[var(--text-muted)] bg-[var(--surface-canvas)]/95 px-3 py-1 border-t border-[var(--surface-border-subtle)] z-10 font-mono">
                 <span>Speed: {activeEvidence.speed} km/h</span>
                 <span className="text-emerald-400 font-bold">STATUS: {activeEvidence.sourceTag || 'ACTIVE RADAR TRACK'}</span>
               </div>
@@ -587,25 +587,25 @@ export function PoliceConsole() {
               </div>
             )}
 
-            <div className="rounded-lg border border-[#12544F] bg-[#12544F]/40 p-3 text-xs space-y-2 font-mono">
+            <div className="rounded-lg border border-[var(--surface-border)] bg-[var(--surface-subtle)]/40 p-3 text-xs space-y-2 font-mono">
               <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5">
-                <span className="text-[#8BBB92]">Target Vehicle:</span>
-                <span className="font-semibold text-[#f0fdf4]">{activeEvidence.plate} ({activeEvidence.vehicleType})</span>
+                <span className="text-[var(--text-secondary)]">Target Vehicle:</span>
+                <span className="font-semibold text-[var(--text-primary)]">{activeEvidence.plate} ({activeEvidence.vehicleType})</span>
               </div>
               <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5">
-                <span className="text-[#8BBB92]">Captured By:</span>
-                <span className="text-[#8BBB92]">{activeEvidence.busId}</span>
+                <span className="text-[var(--text-secondary)]">Captured By:</span>
+                <span className="text-[var(--text-secondary)]">{activeEvidence.busId}</span>
               </div>
               <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5">
-                <span className="text-[#8BBB92]">Location:</span>
-                <span className="text-[#f0fdf4] truncate">{activeEvidence.location}</span>
+                <span className="text-[var(--text-secondary)]">Location:</span>
+                <span className="text-[var(--text-primary)] truncate">{activeEvidence.location}</span>
               </div>
               <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5">
-                <span className="text-[#8BBB92]">Violation Reason:</span>
+                <span className="text-[var(--text-secondary)]">Violation Reason:</span>
                 <span className="font-semibold text-rose-400">{activeEvidence.reason}</span>
               </div>
               <div className="flex flex-col sm:flex-row sm:justify-between gap-0.5">
-                <span className="text-[#8BBB92]">Measured Speed:</span>
+                <span className="text-[var(--text-secondary)]">Measured Speed:</span>
                 <span className="font-bold text-rose-400">{activeEvidence.speed} km/h (Speed Limit: 50 km/h)</span>
               </div>
             </div>
@@ -640,7 +640,7 @@ export function PoliceConsole() {
                 variant="secondary"
                 size="sm"
                 onClick={handleExportDossier}
-                className="bg-[#12544F] text-[#f0fdf4] border-[#2A835F] hover:bg-[#2A835F] py-2 text-xs"
+                className="bg-[var(--surface-subtle)] text-[var(--text-primary)] border-[var(--color-accent-primary)] hover:bg-[#2563eb] py-2 text-xs"
               >
                 <Download className="h-3.5 w-3.5" />
                 <span>Export Dossier PDF</span>

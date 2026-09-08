@@ -43,23 +43,23 @@ export function LandingFAQ() {
   };
 
   return (
-    <section id="faq" className="relative bg-[#FBFDFB] py-24 text-[#092328]">
+    <section id="faq" className="relative bg-[#FBFDFB] py-24 text-[#080e1a]">
       <div className="mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="text-center mb-16">
-          <span className="text-xs font-mono uppercase tracking-widest text-[#2A835F] font-semibold">
+          <span className="text-xs font-mono uppercase tracking-widest text-[var(--color-accent-cyan)] font-semibold">
             Common Inquiries
           </span>
-          <h2 className="mt-2 font-display text-3xl sm:text-5xl font-bold tracking-tight text-[#092328] uppercase">
+          <h2 className="mt-2 font-display text-3xl sm:text-5xl font-bold tracking-tight text-[#080e1a] uppercase">
             Frequently asked questions
           </h2>
-          <p className="mt-3 text-base text-[#092328]/70 font-sans">
+          <p className="mt-3 text-base text-[#080e1a]/70 font-sans">
             Everything you need to know about deploying and operating Strata across municipal fleets.
           </p>
         </div>
 
         {/* Accordion List */}
-        <div className="divide-y divide-[#12544F]/15 border-y border-[#12544F]/15">
+        <div className="divide-y divide-[#111c33]/15 border-y border-[var(--surface-border)]/15">
           {faqs.map((faq, idx) => {
             const isOpen = openIndex === idx;
 
@@ -71,10 +71,10 @@ export function LandingFAQ() {
                   className="flex w-full items-center justify-between text-left cursor-pointer group"
                   aria-expanded={isOpen}
                 >
-                  <span className="text-base sm:text-lg font-bold text-[#092328] group-hover:text-[#2A835F] transition-colors pr-4">
+                  <span className="text-base sm:text-lg font-bold text-[#080e1a] group-hover:text-[var(--color-accent-cyan)] transition-colors pr-4">
                     {faq.question}
                   </span>
-                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#12544F]/20 text-[#092328] transition-colors group-hover:border-[#2A835F] group-hover:text-[#2A835F]">
+                  <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[var(--surface-border)]/20 text-[#080e1a] transition-colors group-hover:border-[var(--color-accent-primary)] group-hover:text-[var(--color-accent-cyan)]">
                     {isOpen ? (
                       <Minus className="h-4 w-4" />
                     ) : (
@@ -84,7 +84,7 @@ export function LandingFAQ() {
                 </button>
 
                 {isOpen && (
-                  <div className="mt-4 pr-12 text-sm sm:text-base text-[#092328]/80 leading-relaxed font-sans animate-in fade-in duration-200">
+                  <div className="mt-4 pr-12 text-sm sm:text-base text-[#080e1a]/80 leading-relaxed font-sans animate-in fade-in duration-200">
                     <p>{faq.answer}</p>
                   </div>
                 )}

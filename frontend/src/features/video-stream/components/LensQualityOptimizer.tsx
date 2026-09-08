@@ -25,18 +25,18 @@ export function LensQualityOptimizer() {
   };
 
   return (
-    <div className="flex flex-col rounded-xl border border-[#12544F] bg-[#0d3137] p-5 shadow-sm space-y-4 select-none">
+    <div className="flex flex-col rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-5 shadow-sm space-y-4 select-none">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-[#12544F] pb-3">
+      <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-3">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#12544F] border border-[#2A835F] text-[#8BBB92]">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--surface-subtle)] border border-[var(--color-accent-primary)] text-[var(--text-secondary)]">
             <Eye className="h-4 w-4" />
           </div>
           <div>
-            <h3 className="text-sm font-semibold text-[#f0fdf4]">
+            <h3 className="text-sm font-semibold text-[var(--text-primary)]">
               Autonomous Lens Quality Index (LQI) & CLAHE De-Hazing Engine
             </h3>
-            <p className="text-xs text-[#8BBB92]">
+            <p className="text-xs text-[var(--text-secondary)]">
               Real-time Laplacian variance edge blur and soot/mud occlusion detection on Indian bus cameras
             </p>
           </div>
@@ -46,7 +46,7 @@ export function LensQualityOptimizer() {
           className={`rounded border px-2.5 py-1 text-xs font-mono font-bold ${
             isDegraded
               ? 'border-rose-800/40 bg-rose-950/40 text-rose-400'
-              : 'border-[#2A835F] bg-[#12544F] text-[#8BBB92]'
+              : 'border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] text-[var(--text-secondary)]'
           }`}
         >
           LQI CLARITY: {lqiScore}%
@@ -56,35 +56,35 @@ export function LensQualityOptimizer() {
       {/* Optimizer Controls & Metrics */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
         {/* Metric 1: Laplacian Variance */}
-        <div className="rounded-lg border border-[#12544F] bg-[#092328] p-3.5 space-y-1">
-          <span className="text-xs text-[#8BBB92]">Laplacian Focus Score</span>
-          <div className="font-display text-2xl font-bold text-[#f0fdf4]">
-            {Math.round(lqiScore * 2.8)} <span className="text-xs font-mono text-[#8BBB92]">var</span>
+        <div className="rounded-lg border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-3.5 space-y-1">
+          <span className="text-xs text-[var(--text-secondary)]">Laplacian Focus Score</span>
+          <div className="font-display text-2xl font-bold text-[var(--text-primary)]">
+            {Math.round(lqiScore * 2.8)} <span className="text-xs font-mono text-[var(--text-secondary)]">var</span>
           </div>
-          <span className="text-[10px] font-mono text-[#5b9076]">Min Threshold: 120 var</span>
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">Min Threshold: 120 var</span>
         </div>
 
         {/* Metric 2: CLAHE State */}
-        <div className="rounded-lg border border-[#12544F] bg-[#092328] p-3.5 space-y-1">
-          <span className="text-xs text-[#8BBB92]">CLAHE De-Haze Filter</span>
-          <div className="font-display text-2xl font-bold text-[#8BBB92]">
+        <div className="rounded-lg border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-3.5 space-y-1">
+          <span className="text-xs text-[var(--text-secondary)]">CLAHE De-Haze Filter</span>
+          <div className="font-display text-2xl font-bold text-[var(--text-secondary)]">
             {isClaheActive ? 'ACTIVE' : 'BYPASSED'}
           </div>
-          <span className="text-[10px] font-mono text-[#5b9076]">Monsoon & Dust Storm Mode</span>
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">Monsoon & Dust Storm Mode</span>
         </div>
 
         {/* Metric 3: Depot Maintenance */}
-        <div className="rounded-lg border border-[#12544F] bg-[#092328] p-3.5 space-y-1">
-          <span className="text-xs text-[#8BBB92]">Depot Cleaning Trigger</span>
-          <div className={`font-display text-2xl font-bold ${maintenanceAlertLogged ? 'text-rose-400' : 'text-[#8BBB92]'}`}>
+        <div className="rounded-lg border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-3.5 space-y-1">
+          <span className="text-xs text-[var(--text-secondary)]">Depot Cleaning Trigger</span>
+          <div className={`font-display text-2xl font-bold ${maintenanceAlertLogged ? 'text-rose-400' : 'text-[var(--text-secondary)]'}`}>
             {maintenanceAlertLogged ? 'SCHEDULED' : 'CLEAN'}
           </div>
-          <span className="text-[10px] font-mono text-[#5b9076]">Sarojini Nagar Depot Crew</span>
+          <span className="text-[10px] font-mono text-[var(--text-muted)]">Sarojini Nagar Depot Crew</span>
         </div>
       </div>
 
       {/* Live Video Lens Preview with Real-time CSS Filter Pipeline */}
-      <div className="relative h-44 sm:h-52 w-full rounded-xl border border-[#12544F] bg-black overflow-hidden shadow-inner flex items-center justify-center">
+      <div className="relative h-44 sm:h-52 w-full rounded-xl border border-[var(--surface-border)] bg-black overflow-hidden shadow-inner flex items-center justify-center">
         <video
           autoPlay
           loop
@@ -108,11 +108,11 @@ export function LensQualityOptimizer() {
         )}
 
         {/* Live Filter Telemetry HUD */}
-        <div className="absolute top-2 left-2 rounded bg-black/80 px-2 py-0.5 text-[10px] font-mono text-[#8BBB92] border border-[#12544F]">
+        <div className="absolute top-2 left-2 rounded bg-black/80 px-2 py-0.5 text-[10px] font-mono text-[var(--text-secondary)] border border-[var(--surface-border)]">
           LIVE LENS FEED · {isClaheActive ? 'CLAHE EQUALIZED' : 'RAW SENSOR FEED'}
         </div>
 
-        <div className="absolute bottom-2 right-2 rounded bg-black/80 px-2 py-0.5 text-[10px] font-mono text-[#8BBB92] border border-[#12544F]">
+        <div className="absolute bottom-2 right-2 rounded bg-black/80 px-2 py-0.5 text-[10px] font-mono text-[var(--text-secondary)] border border-[var(--surface-border)]">
           LAPLACIAN VAR: {Math.round(lqiScore * 2.8)}
         </div>
       </div>
@@ -122,7 +122,7 @@ export function LensQualityOptimizer() {
         <Button
           variant="secondary"
           size="sm"
-          className="flex-1 bg-[#12544F] text-[#f0fdf4] border-[#2A835F] hover:bg-[#2A835F] text-xs font-semibold"
+          className="flex-1 bg-[var(--surface-subtle)] text-[var(--text-primary)] border-[var(--color-accent-primary)] hover:bg-[#2563eb] text-xs font-semibold"
           onClick={handleTriggerOcclusion}
         >
           <Droplets className="h-3.5 w-3.5 text-amber-400" />
@@ -132,20 +132,20 @@ export function LensQualityOptimizer() {
         <Button
           variant="secondary"
           size="sm"
-          className="flex-1 bg-[#12544F] text-[#f0fdf4] border-[#2A835F] hover:bg-[#2A835F] text-xs font-semibold"
+          className="flex-1 bg-[var(--surface-subtle)] text-[var(--text-primary)] border-[var(--color-accent-primary)] hover:bg-[#2563eb] text-xs font-semibold"
           onClick={() => setIsClaheActive(!isClaheActive)}
         >
-          <Sparkles className="h-3.5 w-3.5 text-[#8BBB92]" />
+          <Sparkles className="h-3.5 w-3.5 text-[var(--text-secondary)]" />
           <span>Toggle Adaptive CLAHE De-Hazing</span>
         </Button>
 
         <Button
           variant="outline"
           size="sm"
-          className="border-[#12544F] text-[#8BBB92] hover:text-[#f0fdf4] text-xs font-semibold"
+          className="border-[var(--surface-border)] text-[var(--text-secondary)] hover:text-[var(--text-primary)] text-xs font-semibold"
           onClick={handleRecalibrateCleanLens}
         >
-          <ShieldCheck className="h-3.5 w-3.5 text-[#8BBB92]" />
+          <ShieldCheck className="h-3.5 w-3.5 text-[var(--text-secondary)]" />
           <span>Recalibrate Optical Clarity</span>
         </Button>
       </div>

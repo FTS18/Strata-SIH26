@@ -1,9 +1,86 @@
 @import "tailwindcss";
 @import "../styles/tokens.css";
 
+:root,
+html.dark,
+[data-theme="dark"] {
+  /* Midnight Navy & Slate Command Center Theme (Default / Dark) */
+  --surface-canvas: #080e1a;        /* Deep Space Midnight Navy Canvas */
+  --surface-panel: #0d1527;         /* Midnight Navy Panel */
+  --surface-subtle: #111c33;        /* Navy Card Surface */
+  --surface-hover: #162238;         /* Card Hover Surface */
+  --surface-active: #1d4ed8;        /* Active Elevated Surface (Royal Blue) */
+  --surface-border: #1e293b;        /* Slate Border */
+  --surface-border-subtle: #152238; /* Subtle Divider */
+
+  /* Accents */
+  --color-accent-primary: #2563eb;  /* Royal Blue */
+  --color-accent-blue: #1d4ed8;     /* Vibrant Blue Pill */
+  --color-accent-cyan: #38bdf8;     /* Electric Sky Cyan */
+  --color-accent-teal: #2dd4bf;     /* Teal Live Status */
+  
+  /* Text */
+  --text-primary: #f8fafc;          /* High-Contrast Crisp White */
+  --text-secondary: #94a3b8;        /* Cool Slate Secondary Text */
+  --text-muted: #64748b;            /* Muted Slate Text */
+  --text-inverse: #080e1a;          /* Inverse Dark Text */
+
+  /* Status Tokens */
+  --status-good: #10b981;
+  --status-warning: #f59e0b;
+  --status-critical: #ef4444;
+  --status-transit: #38bdf8;
+}
+
+html.light,
+[data-theme="light"] {
+  /* Crisp Modern Civic Intelligence Light Theme */
+  --surface-canvas: #f8fafc;        /* Off-white Crisp Canvas */
+  --surface-panel: #ffffff;         /* Pure Clean White Panel */
+  --surface-subtle: #f1f5f9;        /* Subtle Light Slate Surface */
+  --surface-hover: #e2e8f0;         /* Card Hover Surface */
+  --surface-active: #2563eb;        /* Active Royal Blue Pill */
+  --surface-border: #cbd5e1;        /* Clean Hairline Border */
+  --surface-border-subtle: #e2e8f0; /* Soft Divider */
+
+  /* Accents */
+  --color-accent-primary: #2563eb;  /* Royal Blue */
+  --color-accent-blue: #1d4ed8;     /* Active Pill Blue */
+  --color-accent-cyan: #0284c7;     /* Sky/Cyan */
+  --color-accent-teal: #0d9488;     /* Teal Status */
+
+  /* Text */
+  --text-primary: #0f172a;          /* Slate-900 Off-Black */
+  --text-secondary: #475569;        /* Slate-600 Secondary */
+  --text-muted: #94a3b8;            /* Slate-400 Muted */
+  --text-inverse: #ffffff;          /* Inverse White */
+
+  /* Status Tokens */
+  --status-good: #059669;
+  --status-warning: #d97706;
+  --status-critical: #dc2626;
+  --status-transit: #0284c7;
+}
+
 @theme {
+  --color-canvas: var(--surface-canvas);
+  --color-panel: var(--surface-panel);
+  --color-card: var(--surface-subtle);
+  --color-card-hover: var(--surface-hover);
+  --color-active: var(--surface-active);
+  --color-border: var(--surface-border);
+  --color-border-subtle: var(--surface-border-subtle);
+
+  --color-accent-primary: var(--color-accent-primary);
+  --color-accent-cyan: var(--color-accent-cyan);
+  --color-accent-teal: var(--color-accent-teal);
+
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+
   --font-sans: var(--font-bricolage), 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-display: var(--font-anton), 'Anton', Impact, sans-serif;
+  --font-display: var(--font-display), 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-mono: var(--font-bricolage), 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
@@ -21,8 +98,8 @@
   body {
     min-height: 100%;
     width: 100%;
-    background-color: #092328;
-    color: #f0fdf4;
+    background-color: var(--surface-canvas);
+    color: var(--text-primary);
     font-family: 'Bricolage Grotesque', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -30,26 +107,26 @@
 
   /* Dot matrix grid texture from landing page */
   .bg-dot-grid {
-    background-image: radial-gradient(rgba(29, 109, 99, 0.25) 1px, transparent 1px);
+    background-image: radial-gradient(rgba(30, 41, 59, 0.25) 1px, transparent 1px);
     background-size: 24px 24px;
   }
 
   .bg-dot-grid-light {
-    background-image: radial-gradient(rgba(18, 84, 79, 0.18) 1.2px, transparent 1.2px);
+    background-image: radial-gradient(rgba(17, 28, 51, 0.18) 1.2px, transparent 1.2px);
     background-size: 20px 20px;
   }
 
   .bg-line-grid {
     background-size: 40px 40px;
     background-image: 
-      linear-gradient(to right, rgba(29, 109, 99, 0.12) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(29, 109, 99, 0.12) 1px, transparent 1px);
+      linear-gradient(to right, rgba(30, 41, 59, 0.12) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(30, 41, 59, 0.12) 1px, transparent 1px);
   }
 
-  /* Ultra-Bold Condensed Display Font (Anton) */
+  /* Technical Geometric Display Font (Space Grotesk) */
   .font-display {
-    font-family: 'Anton', impact, sans-serif;
-    letter-spacing: 0.04em;
+    font-family: var(--font-display), 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+    letter-spacing: 0.02em;
   }
 
   /* Proportional Tabular Numbers (Bricolage Grotesque) */
@@ -65,17 +142,23 @@
     height: 4px;
   }
 
+  /* Custom Sleek Scrollbar */
+  ::-webkit-scrollbar {
+    width: 4px;
+    height: 4px;
+  }
+
   ::-webkit-scrollbar-track {
     background: transparent;
   }
 
   ::-webkit-scrollbar-thumb {
-    background: #12544F;
+    background: var(--surface-border);
     border-radius: 9999px;
   }
 
   ::-webkit-scrollbar-thumb:hover {
-    background: #2A835F;
+    background: var(--color-accent-primary);
   }
 
   /* Hide Next.js Dev Indicator completely so it doesn't block the footer */
@@ -86,18 +169,18 @@
     display: none !important;
   }
 
-  /* MapLibre Dark Teal & Sage Controls */
+  /* MapLibre Controls (Adaptive Theme) */
   .maplibregl-ctrl-group {
-    background-color: #0d3137 !important;
-    border: 1px solid #1d6d63 !important;
+    background-color: var(--surface-panel) !important;
+    border: 1px solid var(--surface-border) !important;
     border-radius: 6px !important;
     overflow: hidden;
-    box-shadow: 0 4px 12px rgba(9, 35, 40, 0.8) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12) !important;
   }
 
   .maplibregl-ctrl-group button {
-    background-color: #0d3137 !important;
-    border-bottom: 1px solid #144943 !important;
+    background-color: var(--surface-panel) !important;
+    border-bottom: 1px solid var(--surface-border-subtle) !important;
     width: 28px !important;
     height: 28px !important;
   }
@@ -107,10 +190,14 @@
   }
 
   .maplibregl-ctrl-group button:hover {
-    background-color: #12544F !important;
+    background-color: var(--surface-hover) !important;
   }
 
-  .maplibregl-ctrl-icon {
-    filter: invert(75%) sepia(20%) saturate(400%) hue-rotate(85deg) brightness(95%) contrast(90%) !important;
+  html.dark .maplibregl-ctrl-icon {
+    filter: invert(90%) !important;
+  }
+
+  html.light .maplibregl-ctrl-icon {
+    filter: invert(15%) !important;
   }
 }

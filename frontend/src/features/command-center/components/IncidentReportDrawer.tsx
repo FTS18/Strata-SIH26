@@ -162,7 +162,7 @@ export function IncidentReportDrawer({
             variant="outline"
             size="sm"
             onClick={onClose}
-            className="border-[#12544F] bg-[#092328] text-[#8BBB92] hover:bg-[#12544F]/50 hover:text-[#f0fdf4] font-mono text-xs"
+            className="border-[var(--surface-border)] bg-[var(--surface-canvas)] text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]/50 hover:text-[var(--text-primary)] font-mono text-xs"
           >
             Close
           </Button>
@@ -184,7 +184,7 @@ export function IncidentReportDrawer({
               variant="primary"
               size="sm"
               disabled={isPublishing}
-              className="bg-emerald-600 border border-emerald-400 text-[#f0fdf4] hover:bg-emerald-500 font-mono text-xs font-semibold shadow-lg shadow-emerald-900/50 flex items-center gap-1.5"
+              className="bg-emerald-600 border border-emerald-400 text-[var(--text-primary)] hover:bg-emerald-500 font-mono text-xs font-semibold shadow-lg shadow-emerald-900/50 flex items-center gap-1.5"
               onClick={handlePublish}
             >
               <Send className="h-3.5 w-3.5 text-white" />
@@ -195,7 +195,7 @@ export function IncidentReportDrawer({
       }
     >
       {/* 1. Perspective Switcher */}
-      <div className="flex items-center justify-between gap-2 bg-[#092328] p-1 rounded-lg border border-[#12544F]">
+      <div className="flex items-center justify-between gap-2 bg-[var(--surface-canvas)] p-1 rounded-lg border border-[var(--surface-border)]">
         <button
           type="button"
           onClick={() => {
@@ -204,8 +204,8 @@ export function IncidentReportDrawer({
           }}
           className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-md text-[11px] font-mono font-semibold transition-all duration-200 ${
             evidenceMode === 'crop'
-              ? 'bg-[#12544F] text-[#f0fdf4] shadow-sm border border-[#2A835F]'
-              : 'text-[#8BBB92] hover:text-[#f0fdf4] hover:bg-[#0d3137]'
+              ? 'bg-[var(--surface-subtle)] text-[var(--text-primary)] shadow-sm border border-[var(--color-accent-primary)]'
+              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-panel)]'
           }`}
         >
           <ZoomIn className="h-3.5 w-3.5 text-emerald-400" />
@@ -219,8 +219,8 @@ export function IncidentReportDrawer({
           }}
           className={`flex-1 flex items-center justify-center gap-1.5 py-1.5 px-2 rounded-md text-[11px] font-mono font-semibold transition-all duration-200 ${
             evidenceMode === 'context'
-              ? 'bg-[#12544F] text-[#f0fdf4] shadow-sm border border-[#2A835F]'
-              : 'text-[#8BBB92] hover:text-[#f0fdf4] hover:bg-[#0d3137]'
+              ? 'bg-[var(--surface-subtle)] text-[var(--text-primary)] shadow-sm border border-[var(--color-accent-primary)]'
+              : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-panel)]'
           }`}
         >
           <Layers className="h-3.5 w-3.5 text-cyan-400" />
@@ -229,7 +229,7 @@ export function IncidentReportDrawer({
       </div>
 
       {/* 2. Photographic Defect & Violation Evidence Snapshot */}
-      <div className="relative overflow-hidden rounded-xl border border-[#12544F] bg-[#092328] shadow-xl">
+      <div className="relative overflow-hidden rounded-xl border border-[var(--surface-border)] bg-[var(--surface-canvas)] shadow-xl">
         <img
           key={activeImageSrc}
           src={activeImageSrc}
@@ -239,15 +239,15 @@ export function IncidentReportDrawer({
         />
 
         {/* HUD Overlay */}
-        <div className="absolute inset-0 pointer-events-none p-3 flex flex-col justify-between bg-gradient-to-t from-[#092328]/90 via-transparent to-[#092328]/70">
-          <div className="flex items-center justify-between text-[10px] font-mono text-[#8BBB92]">
-            <div className="flex items-center gap-1.5 rounded bg-[#092328]/90 px-2 py-0.5 border border-[#12544F]">
+        <div className="absolute inset-0 pointer-events-none p-3 flex flex-col justify-between bg-gradient-to-t from-[#080e1a]/90 via-transparent to-[#080e1a]/70">
+          <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-secondary)]">
+            <div className="flex items-center gap-1.5 rounded bg-[var(--surface-canvas)]/90 px-2 py-0.5 border border-[var(--surface-border)]">
               <Cpu className="h-3 w-3 text-emerald-400" />
-              <span className="text-[#f0fdf4] font-bold">
+              <span className="text-[var(--text-primary)] font-bold">
                 {evidenceMode === 'crop' ? 'MACRO OPTICAL EVIDENCE CROP · 3.2X' : 'CAM 1 · FRONT (4K)'}
               </span>
             </div>
-            <div className="rounded bg-[#092328]/90 px-2 py-0.5 border border-[#12544F] text-[#8BBB92]">
+            <div className="rounded bg-[var(--surface-canvas)]/90 px-2 py-0.5 border border-[var(--surface-border)] text-[var(--text-secondary)]">
               Auto-Captured
             </div>
           </div>
@@ -256,21 +256,21 @@ export function IncidentReportDrawer({
           {evidenceMode === 'crop' && (
             <div className="mx-auto my-auto w-44 h-24 border border-dashed border-emerald-400/80 rounded relative flex flex-col justify-between p-1 bg-emerald-950/20">
               <div className="flex items-center justify-between text-[8px] font-mono text-emerald-300">
-                <span className="bg-[#092328]/90 px-1 py-0.2 rounded border border-emerald-500/50 flex items-center gap-1">
+                <span className="bg-[var(--surface-canvas)]/90 px-1 py-0.2 rounded border border-emerald-500/50 flex items-center gap-1">
                   <Crosshair className="h-2.5 w-2.5 text-emerald-400" />
                   {defect ? defect.type.toUpperCase() : 'VIOLATION TARGET'}
                 </span>
-                <span className="bg-[#092328]/90 px-1 py-0.2 rounded border border-emerald-500/50">
+                <span className="bg-[var(--surface-canvas)]/90 px-1 py-0.2 rounded border border-emerald-500/50">
                   {defect?.depthCm ? `Depth: ${defect.depthCm}` : incident?.speedKmH ? `${incident.speedKmH} km/h` : 'VERIFIED'}
                 </span>
               </div>
-              <div className="text-center font-mono text-[9px] text-emerald-200 bg-[#092328]/80 px-1 py-0.5 rounded border border-emerald-500/40 self-center">
+              <div className="text-center font-mono text-[9px] text-emerald-200 bg-[var(--surface-canvas)]/80 px-1 py-0.5 rounded border border-emerald-500/40 self-center">
                 {defect ? '54 cm (W) × 28 cm (L)' : incident?.suspectPlate || 'RADAR LOCKED'}
               </div>
             </div>
           )}
 
-          <div className="flex items-center justify-between text-[9px] font-mono text-[#8BBB92] bg-[#092328]/85 px-2 py-0.5 rounded border border-[#12544F]">
+          <div className="flex items-center justify-between text-[9px] font-mono text-[var(--text-secondary)] bg-[var(--surface-canvas)]/85 px-2 py-0.5 rounded border border-[var(--surface-border)]">
             <span>{item.coords.lat.toFixed(5)}°N, {item.coords.lng.toFixed(5)}°E</span>
             <span className="text-emerald-400 font-bold">PHYSICAL EVIDENCE LOGGED</span>
           </div>
@@ -294,13 +294,13 @@ export function IncidentReportDrawer({
       )}
 
       {/* 4. Telemetry & Sensor Ledger */}
-      <div className="rounded-xl border border-[#12544F] bg-[#0d3137] divide-y divide-[#12544F] text-xs font-mono">
+      <div className="rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] divide-y divide-[var(--surface-border)] text-xs font-mono shadow-xs">
         <div className="flex items-center justify-between p-3">
-          <div className="flex items-center gap-1.5 text-[#8BBB92]">
-            <MapPin className="h-3.5 w-3.5 text-[#5b9076]" />
+          <div className="flex items-center gap-1.5 text-[var(--text-secondary)]">
+            <MapPin className="h-3.5 w-3.5 text-[var(--text-muted)]" />
             <span>Corridor / Road</span>
           </div>
-          <span className="font-semibold text-[#f0fdf4] text-right truncate max-w-[60%]">
+          <span className="font-semibold text-[var(--text-primary)] text-right truncate max-w-[60%]">
             {defect ? defect.roadName : incident?.locationName}
           </span>
         </div>
@@ -308,12 +308,12 @@ export function IncidentReportDrawer({
         {defect && (
           <>
             <div className="flex items-center justify-between p-3">
-              <span className="text-[#8BBB92]">Estimated Surface Area</span>
-              <span className="tabular-nums text-[#f0fdf4] font-bold">{defect.estimatedAreaSqM} m²</span>
+              <span className="text-[var(--text-secondary)]">Estimated Surface Area</span>
+              <span className="tabular-nums text-[var(--text-primary)] font-bold">{defect.estimatedAreaSqM} m²</span>
             </div>
             <div className="flex items-center justify-between p-3">
-              <span className="text-[#8BBB92]">IMU Z-Axis Impact</span>
-              <span className="tabular-nums font-bold text-rose-400">{defect.imuVibrationZ}g</span>
+              <span className="text-[var(--text-secondary)]">IMU Z-Axis Impact</span>
+              <span className="tabular-nums font-bold text-rose-600 dark:text-rose-400">{defect.imuVibrationZ}g</span>
             </div>
           </>
         )}
@@ -322,16 +322,16 @@ export function IncidentReportDrawer({
           <>
             {incident.suspectPlate && (
               <div className="flex items-center justify-between p-3">
-                <span className="text-[#8BBB92]">Vehicle Registration</span>
-                <span className="font-bold text-amber-300 bg-[#092328] px-2 py-0.5 rounded border border-amber-600/50">
+                <span className="text-[var(--text-secondary)]">Vehicle Registration</span>
+                <span className="font-bold text-amber-900 bg-amber-100 border border-amber-300 dark:text-amber-300 dark:bg-[var(--surface-canvas)] dark:border-amber-600/50 px-2 py-0.5 rounded">
                   {incident.suspectPlate}
                 </span>
               </div>
             )}
             {incident.speedKmH && (
               <div className="flex items-center justify-between p-3">
-                <span className="text-[#8BBB92]">Radar Speed Clocked</span>
-                <span className="tabular-nums font-bold text-rose-400 flex items-center gap-1">
+                <span className="text-[var(--text-secondary)]">Radar Speed Clocked</span>
+                <span className="tabular-nums font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1">
                   <Gauge className="h-3.5 w-3.5" />
                   {incident.speedKmH} km/h (Limit: 50 km/h)
                 </span>
@@ -341,25 +341,25 @@ export function IncidentReportDrawer({
         )}
 
         <div className="flex items-center justify-between p-3">
-          <div className="flex items-center gap-1.5 text-[#8BBB92]">
-            <Bus className="h-3.5 w-3.5 text-[#5b9076]" />
+          <div className="flex items-center gap-1.5 text-[var(--text-secondary)]">
+            <Bus className="h-3.5 w-3.5 text-[var(--text-muted)]" />
             <span>Sensing Vehicle Unit</span>
           </div>
-          <span className="text-[#8BBB92] font-bold">
+          <span className="text-[var(--text-secondary)] font-bold">
             {defect ? defect.detectedByBusId : incident?.reportedByBusId}
           </span>
         </div>
 
         <div className="flex items-center justify-between p-3">
-          <span className="text-[#8BBB92]">Assigned Authority</span>
-          <span className="text-[#f0fdf4] font-semibold">{item.assignedAgency || 'Public Works Department (PWD)'}</span>
+          <span className="text-[var(--text-secondary)]">Assigned Authority</span>
+          <span className="text-[var(--text-primary)] font-semibold">{item.assignedAgency || 'Public Works Department (PWD)'}</span>
         </div>
       </div>
 
       {/* 5. Editable Inspector Observations & Action Plan */}
       <div className="space-y-1.5">
-        <label className="text-xs font-mono text-[#8BBB92] flex items-center gap-1.5 font-semibold">
-          <FileText className="h-3.5 w-3.5 text-[#5b9076]" />
+        <label className="text-xs font-mono text-[var(--text-secondary)] flex items-center gap-1.5 font-semibold">
+          <FileText className="h-3.5 w-3.5 text-[var(--text-muted)]" />
           <span>Official Inspector Remarks & Action Order</span>
         </label>
         <textarea
@@ -367,7 +367,7 @@ export function IncidentReportDrawer({
           disabled={isPublished}
           onChange={(e) => setNotes(e.target.value)}
           rows={3}
-          className="w-full rounded-lg border border-[#12544F] bg-[#092328] p-2.5 text-xs font-mono text-[#f0fdf4] focus:outline-none focus:border-emerald-500 disabled:opacity-60 resize-none"
+          className="w-full rounded-lg border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-2.5 text-xs font-mono text-[var(--text-primary)] focus:outline-none focus:border-emerald-500 disabled:opacity-60 resize-none"
           placeholder="Enter inspector remarks and corrective instructions..."
         />
       </div>

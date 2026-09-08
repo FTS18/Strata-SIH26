@@ -132,18 +132,18 @@ export function CameraQuadGrid({
   };
 
   return (
-    <div className="flex flex-col space-y-2 rounded-xl border border-[#12544F] bg-[#0d3137]/90 p-3 shadow-md h-full">
+    <div className="flex flex-col space-y-2 rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-3 shadow-md h-full">
       {/* Top View Mode & Camera Selector Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#12544F]/70 pb-2.5 font-mono text-xs">
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--surface-border)] pb-2.5 font-mono text-xs">
         {/* Title and subtitle */}
         <div className="flex items-center gap-2">
-          <div className="flex items-center justify-center h-4 w-4 text-[#00e5bf]">
-            <Camera className="h-4 w-4 text-[#00e5bf]" />
+          <div className="flex items-center justify-center h-4 w-4 text-[var(--color-accent-primary)]">
+            <Camera className="h-4 w-4 text-[var(--color-accent-primary)]" />
           </div>
-          <span className="font-bold text-white tracking-wider uppercase text-xs">
+          <span className="font-bold text-[var(--text-primary)] tracking-wider uppercase text-xs">
             LIVE CAMERA FEEDS
           </span>
-          <span className="hidden xl:inline text-[11px] text-[#8BBB92]/80">
+          <span className="hidden xl:inline text-[11px] text-[var(--text-secondary)]">
             4 Angles • Real-time Monitoring
           </span>
         </div>
@@ -162,10 +162,10 @@ export function CameraQuadGrid({
                     onViewModeChange('single');
                   }
                 }}
-                className={`rounded-md px-2 py-1 text-[11px] font-mono uppercase tracking-wider transition-all cursor-pointer ${
+                className={`rounded-md px-2 py-1 text-[11px] font-mono uppercase tracking-wider transition-all cursor-pointer select-none ${
                   isSelected
-                    ? 'bg-[#12544F] border border-[#00e5bf]/70 text-white font-bold shadow-sm'
-                    : 'bg-[#092328] border border-[#12544F] text-[#8BBB92] hover:bg-[#12544F]/40 hover:text-white'
+                    ? 'bg-blue-600 text-white font-bold shadow-xs'
+                    : 'bg-[var(--surface-canvas)] border border-[var(--surface-border)] text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {feed.shortName}
@@ -177,10 +177,10 @@ export function CameraQuadGrid({
           <button
             type="button"
             onClick={() => onViewModeChange('grid')}
-            className={`flex items-center justify-center rounded-md p-1 border transition-colors cursor-pointer ${
+            className={`flex items-center justify-center rounded-md p-1 border transition-colors cursor-pointer select-none ${
               viewMode === 'grid'
-                ? 'bg-[#12544F] border-[#00e5bf] text-white'
-                : 'bg-[#092328] border-[#12544F] text-[#8BBB92] hover:bg-[#12544F]/50'
+                ? 'bg-blue-600 border-blue-600 text-white shadow-xs'
+                : 'bg-[var(--surface-canvas)] border-[var(--surface-border)] text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)] hover:text-[var(--text-primary)]'
             }`}
             title="2x2 Grid View"
           >
@@ -191,10 +191,10 @@ export function CameraQuadGrid({
           <button
             type="button"
             onClick={() => onViewModeChange('single')}
-            className={`flex items-center justify-center rounded-md p-1 border transition-colors cursor-pointer ${
+            className={`flex items-center justify-center rounded-md p-1 border transition-colors cursor-pointer select-none ${
               viewMode === 'single'
-                ? 'bg-[#12544F] border-[#00e5bf] text-white'
-                : 'bg-[#092328] border-[#12544F] text-[#8BBB92] hover:bg-[#12544F]/50'
+                ? 'bg-blue-600 border-blue-600 text-white shadow-xs'
+                : 'bg-[var(--surface-canvas)] border-[var(--surface-border)] text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)] hover:text-[var(--text-primary)]'
             }`}
             title="Single Focus View"
           >
@@ -220,10 +220,10 @@ export function CameraQuadGrid({
             type="button"
             disabled={isUploading}
             onClick={() => fileInputRef.current?.click()}
-            className="flex items-center gap-1 rounded-md border border-[#2A835F] bg-[#12544F] px-1.5 py-1 text-[10px] font-mono text-[#f0fdf4] hover:bg-[#2A835F] transition-all cursor-pointer shadow-sm disabled:opacity-50"
+            className="flex items-center gap-1 rounded-md border border-[var(--surface-border)] bg-[var(--surface-canvas)] px-2 py-1 text-[10px] font-mono font-semibold text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)] hover:text-[var(--text-primary)] transition-all cursor-pointer shadow-xs disabled:opacity-50"
             title={`Upload footage for ${activeCam.shortName}`}
           >
-            <Upload className="h-3 w-3 text-[#8BBB92]" />
+            <Upload className="h-3 w-3 text-[var(--text-secondary)]" />
             <span className="hidden sm:inline">{isUploading ? '...' : 'Upload'}</span>
           </button>
 
@@ -231,17 +231,17 @@ export function CameraQuadGrid({
             <button
               type="button"
               onClick={() => onResetFootage(selectedCamId)}
-              className="flex items-center gap-1 rounded-md border border-amber-800/80 bg-amber-950/40 px-1.5 py-1 text-[10px] font-mono text-amber-300 hover:bg-amber-900/60 transition-colors cursor-pointer"
+              className="flex items-center gap-1 rounded-md border border-amber-300 bg-amber-50 dark:border-amber-800/80 dark:bg-amber-950/40 px-1.5 py-1 text-[10px] font-mono text-amber-800 dark:text-amber-300 hover:bg-amber-100 dark:hover:bg-amber-900/60 transition-colors cursor-pointer"
               title="Reset footage"
             >
-              <RotateCcw className="h-3 w-3 text-amber-400" />
+              <RotateCcw className="h-3 w-3 text-amber-600 dark:text-amber-400" />
             </button>
           )}
 
           <button
             type="button"
             onClick={onExpandModal}
-            className="flex items-center justify-center rounded-md bg-[#092328] p-1 text-[#8BBB92] hover:text-white border border-[#12544F] transition-colors cursor-pointer"
+            className="flex items-center justify-center rounded-md bg-[var(--surface-canvas)] p-1 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--surface-subtle)] border border-[var(--surface-border)] transition-colors cursor-pointer"
             title="Expand Fullscreen"
           >
             <Maximize2 className="h-3.5 w-3.5" />
@@ -269,7 +269,7 @@ export function CameraQuadGrid({
               <div
                 key={feed.id}
                 onClick={() => handleQuadrantClick(feed.id)}
-                className="group relative flex items-center justify-center rounded-lg border border-[#12544F] hover:border-[#00e5bf] bg-black overflow-hidden shadow-lg cursor-pointer transition-all duration-150"
+                className="group relative flex items-center justify-center rounded-lg border border-[var(--surface-border)] hover:border-[#00e5bf] bg-black overflow-hidden shadow-lg cursor-pointer transition-all duration-150"
                 title={`Click to focus ${feed.label}`}
               >
                 {/* Live MJPEG Stream for this quadrant */}
@@ -290,35 +290,35 @@ export function CameraQuadGrid({
 
                 {/* Top Overlay Badges */}
                 <div className="absolute top-2 inset-x-2 flex items-center justify-between z-10 pointer-events-none font-mono text-[10px]">
-                  <div className="flex items-center gap-1.5 rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 border border-[#12544F]/80">
+                  <div className="flex items-center gap-1.5 rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 border border-[var(--surface-border)]/80">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     <span className="font-bold text-white uppercase">{angleLabel}</span>
                   </div>
 
-                  <div className="rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 border border-[#12544F]/80 text-[#8BBB92]">
+                  <div className="rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 border border-[var(--surface-border)]/80 text-[var(--text-secondary)]">
                     {currentTime}
                   </div>
                 </div>
 
                 {/* Bottom Left Live Badge */}
                 <div className="absolute bottom-2 left-2 z-10 pointer-events-none font-mono text-[10px]">
-                  <div className="flex items-center gap-1.5 rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 border border-[#12544F]/80">
+                  <div className="flex items-center gap-1.5 rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 border border-[var(--surface-border)]/80">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="text-[#f0fdf4]">Live</span>
+                    <span className="text-[var(--text-primary)]">Live</span>
                   </div>
                 </div>
 
                 {/* Hover Cue Center Overlay */}
                 <div className="absolute inset-0 z-20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150 bg-black/40 pointer-events-none">
-                  <div className="flex items-center gap-1.5 rounded-md bg-[#12544F]/90 border border-[#8BBB92] px-2.5 py-1 text-[10px] font-mono font-bold text-[#f0fdf4] shadow-lg">
-                    <Square className="h-3 w-3 text-[#8BBB92]" />
+                  <div className="flex items-center gap-1.5 rounded-md bg-[var(--surface-subtle)]/90 border border-[#94a3b8] px-2.5 py-1 text-[10px] font-mono font-bold text-[var(--text-primary)] shadow-lg">
+                    <Square className="h-3 w-3 text-[var(--text-secondary)]" />
                     <span>CLICK TO FOCUS (1-UP)</span>
                   </div>
                 </div>
 
                 {/* Bottom Right Detection Summary */}
                 {summary && (
-                  <div className="absolute bottom-2 right-2 z-10 pointer-events-none font-mono text-[9px] rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 border border-[#12544F]/80 text-[#8BBB92]">
+                  <div className="absolute bottom-2 right-2 z-10 pointer-events-none font-mono text-[9px] rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 border border-[var(--surface-border)]/80 text-[var(--text-secondary)]">
                     {summary.vehicles} VEH · {summary.potholes} DEF
                   </div>
                 )}
@@ -330,7 +330,7 @@ export function CameraQuadGrid({
         /* ================= 1-UP SINGLE FOCUS VIEW ================= */
         <div
           onClick={() => handleQuadrantClick(selectedCamId)}
-          className="group relative flex flex-1 min-h-0 w-full items-center justify-center rounded-xl border-2 border-[#12544F] hover:border-[#8BBB92] bg-black overflow-hidden shadow-2xl cursor-pointer transition-all"
+          className="group relative flex flex-1 min-h-0 w-full items-center justify-center rounded-xl border-2 border-[var(--surface-border)] hover:border-[#94a3b8] bg-black overflow-hidden shadow-2xl cursor-pointer transition-all"
           title="Click feed to return to 2x2 Quad Grid"
         >
           {/* Focused Live MJPEG Stream */}
@@ -353,11 +353,11 @@ export function CameraQuadGrid({
           {/* Telemetry Header & Footer HUD Overlay */}
           <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-2.5 sm:p-3 bg-gradient-to-t from-black/60 via-transparent to-black/40 z-20">
             {/* Top HUD Row */}
-            <div className="flex items-center justify-between text-[10px] font-mono text-[#8BBB92]">
-              <div className="flex items-center gap-1.5 rounded bg-black/80 px-2 py-0.5 border border-[#12544F]">
+            <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-secondary)]">
+              <div className="flex items-center gap-1.5 rounded bg-black/80 px-2 py-0.5 border border-[var(--surface-border)]">
                 <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-[#f0fdf4] font-bold">JETSON ORIN NANO</span>
-                <span className="text-[#8BBB92]">· {avgFleetFps.toFixed(1)} FPS (LIVE)</span>
+                <span className="text-[var(--text-primary)] font-bold">JETSON ORIN NANO</span>
+                <span className="text-[var(--text-secondary)]">· {avgFleetFps.toFixed(1)} FPS (LIVE)</span>
               </div>
 
               <div className="flex items-center gap-1.5 pointer-events-auto">
@@ -368,14 +368,14 @@ export function CameraQuadGrid({
                     e.stopPropagation();
                     onViewModeChange('grid');
                   }}
-                  className="flex items-center gap-1 rounded bg-[#12544F] px-2 py-0.5 border border-[#2A835F] text-[9px] font-bold font-mono text-[#f0fdf4] hover:bg-[#2A835F] transition-colors cursor-pointer shadow-sm"
+                  className="flex items-center gap-1 rounded bg-[var(--surface-subtle)] px-2 py-0.5 border border-[var(--color-accent-primary)] text-[9px] font-bold font-mono text-[var(--text-primary)] hover:bg-[#2563eb] transition-colors cursor-pointer shadow-sm"
                   title="Return to 2x2 Grid"
                 >
-                  <LayoutGrid className="h-3 w-3 text-[#8BBB92]" />
+                  <LayoutGrid className="h-3 w-3 text-[var(--text-secondary)]" />
                   <span>BACK TO 2x2 GRID</span>
                 </button>
 
-                <div className="rounded bg-black/80 px-2 py-0.5 border border-[#12544F] text-[#8BBB92]">
+                <div className="rounded bg-black/80 px-2 py-0.5 border border-[var(--surface-border)] text-[var(--text-secondary)]">
                   {activeCam.label}
                 </div>
               </div>
@@ -383,16 +383,16 @@ export function CameraQuadGrid({
 
             {/* Center Hover Cue */}
             <div className="flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-150 pointer-events-none">
-              <div className="flex items-center gap-1.5 rounded-md bg-[#0d3137]/90 border border-[#8BBB92] px-3 py-1.5 text-xs font-mono font-bold text-[#f0fdf4] shadow-lg">
-                <LayoutGrid className="h-3.5 w-3.5 text-[#8BBB92]" />
+              <div className="flex items-center gap-1.5 rounded-md bg-[var(--surface-panel)]/90 border border-[#94a3b8] px-3 py-1.5 text-xs font-mono font-bold text-[var(--text-primary)] shadow-lg">
+                <LayoutGrid className="h-3.5 w-3.5 text-[var(--text-secondary)]" />
                 <span>CLICK ANYWHERE TO RETURN TO 2x2 GRID</span>
               </div>
             </div>
 
             {/* Bottom Telemetry Footer */}
-            <div className="flex items-center justify-between text-[10px] font-mono text-[#8BBB92] bg-black/80 px-2.5 py-1 rounded border border-[#12544F]">
+            <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-secondary)] bg-black/80 px-2.5 py-1 rounded border border-[var(--surface-border)]">
               <span className="truncate max-w-[55%]">MODEL: {activeCam.model}</span>
-              <span className="text-[#f0fdf4] font-bold hidden sm:inline">
+              <span className="text-[var(--text-primary)] font-bold hidden sm:inline">
                 ACCELERATION: DIRECT3D/NVDEC
               </span>
               <span className="text-emerald-400 font-semibold flex items-center gap-1">

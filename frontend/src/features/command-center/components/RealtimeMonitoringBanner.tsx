@@ -5,61 +5,61 @@ import { Video, ShieldCheck, Activity, Cpu, Wifi } from 'lucide-react';
 
 export function RealtimeMonitoringBanner() {
   return (
-    <div className="relative flex-1 min-h-[140px] flex flex-col justify-between rounded-xl border border-[#12544F] bg-gradient-to-br from-[#0d3137] via-[#0b2b31] to-[#092328] p-4 overflow-hidden shadow-md">
+    <div className="relative flex-1 min-h-[140px] flex flex-col justify-between rounded-xl border border-[var(--surface-border)] bg-gradient-to-br from-[var(--surface-panel)] via-[var(--surface-subtle)]/50 to-[var(--surface-canvas)] p-4 overflow-hidden shadow-md">
       {/* Top Header Row */}
       <div className="flex items-start justify-between gap-3 z-10">
         <div className="flex items-center gap-3.5">
-          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[#12544F]/80 border border-[#2A835F] text-[#00e5bf] shadow-[0_0_12px_rgba(0,229,191,0.2)]">
+          <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-[var(--surface-canvas)] border border-[var(--surface-border)] text-[var(--color-accent-primary)] shadow-xs">
             <Video className="h-5 w-5" />
           </div>
           <div className="flex flex-col">
-            <span className="text-sm font-bold text-[#f0fdf4] font-mono tracking-tight">
+            <span className="text-sm font-bold text-[var(--text-primary)] font-mono tracking-tight">
               Real-time Monitoring
             </span>
-            <span className="text-xs text-[#8BBB92] font-mono">
+            <span className="text-xs text-[var(--text-secondary)] font-mono">
               AI + IoT Powered Urban Infrastructure Safety
             </span>
           </div>
         </div>
 
         {/* Live Active Badge */}
-        <div className="flex items-center gap-1.5 rounded-full border border-emerald-500/40 bg-emerald-950/40 px-2.5 py-1 text-[10px] font-mono text-emerald-400">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+        <div className="flex items-center gap-1.5 rounded-full border border-emerald-300 bg-emerald-50 dark:border-emerald-500/40 dark:bg-emerald-950/40 px-2.5 py-1 text-[10px] font-mono text-emerald-800 dark:text-emerald-400">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
           <span className="font-semibold tracking-wide">ACTIVE</span>
         </div>
       </div>
 
       {/* Middle Telemetry Badges Grid */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-3 z-10 font-mono text-[10px]">
-        <div className="flex items-center gap-1.5 rounded-lg border border-[#12544F]/60 bg-[#092328]/80 px-2.5 py-1.5 text-[#8BBB92]">
-          <Cpu className="h-3.5 w-3.5 text-[#00e5bf]" />
+        <div className="flex items-center gap-1.5 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)]/90 px-2.5 py-1.5 text-[var(--text-secondary)] shadow-xs">
+          <Cpu className="h-3.5 w-3.5 text-blue-600 dark:text-[#38bdf8]" />
           <div className="flex flex-col">
-            <span className="text-[9px] text-[#8BBB92]/80">LATENCY</span>
-            <span className="font-bold text-white">14ms Edge</span>
+            <span className="text-[9px] text-[var(--text-muted)]">LATENCY</span>
+            <span className="font-bold text-[var(--text-primary)]">14ms Edge</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 rounded-lg border border-[#12544F]/60 bg-[#092328]/80 px-2.5 py-1.5 text-[#8BBB92]">
-          <Activity className="h-3.5 w-3.5 text-emerald-400" />
+        <div className="flex items-center gap-1.5 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)]/90 px-2.5 py-1.5 text-[var(--text-secondary)] shadow-xs">
+          <Activity className="h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400" />
           <div className="flex flex-col">
-            <span className="text-[9px] text-[#8BBB92]/80">STREAM</span>
-            <span className="font-bold text-white">4K @ 30 FPS</span>
+            <span className="text-[9px] text-[var(--text-muted)]">STREAM</span>
+            <span className="font-bold text-[var(--text-primary)]">4K @ 30 FPS</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 rounded-lg border border-[#12544F]/60 bg-[#092328]/80 px-2.5 py-1.5 text-[#8BBB92]">
-          <Wifi className="h-3.5 w-3.5 text-cyan-400" />
+        <div className="flex items-center gap-1.5 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)]/90 px-2.5 py-1.5 text-[var(--text-secondary)] shadow-xs">
+          <Wifi className="h-3.5 w-3.5 text-sky-600 dark:text-cyan-400" />
           <div className="flex flex-col">
-            <span className="text-[9px] text-[#8BBB92]/80">BANDWIDTH</span>
-            <span className="font-bold text-white">99.88% Saved</span>
+            <span className="text-[9px] text-[var(--text-muted)]">BANDWIDTH</span>
+            <span className="font-bold text-[var(--text-primary)]">99.88% Saved</span>
           </div>
         </div>
 
-        <div className="flex items-center gap-1.5 rounded-lg border border-[#12544F]/60 bg-[#092328]/80 px-2.5 py-1.5 text-[#8BBB92]">
-          <ShieldCheck className="h-3.5 w-3.5 text-[#8BBB92]" />
+        <div className="flex items-center gap-1.5 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)]/90 px-2.5 py-1.5 text-[var(--text-secondary)] shadow-xs">
+          <ShieldCheck className="h-3.5 w-3.5 text-[var(--text-secondary)]" />
           <div className="flex flex-col">
-            <span className="text-[9px] text-[#8BBB92]/80">NVME BUFFER</span>
-            <span className="font-bold text-white">72h Encrypted</span>
+            <span className="text-[9px] text-[var(--text-muted)]">NVME BUFFER</span>
+            <span className="font-bold text-[var(--text-primary)]">72h Encrypted</span>
           </div>
         </div>
       </div>

@@ -234,7 +234,7 @@ export default function AppClient() {
   const isMapOrOverview = activeView === 'gis_map';
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden bg-[#092328] text-[#f0fdf4]">
+    <div className="flex h-screen w-screen overflow-hidden bg-[var(--surface-canvas)] text-[var(--text-primary)]">
       {/* 1. Far Left: Expandable Dynamic Role-Based Sidebar (Responsive Overlay on Mobile) */}
       <AppSidebar
         activeView={activeView}
@@ -258,7 +258,7 @@ export default function AppClient() {
         {/* Viewport Canvas + Draggable Right Situational HUD */}
         <div className="relative flex flex-1 overflow-hidden pb-14 md:pb-0">
           {/* Main Canvas Viewport */}
-          <main className="relative flex flex-1 h-full w-full overflow-hidden bg-[#092328]">
+          <main className="relative flex flex-1 h-full w-full overflow-hidden bg-[var(--surface-canvas)]">
             {/* Edge Vision & GIS Dual-Stream Operations Command Center */}
             {activeView === 'command_center' && (
               <DualStreamCommandCenter />

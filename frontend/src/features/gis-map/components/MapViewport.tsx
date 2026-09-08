@@ -149,9 +149,9 @@ export function MapViewport({
           popup
             .setLngLat(e.lngLat)
             .setHTML(`
-              <div style="background: #092328; border: 1px solid #12544F; padding: 6px 10px; border-radius: 6px; font-family: monospace; font-size: 11px; color: #f0fdf4; box-shadow: 0 4px 12px rgba(0,0,0,0.8);">
-                <div style="font-weight: 700; color: #f0fdf4; margin-bottom: 2px;">${props.roadName}</div>
-                <div style="display: flex; gap: 8px; font-size: 10px; color: #8BBB92;">
+              <div style="background: #080e1a; border: 1px solid #111c33; padding: 6px 10px; border-radius: 6px; font-family: monospace; font-size: 11px; color: #f8fafc; box-shadow: 0 4px 12px rgba(0,0,0,0.8);">
+                <div style="font-weight: 700; color: #f8fafc; margin-bottom: 2px;">${props.roadName}</div>
+                <div style="display: flex; gap: 8px; font-size: 10px; color: #94a3b8;">
                   <span>PCI Index: <strong style="color: ${props.color};">${props.pciScore}/100</strong></span>
                   <span>•</span>
                   <span style="color: ${props.color};">${props.status}</span>
@@ -196,9 +196,9 @@ export function MapViewport({
               display: flex;
               align-items: center;
               gap: 4px;
-              background: rgba(9, 35, 40, 0.95);
+              background: rgba(8, 14, 26, 0.95);
               border: 1px solid #10B981;
-              color: #f0fdf4;
+              color: #f8fafc;
               padding: 1px 6px;
               border-radius: 9999px;
               font-family: var(--font-mono, monospace);
@@ -324,7 +324,7 @@ export function MapViewport({
             height: 18px;
             background: ${bg};
             color: #ffffff;
-            border: 2px solid #092328;
+            border: 2px solid #080e1a;
             border-radius: 50%;
             font-size: 10px;
             font-weight: 800;
@@ -361,24 +361,24 @@ export function MapViewport({
   }, [selectedDefectId, defects]);
 
   return (
-    <div className="relative h-full w-full overflow-hidden bg-[#092328]">
+    <div className="relative h-full w-full overflow-hidden bg-[var(--surface-canvas)]">
       <div ref={mapContainerRef} className="h-full w-full" />
       
       {/* Pavement Quality Index (PCI) Live Network Legend */}
-      <div className="absolute bottom-2.5 left-2.5 z-10 rounded-lg border border-[#12544F] bg-[#092328]/95 backdrop-blur-md px-3 py-2 font-mono text-[10px] text-[#8BBB92] shadow-xl pointer-events-none">
-        <p className="font-bold text-[#f0fdf4] mb-1 uppercase tracking-wider">Pavement Condition Index (PCI)</p>
+      <div className="absolute bottom-2.5 left-2.5 z-10 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)]/95 backdrop-blur-md px-3 py-2 font-mono text-[10px] text-[var(--text-secondary)] shadow-lg pointer-events-none">
+        <p className="font-bold text-[var(--text-primary)] mb-1 uppercase tracking-wider">Pavement Condition Index (PCI)</p>
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5">
-            <span className="h-2 w-3 rounded bg-emerald-500 shadow-[0_0_6px_#10B981]" />
-            <span className="text-[#f0fdf4]">PCI &gt; 75 (Smooth)</span>
+            <span className="h-2 w-3 rounded bg-emerald-500 shadow-xs" />
+            <span className="text-[var(--text-primary)] font-medium">PCI &gt; 75 (Smooth)</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="h-2 w-3 rounded bg-amber-500 shadow-[0_0_6px_#F59E0B]" />
-            <span className="text-[#f0fdf4]">PCI 50-74 (Moderate)</span>
+            <span className="h-2 w-3 rounded bg-amber-500 shadow-xs" />
+            <span className="text-[var(--text-primary)] font-medium">PCI 50-74 (Moderate)</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="h-2 w-3 rounded bg-rose-500 shadow-[0_0_6px_#EF4444]" />
-            <span className="text-rose-400 font-bold">PCI &lt; 50 (Potholes)</span>
+            <span className="h-2 w-3 rounded bg-rose-500 shadow-xs" />
+            <span className="text-rose-600 dark:text-rose-400 font-bold">PCI &lt; 50 (Potholes)</span>
           </div>
         </div>
       </div>

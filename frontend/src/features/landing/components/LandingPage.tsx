@@ -35,7 +35,7 @@ export function LandingPage({ onLaunchConsole }: LandingPageProps) {
   };
 
   return (
-    <div className="relative min-h-screen w-full bg-[#FBFDFB] text-[#092328] selection:bg-[#2A835F] selection:text-[#f0fdf4]">
+    <div className="relative min-h-screen w-full bg-[#FBFDFB] text-[#080e1a] selection:bg-[#2563eb] selection:text-[var(--text-primary)]">
       {/* Top Navbar */}
       <LandingNavbar onOpenLogin={handleOpenLogin} />
 

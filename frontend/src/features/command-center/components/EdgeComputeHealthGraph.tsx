@@ -51,17 +51,17 @@ export function EdgeComputeHealthGraph({
   const polylineString = points.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
 
   return (
-    <div className="rounded-xl border border-[#12544F] bg-[#0d3137] p-3 space-y-2.5 font-mono shadow-md">
+    <div className="rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-3 space-y-2.5 font-mono shadow-md">
       {/* Header bar */}
       <div className="flex flex-wrap items-center justify-between gap-1.5 text-xs">
-        <div className="flex items-center gap-1.5 font-semibold text-[#f0fdf4]">
-          <Wifi className="h-3.5 w-3.5 text-[#8BBB92]" />
+        <div className="flex items-center gap-1.5 font-semibold text-[var(--text-primary)]">
+          <Wifi className="h-3.5 w-3.5 text-[var(--text-secondary)]" />
           <span className="text-[11px] uppercase tracking-wider">
             Live Cellular Bandwidth & Edge Compute Telemetry
           </span>
         </div>
         <div className="flex items-center gap-1.5 text-[10px]">
-          <span className="font-bold text-[#8BBB92] px-1.5 py-0.5 rounded bg-[#12544F] border border-[#2A835F]">
+          <span className="font-bold text-[var(--text-secondary)] px-1.5 py-0.5 rounded bg-[var(--surface-subtle)] border border-[var(--color-accent-primary)]">
             {savingsPercentage.toFixed(2)}% SAVED
           </span>
         </div>
@@ -69,16 +69,16 @@ export function EdgeComputeHealthGraph({
 
       {/* Real-time FPS Sparkline Waveform */}
       <div className="space-y-1">
-        <div className="flex items-center justify-between text-[10px] text-[#8BBB92]">
+        <div className="flex items-center justify-between text-[10px] text-[var(--text-secondary)]">
           <span className="flex items-center gap-1">
-            <Cpu className="h-3 w-3 text-[#8BBB92]" />
+            <Cpu className="h-3 w-3 text-[var(--text-secondary)]" />
             <span>NPU Edge Inference Throughput:</span>
-            <strong className="text-[#f0fdf4]">{fpsHistory[fpsHistory.length - 1]?.toFixed(1)} FPS</strong>
+            <strong className="text-[var(--text-primary)]">{fpsHistory[fpsHistory.length - 1]?.toFixed(1)} FPS</strong>
           </span>
-          <span className="text-[9px] text-[#5b9076]">Target: 30.0 FPS</span>
+          <span className="text-[9px] text-[var(--text-muted)]">Target: 30.0 FPS</span>
         </div>
 
-        <div className="relative h-10 w-full overflow-hidden rounded-lg bg-[#092328] border border-[#12544F]">
+        <div className="relative h-10 w-full overflow-hidden rounded-lg bg-[var(--surface-canvas)] border border-[var(--surface-border)]">
           <svg viewBox={`0 0 ${width} ${height}`} className="h-full w-full" preserveAspectRatio="none">
             {/* Target 30 FPS guide */}
             <line
@@ -86,7 +86,7 @@ export function EdgeComputeHealthGraph({
               y1={getY(30)}
               x2={width}
               y2={getY(30)}
-              stroke="#2A835F"
+              stroke="#2563eb"
               strokeWidth="0.8"
               strokeDasharray="2 2"
               opacity="0.6"
@@ -94,14 +94,14 @@ export function EdgeComputeHealthGraph({
             {/* Waveform */}
             <polyline
               fill="none"
-              stroke="#8BBB92"
+              stroke="#94a3b8"
               strokeWidth="1.8"
               strokeLinecap="round"
               strokeLinejoin="round"
               points={polylineString}
             />
           </svg>
-          <span className="absolute bottom-1 right-2 text-[8px] text-[#5b9076] pointer-events-none">
+          <span className="absolute bottom-1 right-2 text-[8px] text-[var(--text-muted)] pointer-events-none">
             30 FPS Reference Line
           </span>
         </div>
@@ -109,40 +109,40 @@ export function EdgeComputeHealthGraph({
 
       {/* Bandwidth Savings Comparison Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs">
-        <div className="rounded-lg border border-[#12544F] bg-[#092328] p-2 space-y-0.5">
-          <span className="text-[#8BBB92] text-[10px]">RAW VIDEO STREAM (CLOUD):</span>
+        <div className="rounded-lg border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-2 space-y-0.5">
+          <span className="text-[var(--text-secondary)] text-[10px]">RAW VIDEO STREAM (CLOUD):</span>
           <p className="text-sm font-bold text-rose-400">
             {rawMbPerMin.toFixed(1)} MB / min
           </p>
-          <span className="text-[9px] text-[#5b9076]">
+          <span className="text-[9px] text-[var(--text-muted)]">
             Uncompressed Multi-Camera Uplink
           </span>
         </div>
 
-        <div className="rounded-lg border border-[#12544F] bg-[#092328] p-2 space-y-0.5">
-          <span className="text-[#8BBB92] text-[10px]">EDGE TELEMETRY JSON (STRATA):</span>
-          <p className="text-sm font-bold text-[#8BBB92]">
+        <div className="rounded-lg border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-2 space-y-0.5">
+          <span className="text-[var(--text-secondary)] text-[10px]">EDGE TELEMETRY JSON (STRATA):</span>
+          <p className="text-sm font-bold text-[var(--text-secondary)]">
             {edgeKbPerMin.toFixed(1)} KB / min
           </p>
-          <span className="text-[9px] text-[#5b9076]">
+          <span className="text-[9px] text-[var(--text-muted)]">
             Filtered Deduplicated AIS-140 Payloads
           </span>
         </div>
       </div>
 
       {/* Edge Hardware Status Footprint */}
-      <div className="grid grid-cols-3 gap-1 text-[9px] pt-1 border-t border-[#12544F]/60 text-[#8BBB92]">
+      <div className="grid grid-cols-3 gap-1 text-[9px] pt-1 border-t border-[var(--surface-border)]/60 text-[var(--text-secondary)]">
         <div className="flex items-center gap-1">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-          <span>GPU Load: <strong className="text-[#f0fdf4]">64%</strong></span>
+          <span>GPU Load: <strong className="text-[var(--text-primary)]">64%</strong></span>
         </div>
         <div className="flex items-center gap-1">
           <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" />
-          <span>Latency: <strong className="text-[#f0fdf4]">12.4ms</strong></span>
+          <span>Latency: <strong className="text-[var(--text-primary)]">12.4ms</strong></span>
         </div>
         <div className="flex items-center gap-1">
           <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" />
-          <span>Temp: <strong className="text-[#f0fdf4]">43.5°C</strong></span>
+          <span>Temp: <strong className="text-[var(--text-primary)]">43.5°C</strong></span>
         </div>
       </div>
     </div>

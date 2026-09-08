@@ -41,7 +41,7 @@ export function LiveVideoStreamView() {
       videoSrc: '/videos/delhi_rajpath_anpr.mp4',
       detectedObjects: [
         { label: 'ANPR: UP-16-BT-5797 [INNOVA · 68 km/h]', conf: '98.4%', boxClass: 'bottom-12 left-[38%]', color: 'border-emerald-400 bg-emerald-500/15' },
-        { label: 'HIGH-SECURITY ZONE: KARTAVYA PATH', conf: '96.2%', boxClass: 'top-10 right-[32%]', color: 'border-[#2A835F] bg-[#12544F]/40' },
+        { label: 'HIGH-SECURITY ZONE: KARTAVYA PATH', conf: '96.2%', boxClass: 'top-10 right-[32%]', color: 'border-[var(--color-accent-primary)] bg-[var(--surface-subtle)]/40' },
       ],
     },
     {
@@ -76,26 +76,26 @@ export function LiveVideoStreamView() {
   const activeAngleConfig = cameraAngles.find((c) => c.id === selectedAngle) || cameraAngles[0];
 
   return (
-    <div className="flex h-full w-full flex-col gap-4 overflow-y-auto p-3 sm:p-5 bg-[#092328] text-[#f0fdf4]">
+    <div className="flex h-full w-full flex-col gap-4 overflow-y-auto p-3 sm:p-5 bg-[var(--surface-canvas)] text-[var(--text-primary)]">
       {/* Top Header */}
-      <div className="flex items-center justify-between border-b border-[#12544F] pb-3 shrink-0">
+      <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-3 shrink-0">
         <div className="flex items-center gap-2.5">
-          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#12544F] border border-[#2A835F] text-[#8BBB92]">
+          <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--surface-subtle)] border border-[var(--color-accent-primary)] text-[var(--text-secondary)]">
             <Video className="h-4 w-4" />
           </div>
           <div>
-            <h2 className="text-sm font-semibold text-[#f0fdf4]">
+            <h2 className="text-sm font-semibold text-[var(--text-primary)]">
               Edge AI Multi-Camera Inference Stream (BEL SIH26124)
             </h2>
-            <p className="text-xs text-[#8BBB92]">
+            <p className="text-xs text-[var(--text-secondary)]">
               Simultaneous 4-camera onboard sensing on NVIDIA Jetson Orin Nano with INT8 TensorRT acceleration
             </p>
           </div>
         </div>
 
         <div className="flex items-center gap-3">
-          <span className="flex items-center gap-1.5 rounded border border-[#2A835F] bg-[#12544F] px-2.5 py-1 text-xs font-mono text-[#8BBB92]">
-            <span className="h-1.5 w-1.5 rounded-full bg-[#8BBB92] animate-pulse" />
+          <span className="flex items-center gap-1.5 rounded border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-2.5 py-1 text-xs font-mono text-[var(--text-secondary)]">
+            <span className="h-1.5 w-1.5 rounded-full bg-[#94a3b8] animate-pulse" />
             4 Channels Synced (Edge Bus 101)
           </span>
         </div>
@@ -111,15 +111,15 @@ export function LiveVideoStreamView() {
               onClick={() => handleAngleChange(cam.id)}
               className={`flex flex-col items-start gap-1 rounded-lg border p-2.5 sm:p-3 text-left transition-all cursor-pointer ${
                 isSelected
-                  ? 'border-[#2A835F] bg-[#12544F] text-[#f0fdf4] shadow-sm ring-1 ring-[#8BBB92]'
-                  : 'border-[#12544F] bg-[#0d3137] text-[#8BBB92] hover:bg-[#12544F]/50'
+                  ? 'border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] text-[var(--text-primary)] shadow-sm ring-1 ring-[#94a3b8]'
+                  : 'border-[var(--surface-border)] bg-[var(--surface-panel)] text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]/50'
               }`}
             >
               <div className="flex items-center gap-2">
                 {cam.icon}
                 <span className="text-xs font-semibold">{cam.label.split('(')[0].trim()}</span>
               </div>
-              <p className="text-[11px] text-[#8BBB92] line-clamp-1">{cam.description}</p>
+              <p className="text-[11px] text-[var(--text-secondary)] line-clamp-1">{cam.description}</p>
             </button>
           );
         })}
@@ -128,13 +128,13 @@ export function LiveVideoStreamView() {
       {/* Main Video Screen Container */}
       <div className="grid flex-1 grid-cols-1 lg:grid-cols-3 gap-3 sm:gap-4 overflow-y-auto">
         {/* Left 2 Cols on Desktop, Full on Mobile: Video Stream with Overlay */}
-        <div className="col-span-1 lg:col-span-2 flex flex-col rounded-xl border border-[#12544F] bg-black overflow-hidden shadow-2xl min-h-[340px] sm:min-h-[380px]">
-          <div className="flex items-center justify-between border-b border-[#12544F] bg-[#092328] px-4 py-2 text-xs font-mono text-[#8BBB92] shrink-0">
+        <div className="col-span-1 lg:col-span-2 flex flex-col rounded-xl border border-[var(--surface-border)] bg-black overflow-hidden shadow-2xl min-h-[340px] sm:min-h-[380px]">
+          <div className="flex items-center justify-between border-b border-[var(--surface-border)] bg-[var(--surface-canvas)] px-4 py-2 text-xs font-mono text-[var(--text-secondary)] shrink-0">
             <div className="flex items-center gap-2">
-              <Radio className="h-3.5 w-3.5 text-[#2A835F] animate-pulse" />
-              <span className="font-bold text-[#f0fdf4]">CHANNEL: {activeAngleConfig.label.toUpperCase()}</span>
+              <Radio className="h-3.5 w-3.5 text-[var(--color-accent-cyan)] animate-pulse" />
+              <span className="font-bold text-[var(--text-primary)]">CHANNEL: {activeAngleConfig.label.toUpperCase()}</span>
             </div>
-            <span className="text-[#8BBB92]">AI TARGET: {activeAngleConfig.aiTarget.toUpperCase()}</span>
+            <span className="text-[var(--text-secondary)]">AI TARGET: {activeAngleConfig.aiTarget.toUpperCase()}</span>
           </div>
 
           <div className="relative flex flex-1 items-center justify-center bg-black overflow-hidden">
@@ -167,21 +167,21 @@ export function LiveVideoStreamView() {
             {/* Inference HUD Overlay */}
             <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-3 bg-gradient-to-t from-black/60 via-transparent to-black/30">
               {/* Top HUD Telemetry */}
-              <div className="flex items-center justify-between text-[10px] font-mono text-[#8BBB92]">
-                <div className="flex items-center gap-1.5 rounded bg-black/75 px-2 py-0.5 border border-[#12544F]">
+              <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-secondary)]">
+                <div className="flex items-center gap-1.5 rounded bg-black/75 px-2 py-0.5 border border-[var(--surface-border)]">
                   <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[#f0fdf4] font-bold">EDGE INFERENCE ONLINE</span>
-                  <span className="text-[#8BBB92]">· {avgFleetFps.toFixed(1)} FPS</span>
+                  <span className="text-[var(--text-primary)] font-bold">EDGE INFERENCE ONLINE</span>
+                  <span className="text-[var(--text-secondary)]">· {avgFleetFps.toFixed(1)} FPS</span>
                 </div>
-                <div className="rounded bg-black/75 px-2 py-0.5 border border-[#12544F] text-[#8BBB92]">
+                <div className="rounded bg-black/75 px-2 py-0.5 border border-[var(--surface-border)] text-[var(--text-secondary)]">
                   NVIDIA JETSON ORIN NANO 8GB
                 </div>
               </div>
 
               {/* Bottom HUD Telemetry Footer */}
-              <div className="flex items-center justify-between text-[10px] font-mono text-[#8BBB92] bg-black/75 px-3 py-1 rounded border border-[#12544F]">
+              <div className="flex items-center justify-between text-[10px] font-mono text-[var(--text-secondary)] bg-black/75 px-3 py-1 rounded border border-[var(--surface-border)]">
                 <span>MODEL: {activeAngleConfig.aiTarget}</span>
-                <span className="text-[#f0fdf4] font-bold">LATENCY: 14.8ms</span>
+                <span className="text-[var(--text-primary)] font-bold">LATENCY: 14.8ms</span>
                 <span className="text-emerald-400">INT8 QUANTIZED</span>
               </div>
             </div>
@@ -191,45 +191,45 @@ export function LiveVideoStreamView() {
         {/* Right 1 Col: Real-time Edge Diagnostics */}
         <div className="flex flex-col gap-3 overflow-y-auto">
           {/* Edge Compute Metrics */}
-          <div className="rounded-lg border border-[#12544F] bg-[#0d3137] p-4 space-y-3">
-            <div className="flex items-center justify-between border-b border-[#12544F] pb-2 text-xs font-semibold text-[#f0fdf4]">
+          <div className="rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] p-4 space-y-3">
+            <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-2 text-xs font-semibold text-[var(--text-primary)]">
               <span>Onboard Sensing Specification</span>
-              <Cpu className="h-4 w-4 text-[#8BBB92]" />
+              <Cpu className="h-4 w-4 text-[var(--text-secondary)]" />
             </div>
 
             <div className="space-y-2 text-xs font-mono">
               <div className="flex justify-between">
-                <span className="text-[#8BBB92]">Camera Angle:</span>
-                <span className="text-[#f0fdf4] font-semibold">{activeAngleConfig.label}</span>
+                <span className="text-[var(--text-secondary)]">Camera Angle:</span>
+                <span className="text-[var(--text-primary)] font-semibold">{activeAngleConfig.label}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#8BBB92]">Target Task:</span>
-                <span className="text-[#8BBB92]">{activeAngleConfig.aiTarget}</span>
+                <span className="text-[var(--text-secondary)]">Target Task:</span>
+                <span className="text-[var(--text-secondary)]">{activeAngleConfig.aiTarget}</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#8BBB92]">Speed-Adaptive FPS:</span>
-                <span className="text-[#f0fdf4] font-bold">{avgFleetFps.toFixed(1)} FPS</span>
+                <span className="text-[var(--text-secondary)]">Speed-Adaptive FPS:</span>
+                <span className="text-[var(--text-primary)] font-bold">{avgFleetFps.toFixed(1)} FPS</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-[#8BBB92]">Jetson Power Draw:</span>
-                <span className="text-[#8BBB92]">14.2 W (Orin Nano)</span>
+                <span className="text-[var(--text-secondary)]">Jetson Power Draw:</span>
+                <span className="text-[var(--text-secondary)]">14.2 W (Orin Nano)</span>
               </div>
             </div>
           </div>
 
           {/* Bandwidth Minimization Proof */}
-          <div className="rounded-lg border border-[#12544F] bg-[#0d3137] p-4 space-y-2">
-            <div className="flex items-center justify-between text-xs font-semibold text-[#f0fdf4]">
+          <div className="rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] p-4 space-y-2">
+            <div className="flex items-center justify-between text-xs font-semibold text-[var(--text-primary)]">
               <span>Bandwidth Minimization Proof</span>
-              <Activity className="h-4 w-4 text-[#8BBB92]" />
+              <Activity className="h-4 w-4 text-[var(--text-secondary)]" />
             </div>
-            <p className="text-xs text-[#8BBB92]">
+            <p className="text-xs text-[var(--text-secondary)]">
               Video processed locally on edge bus. Only tiny lightweight JSON metadata (&lt; 2 KB) is uploaded over 4G/5G:
             </p>
-            <div className="rounded border border-[#12544F] bg-[#092328] p-2.5 text-[11px] font-mono space-y-1 text-[#8BBB92]">
+            <div className="rounded border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-2.5 text-[11px] font-mono space-y-1 text-[var(--text-secondary)]">
               <p>• Raw Video Stream: <strong className="text-rose-400">12.0 MB / min</strong></p>
-              <p>• Edge Metadata JSON: <strong className="text-[#8BBB92]">14.2 KB / min</strong></p>
-              <p>• Bandwidth Saved: <strong className="text-[#f0fdf4]">99.88%</strong></p>
+              <p>• Edge Metadata JSON: <strong className="text-[var(--text-secondary)]">14.2 KB / min</strong></p>
+              <p>• Bandwidth Saved: <strong className="text-[var(--text-primary)]">99.88%</strong></p>
             </div>
           </div>
         </div>

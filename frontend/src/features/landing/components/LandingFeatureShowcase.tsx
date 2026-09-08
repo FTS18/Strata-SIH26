@@ -141,15 +141,15 @@ export function LandingFeatureShowcase() {
   const activeFeature = features.find((f) => f.id === activeFeatureId) || features[0];
 
   return (
-    <section id="capabilities" className="relative bg-[#FBFDFB] py-24 text-[#092328] border-t border-[#12544F]/10">
+    <section id="capabilities" className="relative bg-[#FBFDFB] py-24 text-[#080e1a] border-t border-[var(--surface-border)]/10">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="max-w-3xl mb-16">
-          <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-[#092328] uppercase leading-[1.1]">
+          <h2 className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-[#080e1a] uppercase leading-[1.1]">
             Your transit fleet was built to move people. <br />
-            <span className="text-[#2A835F]">Now it powers the city.</span>
+            <span className="text-[var(--color-accent-cyan)]">Now it powers the city.</span>
           </h2>
-          <p className="mt-4 text-base sm:text-lg text-[#092328]/75 font-sans">
+          <p className="mt-4 text-base sm:text-lg text-[#080e1a]/75 font-sans">
             Transform municipal buses into an autonomous edge-AI sensory grid delivering continuous real-time intelligence to Public Works, Traffic Police, and City Command Centers.
           </p>
         </div>
@@ -167,8 +167,8 @@ export function LandingFeatureShowcase() {
                   onClick={() => setActiveFeatureId(feature.id)}
                   className={`rounded-2xl border transition-all cursor-pointer p-4 sm:p-5 ${
                     isActive
-                      ? 'border-[#2A835F] bg-[#f0fdf4] shadow-md shadow-[#2A835F]/10'
-                      : 'border-[#12544F]/15 bg-white hover:border-[#2A835F]/40 hover:bg-[#fafdfb]'
+                      ? 'border-[var(--color-accent-primary)] bg-[#f8fafc] shadow-md shadow-[#2563eb]/10'
+                      : 'border-[var(--surface-border)]/15 bg-white hover:border-[var(--color-accent-primary)]/40 hover:bg-[#fafdfb]'
                   }`}
                 >
                   <div className="flex items-center justify-between">
@@ -176,17 +176,17 @@ export function LandingFeatureShowcase() {
                       <div
                         className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-xl transition-colors ${
                           isActive
-                            ? 'bg-[#2A835F] text-[#f0fdf4]'
-                            : 'bg-[#12544F]/10 text-[#092328]'
+                            ? 'bg-[#2563eb] text-[var(--text-primary)]'
+                            : 'bg-[var(--surface-subtle)]/10 text-[#080e1a]'
                         }`}
                       >
                         {feature.icon}
                       </div>
                       <div>
-                        <h3 className="text-sm sm:text-base font-bold text-[#092328]">
+                        <h3 className="text-sm sm:text-base font-bold text-[#080e1a]">
                           {feature.title}
                         </h3>
-                        <span className="text-[11px] font-mono text-[#2A835F] font-medium">
+                        <span className="text-[11px] font-mono text-[var(--color-accent-cyan)] font-medium">
                           {feature.badge}
                         </span>
                       </div>
@@ -195,15 +195,15 @@ export function LandingFeatureShowcase() {
                     <ArrowRight
                       className={`h-4 w-4 transition-transform ${
                         isActive
-                          ? 'translate-x-1 text-[#2A835F]'
-                          : 'text-[#092328]/40'
+                          ? 'translate-x-1 text-[var(--color-accent-cyan)]'
+                          : 'text-[#080e1a]/40'
                       }`}
                     />
                   </div>
 
                   {/* Expanded Content for Active Tab */}
                   {isActive && (
-                    <div className="mt-3 pl-12 text-xs sm:text-sm text-[#092328]/80 leading-relaxed font-sans border-t border-[#2A835F]/15 pt-3 animate-in fade-in duration-200">
+                    <div className="mt-3 pl-12 text-xs sm:text-sm text-[#080e1a]/80 leading-relaxed font-sans border-t border-[var(--color-accent-primary)]/15 pt-3 animate-in fade-in duration-200">
                       <p>{feature.detailedDesc}</p>
                     </div>
                   )}
@@ -214,47 +214,47 @@ export function LandingFeatureShowcase() {
 
           {/* Right Column: High-Impact Vibrant Showcase Card */}
           <div className="lg:col-span-6">
-            <div className="sticky top-28 overflow-hidden rounded-3xl bg-gradient-to-br from-[#2A835F] via-[#359B70] to-[#8BBB92] p-6 sm:p-8 shadow-2xl shadow-[#2A835F]/20 text-[#f0fdf4]">
+            <div className="sticky top-28 overflow-hidden rounded-3xl bg-gradient-to-br from-[#2563eb] via-[#359B70] to-[#94a3b8] p-6 sm:p-8 shadow-2xl shadow-[#2563eb]/20 text-[var(--text-primary)]">
               {/* Dynamic Feature Label */}
               <div className="flex items-center justify-between mb-6">
-                <span className="rounded-full bg-[#092328]/40 px-3.5 py-1 text-xs font-mono font-medium backdrop-blur-md text-[#f0fdf4]">
+                <span className="rounded-full bg-[var(--surface-canvas)]/40 px-3.5 py-1 text-xs font-mono font-medium backdrop-blur-md text-[var(--text-primary)]">
                   {activeFeature.badge}
                 </span>
-                <span className="inline-flex items-center gap-1 text-xs font-mono text-[#092328] font-bold bg-white/80 px-2.5 py-1 rounded-full">
-                  <Radio className="h-3 w-3 text-[#2A835F] animate-pulse" />
+                <span className="inline-flex items-center gap-1 text-xs font-mono text-[#080e1a] font-bold bg-white/80 px-2.5 py-1 rounded-full">
+                  <Radio className="h-3 w-3 text-[var(--color-accent-cyan)] animate-pulse" />
                   LIVE EDGE INFERENCE
                 </span>
               </div>
 
               {/* Floating Dark HUD Card inside */}
-              <div className="rounded-2xl border border-[#1d6d63] bg-[#092328] p-5 sm:p-6 shadow-2xl text-[#f0fdf4]">
+              <div className="rounded-2xl border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-5 sm:p-6 shadow-2xl text-[var(--text-primary)]">
                 {/* HUD Header */}
-                <div className="flex items-center justify-between border-b border-[#144943] pb-4 mb-4">
+                <div className="flex items-center justify-between border-b border-[var(--surface-border-subtle)] pb-4 mb-4">
                   <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2A835F] text-[#f0fdf4]">
+                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[#2563eb] text-[var(--text-primary)]">
                       {activeFeature.icon}
                     </div>
                     <div>
-                      <h4 className="text-sm font-bold uppercase tracking-wide font-display text-[#f0fdf4]">
+                      <h4 className="text-sm font-bold uppercase tracking-wide font-display text-[var(--text-primary)]">
                         {activeFeature.hudTitle}
                       </h4>
-                      <p className="text-[11px] font-mono text-[#8BBB92]">
+                      <p className="text-[11px] font-mono text-[var(--text-secondary)]">
                         Sensor Fusion & Edge Neural Pipeline
                       </p>
                     </div>
                   </div>
 
-                  <span className="rounded-full border border-[#2A835F]/40 bg-[#12544F] px-2.5 py-1 text-[10px] font-mono text-[#8BBB92]">
+                  <span className="rounded-full border border-[var(--color-accent-primary)]/40 bg-[var(--surface-subtle)] px-2.5 py-1 text-[10px] font-mono text-[var(--text-secondary)]">
                     {activeFeature.hudStatus}
                   </span>
                 </div>
 
                 {/* Primary Metric Callout */}
-                <div className="rounded-xl border border-[#144943] bg-[#0d3137] p-4 mb-4">
-                  <span className="text-[10px] font-mono uppercase text-[#8BBB92] tracking-wider">
+                <div className="rounded-xl border border-[var(--surface-border-subtle)] bg-[var(--surface-panel)] p-4 mb-4">
+                  <span className="text-[10px] font-mono uppercase text-[var(--text-secondary)] tracking-wider">
                     Edge Detection Payload
                   </span>
-                  <div className="mt-1 font-display text-2xl sm:text-3xl font-bold text-[#f0fdf4] tracking-tight">
+                  <div className="mt-1 font-display text-2xl sm:text-3xl font-bold text-[var(--text-primary)] tracking-tight">
                     {activeFeature.hudMetric}
                   </div>
                 </div>
@@ -264,10 +264,10 @@ export function LandingFeatureShowcase() {
                   {activeFeature.hudDetails.map((detail, idx) => (
                     <div
                       key={idx}
-                      className="rounded-lg border border-[#144943]/60 bg-[#0d3137]/60 p-2.5"
+                      className="rounded-lg border border-[var(--surface-border-subtle)]/60 bg-[var(--surface-panel)]/60 p-2.5"
                     >
-                      <span className="block text-[10px] text-[#8BBB92]">{detail.label}</span>
-                      <span className="font-semibold text-[#f0fdf4] truncate block mt-0.5">
+                      <span className="block text-[10px] text-[var(--text-secondary)]">{detail.label}</span>
+                      <span className="font-semibold text-[var(--text-primary)] truncate block mt-0.5">
                         {detail.value}
                       </span>
                     </div>
@@ -275,17 +275,17 @@ export function LandingFeatureShowcase() {
                 </div>
 
                 {/* Verification Footer */}
-                <div className="mt-4 flex items-center justify-between pt-3 border-t border-[#144943] text-[11px] font-mono text-[#8BBB92]">
+                <div className="mt-4 flex items-center justify-between pt-3 border-t border-[var(--surface-border-subtle)] text-[11px] font-mono text-[var(--text-secondary)]">
                   <div className="flex items-center gap-1.5">
-                    <ShieldCheck className="h-3.5 w-3.5 text-[#2A835F]" />
+                    <ShieldCheck className="h-3.5 w-3.5 text-[var(--color-accent-cyan)]" />
                     <span>Cryptographic Edge Verification</span>
                   </div>
-                  <span className="text-[#f0fdf4]">12ms Latency</span>
+                  <span className="text-[var(--text-primary)]">12ms Latency</span>
                 </div>
               </div>
 
               {/* Bottom Card Summary */}
-              <p className="mt-6 text-xs sm:text-sm text-[#092328] font-medium leading-relaxed">
+              <p className="mt-6 text-xs sm:text-sm text-[#080e1a] font-medium leading-relaxed">
                 {activeFeature.shortDesc}
               </p>
             </div>

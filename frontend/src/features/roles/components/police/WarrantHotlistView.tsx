@@ -101,7 +101,7 @@ export function WarrantHotlistView() {
       header: 'Vehicle Plate',
       render: (w) => (
         <div className="flex items-center gap-1.5">
-          <span className="font-mono text-xs font-bold text-[#f0fdf4]">{w.plate}</span>
+          <span className="font-mono text-xs font-bold text-[var(--text-primary)]">{w.plate}</span>
           {w.priority === 'Critical' && (
             <span className="rounded bg-rose-950/60 px-1 py-0.2 text-[9px] font-mono text-rose-400 border border-rose-800/40">
               P1
@@ -115,12 +115,12 @@ export function WarrantHotlistView() {
     {
       key: 'caseFir',
       header: 'FIR / Case No',
-      render: (w) => <span className="font-mono text-xs text-[#8BBB92]">{w.caseFir}</span>,
+      render: (w) => <span className="font-mono text-xs text-[var(--text-secondary)]">{w.caseFir}</span>,
     },
     {
       key: 'lastSightedByBus',
       header: 'Last Edge Sighting',
-      render: (w) => <span className="font-mono text-xs text-[#8BBB92]">{w.lastSightedByBus}</span>,
+      render: (w) => <span className="font-mono text-xs text-[var(--text-secondary)]">{w.lastSightedByBus}</span>,
     },
     {
       key: 'status',
@@ -135,7 +135,7 @@ export function WarrantHotlistView() {
               ? 'border-amber-800/40 bg-amber-950/40 text-amber-400'
               : w.status === 'Recovered / Closed'
               ? 'border-emerald-800/40 bg-emerald-950/40 text-emerald-400'
-              : 'border-[#12544F] bg-[#0d3137] text-[#8BBB92]'
+              : 'border-[var(--surface-border)] bg-[var(--surface-panel)] text-[var(--text-secondary)]'
           }`}
         >
           {w.status}
@@ -145,33 +145,33 @@ export function WarrantHotlistView() {
   ];
 
   return (
-    <div className="flex h-full w-full flex-col gap-3 sm:gap-4 overflow-y-auto p-3 sm:p-5 bg-[#092328] text-[#f0fdf4]">
+    <div className="flex h-full w-full flex-col gap-3 sm:gap-4 overflow-y-auto p-3 sm:p-5 bg-[var(--surface-canvas)] text-[var(--text-primary)]">
       {/* Toast Notification Banner */}
       {activeToast && (
-        <div className="flex items-center justify-between rounded-lg border border-[#2A835F] bg-[#12544F] px-4 py-2 font-mono text-xs text-[#f0fdf4] shadow-md animate-in fade-in duration-200">
+        <div className="flex items-center justify-between rounded-lg border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-4 py-2 font-mono text-xs text-[var(--text-primary)] shadow-md animate-in fade-in duration-200">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-[#8BBB92]" />
+            <CheckCircle2 className="h-4 w-4 text-[var(--text-secondary)]" />
             <span>{activeToast}</span>
           </div>
         </div>
       )}
 
       {/* Top Search & Filter Bar */}
-      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-[#12544F] pb-3 shrink-0">
+      <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2.5 sm:gap-4 border-b border-[var(--surface-border)] pb-3 shrink-0">
         <div className="flex flex-1 items-center gap-2">
-          <div className="flex flex-1 items-center gap-2 rounded-lg border border-[#12544F] bg-[#0d3137] px-3.5 py-2">
-            <Search className="h-4 w-4 text-[#8BBB92] shrink-0" />
+          <div className="flex flex-1 items-center gap-2 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3.5 py-2">
+            <Search className="h-4 w-4 text-[var(--text-secondary)] shrink-0" />
             <input
               type="text"
               placeholder="Search Police Hotlist (Fuzzy ANPR: plate, model, FIR)..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-transparent text-xs font-mono text-[#f0fdf4] outline-none placeholder:text-[#5b9076]"
+              className="w-full bg-transparent text-xs font-mono text-[var(--text-primary)] outline-none placeholder:text-[var(--text-muted)]"
             />
             {searchQuery && (
               <button
                 onClick={() => setSearchQuery('')}
-                className="text-xs text-[#8BBB92] hover:text-[#f0fdf4] shrink-0 cursor-pointer"
+                className="text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] shrink-0 cursor-pointer"
               >
                 Clear
               </button>
@@ -179,13 +179,13 @@ export function WarrantHotlistView() {
           </div>
 
           {/* Status Filter Pill Bar */}
-          <div className="hidden md:flex items-center gap-1 rounded-lg border border-[#12544F] bg-[#0d3137] p-1 text-[11px] font-mono">
+          <div className="hidden md:flex items-center gap-1 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] p-1 text-[11px] font-mono">
             {['ALL', 'Impound Immediate', 'Active Warrant', 'Under Surveillance'].map((st) => (
               <button
                 key={st}
                 onClick={() => setStatusFilter(st)}
                 className={`rounded px-2 py-1 transition-all cursor-pointer ${
-                  statusFilter === st ? 'bg-[#12544F] text-[#f0fdf4] font-bold' : 'text-[#8BBB92] hover:text-[#f0fdf4]'
+                  statusFilter === st ? 'bg-[var(--surface-subtle)] text-[var(--text-primary)] font-bold' : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                 }`}
               >
                 {st}
@@ -199,7 +199,7 @@ export function WarrantHotlistView() {
             variant="primary"
             size="sm"
             onClick={() => setIsAddModalOpen(true)}
-            className="bg-[#2A835F] text-[#f0fdf4] border-[#12544F] hover:bg-[#12544F] text-xs font-bold"
+            className="bg-[#2563eb] text-[var(--text-primary)] border-[var(--surface-border)] hover:bg-[var(--surface-subtle)] text-xs font-bold"
           >
             <Plus className="h-3.5 w-3.5" />
             <span>Flag Wanted Vehicle</span>
@@ -214,17 +214,17 @@ export function WarrantHotlistView() {
       {/* Main Full-Width Content: Table + Interactive Telemetry Strip */}
       <div className="flex flex-1 flex-col gap-4">
         {/* Main Table Card */}
-        <div className="w-full rounded-xl border border-[#12544F] bg-[#0d3137] p-3 sm:p-4 shadow-sm">
+        <div className="w-full rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-3 sm:p-4 shadow-sm">
           <div className="mb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
             <div>
-              <h3 className="text-sm font-semibold text-[#f0fdf4]">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)]">
                 National Police Hotlist & Real-Time Fleet Radar Matcher
               </h3>
-              <p className="text-xs text-[#8BBB92]">
+              <p className="text-xs text-[var(--text-secondary)]">
                 Fuzzy Levenshtein matching tolerating optical motion blur, dust, and non-standard number plates
               </p>
             </div>
-            <span className="self-start sm:self-auto rounded border border-[#12544F] bg-[#12544F]/50 px-2.5 py-1 text-xs font-mono text-[#8BBB92]">
+            <span className="self-start sm:self-auto rounded border border-[var(--surface-border)] bg-[var(--surface-subtle)]/50 px-2.5 py-1 text-xs font-mono text-[var(--text-secondary)]">
               CCTNS Police Integration Active
             </span>
           </div>
@@ -241,17 +241,17 @@ export function WarrantHotlistView() {
 
         {/* Selected Vehicle Intercept Action Strip */}
         {activeVehicle && (
-          <div className="w-full rounded-xl border border-[#1d6d63] bg-[#0d3137] p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 shadow-sm">
+          <div className="w-full rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-4 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-rose-950/60 border border-rose-700/50 text-rose-400 shrink-0">
                 <ShieldAlert className="h-5 w-5" />
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-base font-bold text-[#f0fdf4]">
+                  <span className="font-mono text-base font-bold text-[var(--text-primary)]">
                     {activeVehicle.plate}
                   </span>
-                  <span className="text-xs text-[#8BBB92]">· {activeVehicle.vehicleModel}</span>
+                  <span className="text-xs text-[var(--text-secondary)]">· {activeVehicle.vehicleModel}</span>
                   <span
                     className={`rounded border px-2 py-0.5 text-[10px] font-mono font-bold ${
                       activeVehicle.status === 'Impound Immediate'
@@ -262,10 +262,10 @@ export function WarrantHotlistView() {
                     {activeVehicle.status}
                   </span>
                 </div>
-                <p className="text-xs text-[#8BBB92]">
-                  Offense: <span className="text-[#f0fdf4] font-medium">{activeVehicle.warrantReason}</span> ({activeVehicle.caseFir} · {activeVehicle.policeStation})
+                <p className="text-xs text-[var(--text-secondary)]">
+                  Offense: <span className="text-[var(--text-primary)] font-medium">{activeVehicle.warrantReason}</span> ({activeVehicle.caseFir} · {activeVehicle.policeStation})
                 </p>
-                <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono text-[#5b9076]">
+                <div className="flex flex-wrap items-center gap-2 text-[11px] font-mono text-[var(--text-muted)]">
                   <span>Last Verified Sighting: {activeVehicle.lastSightedByBus}</span>
                   {activeVehicle.dispatchedUnit && (
                     <span className="rounded bg-rose-950/80 px-2 py-0.5 border border-rose-500/50 text-rose-300 font-bold flex items-center gap-1">
@@ -280,13 +280,13 @@ export function WarrantHotlistView() {
             {/* Action Buttons & Status Controls */}
             <div className="flex flex-wrap items-center gap-2 w-full lg:w-auto pt-2 lg:pt-0">
               {/* Status Selector */}
-              <div className="flex items-center gap-1 rounded bg-[#092328] p-1 border border-[#12544F]">
+              <div className="flex items-center gap-1 rounded bg-[var(--surface-canvas)] p-1 border border-[var(--surface-border)]">
                 <button
                   onClick={() => updateWarrant(activeVehicle.id, { status: 'Impound Immediate' })}
                   className={`px-2 py-1 rounded text-[10px] font-mono font-bold transition-all cursor-pointer ${
                     activeVehicle.status === 'Impound Immediate'
                       ? 'bg-rose-900/60 text-rose-200 border border-rose-700/50'
-                      : 'text-[#8BBB92] hover:text-[#f0fdf4]'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   Impound
@@ -296,7 +296,7 @@ export function WarrantHotlistView() {
                   className={`px-2 py-1 rounded text-[10px] font-mono font-bold transition-all cursor-pointer ${
                     activeVehicle.status === 'Active Warrant'
                       ? 'bg-amber-900/60 text-amber-200 border border-amber-700/50'
-                      : 'text-[#8BBB92] hover:text-[#f0fdf4]'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   Active
@@ -305,8 +305,8 @@ export function WarrantHotlistView() {
                   onClick={() => updateWarrant(activeVehicle.id, { status: 'Under Surveillance' })}
                   className={`px-2 py-1 rounded text-[10px] font-mono font-bold transition-all cursor-pointer ${
                     activeVehicle.status === 'Under Surveillance'
-                      ? 'bg-[#12544F] text-[#f0fdf4]'
-                      : 'text-[#8BBB92] hover:text-[#f0fdf4]'
+                      ? 'bg-[var(--surface-subtle)] text-[var(--text-primary)]'
+                      : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)]'
                   }`}
                 >
                   Watch
@@ -327,7 +327,7 @@ export function WarrantHotlistView() {
                 variant="secondary"
                 size="sm"
                 onClick={handleTransmitChallan}
-                className="bg-[#12544F] text-[#f0fdf4] border-[#2A835F] hover:bg-[#2A835F] text-xs"
+                className="bg-[var(--surface-subtle)] text-[var(--text-primary)] border-[var(--color-accent-primary)] hover:bg-[#2563eb] text-xs"
               >
                 <FileText className="h-3.5 w-3.5" />
                 <span>Transmit E-Challan</span>
@@ -348,17 +348,17 @@ export function WarrantHotlistView() {
       {/* Add New Wanted Vehicle Modal */}
       {isAddModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-lg rounded-xl border border-[#12544F] bg-[#092328] p-5 shadow-2xl font-mono text-xs">
-            <div className="flex items-center justify-between border-b border-[#12544F] pb-3 mb-4">
+          <div className="w-full max-w-lg rounded-xl border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-5 shadow-2xl font-mono text-xs">
+            <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-3 mb-4">
               <div className="flex items-center gap-2">
                 <ShieldAlert className="h-4 w-4 text-rose-400" />
-                <span className="font-bold text-[#f0fdf4] text-sm">
+                <span className="font-bold text-[var(--text-primary)] text-sm">
                   Flag New Wanted Vehicle for Autonomous ANPR Radar
                 </span>
               </div>
               <button
                 onClick={() => setIsAddModalOpen(false)}
-                className="text-[#8BBB92] hover:text-[#f0fdf4] cursor-pointer"
+                className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] cursor-pointer"
               >
                 <X className="h-4 w-4" />
               </button>
@@ -366,7 +366,7 @@ export function WarrantHotlistView() {
 
             <form onSubmit={handleCreateWarrant} className="space-y-3">
               <div>
-                <label className="block text-[11px] text-[#8BBB92] mb-1">
+                <label className="block text-[11px] text-[var(--text-secondary)] mb-1">
                   License Plate Number (HSRP Standard) *
                 </label>
                 <input
@@ -375,52 +375,52 @@ export function WarrantHotlistView() {
                   placeholder="e.g. DL 01 AB 9988"
                   value={newPlate}
                   onChange={(e) => setNewPlate(e.target.value)}
-                  className="w-full rounded border border-[#12544F] bg-[#0d3137] px-3 py-2 text-[#f0fdf4] outline-none uppercase font-bold text-sm tracking-wider"
+                  className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-2 text-[var(--text-primary)] outline-none uppercase font-bold text-sm tracking-wider"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-[11px] text-[#8BBB92] mb-1">Vehicle Make & Model</label>
+                  <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Vehicle Make & Model</label>
                   <input
                     type="text"
                     placeholder="e.g. Mahindra Thar (Black)"
                     value={newModel}
                     onChange={(e) => setNewModel(e.target.value)}
-                    className="w-full rounded border border-[#12544F] bg-[#0d3137] px-3 py-2 text-[#f0fdf4] outline-none"
+                    className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-2 text-[var(--text-primary)] outline-none"
                   />
                 </div>
                 <div>
-                  <label className="block text-[11px] text-[#8BBB92] mb-1">Case / FIR Number</label>
+                  <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Case / FIR Number</label>
                   <input
                     type="text"
                     placeholder="e.g. FIR #502/2026"
                     value={newFir}
                     onChange={(e) => setNewFir(e.target.value)}
-                    className="w-full rounded border border-[#12544F] bg-[#0d3137] px-3 py-2 text-[#f0fdf4] outline-none"
+                    className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-2 text-[var(--text-primary)] outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-[11px] text-[#8BBB92] mb-1">Warrant Offense & Reason *</label>
+                <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Warrant Offense & Reason *</label>
                 <input
                   type="text"
                   required
                   placeholder="e.g. Hit & Run Fatality on Dakshin Marg"
                   value={newReason}
                   onChange={(e) => setNewReason(e.target.value)}
-                  className="w-full rounded border border-[#12544F] bg-[#0d3137] px-3 py-2 text-[#f0fdf4] outline-none"
+                  className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-2 text-[var(--text-primary)] outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-3 gap-3">
                 <div>
-                  <label className="block text-[11px] text-[#8BBB92] mb-1">Police Station</label>
+                  <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Police Station</label>
                   <select
                     value={newPs}
                     onChange={(e) => setNewPs(e.target.value)}
-                    className="w-full rounded border border-[#12544F] bg-[#0d3137] px-2 py-2 text-[#f0fdf4] outline-none text-xs"
+                    className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-2 py-2 text-[var(--text-primary)] outline-none text-xs"
                   >
                     <option value="Sector 17 PS (Chandigarh)">Sector 17 PS</option>
                     <option value="Sector 34 PS (Chandigarh)">Sector 34 PS</option>
@@ -430,11 +430,11 @@ export function WarrantHotlistView() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] text-[#8BBB92] mb-1">Intercept Priority</label>
+                  <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Intercept Priority</label>
                   <select
                     value={newPriority}
                     onChange={(e) => setNewPriority(e.target.value as any)}
-                    className="w-full rounded border border-[#12544F] bg-[#0d3137] px-2 py-2 text-[#f0fdf4] outline-none text-xs"
+                    className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-2 py-2 text-[var(--text-primary)] outline-none text-xs"
                   >
                     <option value="Critical">Critical (P1)</option>
                     <option value="High">High (P2)</option>
@@ -443,11 +443,11 @@ export function WarrantHotlistView() {
                 </div>
 
                 <div>
-                  <label className="block text-[11px] text-[#8BBB92] mb-1">Initial Status</label>
+                  <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Initial Status</label>
                   <select
                     value={newStatus}
                     onChange={(e) => setNewStatus(e.target.value as any)}
-                    className="w-full rounded border border-[#12544F] bg-[#0d3137] px-2 py-2 text-[#f0fdf4] outline-none text-xs"
+                    className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-2 py-2 text-[var(--text-primary)] outline-none text-xs"
                   >
                     <option value="Active Warrant">Active Warrant</option>
                     <option value="Impound Immediate">Impound Immediate</option>
@@ -456,7 +456,7 @@ export function WarrantHotlistView() {
                 </div>
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#12544F] mt-4">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[var(--surface-border)] mt-4">
                 <Button
                   type="button"
                   variant="secondary"
@@ -469,7 +469,7 @@ export function WarrantHotlistView() {
                   type="submit"
                   variant="primary"
                   size="sm"
-                  className="bg-[#2A835F] text-[#f0fdf4] hover:bg-[#12544F]"
+                  className="bg-[#2563eb] text-[var(--text-primary)] hover:bg-[var(--surface-subtle)]"
                 >
                   Broadcast Intercept Order
                 </Button>

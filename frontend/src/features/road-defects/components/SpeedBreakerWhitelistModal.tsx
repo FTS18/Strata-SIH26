@@ -105,30 +105,30 @@ export function SpeedBreakerWhitelistModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm">
-      <div className="w-full max-w-2xl rounded-xl border border-[#12544F] bg-[#092328] p-5 shadow-2xl font-mono text-xs max-h-[90vh] flex flex-col">
+      <div className="w-full max-w-2xl rounded-xl border border-[var(--surface-border)] bg-[var(--surface-canvas)] p-5 shadow-2xl font-mono text-xs max-h-[90vh] flex flex-col">
         {/* Header */}
-        <div className="flex items-center justify-between border-b border-[#12544F] pb-3 shrink-0">
+        <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-3 shrink-0">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[#12544F] border border-[#2A835F] text-[#8BBB92]">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-[var(--surface-subtle)] border border-[var(--color-accent-primary)] text-[var(--text-secondary)]">
               <ShieldCheck className="h-4 w-4" />
             </div>
             <div>
-              <h3 className="font-bold text-[#f0fdf4] text-sm">
+              <h3 className="font-bold text-[var(--text-primary)] text-sm">
                 Speed Breaker Spatial Whitelist GIS Filter (BEL PS 26124)
               </h3>
-              <p className="text-[11px] text-[#8BBB92]">
+              <p className="text-[11px] text-[var(--text-secondary)]">
                 Eliminating false pothole alarms by cross-referencing vertical IMU spikes against municipal calmers
               </p>
             </div>
           </div>
-          <button onClick={onClose} className="text-[#8BBB92] hover:text-[#f0fdf4]">
+          <button onClick={onClose} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
             <X className="h-4 w-4" />
           </button>
         </div>
 
         {/* Algorithm Explanation Strip */}
-        <div className="rounded-lg border border-[#12544F] bg-[#0d3137] p-3 my-3 shrink-0 text-[#8BBB92] space-y-1">
-          <div className="flex items-center justify-between font-semibold text-[#f0fdf4]">
+        <div className="rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] p-3 my-3 shrink-0 text-[var(--text-secondary)] space-y-1">
+          <div className="flex items-center justify-between font-semibold text-[var(--text-primary)]">
             <span>Dual-Layer Disambiguation Pipeline:</span>
             <span className="text-emerald-400 font-bold">15-Meter Geofence Buffer</span>
           </div>
@@ -146,12 +146,12 @@ export function SpeedBreakerWhitelistModal({
         {/* List of Registered Calmers */}
         <div className="flex-1 overflow-y-auto space-y-2 pr-1">
           <div className="flex items-center justify-between pb-1">
-            <span className="font-bold text-[#f0fdf4]">Registered GIS Speed Calmers ({calmers.length})</span>
+            <span className="font-bold text-[var(--text-primary)]">Registered GIS Speed Calmers ({calmers.length})</span>
             <Button
               variant="secondary"
               size="sm"
               onClick={() => setIsAddOpen(true)}
-              className="bg-[#12544F] text-[#f0fdf4] border-[#2A835F] hover:bg-[#2A835F] text-xs h-7"
+              className="bg-[var(--surface-subtle)] text-[var(--text-primary)] border-[var(--color-accent-primary)] hover:bg-[#2563eb] text-xs h-7"
             >
               <Plus className="h-3 w-3" />
               <span>Add Authorized Calmer</span>
@@ -161,11 +161,11 @@ export function SpeedBreakerWhitelistModal({
           {calmers.map((c) => (
             <div
               key={c.id}
-              className="flex items-center justify-between rounded-lg border border-[#12544F] bg-[#0d3137] p-3 hover:border-[#2A835F] transition-colors"
+              className="flex items-center justify-between rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] p-3 hover:border-[var(--color-accent-primary)] transition-colors"
             >
               <div className="space-y-0.5 max-w-[70%]">
                 <div className="flex items-center gap-2">
-                  <span className="font-bold text-[#f0fdf4]">{c.id}</span>
+                  <span className="font-bold text-[var(--text-primary)]">{c.id}</span>
                   <span
                     className={`rounded px-1.5 py-0.2 text-[9px] font-bold uppercase border ${
                       c.status === 'Whitelisted'
@@ -175,10 +175,10 @@ export function SpeedBreakerWhitelistModal({
                   >
                     {c.status}
                   </span>
-                  <span className="text-[10px] text-[#5b9076]">({c.standardCode})</span>
+                  <span className="text-[10px] text-[var(--text-muted)]">({c.standardCode})</span>
                 </div>
-                <p className="text-[#8BBB92] text-xs truncate">{c.roadName}</p>
-                <p className="text-[10px] text-[#5b9076]">
+                <p className="text-[var(--text-secondary)] text-xs truncate">{c.roadName}</p>
+                <p className="text-[10px] text-[var(--text-muted)]">
                   GPS: {c.coords.lat.toFixed(4)}° N, {c.coords.lng.toFixed(4)}° E · Type: {c.calmerType} · Registered by: {c.addedBy}
                 </p>
               </div>
@@ -203,16 +203,16 @@ export function SpeedBreakerWhitelistModal({
 
         {/* Add Modal */}
         {isAddOpen && (
-          <div className="border-t border-[#12544F] pt-3 mt-3 bg-[#092328]">
+          <div className="border-t border-[var(--surface-border)] pt-3 mt-3 bg-[var(--surface-canvas)]">
             <form onSubmit={handleAddCalmer} className="space-y-2">
-              <div className="font-bold text-[#f0fdf4]">Register Authorized Municipal Calmer:</div>
+              <div className="font-bold text-[var(--text-primary)]">Register Authorized Municipal Calmer:</div>
               <input
                 type="text"
                 required
                 placeholder="Road name / Landmark (e.g. Sector 16 Hospital Entry)"
                 value={newRoad}
                 onChange={(e) => setNewRoad(e.target.value)}
-                className="w-full rounded border border-[#12544F] bg-[#0d3137] p-2 text-[#f0fdf4] outline-none text-xs"
+                className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] p-2 text-[var(--text-primary)] outline-none text-xs"
               />
               <div className="grid grid-cols-3 gap-2">
                 <input
@@ -221,7 +221,7 @@ export function SpeedBreakerWhitelistModal({
                   placeholder="Latitude"
                   value={newLat}
                   onChange={(e) => setNewLat(Number(e.target.value))}
-                  className="rounded border border-[#12544F] bg-[#0d3137] p-2 text-[#f0fdf4] outline-none text-xs"
+                  className="rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] p-2 text-[var(--text-primary)] outline-none text-xs"
                 />
                 <input
                   type="number"
@@ -229,12 +229,12 @@ export function SpeedBreakerWhitelistModal({
                   placeholder="Longitude"
                   value={newLng}
                   onChange={(e) => setNewLng(Number(e.target.value))}
-                  className="rounded border border-[#12544F] bg-[#0d3137] p-2 text-[#f0fdf4] outline-none text-xs"
+                  className="rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] p-2 text-[var(--text-primary)] outline-none text-xs"
                 />
                 <select
                   value={newType}
                   onChange={(e) => setNewType(e.target.value)}
-                  className="rounded border border-[#12544F] bg-[#0d3137] p-2 text-[#f0fdf4] outline-none text-xs"
+                  className="rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] p-2 text-[var(--text-primary)] outline-none text-xs"
                 >
                   <option value="Asphalt Parabolic Hump">Asphalt Parabolic</option>
                   <option value="Tabletop Pedestrian Crossing">Tabletop Crossing</option>
@@ -245,7 +245,7 @@ export function SpeedBreakerWhitelistModal({
                 <Button variant="secondary" size="sm" onClick={() => setIsAddOpen(false)}>
                   Cancel
                 </Button>
-                <Button variant="primary" size="sm" type="submit" className="bg-[#2A835F] text-[#f0fdf4] hover:bg-[#12544F]">
+                <Button variant="primary" size="sm" type="submit" className="bg-[#2563eb] text-[var(--text-primary)] hover:bg-[var(--surface-subtle)]">
                   Save to GIS Whitelist
                 </Button>
               </div>

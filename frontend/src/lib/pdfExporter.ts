@@ -397,7 +397,7 @@ export function exportCpwdBoqDossier(data: {
             border-left: 4px solid #15803d;
             padding: 14px;
             border-radius: 4px;
-            background: #f0fdf4;
+            background: #f8fafc;
             margin-bottom: 24px;
             font-size: 12px;
             line-height: 1.6;

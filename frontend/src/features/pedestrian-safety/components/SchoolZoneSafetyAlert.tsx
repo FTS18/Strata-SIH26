@@ -71,16 +71,16 @@ export function SchoolZoneSafetyAlert({
   // When no pedestrians are detected in the active camera stream:
   if (!activeAlert || activeAlert.pedestrians_count === 0) {
     return (
-      <div className="flex items-center justify-between gap-2 rounded-lg border border-[#12544F] bg-[#0d3137]/80 px-3.5 py-2 font-mono text-xs text-[#8BBB92]">
+      <div className="flex items-center justify-between gap-2 rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)]/80 px-3.5 py-2 font-mono text-xs text-[var(--text-secondary)]">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
           </span>
-          <span className="font-bold text-[#f0fdf4]">VULNERABLE PEDESTRIAN SCANNER</span>
+          <span className="font-bold text-[var(--text-primary)]">VULNERABLE PEDESTRIAN SCANNER</span>
           <span className="hidden sm:inline">· ROADWAY CLEAR (0 OBSTACLES)</span>
         </div>
-        <div className="flex items-center gap-1.5 text-[10px] text-[#5b9076]">
+        <div className="flex items-center gap-1.5 text-[10px] text-[var(--text-muted)]">
           <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
           <span>YOLOv8 Edge Vision Active</span>
         </div>
@@ -92,7 +92,7 @@ export function SchoolZoneSafetyAlert({
 
   if (compact) {
     return (
-      <div className="flex items-center justify-between gap-2 rounded border border-amber-500/40 bg-[#0d3137] px-3 py-1.5 font-mono text-xs shadow-sm">
+      <div className="flex items-center justify-between gap-2 rounded border border-amber-500/40 bg-[var(--surface-panel)] px-3 py-1.5 font-mono text-xs shadow-sm">
         <div className="flex items-center gap-2">
           <span className="relative flex h-2 w-2">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75" />
@@ -101,7 +101,7 @@ export function SchoolZoneSafetyAlert({
           <span className="font-bold text-amber-300">
             {activeAlert.zone_type} · {activeAlert.pedestrians_count} DETECTED
           </span>
-          <span className="text-[#8BBB92] hidden sm:inline">
+          <span className="text-[var(--text-secondary)] hidden sm:inline">
             Speed Limit: {activeAlert.speed_limit_km_h} km/h
           </span>
         </div>
@@ -113,7 +113,7 @@ export function SchoolZoneSafetyAlert({
   }
 
   return (
-    <div className="flex flex-col rounded-lg border border-amber-500/50 bg-[#092328] overflow-hidden shadow-md font-mono text-xs">
+    <div className="flex flex-col rounded-lg border border-amber-500/50 bg-[var(--surface-canvas)] overflow-hidden shadow-md font-mono text-xs">
       {/* Top Banner Header */}
       <div className="flex items-center justify-between border-b border-amber-500/30 bg-amber-950/40 px-3.5 py-2">
         <div className="flex items-center gap-2">
@@ -130,7 +130,7 @@ export function SchoolZoneSafetyAlert({
           onClick={() => setAcknowledged(true)}
           className={`rounded px-2.5 py-1 text-[10px] font-bold cursor-pointer transition-all ${
             acknowledged
-              ? 'bg-[#12544F] text-[#8BBB92]'
+              ? 'bg-[var(--surface-subtle)] text-[var(--text-secondary)]'
               : 'bg-amber-600 text-black hover:bg-amber-500'
           }`}
         >
@@ -139,11 +139,11 @@ export function SchoolZoneSafetyAlert({
       </div>
 
       {/* Main Alert Telemetry Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3.5 bg-[#0d3137]/60">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-3 p-3.5 bg-[var(--surface-panel)]/60">
         {/* Left: Driver Cabin Advisory */}
-        <div className="flex flex-col justify-between rounded border border-[#12544F] bg-[#06191c] p-3 space-y-2">
+        <div className="flex flex-col justify-between rounded border border-[var(--surface-border)] bg-[#06191c] p-3 space-y-2">
           <div>
-            <div className="flex items-center justify-between text-[11px] text-[#8BBB92] mb-1">
+            <div className="flex items-center justify-between text-[11px] text-[var(--text-secondary)] mb-1">
               <span>IN-CABIN DRIVER ADVISORY</span>
               <div className="flex items-center gap-1 text-amber-400">
                 <Volume2 className={`h-3.5 w-3.5 ${!acknowledged ? 'animate-bounce' : ''}`} />
@@ -157,15 +157,15 @@ export function SchoolZoneSafetyAlert({
             </p>
           </div>
 
-          <div className="pt-2 border-t border-[#12544F] flex justify-between items-center text-[10px] text-[#5b9076]">
+          <div className="pt-2 border-t border-[var(--surface-border)] flex justify-between items-center text-[10px] text-[var(--text-muted)]">
             <span>Target: {activeAlert.bus_id}</span>
             <span>Route: {activeAlert.route_id}</span>
           </div>
         </div>
 
         {/* Center: Kinematic Speed Enforcer Gauge */}
-        <div className="flex flex-col justify-between rounded border border-[#12544F] bg-[#06191c] p-3 space-y-2">
-          <div className="flex justify-between items-center text-[11px] text-[#8BBB92]">
+        <div className="flex flex-col justify-between rounded border border-[var(--surface-border)] bg-[#06191c] p-3 space-y-2">
+          <div className="flex justify-between items-center text-[11px] text-[var(--text-secondary)]">
             <span>SPEED COMPLIANCE</span>
             <span className={`px-1.5 py-0.5 rounded text-[9px] font-bold ${
               isOverspeeding ? 'bg-rose-950/80 text-rose-400 border border-rose-800/50' : 'bg-emerald-950 text-emerald-400'
@@ -176,13 +176,13 @@ export function SchoolZoneSafetyAlert({
 
           <div className="flex items-baseline gap-3 my-1">
             <div>
-              <span className="text-2xl font-extrabold text-[#f0fdf4] tabular-nums">
+              <span className="text-2xl font-extrabold text-[var(--text-primary)] tabular-nums">
                 {activeAlert.current_speed_km_h}
               </span>
-              <span className="text-[10px] text-[#8BBB92] ml-1">km/h</span>
-              <p className="text-[9px] text-[#5b9076]">Observed Speed</p>
+              <span className="text-[10px] text-[var(--text-secondary)] ml-1">km/h</span>
+              <p className="text-[9px] text-[var(--text-muted)]">Observed Speed</p>
             </div>
-            <ArrowRight className="h-4 w-4 text-[#8BBB92]" />
+            <ArrowRight className="h-4 w-4 text-[var(--text-secondary)]" />
             <div>
               <span className="text-2xl font-extrabold text-amber-400 tabular-nums">
                 {activeAlert.speed_limit_km_h}
@@ -192,30 +192,30 @@ export function SchoolZoneSafetyAlert({
             </div>
           </div>
 
-          <p className="text-[10px] text-[#8BBB92] pt-2 border-t border-[#12544F]">
-            Location: <span className="text-[#f0fdf4]">{activeAlert.location}</span>
+          <p className="text-[10px] text-[var(--text-secondary)] pt-2 border-t border-[var(--surface-border)]">
+            Location: <span className="text-[var(--text-primary)]">{activeAlert.location}</span>
           </p>
         </div>
 
         {/* Right: PWD Civil Infrastructure Integration */}
-        <div className="flex flex-col justify-between rounded border border-[#12544F] bg-[#06191c] p-3 space-y-2">
+        <div className="flex flex-col justify-between rounded border border-[var(--surface-border)] bg-[#06191c] p-3 space-y-2">
           <div>
-            <div className="flex items-center justify-between text-[11px] text-[#8BBB92] mb-1">
+            <div className="flex items-center justify-between text-[11px] text-[var(--text-secondary)] mb-1">
               <span>CROSSWALK INFRASTRUCTURE</span>
               <span className="text-[10px] text-amber-400 font-bold">
                 {activeAlert.crosswalk_status}
               </span>
             </div>
             <div className="flex items-start gap-2">
-              <Wrench className="h-4 w-4 text-[#2A835F] shrink-0 mt-0.5" />
-              <p className="text-[11px] text-[#f0fdf4]">
+              <Wrench className="h-4 w-4 text-[var(--color-accent-cyan)] shrink-0 mt-0.5" />
+              <p className="text-[11px] text-[var(--text-primary)]">
                 Zebra crossing paint &gt;60% faded near school gates. Auto-ticket created for PWD civil maintenance.
               </p>
             </div>
           </div>
 
-          <div className="flex items-center justify-between pt-2 border-t border-[#12544F] text-[10px]">
-            <span className="text-[#5b9076]">Work Order: {pwdDispatched ? 'WO-PWD-7721' : (activeAlert.pwd_work_order_id || 'Pending')}</span>
+          <div className="flex items-center justify-between pt-2 border-t border-[var(--surface-border)] text-[10px]">
+            <span className="text-[var(--text-muted)]">Work Order: {pwdDispatched ? 'WO-PWD-7721' : (activeAlert.pwd_work_order_id || 'Pending')}</span>
             {pwdDispatched ? (
               <span className="text-emerald-400 font-semibold flex items-center gap-1">
                 <CheckCircle2 className="h-3 w-3" /> PWD Dispatched
@@ -235,7 +235,7 @@ export function SchoolZoneSafetyAlert({
                   });
                   setPwdDispatched(true);
                 }}
-                className="rounded border border-[#2A835F] bg-[#12544F] px-2 py-0.5 text-[10px] text-[#8BBB92] hover:bg-[#2A835F] hover:text-[#f0fdf4] font-bold cursor-pointer transition-colors"
+                className="rounded border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-2 py-0.5 text-[10px] text-[var(--text-secondary)] hover:bg-[#2563eb] hover:text-[var(--text-primary)] font-bold cursor-pointer transition-colors"
               >
                 Forward to PWD
               </button>

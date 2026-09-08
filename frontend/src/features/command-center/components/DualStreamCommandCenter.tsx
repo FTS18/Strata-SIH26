@@ -224,12 +224,12 @@ export function DualStreamCommandCenter() {
   };
 
   return (
-    <div className="flex h-full w-full flex-col bg-[#092328] text-[#f0fdf4] overflow-y-auto select-none">
+    <div className="flex h-full w-full flex-col bg-[var(--surface-canvas)] text-[var(--text-primary)] overflow-y-auto select-none">
       {/* Toast Notification Banner */}
       {telemetryToast && (
-        <div className="flex items-center justify-between border-b border-[#2A835F] bg-[#12544F] px-4 py-2 font-mono text-xs text-[#f0fdf4] shadow-md animate-in fade-in duration-200 shrink-0">
+        <div className="flex items-center justify-between border-b border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-4 py-2 font-mono text-xs text-[var(--text-primary)] shadow-md animate-in fade-in duration-200 shrink-0">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-[#8BBB92]" />
+            <CheckCircle2 className="h-4 w-4 text-[var(--text-secondary)]" />
             <span>{telemetryToast}</span>
           </div>
         </div>
@@ -258,21 +258,21 @@ export function DualStreamCommandCenter() {
           </div>
 
           {/* Col 2: City Road Network & Incidents (xl:col-span-4) */}
-          <div className="xl:col-span-4 flex flex-col rounded-xl border border-[#12544F] bg-[#0d3137]/90 p-3 shadow-md h-[400px]">
-            <div className="flex items-center justify-between border-b border-[#12544F]/70 pb-2.5 mb-2.5 font-mono text-xs shrink-0">
+          <div className="xl:col-span-4 flex flex-col rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-3 shadow-md h-[400px]">
+            <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-2.5 mb-2.5 font-mono text-xs shrink-0">
               <div className="flex items-center gap-2">
-                <MapIcon className="h-4 w-4 text-[#00e5bf]" />
-                <span className="font-bold text-white tracking-wider uppercase text-xs">
+                <MapIcon className="h-4 w-4 text-[var(--color-accent-primary)]" />
+                <span className="font-bold text-[var(--text-primary)] tracking-wider uppercase text-xs">
                   CITY ROAD NETWORK & INCIDENTS
                 </span>
               </div>
-              <div className="flex items-center gap-1.5 text-[10px] text-emerald-400">
-                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <div className="flex items-center gap-1.5 text-[10px] text-emerald-600 dark:text-emerald-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span>Live</span>
               </div>
             </div>
 
-            <div className="relative flex-1 rounded-lg overflow-hidden border border-[#12544F] min-h-0">
+            <div className="relative flex-1 rounded-lg overflow-hidden border border-[var(--surface-border)] min-h-0">
               <MapViewport
                 onDefectClick={handleSelectDefect}
                 onBusClick={(busId) => {
@@ -280,23 +280,15 @@ export function DualStreamCommandCenter() {
                 }}
               />
 
-              {/* Bottom Traffic Flow Status Legend */}
-              <div className="absolute bottom-2 left-2 z-10 flex items-center gap-2 rounded-full bg-black/80 backdrop-blur-md px-2.5 py-1 text-[9px] font-mono border border-[#12544F]/80 text-[#8BBB92]">
-                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Normal</span>
-                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-amber-400" /> Moderate</span>
-                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-orange-500" /> Congested</span>
-                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-rose-500" /> Critical</span>
-              </div>
-
               {/* Compass Needle */}
-              <div className="absolute bottom-2 right-2 z-10 flex items-center justify-center h-6 w-6 rounded-full bg-black/80 border border-[#12544F]/80 text-[10px] font-mono font-bold text-[#8BBB92]">
+              <div className="absolute bottom-2 right-2 z-10 flex items-center justify-center h-6 w-6 rounded-full bg-[var(--surface-panel)] border border-[var(--surface-border)] text-[10px] font-mono font-bold text-[var(--text-secondary)] shadow-sm">
                 N
               </div>
             </div>
           </div>
 
           {/* Col 3: Incidents & Distress Reports (xl:col-span-3) */}
-          <div className="xl:col-span-3 flex flex-col rounded-xl border border-[#12544F] bg-[#0d3137]/90 shadow-md overflow-hidden h-[400px]">
+          <div className="xl:col-span-3 flex flex-col rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)]/90 shadow-md overflow-hidden h-[400px]">
             <div className="flex-1 min-h-0 overflow-y-auto">
               <LiveIncidentFeed
                 defects={defects}
@@ -362,13 +354,13 @@ export function DualStreamCommandCenter() {
       {isExpandedModal && (
         <div className="fixed inset-0 z-50 flex flex-col bg-black/90 backdrop-blur-md p-3 sm:p-6 animate-in fade-in duration-200">
           {/* Modal Header */}
-          <div className="flex items-center justify-between border-b border-[#12544F] pb-3 mb-3">
+          <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-3 mb-3">
             <div className="flex items-center gap-3">
-              <div className="flex items-center gap-2 rounded bg-[#12544F] px-2.5 py-1 text-xs font-mono font-bold text-[#f0fdf4]">
-                <Video className="h-4 w-4 text-[#8BBB92]" />
+              <div className="flex items-center gap-2 rounded bg-[var(--surface-subtle)] px-2.5 py-1 text-xs font-mono font-bold text-[var(--text-primary)]">
+                <Video className="h-4 w-4 text-[var(--text-secondary)]" />
                 <span>{activeCam.label}</span>
               </div>
-              <span className="text-xs text-[#8BBB92] hidden sm:inline">{activeCam.description}</span>
+              <span className="text-xs text-[var(--text-secondary)] hidden sm:inline">{activeCam.description}</span>
             </div>
 
             {/* Camera Switcher Pills inside Modal */}
@@ -380,8 +372,8 @@ export function DualStreamCommandCenter() {
                   onClick={() => setSelectedCamId(feed.id)}
                   className={`px-2.5 py-1 text-xs font-mono rounded border transition-colors cursor-pointer ${
                     feed.id === selectedCamId
-                      ? 'bg-[#12544F] border-[#8BBB92] text-[#f0fdf4] font-bold'
-                      : 'bg-[#0d3137] border-[#12544F] text-[#8BBB92] hover:bg-[#12544F]/50'
+                      ? 'bg-[var(--surface-subtle)] border-[#94a3b8] text-[var(--text-primary)] font-bold'
+                      : 'bg-[var(--surface-panel)] border-[var(--surface-border)] text-[var(--text-secondary)] hover:bg-[var(--surface-subtle)]/50'
                   }`}
                 >
                   {feed.shortName}
@@ -406,10 +398,10 @@ export function DualStreamCommandCenter() {
                 type="button"
                 disabled={isUploading}
                 onClick={() => modalFileInputRef.current?.click()}
-                className="flex items-center gap-1 rounded bg-[#12544F] border border-[#2A835F] px-2 py-1 text-xs font-mono text-[#f0fdf4] hover:bg-[#2A835F] transition-colors ml-1 cursor-pointer disabled:opacity-50"
+                className="flex items-center gap-1 rounded bg-[var(--surface-subtle)] border border-[var(--color-accent-primary)] px-2 py-1 text-xs font-mono text-[var(--text-primary)] hover:bg-[#2563eb] transition-colors ml-1 cursor-pointer disabled:opacity-50"
                 title={`Upload footage for ${activeCam.shortName}`}
               >
-                <Upload className="h-3 w-3 text-[#8BBB92]" />
+                <Upload className="h-3 w-3 text-[var(--text-secondary)]" />
                 <span className="hidden sm:inline">Upload</span>
               </button>
 
@@ -428,7 +420,7 @@ export function DualStreamCommandCenter() {
               <button
                 type="button"
                 onClick={() => setIsExpandedModal(false)}
-                className="flex items-center justify-center rounded-lg bg-[#0d3137] p-1.5 text-[#8BBB92] hover:text-[#f0fdf4] hover:bg-rose-900/50 border border-[#12544F] transition-colors ml-2 cursor-pointer"
+                className="flex items-center justify-center rounded-lg bg-[var(--surface-panel)] p-1.5 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-rose-900/50 border border-[var(--surface-border)] transition-colors ml-2 cursor-pointer"
                 title="Close Fullscreen"
               >
                 <X className="h-5 w-5" />
@@ -437,7 +429,7 @@ export function DualStreamCommandCenter() {
           </div>
 
           {/* Modal Expanded Video Player */}
-          <div className="relative flex flex-1 items-center justify-center rounded-xl border border-[#12544F] bg-black overflow-hidden shadow-2xl">
+          <div className="relative flex flex-1 items-center justify-center rounded-xl border border-[var(--surface-border)] bg-black overflow-hidden shadow-2xl">
             {/* Live Raw Python YOLOv8 MJPEG Stream for active camera */}
             <img
               key={`${activeCam.id}_modal`}
@@ -457,21 +449,21 @@ export function DualStreamCommandCenter() {
 
             {/* Telemetry Overlays in Expanded View */}
             <div className="absolute inset-0 pointer-events-none flex flex-col justify-between p-4 bg-gradient-to-t from-black/70 via-transparent to-black/50 z-20">
-              <div className="flex items-center justify-between text-xs font-mono text-[#8BBB92]">
-                <div className="flex items-center gap-2 rounded bg-black/80 px-3 py-1 border border-[#12544F]">
+              <div className="flex items-center justify-between text-xs font-mono text-[var(--text-secondary)]">
+                <div className="flex items-center gap-2 rounded bg-black/80 px-3 py-1 border border-[var(--surface-border)]">
                   <span className="h-2 w-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[#f0fdf4] font-bold">NVIDIA JETSON ORIN NANO</span>
+                  <span className="text-[var(--text-primary)] font-bold">NVIDIA JETSON ORIN NANO</span>
                   <span>· {avgFleetFps.toFixed(1)} FPS</span>
-                  <span className="ml-1 rounded border border-[#2A835F] bg-[#12544F]/50 px-1.5 py-0.5 text-[10px] text-emerald-400">RAW MJPEG</span>
+                  <span className="ml-1 rounded border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)]/50 px-1.5 py-0.5 text-[10px] text-emerald-400">RAW MJPEG</span>
                 </div>
-                <div className="rounded bg-black/80 px-3 py-1 border border-[#12544F] text-[#8BBB92]">
+                <div className="rounded bg-black/80 px-3 py-1 border border-[var(--surface-border)] text-[var(--text-secondary)]">
                   {activeCam.resolution}
                 </div>
               </div>
 
-              <div className="flex items-center justify-between text-xs font-mono text-[#8BBB92] bg-black/80 px-4 py-2 rounded-lg border border-[#12544F]">
+              <div className="flex items-center justify-between text-xs font-mono text-[var(--text-secondary)] bg-black/80 px-4 py-2 rounded-lg border border-[var(--surface-border)]">
                 <span>AI MODEL: {activeCam.model}</span>
-                <span className="text-[#f0fdf4] font-bold">INFERENCE LATENCY: {activeCam.latency}</span>
+                <span className="text-[var(--text-primary)] font-bold">INFERENCE LATENCY: {activeCam.latency}</span>
                 <span className="text-emerald-400 font-semibold">TENSORRT ACCELERATION ACTIVE</span>
               </div>
             </div>

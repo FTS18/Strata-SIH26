@@ -23,29 +23,29 @@ export function MetricCard({
   className,
 }: MetricCardProps) {
   const changeColors = {
-    positive: 'text-[#8BBB92] bg-[#12544F] border-[#2A835F]',
+    positive: 'text-[var(--text-secondary)] bg-[var(--surface-subtle)] border-[var(--color-accent-primary)]',
     negative: 'text-rose-400 bg-rose-950/40 border-rose-800/40',
-    neutral: 'text-[#8BBB92] bg-[#0d3137] border-[#12544F]',
+    neutral: 'text-[var(--text-secondary)] bg-[var(--surface-panel)] border-[var(--surface-border)]',
   };
 
   return (
     <div
       className={cn(
-        'flex flex-col justify-between rounded-lg border border-[#12544F] bg-[#0d3137] p-4 shadow-sm transition-all',
+        'flex flex-col justify-between rounded-lg border border-[var(--surface-border)] bg-[var(--surface-panel)] p-4 shadow-sm transition-all',
         className
       )}
     >
       <div className="flex items-center justify-between gap-2">
-        <span className="text-xs font-medium text-[#8BBB92]">{label}</span>
-        {icon && <div className="text-[#8BBB92]">{icon}</div>}
+        <span className="text-xs font-medium text-[var(--text-secondary)]">{label}</span>
+        {icon && <div className="text-[var(--text-secondary)]">{icon}</div>}
       </div>
 
       <div className="mt-2.5 flex items-baseline justify-between gap-2">
         <div className="flex items-baseline gap-1.5">
-          <span className="font-display text-2xl font-bold tracking-wide text-[#f0fdf4] tabular-nums">
+          <span className="font-display text-2xl font-bold tracking-wide text-[var(--text-primary)] tabular-nums">
             {value}
           </span>
-          {unit && <span className="text-xs font-mono text-[#8BBB92]">{unit}</span>}
+          {unit && <span className="text-xs font-mono text-[var(--text-secondary)]">{unit}</span>}
         </div>
 
         {change && (
@@ -61,7 +61,7 @@ export function MetricCard({
       </div>
 
       {caption && (
-        <p className="mt-1.5 text-xs text-[#5b9076] leading-tight font-mono">{caption}</p>
+        <p className="mt-1.5 text-xs text-[var(--text-muted)] leading-tight font-mono">{caption}</p>
       )}
     </div>
   );

@@ -42,14 +42,14 @@ export function RoadHeatmapView() {
     {
       key: 'clusterId',
       header: 'Cluster ID',
-      render: (c) => <span className="font-mono text-xs text-[#8BBB92] font-semibold">{c.clusterId}</span>,
+      render: (c) => <span className="font-mono text-xs text-[var(--text-secondary)] font-semibold">{c.clusterId}</span>,
     },
     { key: 'roadName', header: 'Corridor Cluster' },
     {
       key: 'potholeCount',
       header: 'Defect Density',
       align: 'right',
-      render: (c) => <span className="font-mono font-bold text-[#f0fdf4]">{c.potholeCount} defects</span>,
+      render: (c) => <span className="font-mono font-bold text-[var(--text-primary)]">{c.potholeCount} defects</span>,
     },
     {
       key: 'recurrenceRate',
@@ -59,7 +59,7 @@ export function RoadHeatmapView() {
     {
       key: 'originalContractor',
       header: 'Liable Contractor',
-      render: (c) => <span className="text-xs text-[#8BBB92]">{c.originalContractor}</span>,
+      render: (c) => <span className="text-xs text-[var(--text-secondary)]">{c.originalContractor}</span>,
     },
     {
       key: 'status',
@@ -82,12 +82,12 @@ export function RoadHeatmapView() {
   ];
 
   return (
-    <div className="flex h-full w-full flex-col gap-3 sm:gap-4 overflow-y-auto p-3 sm:p-5 bg-[#092328] text-[#f0fdf4]">
+    <div className="flex h-full w-full flex-col gap-3 sm:gap-4 overflow-y-auto p-3 sm:p-5 bg-[var(--surface-canvas)] text-[var(--text-primary)]">
       {/* Toast Notification Banner */}
       {activeToast && (
-        <div className="flex items-center justify-between rounded-lg border border-[#2A835F] bg-[#12544F] px-4 py-2 font-mono text-xs text-[#f0fdf4] shadow-md animate-in fade-in duration-200">
+        <div className="flex items-center justify-between rounded-lg border border-[var(--color-accent-primary)] bg-[var(--surface-subtle)] px-4 py-2 font-mono text-xs text-[var(--text-primary)] shadow-md animate-in fade-in duration-200">
           <div className="flex items-center gap-2">
-            <CheckCircle2 className="h-4 w-4 text-[#8BBB92]" />
+            <CheckCircle2 className="h-4 w-4 text-[var(--text-secondary)]" />
             <span>{activeToast}</span>
           </div>
         </div>
@@ -120,7 +120,7 @@ export function RoadHeatmapView() {
           caption="Total compacted VG-30 requirement"
           change="Tender Ready"
           changeType="positive"
-          icon={<Activity className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Activity className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
         <MetricCard
           label="Liable Contractor Penalties"
@@ -128,24 +128,24 @@ export function RoadHeatmapView() {
           caption="Statutory SLA deductions"
           change="Automatic Enforcement"
           changeType="positive"
-          icon={<Scale className="h-4 w-4 text-[#8BBB92]" />}
+          icon={<Scale className="h-4 w-4 text-[var(--text-secondary)]" />}
         />
       </div>
 
       {/* Main Full-Height Content Stack */}
       <div className="flex flex-1 flex-col gap-3 sm:gap-4">
         {/* Main Table Card */}
-        <div className="w-full rounded-xl border border-[#12544F] bg-[#0d3137] p-3 sm:p-4 shadow-sm">
+        <div className="w-full rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-3 sm:p-4 shadow-sm">
           <div className="mb-3 flex flex-col sm:flex-row sm:items-center justify-between gap-1.5">
             <div>
-              <h3 className="text-sm font-semibold text-[#f0fdf4]">
+              <h3 className="text-sm font-semibold text-[var(--text-primary)]">
                 Spatial Pothole Clusters & Contractor Maintenance Liability
               </h3>
-              <p className="text-xs text-[#8BBB92]">
+              <p className="text-xs text-[var(--text-secondary)]">
                 DBSCAN spatial clustering grouping nearby road distress occurrences within 50-meter envelopes
               </p>
             </div>
-            <span className="self-start sm:self-auto rounded border border-[#12544F] bg-[#12544F]/50 px-2.5 py-1 text-xs font-mono text-[#8BBB92]">
+            <span className="self-start sm:self-auto rounded border border-[var(--surface-border)] bg-[var(--surface-subtle)]/50 px-2.5 py-1 text-xs font-mono text-[var(--text-secondary)]">
               Municipal Corporation PWD
             </span>
           </div>
@@ -162,26 +162,26 @@ export function RoadHeatmapView() {
 
         {/* Selected Cluster Details Panel */}
         {activeCluster && (
-          <div className="w-full rounded-xl border border-[#1d6d63] bg-[#0d3137] p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 shadow-sm">
+          <div className="w-full rounded-xl border border-[var(--surface-border)] bg-[var(--surface-panel)] p-4 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3 shadow-sm">
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
-              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#12544F] border border-[#2A835F] text-[#8BBB92] shrink-0">
+              <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[var(--surface-subtle)] border border-[var(--color-accent-primary)] text-[var(--text-secondary)] shrink-0">
                 <Activity className="h-5 w-5" />
               </div>
               <div className="space-y-0.5">
                 <div className="flex items-center gap-2">
-                  <span className="font-mono text-base font-bold text-[#f0fdf4]">
+                  <span className="font-mono text-base font-bold text-[var(--text-primary)]">
                     {activeCluster.clusterId}
                   </span>
-                  <span className="text-xs text-[#8BBB92]">· {activeCluster.roadName}</span>
+                  <span className="text-xs text-[var(--text-secondary)]">· {activeCluster.roadName}</span>
                   <span className="rounded border border-rose-800/40 bg-rose-950/40 px-2 py-0.5 text-[10px] font-mono text-rose-400 font-bold">
                     {activeCluster.riskLevel} Risk
                   </span>
                 </div>
-                <p className="text-xs text-[#8BBB92]">
-                  Centroid GPS: <span className="text-[#f0fdf4] font-mono">{activeCluster.gpsCentroid}</span> · Density: <span className="text-[#f0fdf4] font-semibold">{activeCluster.potholeCount} defects</span> · Est Asphalt: <span className="text-emerald-400 font-mono font-bold">{activeCluster.estAsphaltTons} MT</span>
+                <p className="text-xs text-[var(--text-secondary)]">
+                  Centroid GPS: <span className="text-[var(--text-primary)] font-mono">{activeCluster.gpsCentroid}</span> · Density: <span className="text-[var(--text-primary)] font-semibold">{activeCluster.potholeCount} defects</span> · Est Asphalt: <span className="text-emerald-400 font-mono font-bold">{activeCluster.estAsphaltTons} MT</span>
                 </p>
-                <p className="text-[11px] font-mono text-[#5b9076]">
-                  Liable Contractor: <span className="text-[#8BBB92] font-semibold">{activeCluster.originalContractor}</span> ({activeCluster.recurrenceRate} · SLA Overdue: {activeCluster.slaBreachDays} days)
+                <p className="text-[11px] font-mono text-[var(--text-muted)]">
+                  Liable Contractor: <span className="text-[var(--text-secondary)] font-semibold">{activeCluster.originalContractor}</span> ({activeCluster.recurrenceRate} · SLA Overdue: {activeCluster.slaBreachDays} days)
                 </p>
               </div>
             </div>
@@ -200,7 +200,7 @@ export function RoadHeatmapView() {
                 variant="secondary"
                 size="sm"
                 onClick={() => dispatchClusterWorkOrder(activeCluster.clusterId)}
-                className="bg-[#12544F] text-[#f0fdf4] border-[#2A835F] hover:bg-[#2A835F] text-xs font-bold"
+                className="bg-[var(--surface-subtle)] text-[var(--text-primary)] border-[var(--color-accent-primary)] hover:bg-[#2563eb] text-xs font-bold"
               >
                 <Wrench className="h-3.5 w-3.5" />
                 <span>Dispatch PWD Work Order</span>
@@ -213,45 +213,45 @@ export function RoadHeatmapView() {
       {/* Contractor Penalty Issuance Modal */}
       {isPenaltyModalOpen && activeCluster && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/75 p-4 backdrop-blur-sm">
-          <div className="w-full max-w-md rounded-xl border border-rose-900/60 bg-[#092328] p-5 shadow-2xl font-mono text-xs">
-            <div className="flex items-center justify-between border-b border-[#12544F] pb-3 mb-3">
+          <div className="w-full max-w-md rounded-xl border border-rose-900/60 bg-[var(--surface-canvas)] p-5 shadow-2xl font-mono text-xs">
+            <div className="flex items-center justify-between border-b border-[var(--surface-border)] pb-3 mb-3">
               <div className="flex items-center gap-2">
                 <ShieldAlert className="h-4 w-4 text-rose-400" />
                 <span className="font-bold text-rose-300 text-sm">Issue Statutory Contractor Penalty</span>
               </div>
-              <button onClick={() => setIsPenaltyModalOpen(false)} className="text-[#8BBB92] hover:text-[#f0fdf4]">
+              <button onClick={() => setIsPenaltyModalOpen(false)} className="text-[var(--text-secondary)] hover:text-[var(--text-primary)]">
                 <X className="h-4 w-4" />
               </button>
             </div>
 
             <div className="space-y-3">
-              <div className="rounded border border-[#12544F] bg-[#0d3137] p-2.5 space-y-1">
-                <p className="text-[#8BBB92]">Contractor: <span className="text-[#f0fdf4] font-bold">{activeCluster.originalContractor}</span></p>
-                <p className="text-[#8BBB92]">Corridor: <span className="text-[#f0fdf4]">{activeCluster.roadName}</span></p>
-                <p className="text-[#5b9076]">Breach: {activeCluster.slaBreachDays} days overdue past mandatory rectification window</p>
+              <div className="rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] p-2.5 space-y-1">
+                <p className="text-[var(--text-secondary)]">Contractor: <span className="text-[var(--text-primary)] font-bold">{activeCluster.originalContractor}</span></p>
+                <p className="text-[var(--text-secondary)]">Corridor: <span className="text-[var(--text-primary)]">{activeCluster.roadName}</span></p>
+                <p className="text-[var(--text-muted)]">Breach: {activeCluster.slaBreachDays} days overdue past mandatory rectification window</p>
               </div>
 
               <div>
-                <label className="block text-[11px] text-[#8BBB92] mb-1">Deduction Penalty Amount (INR) *</label>
+                <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Deduction Penalty Amount (INR) *</label>
                 <input
                   type="number"
                   value={penaltyAmount}
                   onChange={(e) => setPenaltyAmount(Number(e.target.value))}
-                  className="w-full rounded border border-[#12544F] bg-[#0d3137] px-3 py-2 text-[#f0fdf4] outline-none font-bold"
+                  className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] px-3 py-2 text-[var(--text-primary)] outline-none font-bold"
                 />
               </div>
 
               <div>
-                <label className="block text-[11px] text-[#8BBB92] mb-1">Legal / Contractual Clause *</label>
+                <label className="block text-[11px] text-[var(--text-secondary)] mb-1">Legal / Contractual Clause *</label>
                 <textarea
                   rows={2}
                   value={penaltyReason}
                   onChange={(e) => setPenaltyReason(e.target.value)}
-                  className="w-full rounded border border-[#12544F] bg-[#0d3137] p-2 text-[#f0fdf4] outline-none text-xs"
+                  className="w-full rounded border border-[var(--surface-border)] bg-[var(--surface-panel)] p-2 text-[var(--text-primary)] outline-none text-xs"
                 />
               </div>
 
-              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[#12544F] mt-3">
+              <div className="flex items-center justify-end gap-2 pt-3 border-t border-[var(--surface-border)] mt-3">
                 <Button variant="secondary" size="sm" onClick={() => setIsPenaltyModalOpen(false)}>
                   Cancel
                 </Button>
