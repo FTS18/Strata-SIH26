@@ -19,6 +19,7 @@ export interface CameraFeedConfig {
   shortName: string;
   description: string;
   pythonStream: string;
+  staticImage: string;
   model: string;
   resolution: string;
   latency: string;
@@ -32,6 +33,7 @@ export const CAMERA_FEEDS: CameraFeedConfig[] = [
     shortName: 'CAM 1',
     description: 'Road Surface Distress & Lead Traffic Tracking',
     pythonStream: 'http://localhost:8081/stream',
+    staticImage: '/evidence/demo_cam1.jpg',
     model: 'YOLOv8s-RoadDistress · TensorRT INT8',
     resolution: '3840x2160 @ 30FPS',
     latency: '12.4ms',
@@ -43,6 +45,7 @@ export const CAMERA_FEEDS: CameraFeedConfig[] = [
     shortName: 'CAM 2',
     description: 'ANPR Plate Recognition & Tailgating Analytics',
     pythonStream: 'http://localhost:8082/stream',
+    staticImage: '/evidence/demo_cam2.jpg',
     model: 'PaddleOCR + ByteTrack · TensorRT INT8',
     resolution: '3840x2160 @ 30FPS',
     latency: '14.2ms',
@@ -54,6 +57,7 @@ export const CAMERA_FEEDS: CameraFeedConfig[] = [
     shortName: 'CAM 3',
     description: 'Passenger Queue Density & Stop Encroachment',
     pythonStream: 'http://localhost:8083/stream',
+    staticImage: '/evidence/demo_cam3.jpg',
     model: 'OpticalFlow-QueueCount · TensorRT INT8',
     resolution: '1920x1080 @ 24FPS',
     latency: '9.8ms',
@@ -65,6 +69,7 @@ export const CAMERA_FEEDS: CameraFeedConfig[] = [
     shortName: 'CAM 4',
     description: 'Driver Fatigue & Attention Monitoring',
     pythonStream: 'http://localhost:8084/stream',
+    staticImage: '/evidence/demo_cam4.jpg',
     model: 'Driver-DMS PERCLOS · TensorRT INT8',
     resolution: '1920x1080 @ 30FPS',
     latency: '11.1ms',
@@ -277,6 +282,8 @@ export function CameraQuadGrid({
                     if (!target.dataset.retried) {
                       target.dataset.retried = 'true';
                       target.src = `http://localhost:8080/stream?cam=${feed.id}`;
+                    } else if (feed.staticImage && target.src !== feed.staticImage) {
+                      target.src = feed.staticImage;
                     }
                   }}
                 />
@@ -337,6 +344,8 @@ export function CameraQuadGrid({
               if (!target.dataset.retried) {
                 target.dataset.retried = 'true';
                 target.src = `http://localhost:8080/stream?cam=${activeCam.id}`;
+              } else if (activeCam.staticImage && target.src !== activeCam.staticImage) {
+                target.src = activeCam.staticImage;
               }
             }}
           />

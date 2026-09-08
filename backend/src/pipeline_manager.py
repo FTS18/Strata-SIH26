@@ -474,13 +474,17 @@ class PipelineManager:
 
                 # 1. Pothole / Waterlogging Distress Snapshot (Real-Time Vision Engine Capture)
                 if distress_boxes:
-                    is_custom = self.camera_sources_status.get(cam_id, {}).get("is_custom", False)
-                    # Loop guard: benchmark video captures exactly 1 authentic snapshot per camera so we never spam duplicates on loop
-                    if is_custom or (cam_id not in self._captured_distress_cams):
+                    is_custom = self.get_camera_sources_status().get(cam_id, {}).get("is_custom", False)
+                    last_distress_snap = self._last_snap_time.get(f"{cam_id}_distress", 0.0)
+                    should_snap_distress = (
+                        (is_custom and (now - last_distress_snap >= 25.0))
+                        or (not is_custom and (cam_id not in self._captured_distress_cams))
+                    )
+                    if should_snap_distress:
                         self._captured_distress_cams.add(cam_id)
+                        self._last_snap_time[f"{cam_id}_distress"] = now
                         d = distress_boxes[0]
                         dx1, dy1, dx2, dy2, dtype, dconf, dmeta = d
-                        self._last_snap_time[f"{cam_id}_distress"] = now
                         curr_step = self._route_step.get(cam_id, 0)
                         c_lat, c_lng, c_road, c_ward = waypoints[curr_step % len(waypoints)]
                         self._route_step[cam_id] = curr_step + 1
@@ -535,8 +539,13 @@ class PipelineManager:
                 # 2. Rash Driving / Speeding Violation Snapshot (Real-Time Violation Capture)
                 speeding_candidates = [t for t in traffic_boxes if t[6].get("speed_km_h", 0) >= 58.0]
                 if speeding_candidates:
-                    is_custom = self.camera_sources_status.get(cam_id, {}).get("is_custom", False)
-                    if is_custom or (cam_id not in self._captured_speed_cams):
+                    is_custom = self.get_camera_sources_status().get(cam_id, {}).get("is_custom", False)
+                    last_speed_snap = self._last_snap_time.get(f"{cam_id}_speed", 0.0)
+                    should_snap_speed = (
+                        (is_custom and (now - last_speed_snap >= 25.0))
+                        or (not is_custom and (cam_id not in self._captured_speed_cams))
+                    )
+                    if should_snap_speed:
                         self._captured_speed_cams.add(cam_id)
                         self._last_snap_time[f"{cam_id}_speed"] = now
                         rv = max(speeding_candidates, key=lambda t: t[6].get("speed_km_h", 0))
@@ -601,10 +610,15 @@ class PipelineManager:
 
                 # 3. Pedestrian Corridor Incursion Alert Snapshot
                 if ped_alert_pkt:
-                    is_custom = self.camera_sources_status.get(cam_id, {}).get("is_custom", False)
-                    if is_custom or (cam_id not in self._captured_ped_cams):
+                    is_custom = self.get_camera_sources_status().get(cam_id, {}).get("is_custom", False)
+                    last_ped_snap = self._last_snap_time.get(f"{cam_id}_ped", 0.0)
+                    should_snap_ped = (
+                        (is_custom and (now - last_ped_snap >= 25.0))
+                        or (not is_custom and (cam_id not in self._captured_ped_cams))
+                    )
+                    if should_snap_ped:
                         self._captured_ped_cams.add(cam_id)
-                        self._last_snap_time["pedestrian"] = now
+                        self._last_snap_time[f"{cam_id}_ped"] = now
                         curr_step = self._route_step.get(cam_id, 0)
                         c_lat, c_lng, c_road, c_ward = waypoints[curr_step % len(waypoints)]
                         ts_ms = int(now * 1000)
@@ -616,29 +630,29 @@ class PipelineManager:
                         except Exception:
                             pass
                     
-                    ped_inc_pkt = {
-                        "id": incident_id,
-                        "type": "crosswalk_incursion",
-                        "coords": {"lat": round(c_lat, 5), "lng": round(c_lng, 5)},
-                        "timestamp": ts_ms,
-                        "reported_by_bus_id": f"CTU Sensing Bus ({cam_id.upper()})",
-                        "location_name": c_road,
-                        "speed_km_h": 32.5,
-                        "suspect_plate": "N/A (Pedestrian Hazard)",
-                        "ocr_confidence": 0.95,
-                        "vehicle_description": "Corridor Pedestrian Hazard (Children / Crowd Surge)",
-                        "reason": "Pedestrians detected inside active transit corridor",
-                        "is_flagged_watchlist": True,
-                        "proof_image_url": f"/evidence/snapshots/{snap_name}",
-                        "crop_image_url": f"/evidence/snapshots/{snap_name}",
-                        "reportStatus": "draft",
-                        "inspectorNotes": "Vulnerable pedestrians detected crossing active transit lane. Collision advisory issued to driver.",
-                        "assignedAgency": "Chandigarh Traffic Police Central E-Challan Cell"
-                    }
-                    self.emit_event("VEHICLE_INCIDENT", ped_inc_pkt)
-                    self.recent_incidents.insert(0, ped_inc_pkt)
-                    if len(self.recent_incidents) > 30:
-                        self.recent_incidents.pop()
+                        ped_inc_pkt = {
+                            "id": incident_id,
+                            "type": "crosswalk_incursion",
+                            "coords": {"lat": round(c_lat, 5), "lng": round(c_lng, 5)},
+                            "timestamp": ts_ms,
+                            "reported_by_bus_id": f"CTU Sensing Bus ({cam_id.upper()})",
+                            "location_name": c_road,
+                            "speed_km_h": 32.5,
+                            "suspect_plate": "N/A (Pedestrian Hazard)",
+                            "ocr_confidence": 0.95,
+                            "vehicle_description": "Corridor Pedestrian Hazard (Children / Crowd Surge)",
+                            "reason": "Pedestrians detected inside active transit corridor",
+                            "is_flagged_watchlist": True,
+                            "proof_image_url": f"/evidence/snapshots/{snap_name}",
+                            "crop_image_url": f"/evidence/snapshots/{snap_name}",
+                            "reportStatus": "draft",
+                            "inspectorNotes": "Vulnerable pedestrians detected crossing active transit lane. Collision advisory issued to driver.",
+                            "assignedAgency": "Chandigarh Traffic Police Central E-Challan Cell"
+                        }
+                        self.emit_event("VEHICLE_INCIDENT", ped_inc_pkt)
+                        self.recent_incidents.insert(0, ped_inc_pkt)
+                        if len(self.recent_incidents) > 30:
+                            self.recent_incidents.pop()
                     self.emit_event("PEDESTRIAN_SAFETY_ALERT", ped_alert_pkt)
 
                 # Periodic Traffic Density Sync

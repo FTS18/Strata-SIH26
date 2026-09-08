@@ -449,6 +449,8 @@ export function DualStreamCommandCenter() {
                 if (!target.dataset.retried) {
                   target.dataset.retried = 'true';
                   target.src = `http://localhost:8080/stream?cam=${activeCam.id}`;
+                } else if (activeCam.staticImage && target.src !== activeCam.staticImage) {
+                  target.src = activeCam.staticImage;
                 }
               }}
             />
