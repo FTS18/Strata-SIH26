@@ -54,118 +54,131 @@ export function ImuTelemetryGraph({ imu }: ImuTelemetryGraphProps) {
   const baselineY = getY(1.0);
   const thresholdY = getY(2.2);
 
-  const points = history.map((val, idx) => {
+  // Multi-axis points
+  const pointsZ = history.map((val, idx) => {
     const x = (idx / (history.length - 1)) * width;
     const y = getY(val);
     return { x, y, val };
   });
 
-  const polylineString = points.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
-  const areaPath = `M 0,${baselineY} L ${polylineString} L ${width},${baselineY} Z`;
+  // Synthesize realistic X and Y lateral vibration offsets relative to Z
+  const pointsX = history.map((val, idx) => {
+    const x = (idx / (history.length - 1)) * width;
+    const xVal = 0.08 + Math.sin(idx * 0.6) * 0.06 + (val - 1.0) * 0.3;
+    const y = getY(1.0 + xVal);
+    return { x, y };
+  });
+
+  const pointsY = history.map((val, idx) => {
+    const x = (idx / (history.length - 1)) * width;
+    const yVal = -0.05 + Math.cos(idx * 0.5) * 0.07 + (val - 1.0) * 0.25;
+    const y = getY(1.0 + yVal);
+    return { x, y };
+  });
+
+  const polylineZ = pointsZ.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  const polylineX = pointsX.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
+  const polylineY = pointsY.map((p) => `${p.x.toFixed(1)},${p.y.toFixed(1)}`).join(' ');
 
   return (
-    <div className="rounded-xl border border-[#12544F] bg-[#0d3137] p-3 space-y-2 font-mono shadow-md">
+    <div className="rounded-xl border border-[#12544F] bg-[#0d3137] p-3.5 space-y-3 font-mono shadow-md">
       {/* Header bar */}
-      <div className="flex flex-wrap items-center justify-between gap-1.5 text-xs">
-        <div className="flex items-center gap-1.5 text-[#f0fdf4] font-bold">
-          <Activity className="h-3.5 w-3.5 text-[#8BBB92]" />
-          <span className="text-[11px] uppercase tracking-wider">
-            IMU 3-Axis Accelerometer (Z-Axis Vibration Fusion)
+      <div className="flex flex-wrap items-center justify-between gap-2 text-xs border-b border-[#12544F]/80 pb-2">
+        <div className="flex items-center gap-2">
+          <Activity className="h-4 w-4 text-[#8BBB92]" />
+          <span className="text-xs font-bold uppercase tracking-wider text-[#f0fdf4]">
+            IMU 3-Axis Accelerometer (2-Axis Vibration Fusion)
           </span>
         </div>
 
-        <div className="flex items-center gap-1.5 text-[10px]">
+        {/* 3-Axis Legend */}
+        <div className="flex items-center gap-2.5 text-[11px]">
+          <div className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-[#00e5bf]" />
+            <span className="text-[#8BBB92]">X</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-[#fbbf24]" />
+            <span className="text-[#8BBB92]">Y</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <span className="h-2 w-2 rounded-full bg-[#f43f5e]" />
+            <span className="text-[#8BBB92]">Z</span>
+          </div>
+        </div>
+
+        {/* Status Pill Badge */}
+        <div className="flex items-center gap-2 text-[10px]">
           <span
-            className={`px-1.5 py-0.5 rounded border transition-colors ${
+            className={`px-2 py-0.5 rounded-full border text-[10px] font-bold transition-colors ${
               isSpike
-                ? 'bg-rose-950/90 border-rose-600 text-rose-400 font-bold animate-pulse'
-                : 'bg-[#12544F] border-[#2A835F] text-[#8BBB92]'
+                ? 'bg-rose-950/90 border-rose-500 text-rose-300 animate-pulse'
+                : 'bg-emerald-950/80 border-emerald-500/70 text-emerald-300'
             }`}
           >
-            Z = {currentZ.toFixed(2)}g {isSpike ? '[!] SHOCK IMPACT' : '(Nominal)'}
+            Z = {currentZ.toFixed(2)}g {isSpike ? '[!] SHOCK IMPACT' : '(Nominal Suspension)'}
           </span>
           <span className="text-[#5b9076]">Threshold: 2.2g</span>
         </div>
       </div>
 
-      {/* SVG Waveform Canvas */}
-      <div className="relative h-14 w-full overflow-hidden rounded-lg bg-[#092328] border border-[#12544F]">
+      {/* SVG Multi-Axis Waveform Canvas */}
+      <div className="relative h-16 w-full overflow-hidden rounded-lg bg-[#081e22] border border-[#12544F]">
         <svg viewBox={`0 0 ${width} ${height}`} className="h-full w-full" preserveAspectRatio="none">
           {/* Subtle Gridlines */}
-          <line x1="0" y1={getY(0.5)} x2={width} y2={getY(0.5)} stroke="#12544F" strokeWidth="0.5" opacity="0.4" />
-          <line x1="0" y1={getY(1.5)} x2={width} y2={getY(1.5)} stroke="#12544F" strokeWidth="0.5" opacity="0.4" />
-          <line x1="0" y1={getY(2.5)} x2={width} y2={getY(2.5)} stroke="#12544F" strokeWidth="0.5" opacity="0.4" />
+          <line x1="0" y1={getY(0.5)} x2={width} y2={getY(0.5)} stroke="#12544F" strokeWidth="0.5" opacity="0.3" />
+          <line x1="0" y1={baselineY} x2={width} y2={baselineY} stroke="#12544F" strokeWidth="0.8" opacity="0.6" strokeDasharray="3 3" />
+          <line x1="0" y1={getY(1.5)} x2={width} y2={getY(1.5)} stroke="#12544F" strokeWidth="0.5" opacity="0.3" />
+          <line x1="0" y1={thresholdY} x2={width} y2={thresholdY} stroke="#ef4444" strokeWidth="1" opacity="0.7" strokeDasharray="4 2" />
 
-          {/* Area fill under curve */}
-          <path d={areaPath} fill={isSpike ? 'rgba(239, 68, 68, 0.15)' : 'rgba(42, 131, 95, 0.15)'} />
+          {/* Curve X (Cyan) */}
+          <polyline fill="none" stroke="#00e5bf" strokeWidth="1.2" strokeOpacity="0.7" points={polylineX} />
 
-          {/* 1.0g Gravity Baseline Reference Line */}
-          <line
-            x1="0"
-            y1={baselineY}
-            x2={width}
-            y2={baselineY}
-            stroke="#12544F"
-            strokeWidth="1"
-            strokeDasharray="4 4"
-          />
+          {/* Curve Y (Yellow) */}
+          <polyline fill="none" stroke="#fbbf24" strokeWidth="1.2" strokeOpacity="0.7" points={polylineY} />
 
-          {/* 2.2g Shock Threshold Line */}
-          <line
-            x1="0"
-            y1={thresholdY}
-            x2={width}
-            y2={thresholdY}
-            stroke="#ef4444"
-            strokeWidth="1.2"
-            strokeDasharray="3 3"
-            opacity="0.85"
-          />
-
-          {/* Continuous Polyline */}
+          {/* Curve Z (Rose/Pink primary) */}
           <polyline
             fill="none"
-            stroke={isSpike ? '#f87171' : '#8BBB92'}
+            stroke={isSpike ? '#ef4444' : '#f43f5e'}
             strokeWidth="1.8"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            points={polylineString}
+            points={polylineZ}
+            className="transition-colors duration-150"
           />
 
-          {/* Current tip pulse circle */}
-          {points.length > 0 && (
-            <circle
-              cx={points[points.length - 1].x}
-              cy={points[points.length - 1].y}
-              r="3"
-              fill={isSpike ? '#ef4444' : '#8BBB92'}
-              className="animate-ping"
-            />
-          )}
+          {/* Current Z Leading Indicator Pulse */}
+          <circle
+            cx={pointsZ[pointsZ.length - 1]?.x || width}
+            cy={pointsZ[pointsZ.length - 1]?.y || baselineY}
+            r="3"
+            fill={isSpike ? '#ef4444' : '#f43f5e'}
+            className="animate-ping"
+          />
         </svg>
 
-        {/* Legend overlays */}
-        <div className="absolute top-1 left-2 text-[8px] text-[#5b9076] pointer-events-none flex items-center gap-2">
-          <span className="text-rose-400">--- 2.2g Shock Threshold</span>
-          <span>- - - 1.0g Baseline</span>
-        </div>
-
-        <div className="absolute bottom-1 right-2 text-[8px] text-[#8BBB92] pointer-events-none">
-          Peak Hold: <span className="font-bold text-[#f0fdf4]">{peakZ.toFixed(2)}g</span>
-        </div>
       </div>
 
-      {/* Telemetry Footer with Speed and Correlation */}
-      <div className="flex flex-wrap items-center justify-between text-[10px] text-[#5b9076]">
-        <div className="flex items-center gap-2">
-          <span>Axle Latency Gate: L/v Coincidence Active</span>
-          {spikeCount > 0 && (
-            <span className="text-amber-400 font-bold">· {spikeCount} Shock Events</span>
-          )}
+      {/* Bottom Readout & Speed Gauge matching reference image */}
+      <div className="flex items-center justify-between pt-1 border-t border-[#12544F]/50">
+        <div className="flex flex-col">
+          <div className="flex items-baseline gap-2">
+            <span className="text-2xl font-bold text-[#f0fdf4] tabular-nums font-mono">
+              {currentZ.toFixed(2)}g
+            </span>
+            <span className="text-[11px] text-[#8BBB92]">
+              {isSpike ? 'Surface Degradation Spike Detected' : 'Nominal Suspension Acceleration'}
+            </span>
+          </div>
+          <span className="text-[10px] text-[#5b9076]">
+            Optical road distress cross-verified against real IMU acceleration spikes
+          </span>
         </div>
-        <div className="flex items-center gap-3">
-          <span>Speed: <strong className="text-[#f0fdf4]">{speed} km/h</strong></span>
-          <span>Suspension Health: <strong className="text-emerald-400">96% (Optimal)</strong></span>
+
+        <div className="flex items-center gap-2 rounded-xl bg-[#092328] border border-[#12544F] px-3.5 py-1.5 shrink-0">
+          <Gauge className="h-4 w-4 text-[#8BBB92]" />
+          <span className="text-xs font-bold text-[#f0fdf4] tabular-nums font-mono">
+            Speed: {speed} km/h
+          </span>
         </div>
       </div>
     </div>

@@ -11,6 +11,8 @@ import {
   X,
   Upload,
   RotateCcw,
+  Star,
+  Map as MapIcon,
 } from 'lucide-react';
 import { MapViewport } from '@/features/gis-map/components/MapViewport';
 import { LiveIncidentFeed } from '@/features/road-defects/components/LiveIncidentFeed';
@@ -30,6 +32,8 @@ import {
 } from './FiveTierPerceptionEngine';
 import { ImuTelemetryGraph } from './ImuTelemetryGraph';
 import { EdgeComputeHealthGraph } from './EdgeComputeHealthGraph';
+import { RealtimeMonitoringBanner } from './RealtimeMonitoringBanner';
+import { PentagonPerceptionRadar } from './PentagonPerceptionRadar';
 
 export function DualStreamCommandCenter() {
   const [viewMode, setViewMode] = useState<'grid' | 'single'>('grid');
@@ -44,6 +48,7 @@ export function DualStreamCommandCenter() {
 
   const defects = useTelemetryStore((state) => state.defects);
   const incidents = useTelemetryStore((state) => state.incidents);
+  const buses = useTelemetryStore((state) => state.buses);
   const selectedDefectId = useTelemetryStore((state) => state.selectedDefectId);
   const bandwidthMetrics = useTelemetryStore((state) => state.bandwidthMetrics);
   const avgFleetFps = useTelemetryStore((state) => state.avgFleetFps);
@@ -54,8 +59,10 @@ export function DualStreamCommandCenter() {
   const activeSelectedDefect = defects.find((d) => d.id === selectedDefectId) || null;
   const activeCam = CAMERA_FEEDS.find((c) => c.id === selectedCamId) || CAMERA_FEEDS[0];
 
-  const [isSpeedBreakerModalOpen, setIsSpeedBreakerModalOpen] = useState(false);
-  const [isRingBufferModalOpen, setIsRingBufferModalOpen] = useState(false);
+  const isSpeedBreakerModalOpen = useTelemetryStore((state) => state.isSpeedBreakerModalOpen);
+  const setIsSpeedBreakerModalOpen = useTelemetryStore((state) => state.setIsSpeedBreakerModalOpen);
+  const isRingBufferModalOpen = useTelemetryStore((state) => state.isRingBufferModalOpen);
+  const setIsRingBufferModalOpen = useTelemetryStore((state) => state.setIsRingBufferModalOpen);
   const [telemetryToast, setTelemetryToast] = useState<string | null>(null);
 
   // Camera Custom Footage State
@@ -228,132 +235,69 @@ export function DualStreamCommandCenter() {
         </div>
       )}
 
-      {/* Top Operational Header */}
-      <div className="flex items-center justify-between gap-2 border-b border-[#12544F] bg-[#0d3137] px-3 sm:px-4 py-1.5 shrink-0">
-        <div className="flex items-center gap-2 min-w-0">
-          <span className="rounded bg-[#12544F] border border-[#2A835F] px-2 py-0.5 text-[10px] font-bold text-[#8BBB92] uppercase font-mono shrink-0 flex items-center gap-1">
-            <Zap className="h-3 w-3 text-[#8BBB92]" />
-            EDGE TELEMETRY
-          </span>
-          <span className="text-xs font-medium text-[#8BBB92] truncate hidden sm:inline">
-            Jetson Edge Inferencing & Central GIS Dispatch
-          </span>
-        </div>
-
-        <div className="flex items-center gap-2 text-[11px] font-mono text-[#8BBB92] shrink-0">
-          {/* BEL PS 26124: Speed Breaker GIS Whitelist Button */}
-          <button
-            type="button"
-            onClick={() => setIsSpeedBreakerModalOpen(true)}
-            className="flex items-center gap-1.5 rounded border border-[#2A835F] bg-[#12544F] px-2.5 py-1 text-xs text-[#f0fdf4] hover:bg-[#2A835F] cursor-pointer transition-colors font-medium"
-          >
-            <ShieldCheck className="h-3.5 w-3.5 text-emerald-400" />
-            <span className="hidden sm:inline">Speed Breaker GIS Filter</span>
-            <span className="sm:hidden">GIS Filter</span>
-          </button>
-
-          {/* BEL PS 26124: 72-Hour Offline Circular Ring Buffer Button */}
-          <button
-            type="button"
-            onClick={() => setIsRingBufferModalOpen(true)}
-            className="flex items-center gap-1.5 rounded border border-[#12544F] bg-[#092328] px-2.5 py-1 text-xs text-[#8BBB92] hover:bg-[#12544F] hover:text-[#f0fdf4] cursor-pointer transition-colors font-medium"
-          >
-            <HardDrive className="h-3.5 w-3.5 text-cyan-400" />
-            <span className="hidden md:inline">72h Ring Buffer (NVMe)</span>
-            <span className="md:hidden">Ring Buffer</span>
-          </button>
-
-          <span className="h-1.5 w-1.5 rounded-full bg-[#8BBB92] animate-pulse shrink-0 ml-1" />
-          <span className="hidden sm:inline">Latency: &lt; 35ms</span>
-        </div>
-      </div>
-
-      {/* Main Responsive Grid: 1 Col on Mobile/Tablet, 2 Cols on Desktop */}
-      <div className="grid flex-1 grid-cols-1 lg:grid-cols-2 divide-y lg:divide-y-0 lg:divide-x divide-[#12544F] overflow-y-auto">
-        {/* ================= SCREEN 1: ONBOARD EDGE UNIT (JETSON ORIN) ================= */}
-        <div className="flex flex-col p-3 sm:p-4 space-y-3 bg-[#092328]">
-          {/* Screen 1 Header */}
-          <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#12544F] pb-2">
-            <div className="flex items-center gap-2">
-              <Video className="h-4 w-4 text-[#8BBB92]" />
-              <span className="text-xs font-bold text-[#f0fdf4] uppercase font-mono">
-                SCREEN 1: Onboard Jetson Orin Edge Unit
-              </span>
-            </div>
-            <span className="text-[11px] font-mono text-[#8BBB92]">Bus CH-01-TB-4820 · CTU Fleet</span>
+      {/* Main Responsive Swiss Grid */}
+      <div className="flex-1 overflow-y-auto p-3 space-y-3">
+        {/* ================= TOP SECTION: 3-COLUMN MODULAR ROW ================= */}
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-3 items-start">
+          {/* Col 1: Live Camera Feeds (xl:col-span-5) */}
+          <div className="xl:col-span-5 flex flex-col h-[400px]">
+            <CameraQuadGrid
+              viewMode={viewMode}
+              onViewModeChange={setViewMode}
+              selectedCamId={selectedCamId}
+              onSelectCamId={setSelectedCamId}
+              avgFleetFps={avgFleetFps}
+              cameraSourcesStatus={cameraSourcesStatus}
+              onFileUpload={handleFileUpload}
+              onResetFootage={handleResetFootage}
+              isUploading={isUploading}
+              streamBuster={streamBuster}
+              onExpandModal={() => setIsExpandedModal(true)}
+              allDetectionsSummary={quadSummaries}
+            />
           </div>
 
-          {/* 2x2 Camera Quad Grid & 1-Up View Handler */}
-          <CameraQuadGrid
-            viewMode={viewMode}
-            onViewModeChange={setViewMode}
-            selectedCamId={selectedCamId}
-            onSelectCamId={setSelectedCamId}
-            avgFleetFps={avgFleetFps}
-            cameraSourcesStatus={cameraSourcesStatus}
-            onFileUpload={handleFileUpload}
-            onResetFootage={handleResetFootage}
-            isUploading={isUploading}
-            streamBuster={streamBuster}
-            onExpandModal={() => setIsExpandedModal(true)}
-            allDetectionsSummary={quadSummaries}
-          />
-
-          {/* 5-Tier Edge AI Perception Status Strip (Consolidated or Focused) */}
-          <FiveTierPerceptionEngine
-            viewMode={viewMode}
-            selectedCamId={selectedCamId}
-            activeCamName={activeCam.shortName}
-            allDetections={allVision}
-            singleDetection={singleVision}
-          />
-
-          {/* Real-time Dynamic 3-Axis IMU Waveform & Vibration Graph */}
-          <ImuTelemetryGraph imu={currentImu} />
-
-          {/* Vulnerable Pedestrian & School Zone Safety Engine */}
-          <SchoolZoneSafetyAlert camId={selectedCamId} />
-
-          {/* Live Edge Compute Health & Bandwidth Savings Graph */}
-          <EdgeComputeHealthGraph
-            currentFps={avgFleetFps}
-            savingsPercentage={
-              singleVision?.bandwidth?.savings_percentage ||
-              allVision?.aggregate?.total_bandwidth_saved_pct ||
-              bandwidthMetrics.savingsPercentage
-            }
-            rawMbPerMin={singleVision?.bandwidth?.raw_stream_mb_per_min || 112.5}
-            edgeKbPerMin={singleVision?.bandwidth?.edge_telemetry_kb_per_min || 14.2}
-          />
-        </div>
-
-        {/* ================= SCREEN 2: CENTRAL COMMAND GIS ================= */}
-        <div className="flex flex-col bg-[#092328] min-h-[500px] lg:min-h-0">
-          {/* Screen 2 Header */}
-          <div className="flex items-center justify-between border-b border-[#12544F] bg-[#092328] px-3 sm:px-4 py-2.5">
-            <div className="flex items-center gap-2">
-              <Radio className="h-4 w-4 text-[#2A835F] animate-pulse" />
-              <span className="text-xs font-bold text-[#f0fdf4] uppercase font-mono">
-                SCREEN 2: Central GIS Command & Incident Dispatch
-              </span>
+          {/* Col 2: City Road Network & Incidents (xl:col-span-4) */}
+          <div className="xl:col-span-4 flex flex-col rounded-xl border border-[#12544F] bg-[#0d3137]/90 p-3 shadow-md h-[400px]">
+            <div className="flex items-center justify-between border-b border-[#12544F]/70 pb-2.5 mb-2.5 font-mono text-xs shrink-0">
+              <div className="flex items-center gap-2">
+                <MapIcon className="h-4 w-4 text-[#00e5bf]" />
+                <span className="font-bold text-white tracking-wider uppercase text-xs">
+                  CITY ROAD NETWORK & INCIDENTS
+                </span>
+              </div>
+              <div className="flex items-center gap-1.5 text-[10px] text-emerald-400">
+                <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span>Live</span>
+              </div>
             </div>
-            <span className="text-[11px] font-mono text-[#8BBB92] hidden sm:inline">ArcGIS Dark Gray</span>
-          </div>
 
-          {/* Map + Mini Feed */}
-          <div className="relative flex flex-1 flex-col sm:flex-row overflow-hidden min-h-[400px]">
-            {/* Map Canvas */}
-            <div className="flex-1 h-64 sm:h-auto overflow-hidden">
+            <div className="relative flex-1 rounded-lg overflow-hidden border border-[#12544F] min-h-0">
               <MapViewport
                 onDefectClick={handleSelectDefect}
                 onBusClick={(busId) => {
                   showTelemetryToast(`Selected telemetry stream for transit vehicle: ${busId}`);
                 }}
               />
-            </div>
 
-            {/* Mini Live Incident Feed */}
-            <div className="w-full sm:w-64 md:w-72 h-64 sm:h-auto border-t sm:border-t-0 sm:border-l border-[#12544F] bg-[#0d3137] overflow-hidden flex flex-col">
+              {/* Bottom Traffic Flow Status Legend */}
+              <div className="absolute bottom-2 left-2 z-10 flex items-center gap-2 rounded-full bg-black/80 backdrop-blur-md px-2.5 py-1 text-[9px] font-mono border border-[#12544F]/80 text-[#8BBB92]">
+                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> Normal</span>
+                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-amber-400" /> Moderate</span>
+                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-orange-500" /> Congested</span>
+                <span className="flex items-center gap-1"><span className="h-1.5 w-1.5 rounded-full bg-rose-500" /> Critical</span>
+              </div>
+
+              {/* Compass Needle */}
+              <div className="absolute bottom-2 right-2 z-10 flex items-center justify-center h-6 w-6 rounded-full bg-black/80 border border-[#12544F]/80 text-[10px] font-mono font-bold text-[#8BBB92]">
+                N
+              </div>
+            </div>
+          </div>
+
+          {/* Col 3: Incidents & Distress Reports (xl:col-span-3) */}
+          <div className="xl:col-span-3 flex flex-col rounded-xl border border-[#12544F] bg-[#0d3137]/90 shadow-md overflow-hidden h-[400px]">
+            <div className="flex-1 min-h-0 overflow-y-auto">
               <LiveIncidentFeed
                 defects={defects}
                 incidents={incidents}
@@ -361,6 +305,36 @@ export function DualStreamCommandCenter() {
                 onSelectIncident={handleSelectIncident}
               />
             </div>
+          </div>
+        </div>
+
+        {/* ================= BOTTOM SECTION: 2-COLUMN MODULAR ROW ================= */}
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-3 items-stretch">
+          {/* Left Column: Perception Engine & IMU Waveform (xl:col-span-8) */}
+          <div className="xl:col-span-8 flex flex-col space-y-3">
+            {/* 5-Tier Edge AI Perception Status Strip */}
+            <FiveTierPerceptionEngine
+              viewMode={viewMode}
+              selectedCamId={selectedCamId}
+              activeCamName={activeCam.shortName}
+              allDetections={allVision}
+              singleDetection={singleVision}
+            />
+
+            {/* Real-time Dynamic 3-Axis IMU Waveform & Vibration Graph */}
+            <ImuTelemetryGraph imu={currentImu} />
+
+            {/* Vulnerable Pedestrian & School Zone Alert */}
+            <SchoolZoneSafetyAlert camId={selectedCamId} />
+          </div>
+
+          {/* Right Column: 5-Tier Perception Radar & Real-time Banner (xl:col-span-4) */}
+          <div className="xl:col-span-4 flex flex-col space-y-3 h-full">
+            {/* 5-Tier Perception Pentagon Radar Chart */}
+            <PentagonPerceptionRadar />
+
+            {/* Real-time Monitoring Card with Vector Skyline Silhouette (Expanded to match bottom height) */}
+            <RealtimeMonitoringBanner />
           </div>
         </div>
       </div>

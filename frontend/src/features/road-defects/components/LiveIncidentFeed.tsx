@@ -81,19 +81,28 @@ export function LiveIncidentFeed({
 
   return (
     <div className="flex h-full flex-col overflow-hidden bg-[#0d3137]">
-      <div className="flex items-center justify-between border-b border-[#12544F] px-3.5 py-2.5 bg-[#092328]">
-        <div className="flex items-center gap-1.5 text-xs font-semibold text-[#f0fdf4]">
-          <Activity className="h-3.5 w-3.5 text-[#8BBB92]" />
-          <span>Incident & Distress Reports</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-          {pendingDraftsCount > 0 && (
-            <span className="font-mono text-[10px] px-1.5 py-0.2 rounded bg-amber-950/80 border border-amber-500 text-amber-300 font-bold animate-pulse">
-              {pendingDraftsCount} DRAFTS
+      <div className="flex items-start justify-between border-b border-[#12544F] px-3.5 py-2.5 bg-[#092328]">
+        <div className="flex flex-col gap-1">
+          <span className="font-mono text-xs font-bold text-white tracking-wide">
+            Incidents & Distress Reports
+          </span>
+          <div className="flex items-center gap-1.5">
+            <span className="rounded bg-[#12544F] border border-[#00e5bf]/60 px-1.5 py-0.2 text-[9px] font-mono font-bold text-[#00e5bf]">
+              ArcGIS
             </span>
-          )}
-          <span className="font-mono text-xs text-[#8BBB92] tabular-nums">
-            {combinedEvents.length} Total
+            {pendingDraftsCount > 0 && (
+              <span className="font-mono text-[9px] px-1.5 py-0.2 rounded bg-amber-950/80 border border-amber-500 text-amber-300 font-bold animate-pulse">
+                {pendingDraftsCount} DRAFTS
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="flex flex-col items-end font-mono">
+          <span className="text-sm font-bold text-white leading-tight">
+            {combinedEvents.length}
+          </span>
+          <span className="text-[10px] text-[#8BBB92]">
+            Total
           </span>
         </div>
       </div>

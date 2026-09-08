@@ -43,6 +43,10 @@ export interface TelemetryState {
   setRoadSegments: (segments: RoadSegmentPCI[]) => void;
   activeReportModal: { id: string; category: 'defect' | 'incident' } | null;
   setActiveReportModal: (modal: { id: string; category: 'defect' | 'incident' } | null) => void;
+  isSpeedBreakerModalOpen: boolean;
+  setIsSpeedBreakerModalOpen: (open: boolean) => void;
+  isRingBufferModalOpen: boolean;
+  setIsRingBufferModalOpen: (open: boolean) => void;
   publishDefectReport: (defectId: string, notes?: string, agency?: string) => string;
   publishIncidentReport: (incidentId: string, notes?: string, agency?: string) => string;
 }
@@ -53,6 +57,10 @@ export const useTelemetryStore = create<TelemetryState>((set, get) => ({
   defects: [],
   selectedDefectId: null,
   activeReportModal: null,
+  isSpeedBreakerModalOpen: false,
+  setIsSpeedBreakerModalOpen: (open) => set({ isSpeedBreakerModalOpen: open }),
+  isRingBufferModalOpen: false,
+  setIsRingBufferModalOpen: (open) => set({ isRingBufferModalOpen: open }),
   incidents: [
     {
       id: 'ANPR-882-T08',
@@ -152,37 +160,35 @@ export const useTelemetryStore = create<TelemetryState>((set, get) => ({
 
   addRoadDefect: (defect) =>
     set((state) => {
-      // Deduplicate strictly: exact same ID, or exact same physical crater within 20m and 45s
-      const existingIndex = state.defects.findIndex((d) =>
-        d.id === defect.id ||
-        (d.type === defect.type &&
-          Math.abs(d.coords.lat - defect.coords.lat) < 0.0002 &&
-          Math.abs(d.coords.lng - defect.coords.lng) < 0.0002 &&
-          Math.abs(d.detectedAt - defect.detectedAt) < 45000)
+      // Deduplicate strictly: exact same ID, or exact same physical defect type on the same road / coordinates
+      const existing = state.defects.some(
+        (d) =>
+          d.id === defect.id ||
+          (d.type === defect.type && (d.roadName === defect.roadName || (
+            Math.abs(d.coords.lat - defect.coords.lat) < 0.002 &&
+            Math.abs(d.coords.lng - defect.coords.lng) < 0.002
+          )))
       );
-      if (existingIndex >= 0) {
-        const updated = [...state.defects];
-        updated[existingIndex] = {
-          ...updated[existingIndex],
-          observationsCount: (updated[existingIndex].observationsCount || 1) + 1,
-          lastDetectedAt: defect.detectedAt,
-        } as any;
-        return { defects: updated };
+      if (existing) {
+        return state;
       }
-      return { defects: [defect, ...state.defects] };
+      return { defects: [defect, ...state.defects].slice(0, 25) };
     }),
 
   addVehicleIncident: (incident) =>
     set((state) => {
-      // Deduplicate strictly: exact same ID, or exact same suspect plate within 30 seconds
-      const existingIndex = state.incidents.findIndex((i) =>
-        i.id === incident.id ||
-        (Boolean(incident.suspectPlate && incident.suspectPlate !== 'N/A (Pedestrian Hazard)') &&
-          i.suspectPlate === incident.suspectPlate &&
-          Math.abs(i.timestamp - incident.timestamp) < 30000)
+      // Deduplicate strictly: exact same ID, or exact same incident type on the same location / plate
+      const existing = state.incidents.some(
+        (i) =>
+          i.id === incident.id ||
+          (Boolean(incident.suspectPlate && incident.suspectPlate !== 'N/A (Pedestrian Hazard)') &&
+            i.suspectPlate === incident.suspectPlate) ||
+          (i.type === incident.type && i.locationName === incident.locationName)
       );
-      if (existingIndex >= 0) return state;
-      return { incidents: [incident, ...state.incidents] };
+      if (existing) {
+        return state;
+      }
+      return { incidents: [incident, ...state.incidents].slice(0, 25) };
     }),
 
   setSelectedBusId: (id) => set({ selectedBusId: id }),

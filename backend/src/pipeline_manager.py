@@ -195,6 +195,9 @@ class PipelineManager:
             ("HP 12 D 7741", "White Kia Seltos (Track #42)"),
         ]
         self._plate_pool_idx = 0
+        self._captured_distress_cams: Set[str] = set()
+        self._captured_speed_cams: Set[str] = set()
+        self._captured_ped_cams: Set[str] = set()
         os.makedirs(os.path.join(self.project_root, "frontend", "public", "evidence", "snapshots"), exist_ok=True)
 
         # Registry for Observability Console
@@ -471,10 +474,10 @@ class PipelineManager:
 
                 # 1. Pothole / Waterlogging Distress Snapshot (Real-Time Vision Engine Capture)
                 if distress_boxes:
-                    last_distress_snap = self._last_snap_time.get(f"{cam_id}_distress", 0.0)
-                    # 12-second spatial cooldown per camera: prevents 10x duplicates of same pothole while passing it,
-                    # but generates authentic new reports as the bus moves forward along the route
-                    if (now - last_distress_snap > 12.0):
+                    is_custom = self.camera_sources_status.get(cam_id, {}).get("is_custom", False)
+                    # Loop guard: benchmark video captures exactly 1 authentic snapshot per camera so we never spam duplicates on loop
+                    if is_custom or (cam_id not in self._captured_distress_cams):
+                        self._captured_distress_cams.add(cam_id)
                         d = distress_boxes[0]
                         dx1, dy1, dx2, dy2, dtype, dconf, dmeta = d
                         self._last_snap_time[f"{cam_id}_distress"] = now
@@ -483,7 +486,7 @@ class PipelineManager:
                         self._route_step[cam_id] = curr_step + 1
 
                         ts_ms = int(now * 1000)
-                        defect_id = f"DEF-{dtype[:3].upper()}-{cam_id.upper()}-{ts_ms % 1000000}"
+                        defect_id = f"DEF-{dtype[:3].upper()}-{cam_id.upper()}"
                         snap_name = f"snap_{cam_id}_{dtype.lower()}_{ts_ms}.jpg"
                         crop_name = f"crop_{cam_id}_{dtype.lower()}_{ts_ms}.jpg"
                         snap_path = os.path.join(snap_dir, snap_name)
@@ -532,8 +535,9 @@ class PipelineManager:
                 # 2. Rash Driving / Speeding Violation Snapshot (Real-Time Violation Capture)
                 speeding_candidates = [t for t in traffic_boxes if t[6].get("speed_km_h", 0) >= 58.0]
                 if speeding_candidates:
-                    last_speed_snap = self._last_snap_time.get(f"{cam_id}_speed", 0.0)
-                    if (now - last_speed_snap > 12.0):
+                    is_custom = self.camera_sources_status.get(cam_id, {}).get("is_custom", False)
+                    if is_custom or (cam_id not in self._captured_speed_cams):
+                        self._captured_speed_cams.add(cam_id)
                         self._last_snap_time[f"{cam_id}_speed"] = now
                         rv = max(speeding_candidates, key=lambda t: t[6].get("speed_km_h", 0))
                         rx1, ry1, rx2, ry2, rcls, rconf, rmeta = rv
@@ -550,7 +554,7 @@ class PipelineManager:
                             suspect_plate = anpr_plates[0][4]
 
                         ts_ms = int(now * 1000)
-                        incident_id = f"INC-SPD-{cam_id.upper()}-{ts_ms % 1000000}"
+                        incident_id = f"INC-SPD-{cam_id.upper()}"
                         snap_name = f"snap_{cam_id}_rashdrive_{ts_ms}.jpg"
                         crop_name = f"crop_{cam_id}_rashdrive_{ts_ms}.jpg"
                         snap_path = os.path.join(snap_dir, snap_name)
@@ -596,18 +600,21 @@ class PipelineManager:
                             self.recent_incidents.pop()
 
                 # 3. Pedestrian Corridor Incursion Alert Snapshot
-                if ped_alert_pkt and (now - self._last_snap_time.get("pedestrian", 0.0) > 15.0):
-                    self._last_snap_time["pedestrian"] = now
-                    curr_step = self._route_step.get(cam_id, 0)
-                    c_lat, c_lng, c_road, c_ward = waypoints[curr_step % len(waypoints)]
-                    ts_ms = int(now * 1000)
-                    incident_id = f"INC-PED-{cam_id.upper()}-{ts_ms % 1000000}"
-                    snap_name = f"snap_{cam_id}_ped_{ts_ms}.jpg"
-                    snap_path = os.path.join(snap_dir, snap_name)
-                    try:
-                        cv2.imwrite(snap_path, resized)
-                    except Exception:
-                        pass
+                if ped_alert_pkt:
+                    is_custom = self.camera_sources_status.get(cam_id, {}).get("is_custom", False)
+                    if is_custom or (cam_id not in self._captured_ped_cams):
+                        self._captured_ped_cams.add(cam_id)
+                        self._last_snap_time["pedestrian"] = now
+                        curr_step = self._route_step.get(cam_id, 0)
+                        c_lat, c_lng, c_road, c_ward = waypoints[curr_step % len(waypoints)]
+                        ts_ms = int(now * 1000)
+                        incident_id = f"INC-PED-{cam_id.upper()}"
+                        snap_name = f"snap_{cam_id}_ped_{ts_ms}.jpg"
+                        snap_path = os.path.join(snap_dir, snap_name)
+                        try:
+                            cv2.imwrite(snap_path, resized)
+                        except Exception:
+                            pass
                     
                     ped_inc_pkt = {
                         "id": incident_id,

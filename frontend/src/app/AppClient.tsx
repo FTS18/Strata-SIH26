@@ -139,7 +139,6 @@ export default function AppClient() {
     params.set('role', newRole);
     params.set('view', defaultView);
     router.push(`/?${params.toString()}`, { scroll: false });
-    soundEffects.playAlertPing('radar');
   };
 
   // Global Zustand state selectors
@@ -164,13 +163,9 @@ export default function AppClient() {
       onBusUpdate: (bus) => updateBusTelemetry(bus),
       onDefectDetected: (defect) => {
         addRoadDefect(defect);
-        if (defect.severity === 'critical') {
-          soundEffects.playAlertPing('warning');
-        }
       },
       onIncidentDetected: (incident) => {
         addVehicleIncident(incident);
-        soundEffects.playAlertPing('critical');
       },
     });
 
@@ -326,9 +321,7 @@ export default function AppClient() {
             category={activeReportItem.category}
             isOpen={isReportDrawerOpen}
             onClose={() => setIsReportDrawerOpen(false)}
-            onReportPublished={() => {
-              soundEffects.playAlertPing('radar');
-            }}
+            onReportPublished={() => {}}
           />
         </div>
 

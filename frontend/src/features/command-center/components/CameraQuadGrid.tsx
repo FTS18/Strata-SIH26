@@ -103,6 +103,19 @@ export function CameraQuadGrid({
 }: CameraQuadGridProps) {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
   const activeCam = CAMERA_FEEDS.find((c) => c.id === selectedCamId) || CAMERA_FEEDS[0];
+  const [currentTime, setCurrentTime] = React.useState<string>('14:32:17');
+
+  React.useEffect(() => {
+    const updateTime = () => {
+      const now = new Date();
+      setCurrentTime(
+        now.toTimeString().split(' ')[0] || '14:32:17'
+      );
+    };
+    updateTime();
+    const timer = setInterval(updateTime, 1000);
+    return () => clearInterval(timer);
+  }, []);
 
   const handleQuadrantClick = (camId: string) => {
     if (viewMode === 'grid') {
@@ -114,64 +127,76 @@ export function CameraQuadGrid({
   };
 
   return (
-    <div className="flex flex-col space-y-2">
+    <div className="flex flex-col space-y-2 rounded-xl border border-[#12544F] bg-[#0d3137]/90 p-3 shadow-md h-full">
       {/* Top View Mode & Camera Selector Toolbar */}
-      <div className="flex flex-wrap items-center justify-between gap-1.5 font-mono text-xs">
-        {/* Mode & Cam Pills */}
-        <div className="flex flex-wrap items-center gap-1">
-          {/* 2x2 Quad Grid Mode Toggle Button */}
-          <button
-            type="button"
-            onClick={() => onViewModeChange('grid')}
-            className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-mono transition-all border cursor-pointer ${
-              viewMode === 'grid'
-                ? 'bg-[#12544F] border-[#8BBB92] text-[#f0fdf4] font-bold shadow-md shadow-[#12544F]/40'
-                : 'bg-[#0d3137] border-[#12544F] text-[#8BBB92] hover:bg-[#12544F]/50 hover:text-[#f0fdf4]'
-            }`}
-            title="Switch to 2x2 Quad Camera Grid View"
-          >
-            <LayoutGrid className="h-3.5 w-3.5 text-[#8BBB92]" />
-            <span>2x2 QUAD GRID</span>
-            {viewMode === 'grid' && (
-              <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-            )}
-          </button>
+      <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#12544F]/70 pb-2.5 font-mono text-xs">
+        {/* Title and subtitle */}
+        <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center h-4 w-4 text-[#00e5bf]">
+            <Camera className="h-4 w-4 text-[#00e5bf]" />
+          </div>
+          <span className="font-bold text-white tracking-wider uppercase text-xs">
+            LIVE CAMERA FEEDS
+          </span>
+          <span className="hidden xl:inline text-[11px] text-[#8BBB92]/80">
+            4 Angles • Real-time Monitoring
+          </span>
+        </div>
 
-          {/* Individual Camera Buttons */}
+        {/* Camera Selector Pills & Mode Toggles */}
+        <div className="flex items-center gap-1.5 shrink-0">
           {CAMERA_FEEDS.map((feed) => {
-            const Icon = feed.icon;
-            const isSelected = viewMode === 'single' && feed.id === selectedCamId;
-            const isCustom = cameraSourcesStatus[feed.id]?.is_custom;
+            const isSelected = selectedCamId === feed.id;
             return (
               <button
                 key={feed.id}
                 type="button"
                 onClick={() => {
                   onSelectCamId(feed.id);
-                  onViewModeChange('single');
+                  if (viewMode === 'grid') {
+                    onViewModeChange('single');
+                  }
                 }}
-                className={`flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-xs font-mono transition-all border cursor-pointer ${
+                className={`rounded-md px-2 py-1 text-[11px] font-mono uppercase tracking-wider transition-all cursor-pointer ${
                   isSelected
-                    ? 'bg-[#12544F] border-[#8BBB92] text-[#f0fdf4] font-bold shadow-md shadow-[#12544F]/40'
-                    : 'bg-[#0d3137] border-[#12544F] text-[#8BBB92] hover:bg-[#12544F]/50 hover:text-[#f0fdf4]'
+                    ? 'bg-[#12544F] border border-[#00e5bf]/70 text-white font-bold shadow-sm'
+                    : 'bg-[#092328] border border-[#12544F] text-[#8BBB92] hover:bg-[#12544F]/40 hover:text-white'
                 }`}
-                title={`Focus ${feed.label}`}
               >
-                <Icon className={`h-3.5 w-3.5 ${isSelected ? 'text-[#8BBB92]' : 'text-[#5b9076]'}`} />
-                <span>{feed.shortName}</span>
-                {isCustom && (
-                  <span className="h-1.5 w-1.5 rounded-full bg-cyan-400" title="Custom footage active" />
-                )}
-                {isSelected && (
-                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                )}
+                {feed.shortName}
               </button>
             );
           })}
-        </div>
 
-        {/* Action Controls: Upload / Reset / Expand */}
-        <div className="flex items-center gap-1.5 shrink-0">
+          {/* Grid Layout Toggle */}
+          <button
+            type="button"
+            onClick={() => onViewModeChange('grid')}
+            className={`flex items-center justify-center rounded-md p-1 border transition-colors cursor-pointer ${
+              viewMode === 'grid'
+                ? 'bg-[#12544F] border-[#00e5bf] text-white'
+                : 'bg-[#092328] border-[#12544F] text-[#8BBB92] hover:bg-[#12544F]/50'
+            }`}
+            title="2x2 Grid View"
+          >
+            <LayoutGrid className="h-3.5 w-3.5" />
+          </button>
+
+          {/* Single Camera View Toggle */}
+          <button
+            type="button"
+            onClick={() => onViewModeChange('single')}
+            className={`flex items-center justify-center rounded-md p-1 border transition-colors cursor-pointer ${
+              viewMode === 'single'
+                ? 'bg-[#12544F] border-[#00e5bf] text-white'
+                : 'bg-[#092328] border-[#12544F] text-[#8BBB92] hover:bg-[#12544F]/50'
+            }`}
+            title="Single Focus View"
+          >
+            <Square className="h-3.5 w-3.5" />
+          </button>
+
+          {/* Hidden File Input & Upload / Reset / Fullscreen */}
           <input
             type="file"
             ref={fileInputRef}
@@ -190,30 +215,28 @@ export function CameraQuadGrid({
             type="button"
             disabled={isUploading}
             onClick={() => fileInputRef.current?.click()}
-            className="flex items-center gap-1 rounded-lg border border-[#2A835F] bg-[#12544F] px-2 py-1 text-xs font-mono font-bold text-[#f0fdf4] hover:bg-[#2A835F] transition-all cursor-pointer shadow-sm disabled:opacity-50"
-            title={`Upload custom footage for ${activeCam.shortName}`}
+            className="flex items-center gap-1 rounded-md border border-[#2A835F] bg-[#12544F] px-1.5 py-1 text-[10px] font-mono text-[#f0fdf4] hover:bg-[#2A835F] transition-all cursor-pointer shadow-sm disabled:opacity-50"
+            title={`Upload footage for ${activeCam.shortName}`}
           >
             <Upload className="h-3 w-3 text-[#8BBB92]" />
-            <span className="hidden sm:inline">{isUploading ? 'Uploading...' : `Upload ${activeCam.shortName}`}</span>
-            <span className="sm:hidden">Upload</span>
+            <span className="hidden sm:inline">{isUploading ? '...' : 'Upload'}</span>
           </button>
 
           {cameraSourcesStatus[selectedCamId]?.is_custom && (
             <button
               type="button"
               onClick={() => onResetFootage(selectedCamId)}
-              className="flex items-center gap-1 rounded-lg border border-amber-800/80 bg-amber-950/40 px-2 py-1 text-xs font-mono text-amber-300 hover:bg-amber-900/60 transition-colors cursor-pointer"
-              title="Reset to benchmark footage"
+              className="flex items-center gap-1 rounded-md border border-amber-800/80 bg-amber-950/40 px-1.5 py-1 text-[10px] font-mono text-amber-300 hover:bg-amber-900/60 transition-colors cursor-pointer"
+              title="Reset footage"
             >
               <RotateCcw className="h-3 w-3 text-amber-400" />
-              <span className="hidden sm:inline">Reset</span>
             </button>
           )}
 
           <button
             type="button"
             onClick={onExpandModal}
-            className="flex items-center justify-center rounded-lg bg-[#0d3137] p-1.5 text-[#8BBB92] hover:text-[#f0fdf4] hover:bg-[#12544F] border border-[#12544F] transition-colors cursor-pointer"
+            className="flex items-center justify-center rounded-md bg-[#092328] p-1 text-[#8BBB92] hover:text-white border border-[#12544F] transition-colors cursor-pointer"
             title="Expand Fullscreen"
           >
             <Maximize2 className="h-3.5 w-3.5" />
@@ -224,15 +247,24 @@ export function CameraQuadGrid({
       {/* Main Stream Canvas: 2x2 Grid or 1-Up Focus */}
       {viewMode === 'grid' ? (
         /* ================= 2x2 QUAD CAMERA GRID ================= */
-        <div className="grid grid-cols-2 gap-2 h-72 sm:h-80 lg:h-88 w-full">
+        <div className="grid grid-cols-2 gap-2 flex-1 min-h-0 w-full">
           {CAMERA_FEEDS.map((feed) => {
             const isCustom = cameraSourcesStatus[feed.id]?.is_custom;
             const summary = allDetectionsSummary?.[feed.id];
+            const angleLabel =
+              feed.id === 'cam1'
+                ? 'CAM 1 - FRONT (4K)'
+                : feed.id === 'cam2'
+                ? 'CAM 2 - LEFT (4K)'
+                : feed.id === 'cam3'
+                ? 'CAM 3 - RIGHT (4K)'
+                : 'CAM 4 - REAR (4K)';
+
             return (
               <div
                 key={feed.id}
                 onClick={() => handleQuadrantClick(feed.id)}
-                className="group relative flex items-center justify-center rounded-lg border border-[#12544F] hover:border-[#8BBB92] bg-black overflow-hidden shadow-lg cursor-pointer transition-all duration-150 hover:scale-[1.008]"
+                className="group relative flex items-center justify-center rounded-lg border border-[#12544F] hover:border-[#00e5bf] bg-black overflow-hidden shadow-lg cursor-pointer transition-all duration-150"
                 title={`Click to focus ${feed.label}`}
               >
                 {/* Live MJPEG Stream for this quadrant */}
@@ -249,23 +281,23 @@ export function CameraQuadGrid({
                   }}
                 />
 
-                {/* Top Overlay Badge */}
-                <div className="absolute top-1.5 inset-x-1.5 flex items-center justify-between z-10 pointer-events-none text-[9px] font-mono">
-                  <div className="flex items-center gap-1 rounded bg-black/80 px-1.5 py-0.5 border border-[#12544F]">
+                {/* Top Overlay Badges */}
+                <div className="absolute top-2 inset-x-2 flex items-center justify-between z-10 pointer-events-none font-mono text-[10px]">
+                  <div className="flex items-center gap-1.5 rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 border border-[#12544F]/80">
                     <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                    <span className="font-bold text-[#f0fdf4]">{feed.shortName}</span>
-                    <span className="text-[#8BBB92] hidden sm:inline">· {feed.resolution.split('@')[0].trim()}</span>
+                    <span className="font-bold text-white uppercase">{angleLabel}</span>
                   </div>
 
-                  <div className="flex items-center gap-1">
-                    {isCustom && (
-                      <span className="rounded bg-cyan-950/80 border border-cyan-700/80 px-1 py-0.2 text-[8px] text-cyan-300 font-bold">
-                        CUSTOM
-                      </span>
-                    )}
-                    <span className="rounded bg-black/80 px-1.5 py-0.5 border border-[#12544F] text-[#8BBB92]">
-                      30 FPS
-                    </span>
+                  <div className="rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 border border-[#12544F]/80 text-[#8BBB92]">
+                    {currentTime}
+                  </div>
+                </div>
+
+                {/* Bottom Left Live Badge */}
+                <div className="absolute bottom-2 left-2 z-10 pointer-events-none font-mono text-[10px]">
+                  <div className="flex items-center gap-1.5 rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 border border-[#12544F]/80">
+                    <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+                    <span className="text-[#f0fdf4]">Live</span>
                   </div>
                 </div>
 
@@ -277,17 +309,12 @@ export function CameraQuadGrid({
                   </div>
                 </div>
 
-                {/* Bottom Overlay Ticker */}
-                <div className="absolute bottom-1.5 inset-x-1.5 flex items-center justify-between z-10 pointer-events-none text-[9px] font-mono bg-black/75 px-1.5 py-0.5 rounded border border-[#12544F]/80">
-                  <span className="text-[#8BBB92] truncate max-w-[65%]">
-                    {feed.model.split('·')[0].trim()}
-                  </span>
-                  <span className="text-[#f0fdf4] font-semibold text-[8px] truncate">
-                    {summary
-                      ? `${summary.vehicles} VEH · ${summary.potholes} DEF · ${summary.pedestrians} PED`
-                      : 'LIVE ACTIVE'}
-                  </span>
-                </div>
+                {/* Bottom Right Detection Summary */}
+                {summary && (
+                  <div className="absolute bottom-2 right-2 z-10 pointer-events-none font-mono text-[9px] rounded-full bg-black/75 backdrop-blur-md px-2 py-0.5 border border-[#12544F]/80 text-[#8BBB92]">
+                    {summary.vehicles} VEH · {summary.potholes} DEF
+                  </div>
+                )}
               </div>
             );
           })}
@@ -296,7 +323,7 @@ export function CameraQuadGrid({
         /* ================= 1-UP SINGLE FOCUS VIEW ================= */
         <div
           onClick={() => handleQuadrantClick(selectedCamId)}
-          className="group relative flex h-72 sm:h-80 lg:h-88 w-full items-center justify-center rounded-xl border-2 border-[#12544F] hover:border-[#8BBB92] bg-black overflow-hidden shadow-2xl cursor-pointer transition-all"
+          className="group relative flex flex-1 min-h-0 w-full items-center justify-center rounded-xl border-2 border-[#12544F] hover:border-[#8BBB92] bg-black overflow-hidden shadow-2xl cursor-pointer transition-all"
           title="Click feed to return to 2x2 Quad Grid"
         >
           {/* Focused Live MJPEG Stream */}
